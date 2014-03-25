@@ -1,0 +1,148 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Standard Grid</title>
+    <link rel="stylesheet" href="../../sources/css/grid.css"/>
+    <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="../../sources/js/common.js"></script>
+    <script type="text/javascript" src="../../sources/js/lang/grid.zh_CN.js"></script>
+    <script type="text/javascript" src="../../sources/js/grid.js"></script>
+</head>
+<body style="background-color: #fff;">
+&emsp;<input type="button" value="Get pageSize" onclick="alert(gridObj.options.settings.pageSize);"/>
+&emsp;<input type="button" value="Get totalRows" onclick="alert(gridObj.options.totalRows);"/>
+&emsp;<input type="button" value="Get totalPages" onclick="alert(gridObj.options.totalPages);"/>
+&emsp;<input type="button" value="Get curPage" onclick="alert(gridObj.options.curPage);"/>
+&emsp;<input type="button" value="Get startRow" onclick="alert(gridObj.options.startRow);"/>
+&emsp;<input type="button" value="Get endRow" onclick="alert(gridObj.options.endRow);"/>
+
+<p/>
+&emsp;<input type="button" value="First page" onclick="gridObj.firstPage(gridObj.options);"/>
+&emsp;<input type="button" value="Prev page" onclick="gridObj.prevPage(gridObj.options);"/>
+&emsp;<input type="button" value="Next page" onclick="gridObj.nextPage(gridObj.options);"/>
+&emsp;<input type="button" value="Last page" onclick="gridObj.lastPage(gridObj.options);"/>
+&emsp;<input type="button" value="Goto page 2"
+             onclick="$('#' + gridObj.options.gotoPageInputId).val(2); gridObj.gotoPage(gridObj.options);"/>
+
+<p/>
+&emsp;<input type="button" value="Refresh page" onclick="gridObj.refreshPage(gridObj.options);"/>
+&emsp;<input type="button" value="Get sort name" onclick="alert(gridObj.options.sortName);"/>
+&emsp;<input type="button" value="Get sort order" onclick="alert(gridObj.options.sortOrder);"/>
+&emsp;<input type="button" value="Sort by ID"
+             onclick="gridObj.sort(gridObj.options, $('#' + gridObj.options.gridId + ' tr:first th:eq(1) a'));"/>
+&emsp;<input type="button" value="Clear grid body data" onclick="gridObj.clearGridBodyData(gridObj.options);"/>
+
+<p/>
+
+<form id="searchParams">
+    &emsp;param1:<input type="text" name="param1" value="param1">
+    &emsp;param2:<input type="text" name="param2" value="param2">
+    &emsp;<input type="button" value="Set other parames"
+                 onclick="gridObj.options.otherParames = $('#searchParams').serializeArray(); alert('set success!')"/>
+    &emsp;<input type="button" value="Get page request condition"
+                 onclick="alert(gridObj.getPageCondition(gridObj.options.curPage, gridObj.options));"/>
+</form>
+
+<p/>
+<table id="searchTable" class="bsgrid_grid">
+    <tr>
+        <th w_index="XH" w_sort="XH,desc" width="5%;">XH</th>
+        <th w_index="ID" w_sort="ID" width="5%;">ID</th>
+        <th w_index="CHAR" w_align="left" w_title="true" width="15%;">CHAR</th>
+        <th w_index="TEXT" w_align="left" w_length="50" width="30%;" style="text-align: left;">TEXT</th>
+        <th w_index="DATE" width="15%;">DATE</th>
+        <th w_index="TIME" width="15%;">TIME</th>
+        <th w_index="NUM" width="5%;">NUM</th>
+        <th w_render="operate('${XH}', '${ID}');" width="10%;">Operate</th>
+    </tr>
+</table>
+<p/>
+<pre>
+Documention:
+
+1, th properties:
+   w_index: column index
+   w_render: use js code, it will use eval(code) to execute it. To use data index, it must like ${IndexName}, and note that here this indexName can not contains '}'
+     Note: if column has property w_render, then ignore property w_index. It's be allowed to no property w_index or w_render
+   w_align: body column align, not header th
+   w_sort:  like "id", "id,desc", "id,asc"
+   w_length: if column's value length longer than it, auto sub and title it
+             sub: txt.substring(0, MaxLength-3) + '...'
+             if column's render is not false, then this property is not make effective to it
+   w_title: if set "true", then will tip column, ignore if it's length is longer than w_length
+
+2, $.fn.bsgrid_grid.defaults.settings or $.fn.bsgrid_grid.init(gridId, settings) second param settings
+   url, page request url
+   dataType, 'json', 'xml', default 'json'
+   autoLoad, load onReady, default true
+   pageAll, display all datas, no paging only count, default false
+   pageSize, if set value little then 1, then pageAll will auto set true, default 20
+   pageSizeSelect, if display pageSize select option, use with property pageSizeForGrid, default false
+   pageSizeForGrid: pageSize select option
+   longLengthAotoSubAndTitle: if column's value length longer than it, auto sub and title it, default true
+                                 sub: txt.substring(0, MaxLength-3) + '...'
+                                 if column's render is not false, then this property is not make effective to it
+
+3, process lock screen, global setting
+   $.fn.bsgrid_grid.defaults.lockScreen, user lock screen method
+   $.fn.bsgrid_grid.defaults.unlockScreen, user lock screen method
+   If modify these settings bellow, please see source first, then you should not modify it to avoid incorrect.
+     $.fn.bsgrid_grid.defaults.isProcessLockScreen, default true
+     $.fn.bsgrid_grid.defaults.beforeSend, process page beforeSend method, default lock screen
+     $.fn.bsgrid_grid.defaults.complete, process page complete method, default unlock screen
+
+4, th properties default:
+   $.fn.bsgrid_grid.defaults.settings.colsProperties, properties follow:
+     body row column config: align, maxLength
+     config properties's name: indexAttr, sortAttr, alignAttr, lengthAttr, renderAttr, titleAttr
+
+5, $.fn.bsgrid_grid.defaults.pagingToolbarAlign, global setting
+     paging toolbar align: left, center, right, default right
+   $.fn.bsgrid_grid.defaults.pagingBtnClass, global setting
+     paging toolbar button css class, default 'pagingBtn' in grid.css
+   How to Change Paging Toolbar: global setting
+     $.fn.bsgrid_grid.addPagingToolbar(options)
+     $.fn.bsgrid_grid.setPagingToolbarEvents(options)
+     $.fn.bsgrid_grid.dynamicChangePagingButtonStype(options)
+
+6, stripe rows
+   $.fn.bsgrid_grid.defaults.stripeRows, true or false, default false, css: grid.css -> '.bsgrid_grid tr.even_index_row'
+
+7, request post params names, global setting
+   to modify that: $.fn.bsgrid_grid.defaults.requestParamsName.X = '', X may pageSize, curPage, sortName, sortOrder
+
+8, skins
+   in addition to grid.css, other need skins/grid_*.css
+</pre>
+<p/>
+<script type="text/javascript">
+    var gridObj;
+    $(function () {
+        // $.fn.bsgrid_grid.defaults.pagingToolbarAlign = 'center'; // default right
+
+        // lock and unlock screen
+        $.fn.bsgrid_grid.defaults.lockScreen = function (options, xhr) {
+            console.log('Lock Screen!');
+        };
+        $.fn.bsgrid_grid.defaults.unlockScreen = function (options, xhr, ts) {
+            console.log('Unlock Screen!');
+        };
+
+        // init
+        gridObj = $.fn.bsgrid_grid.init('searchTable', {
+            url: 'data/json.jsp',
+            // autoLoad: false,
+            pageSizeSelect: true,
+            // pageAll: true,
+            pageSize: 5
+        });
+    });
+
+    function operate(xh, id) {
+        return '<a href="#" onclick="alert(\'XH=' + xh + ', ID=' + id + '\');">Operate</a>';
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Simple Form</title>
+    <link rel="stylesheet" href="demo.css"/>
+    <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="../../sources/js/common.js"></script>
+    <script type="text/javascript" src="../../sources/js/util.js"></script>
+</head>
+<body>
+<form id="formDemo" class="bsgrid_form">
+    <table>
+        <tr>
+            <td class="formLabel">ID:</td>
+            <td class="formInput"><input name="id" type="text" showType="false" value="100" /></td>
+        </tr>
+        <tr>
+            <td class="formLabel"><span class="require">*</span>Account:</td>
+            <td class="formInput">
+                <input name="account" type="text" editAble="false" value="Account" />
+                <span class="inputTip" showType="add">Start with letter, can contains number</span>
+                <span class="inputTip" showType="edit">Can not modify</span>
+            </td>
+        </tr>
+        <tr>
+            <td class="formLabel">Password:</td>
+            <td class="formInput">
+                <input name="password" type="password" showType="add,edit" value="123456" />
+            </td>
+        </tr>
+        <tr>
+            <td class="formLabel"><span class="require">*</span>Name:</td>
+            <td class="formInput"><input name="name" type="text" value="Name" /></td>
+        </tr>
+        <tr>
+            <td class="formLabel">Sex:</td>
+            <td class="formInput"><select name="sex" editAble="false"><option value="1">male</option><option value="2">female</option></select></td>
+        </tr>
+        <tr>
+            <td class="formLabel">Remark:</td>
+            <td class="formInput"><textarea name="remark" editAble="false">This textarea is editAble false. Width 200px.</textarea></td>
+        </tr>
+        <tr>
+            <td colspan="2" style="text-align: center;">
+                <input type="hidden" name="bsgrid_form_type" />
+                <input type="reset" name="bsgrid_form_reset" style="display: none;" />
+                <input type="button" value="Refresh" onclick="location.href = location.href;" />
+                &emsp;
+                <input type="button" value="view style" onclick="formView('view');" />
+                &emsp;
+                <input type="button" value="add style" onclick="formView('add');" />
+                &emsp;
+                <input type="button" value="edit style" onclick="formView('edit');" />
+                &emsp;
+                <input type="button" value="Commit" onclick="commit();" />
+            </td>
+        </tr>
+    </table>
+</form>
+<pre>
+Documention:
+
+1, input:
+   showType: 'false', 'view', 'add,edit', and so on, blank equals 'view,add,edit'
+   editAble: 'false', other value display
+2, span.inputTip
+   showType: 'false', 'view', 'add,edit', and so on, blank equals 'view,add,edit'
+</pre>
+<script type="text/javascript">
+    $(function () {
+        addAssistForms();
+    });
+
+    /**
+     * add assist forms.
+     */
+    function addAssistForms() {
+        $('.formInput select').each(function () {
+            $(this).before('<input type="text" style="display: none;" />');
+            if ($(this).attr('editAble') == 'false') {
+                $(this).prev('input').attr('editAble', 'false');
+            }
+        });
+        $('.formInput textarea').each(function () {
+            $(this).before('<div style="display: none; width: 200px;"></div>');
+        });
+    }
+
+    function formView(type) {
+        $('#formDemo input[name=bsgrid_form_type]').val(type);
+
+        viewOrHideRequireSpan(type);
+        viewOrHideAssistForms(type);
+        viewOrHideInput(type);
+        viewOrHideInputTip(type);
+
+        if (type == 'view') {
+            $('.formInput :input:not(:button,:submit,:reset)').css({'border-width': '0', 'background-color': 'white'}).attr('readOnly', 'readOnly');
+        } else if (type == 'add') {
+            $('.formInput :input:not(:button,:submit,:reset)').css({'border': 'solid 1px #abadb3', 'background-color': 'white'}).removeAttr('readOnly');
+        } else if (type == 'edit') {
+            $('.formInput :input:not(:button,:submit,:reset)').css({'border': 'solid 1px #abadb3', 'background-color': 'white'}).removeAttr('readOnly');
+            $('.formInput :input[editAble=false]').css({'border-width': '0', 'background-color': 'white'}).attr('readOnly', 'readOnly');
+        }
+    }
+
+    /**
+     * view or hide require span.
+     */
+    function viewOrHideRequireSpan(type) {
+        $('.formLabel span.require').each(function () {
+            if (type == 'view') {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+    }
+
+    /**
+     * view or hide assist forms.
+     */
+    function viewOrHideAssistForms(type) {
+        $('.formInput select').each(function () {
+            var in_dis = (type == 'view' || (type == 'edit' && $(this).attr('editAble') == 'false')) ? 'block' : 'none';
+            $(this).prev('input').css('display', in_dis).val($(this).find('option:selected').text());
+            var sel_dis = in_dis == 'block' ? 'none' : 'block';
+            $(this).css('display', sel_dis);
+        });
+        $('.formInput textarea').each(function () {
+            var div_dis = (type == 'view' || (type == 'edit' && $(this).attr('editAble') == 'false')) ? 'block' : 'none';
+            $(this).prev('div').css('display', div_dis).html($(this).val());
+            var text_dis = div_dis == 'block' ? 'none' : 'block';
+            $(this).css('display', text_dis);
+        });
+    }
+
+    /**
+     * view or hide input.
+     */
+    function viewOrHideInput(type) {
+        $('.formInput :input').each(function () {
+            var showType = $.trim($(this).attr('showType'));
+            if (showType == '') {
+                $(this).parent('td').parent('tr').show();
+            } else if (type == 'view' && (',' + showType + ',').indexOf(',view,') > -1) {
+                $(this).parent('td').parent('tr').show();
+            } else if (type == 'add' && (',' + showType + ',').indexOf(',add,') > -1) {
+                $(this).parent('td').parent('tr').show();
+            } else if (type == 'edit' && (',' + showType + ',').indexOf(',edit,') > -1) {
+                $(this).parent('td').parent('tr').show();
+            } else {
+                $(this).parent('td').parent('tr').hide();
+            }
+        });
+    }
+
+    /**
+     * view or hide tip.
+     */
+    function viewOrHideInputTip(type) {
+        $('.formInput .inputTip').each(function () {
+            var showType = $.trim($(this).attr('showType'));
+            if (showType == '') {
+                $(this).show();
+            } else if (type == 'view' && (',' + showType + ',').indexOf(',view,') > -1) {
+                $(this).show();
+            } else if (type == 'add' && (',' + showType + ',').indexOf(',add,') > -1) {
+                $(this).show();
+            } else if (type == 'edit' && (',' + showType + ',').indexOf(',edit,') > -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    }
+
+    function commit() {
+        var type = $('#formDemo input[name=bsgrid_form_type]').val();
+        if (type == 'view') {
+            alert('This is view.');
+        } else if (type == 'add') {
+            alert($('#formDemo').serialize());
+        } else if (type == 'edit') {
+            alert($('#formDemo').serialize());
+        } else {
+            alert('None.');
+        }
+    }
+</script>
+</body>
+</html>
