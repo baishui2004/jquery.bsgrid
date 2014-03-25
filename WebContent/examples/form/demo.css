@@ -1,0 +1,64 @@
+@CHARSET "UTF-8";
+
+.bsgrid_form {
+    width: 100%;
+    font-size: 13px;
+    background-color: white;
+}
+
+.bsgrid_form table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bsgrid_form table td {
+    height: 22px;
+    padding: 4px;
+    line-height: 20px;
+    border: solid 1px #eee;
+}
+
+.bsgrid_form .formLabel {
+    width: 25%;
+    color: #000;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bsgrid_form .formInput {
+    width: 75%;
+    color: #333;
+    text-align: left;
+    overflow: auto;
+}
+
+.bsgrid_form .formInput input {
+    width: 200px;
+    height: 24px;
+    line-height: 24px;
+    vertical-align: middle;
+    padding-left: 1px;
+}
+
+.bsgrid_form .formInput select {
+    width: 204px;
+}
+
+.bsgrid_form .formInput textarea {
+    width: 200px;
+    height: 65px;
+}
+
+.bsgrid_form .formInput .inputTip {
+    margin-left: 3px;
+    color: #f18300;
+    font-size: 12px;
+}
+
+.bsgrid_form .require {
+    color: #ff0000;
+    font-weight: bold;
+    line-height: 20px;
+}
