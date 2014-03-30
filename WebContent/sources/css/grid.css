@@ -1,7 +1,12 @@
 @CHARSET "UTF-8";
 
+/* font style */
+.bsgrid, .bsgridPaging {
+    font-family: 'Times New Roman';
+}
+
 /* grid table */
-.bsgrid_grid {
+table.bsgrid {
     width: 98%;
     margin-right: 5px;
     font-size: 14px;
@@ -9,18 +14,18 @@
 }
 
 /* grid even index row color */
-.bsgrid_grid tr.even_index_row {
+.bsgrid tr.even_index_row {
     background-color: #eeeeff;
 }
 
 /* grid header */
-.bsgrid_grid th {
+.bsgrid th {
     font-size: 13px;
     background: url(../image/skins/default/bg.gif) repeat-x #f4f4f4;
 }
 
 /* grid header and column */
-.bsgrid_grid th, .bsgrid_grid td {
+.bsgrid th, .bsgrid td {
     height: 22px;
     padding: 3px;
     border: solid 1px #ccc;
@@ -33,37 +38,87 @@
 }
 
 /* href */
-.bsgrid_grid a {
+.bsgrid a {
     color: #ff6600;
     text-decoration: none;
 }
 
 /* sort */
-.bsgrid_grid th .sort.sort-view {
+.bsgrid th .sort.sort-view {
     background: url(../image/sort-view.gif) no-repeat center;
     margin-left: 3px;
 }
 
-.bsgrid_grid th .sort.sort-asc {
+.bsgrid th .sort.sort-asc {
     background: url(../image/sort-asc.gif) no-repeat top;
     margin-left: 3px;
 }
 
-.bsgrid_grid th .sort.sort-desc {
+.bsgrid th .sort.sort-desc {
     background: url(../image/sort-desc.gif) no-repeat bottom;
     margin-left: 3px;
 }
 
-/* grid loading data */
-.bsgrid_grid.loading {
+/* grid lock screen */
+.bsgrid.lockscreen {
+    position: fixed;
+    z-index: 2014;
+    display: none;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    filter: alpha(opacity=10);
+    opacity: .1;
+    -moz-opacity: 0.1;
+}
+
+/* grid loading */
+.bsgrid.loading_div {
+    position: fixed;
+    z-index: 2015;
+    display: none;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.bsgrid.loading_div table {
+    width: 100%;
+    height: 100%;
+}
+
+.bsgrid.loading_div td {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.bsgrid.loading_div td div {
+    width: 200px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    color: #000;
+    border: solid 1px #999;
+    background-color: #fff;
+}
+
+.bsgrid.loading {
+    font-size: 13px;
+    line-height: 17px;
+}
+
+.bsgrid.loading span {
     font-size: 14px;
     line-height: 16px;
-    padding: 1px;
-    background: url("../image/loading.gif");
+    background: url("../image/loading.gif") no-repeat;
 }
 
 /* paging toolbar */
-.bsgrid_gridPaging {
+.bsgridPaging {
     width: 98%;
     margin-right: 5px;
     font-size: 14px;
@@ -71,20 +126,20 @@
     border-width: 0;
 }
 
-.bsgrid_gridPaging table {
+.bsgridPaging table {
     width: 768px;
 }
 
-.bsgrid_gridPaging table.noPageSizeSelect {
+.bsgridPaging table.noPageSizeSelect {
     width: 628px;
 }
 
-.bsgrid_gridPaging table td {
+.bsgridPaging table td {
     text-align: center;
 }
 
 /* paging toolbar button */
-.bsgrid_gridPaging .pagingBtn {
+.bsgridPaging .pagingBtn {
     cursor: pointer;
     border: 0;
     width: 55px;
@@ -95,21 +150,21 @@
     margin: 0 5px;
 }
 
-.bsgrid_gridPaging .pagingBtn.disabledCls {
+.bsgridPaging .pagingBtn.disabledCls {
     color: #999;
 }
 
-.bsgrid_gridPaging .pagingBtn.firstPage {
+.bsgridPaging .pagingBtn.firstPage {
 }
 
-.bsgrid_gridPaging .pagingBtn.prevPage {
+.bsgridPaging .pagingBtn.prevPage {
 }
 
-.bsgrid_gridPaging .pagingBtn.nextPage {
+.bsgridPaging .pagingBtn.nextPage {
 }
 
-.bsgrid_gridPaging .pagingBtn.lastPage {
+.bsgridPaging .pagingBtn.lastPage {
 }
 
-.bsgrid_gridPaging .pagingBtn.gotoPage {
+.bsgridPaging .pagingBtn.gotoPage {
 }

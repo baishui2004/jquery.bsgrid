@@ -1,11 +1,11 @@
 @CHARSET "UTF-8";
 
 /* grid header */
-.bsgrid_grid th {
+.bsgrid th {
     background: url(../../image/skins/blue/bg.gif) repeat-x #f4f4f4;
 }
 
 /* paging toolbar button */
-.bsgrid_gridPaging .pagingBtn {
+.bsgridPaging .pagingBtn {
     background: url(../../image/skins/blue/bg.gif) repeat-x #f4f4f4;
 }

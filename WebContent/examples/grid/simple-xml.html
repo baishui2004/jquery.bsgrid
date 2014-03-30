@@ -1,19 +1,17 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Simple Grid With Little Paging</title>
+    <title>XML Data Grid</title>
     <link rel="stylesheet" href="../../sources/css/grid.css"/>
-    <link rel="stylesheet" href="../../sources/css/grid.paging.little.css"/>
     <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="../../sources/js/common.js"></script>
-    <script type="text/javascript" src="../../sources/js/lang/grid.zh_CN.js"></script>
-    <script type="text/javascript" src="../../sources/js/grid.paging.little.js"></script>
+    <script type="text/javascript" src="../../sources/js/lang/grid.en.js"></script>
     <script type="text/javascript" src="../../sources/js/grid.js"></script>
 </head>
 <body style="background-color: #fff;">
-<table id="searchTable" class="bsgrid_grid">
+<table id="searchTable" class="bsgrid">
     <tr>
         <th w_index="XH" width="5%;">XH</th>
         <th w_index="ID" width="5%;">ID</th>
@@ -25,21 +23,15 @@
         <th w_render="operate('${ID}');" width="10%;">Operate</th>
     </tr>
 </table>
-<p/>
-<pre>
-Note:
-
-1, grid.paging.little.css should be loaded after grid.css
-2, grid.paging.little.js should be loaded after grid.zh_CN.js
-</pre>
-<p/>
 <script type="text/javascript">
     $(function () {
-        $.fn.bsgrid_grid.init('searchTable', {
-            url: 'data/simple.json',
-            // autoLoad: false,
+        // global setting
+        // $.fn.bsgrid.defaults.settings.dataType = 'xml';
+
+        $.fn.bsgrid.init('searchTable', {
+            url: 'data/simple.xml',
+            dataType: 'xml',
             pageSizeSelect: true,
-            // pageAll: true,
             pageSize: 10
         });
     });

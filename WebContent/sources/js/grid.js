@@ -1,5 +1,5 @@
 /**
- * JQuery.bsgrid v1.0beta by @Baishui2004
+ * JQuery.bsgrid v1.0 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -7,11 +7,11 @@
  * require common.js.
  *
  * @author Baishui2004
- * @Date March 20, 2014
+ * @Date March 30, 2014
  */
 (function ($) {
 
-    $.fn.bsgrid_grid = {
+    $.fn.bsgrid = {
 
         // defaults
         defaults: {
@@ -51,9 +51,22 @@
             isProcessLockScreen: true,
             // open lock screen
             lockScreen: function (options, xhr) {
+                $('.bsgrid.lockscreen').attr('times', parseInt($('.bsgrid.lockscreen').attr('times')) + 1);
+                if ($('.bsgrid.lockscreen').css('display') == 'none') {
+                    $('.bsgrid.lockscreen').show();
+                    $('.bsgrid.loading_div').show();
+                }
             },
             // close lock screen
             unlockScreen: function (options, xhr, ts) {
+                $('.bsgrid.lockscreen').attr('times', parseInt($('.bsgrid.lockscreen').attr('times')) - 1);
+                if ($('.bsgrid.lockscreen').attr('times') == '0') {
+                    // delay 0.1s, to make lock screen look better
+                    setTimeout(function () {
+                        $('.bsgrid.lockscreen').hide();
+                        $('.bsgrid.loading_div').hide();
+                    }, 100);
+                }
             },
             beforeSend: function (options, xhr) {
                 if (this.isProcessLockScreen) {
@@ -70,10 +83,9 @@
             pagingBtnClass: 'pagingBtn' // paging toolbar button css class
         },
 
-
         init: function (gridId, settings) {
             var options = {
-                settings: $.extend(true, {}, $.fn.bsgrid_grid.defaults.settings, settings),
+                settings: $.extend(true, {}, $.fn.bsgrid.defaults.settings, settings),
 
                 gridId: gridId,
                 // page toolbar
@@ -115,7 +127,7 @@
             }
 
             // grid header
-            $.fn.bsgrid_grid.grtGridHeaderObject(options).each(function () {
+            $.fn.bsgrid.grtGridHeaderObject(options).each(function () {
                 // sort
                 var sortAttr = options.settings.colsProperties.sortAttr;
                 var sortInfo = $.trim($(this).attr(sortAttr));
@@ -139,23 +151,26 @@
 
             $('#' + gridId + ' th .sort').each(function () {
                 $(this).click(function () {
-                    $.fn.bsgrid_grid.sort(options, this);
+                    $.fn.bsgrid.sort(options, this);
                 });
             });
 
-            $.fn.bsgrid_grid.setGridBlankBody(options);
-            if ($.fn.bsgrid_grid.defaults.stripeRows) {
+            $.fn.bsgrid.setGridBlankBody(options);
+            if ($.fn.bsgrid.defaults.stripeRows) {
                 $('#' + gridId + ' tr:even').addClass('even_index_row');
             }
-            $.fn.bsgrid_grid.addPagingToolbar(options);
-            $.fn.bsgrid_grid.setPagingToolbarEvents(options);
+            if ($.fn.bsgrid.defaults.isProcessLockScreen) {
+                $.fn.bsgrid.addLockScreen();
+            }
+            $.fn.bsgrid.addPagingToolbar(options);
+            $.fn.bsgrid.setPagingToolbarEvents(options);
 
             // auto load
             if (options.settings.autoLoad) {
-                $.fn.bsgrid_grid.page(1, options);
+                $.fn.bsgrid.page(1, options);
             }
 
-            var gridObj = $.fn.bsgrid_grid;
+            var gridObj = $.fn.bsgrid;
             gridObj.options = options;
             return gridObj;
         },
@@ -177,10 +192,10 @@
 
             var condition = params.length == 0 ? '' : params.toString().substring(1);
             condition += (condition.length == 0 ? '' : '&')
-                + $.fn.bsgrid_grid.defaults.requestParamsName.pageSize + '=' + options.settings.pageSize
-                + '&' + $.fn.bsgrid_grid.defaults.requestParamsName.curPage + '=' + curPage
-                + '&' + $.fn.bsgrid_grid.defaults.requestParamsName.sortName + '=' + options.sortName
-                + '&' + $.fn.bsgrid_grid.defaults.requestParamsName.sortOrder + '=' + options.sortOrder;
+                + $.fn.bsgrid.defaults.requestParamsName.pageSize + '=' + options.settings.pageSize
+                + '&' + $.fn.bsgrid.defaults.requestParamsName.curPage + '=' + curPage
+                + '&' + $.fn.bsgrid.defaults.requestParamsName.sortName + '=' + options.sortName
+                + '&' + $.fn.bsgrid.defaults.requestParamsName.sortOrder + '=' + options.sortOrder;
             return condition;
         },
 
@@ -223,41 +238,41 @@
         parseData: {
             success: function (type, gridData) {
                 if (type == 'json') {
-                    return $.fn.bsgrid_grid.parseJsonData.success(gridData);
+                    return $.fn.bsgrid.parseJsonData.success(gridData);
                 } else if (type == 'xml') {
-                    return $.fn.bsgrid_grid.parseXmlData.success(gridData);
+                    return $.fn.bsgrid.parseXmlData.success(gridData);
                 }
                 return false;
             },
             totalRows: function (type, gridData) {
                 if (type == 'json') {
-                    return $.fn.bsgrid_grid.parseJsonData.totalRows(gridData);
+                    return $.fn.bsgrid.parseJsonData.totalRows(gridData);
                 } else if (type == 'xml') {
-                    return $.fn.bsgrid_grid.parseXmlData.totalRows(gridData);
+                    return $.fn.bsgrid.parseXmlData.totalRows(gridData);
                 }
                 return false;
             },
             curPage: function (type, gridData) {
                 if (type == 'json') {
-                    return $.fn.bsgrid_grid.parseJsonData.curPage(gridData);
+                    return $.fn.bsgrid.parseJsonData.curPage(gridData);
                 } else if (type == 'xml') {
-                    return $.fn.bsgrid_grid.parseXmlData.curPage(gridData);
+                    return $.fn.bsgrid.parseXmlData.curPage(gridData);
                 }
                 return false;
             },
             data: function (type, gridData) {
                 if (type == 'json') {
-                    return $.fn.bsgrid_grid.parseJsonData.data(gridData);
+                    return $.fn.bsgrid.parseJsonData.data(gridData);
                 } else if (type == 'xml') {
-                    return $.fn.bsgrid_grid.parseXmlData.data(gridData);
+                    return $.fn.bsgrid.parseXmlData.data(gridData);
                 }
                 return false;
             },
             getColumnValue: function (type, gridData, row, index) {
                 if (type == 'json') {
-                    return $.fn.bsgrid_grid.parseJsonData.getColumnValue(gridData, row, index);
+                    return $.fn.bsgrid.parseJsonData.getColumnValue(gridData, row, index);
                 } else if (type == 'xml') {
-                    return $.fn.bsgrid_grid.parseXmlData.getColumnValue(gridData, row, index);
+                    return $.fn.bsgrid.parseXmlData.getColumnValue(gridData, row, index);
                 }
                 return false;
             }
@@ -265,45 +280,45 @@
 
         page: function page(curPage, options) {
             if (isNaN(curPage)) {
-                alert($.bsgrid_gridLanguage.needInteger);
+                alert($.bsgridLanguage.needInteger);
                 return;
             }
             var dataType = options.settings.dataType;
             $.ajax({
                 type: 'post',
                 url: options.settings.url,
-                data: $.fn.bsgrid_grid.getPageCondition(curPage, options),
+                data: $.fn.bsgrid.getPageCondition(curPage, options),
                 dataType: dataType,
                 beforeSend: function (xhr) {
-                    $.fn.bsgrid_grid.defaults.beforeSend(options, xhr);
+                    $.fn.bsgrid.defaults.beforeSend(options, xhr);
                 },
                 complete: function (xhr, ts) {
-                    $.fn.bsgrid_grid.defaults.complete(options, xhr, ts);
+                    $.fn.bsgrid.defaults.complete(options, xhr, ts);
                 },
                 success: function (gridData) {
-                    if ($.fn.bsgrid_grid.parseData.success(dataType, gridData)) {
+                    if ($.fn.bsgrid.parseData.success(dataType, gridData)) {
                         // display all datas, no paging
                         if (!options.settings.pageAll) {
-                            options.totalRows = $.fn.bsgrid_grid.parseData.totalRows(dataType, gridData);
-                            options.curPage = $.fn.bsgrid_grid.parseData.curPage(dataType, gridData);
+                            options.totalRows = $.fn.bsgrid.parseData.totalRows(dataType, gridData);
+                            options.curPage = $.fn.bsgrid.parseData.curPage(dataType, gridData);
                             var totalPages = parseInt(options.totalRows / options.settings.pageSize);
                             options.totalPages = parseInt((options.totalRows % options.settings.pageSize == 0) ? totalPages : totalPages + 1);
                         } else {
-                            options.totalRows = $.fn.bsgrid_grid.parseData.totalRows(dataType, gridData);
+                            options.totalRows = $.fn.bsgrid.parseData.totalRows(dataType, gridData);
                             options.curPage = 1;
                             options.totalPages = 1;
 
                             options.settings.pageSize = options.totalRows;
-                            $.fn.bsgrid_grid.setGridBlankBody(options);
+                            $.fn.bsgrid.setGridBlankBody(options);
                         }
 
                         var pageSize = options.settings.pageSize;
                         $('#' + options.totalRowsId).html(options.totalRows);
                         $('#' + options.totalPagesId).html(options.totalPages);
                         $('#' + options.currPageId).html(options.curPage);
-                        $.fn.bsgrid_grid.dynamicChangePagingButtonStype(options);
+                        $.fn.bsgrid.dynamicChangePagingButtonStype(options);
 
-                        var rowSize = $.fn.bsgrid_grid.parseData.data(dataType, gridData).length;
+                        var rowSize = $.fn.bsgrid.parseData.data(dataType, gridData).length;
                         rowSize = pageSize > rowSize ? rowSize : pageSize;
                         var startRow = (parseInt(options.curPage) - 1) * parseInt(pageSize) + 1;
                         var endRow = (parseInt(options.curPage) - 1) * parseInt(pageSize) + rowSize;
@@ -312,7 +327,7 @@
                         $('#' + options.startRowId).html(options.startRow);
                         $('#' + options.endRowId).html(options.endRow);
 
-                        var headerTh = $.fn.bsgrid_grid.grtGridHeaderObject(options);
+                        var headerTh = $.fn.bsgrid.grtGridHeaderObject(options);
                         $('#' + options.gridId + ' tr:not(:first)').each(
                             function (i) {
                                 $(this).find('td').each(function (j) {
@@ -336,7 +351,7 @@
                                                 if (render_index != null) {
                                                     render_index = render_index.toString();
                                                     render_index = render_index.substring(2, render_index.length - 1);
-                                                    render_html = render_html.replaceAll('\\$\\{' + render_index + '\\}', $.fn.bsgrid_grid.parseData.getColumnValue(dataType, gridData, i, render_index));
+                                                    render_html = render_html.replaceAll('\\$\\{' + render_index + '\\}', $.fn.bsgrid.parseData.getColumnValue(dataType, gridData, i, render_index));
                                                 }
                                             }
                                             while (render_index != null);
@@ -344,7 +359,7 @@
                                             $(this).html(render_html);
                                         } else if (index != '') {
                                             {
-                                                var value = $.fn.bsgrid_grid.parseData.getColumnValue(dataType, gridData, i, index);
+                                                var value = $.fn.bsgrid.parseData.getColumnValue(dataType, gridData, i, index);
                                                 if (title == 'true') {
                                                     $(this).attr('title', value);
                                                 }
@@ -368,11 +383,11 @@
                             }
                         );
                     } else {
-                        alert($.bsgrid_gridLanguage.errorForRequestData);
+                        alert($.bsgridLanguage.errorForRequestData);
                     }
                 },
                 error: function () {
-                    alert($.bsgrid_gridLanguage.errorForSendOrRequestData);
+                    alert($.bsgridLanguage.errorForSendOrRequestData);
                 }
             });
         },
@@ -389,7 +404,7 @@
             var rowSb = '';
             if (options.settings.pageSize > 0) {
                 var alignAttr = options.settings.colsProperties.alignAttr;
-                var header = $.fn.bsgrid_grid.grtGridHeaderObject(options);
+                var header = $.fn.bsgrid.grtGridHeaderObject(options);
 
                 var trSb = new StringBuilder();
                 trSb.append('<tr>');
@@ -409,11 +424,23 @@
             $('#' + options.gridId).append(rowsSb.toString());
         },
 
+        addLockScreen: function () {
+            if ($('.bsgrid.lockscreen').length == 0) {
+                var lockScreenHtml = new StringBuilder();
+                lockScreenHtml.append('<div class="bsgrid lockscreen" times="0">');
+                lockScreenHtml.append('</div>');
+                lockScreenHtml.append('<div class="bsgrid loading_div">');
+                lockScreenHtml.append('<table><tr><td><center><div class="bsgrid loading"><span>&emsp;</span>&nbsp;' + $.bsgridLanguage.loadingDataMessage + '&emsp;<center></div></td></tr></table>');
+                lockScreenHtml.append('</div>');
+                $('body').append(lockScreenHtml.toString());
+            }
+        },
+
         addPagingToolbar: function (options) {
             var pagingTableSb = new StringBuilder();
-            pagingTableSb.append('<table class="bsgrid_gridPaging"><tr><td align="' + $.fn.bsgrid_grid.defaults.pagingToolbarAlign + '">');
+            pagingTableSb.append('<table class="bsgridPaging"><tr><td align="' + $.fn.bsgrid.defaults.pagingToolbarAlign + '">');
             if (options.settings.pageAll) {
-                pagingTableSb.append($.bsgrid_gridLanguage.pagingToolbar.totalRows(options.totalRowsId) + '&nbsp;&nbsp;&nbsp;');
+                pagingTableSb.append($.bsgridLanguage.pagingToolbar.totalRows(options.totalRowsId) + '&nbsp;&nbsp;&nbsp;');
             } else {
                 pagingTableSb.append('<table id="' + options.pagingToolbarId + '" class="' + (options.settings.pageSizeSelect ? '' : 'noPageSizeSelect') + '">');
                 pagingTableSb.append('<tr>');
@@ -421,26 +448,26 @@
                     if ($.inArray(options.settings.pageSize, options.settings.pageSizeForGrid) == -1) {
                         options.settings.pageSizeForGrid.push(options.settings.pageSize);
                     }
-                    pagingTableSb.append('<td>' + $.bsgrid_gridLanguage.pagingToolbar.pageSizeDisplay(options.pageSizeId) + '</td>')
+                    pagingTableSb.append('<td>' + $.bsgridLanguage.pagingToolbar.pageSizeDisplay(options.pageSizeId) + '</td>');
                 }
-                pagingTableSb.append('<td>' + $.bsgrid_gridLanguage.pagingToolbar.currentDisplayRows(options.startRowId, options.endRowId) + '</td>');
-                pagingTableSb.append('<td>' + $.bsgrid_gridLanguage.pagingToolbar.totalRows(options.totalRowsId) + '</td>');
-                var btnClass = $.fn.bsgrid_grid.defaults.pagingBtnClass;
+                pagingTableSb.append('<td>' + $.bsgridLanguage.pagingToolbar.currentDisplayRows(options.startRowId, options.endRowId) + '</td>');
+                pagingTableSb.append('<td>' + $.bsgridLanguage.pagingToolbar.totalRows(options.totalRowsId) + '</td>');
+                var btnClass = $.fn.bsgrid.defaults.pagingBtnClass;
                 pagingTableSb.append('<td>');
-                pagingTableSb.append('<input class="' + btnClass + ' firstPage" type="button" id="' + options.firstPageId + '" value="' + $.bsgrid_gridLanguage.pagingToolbar.firstPage + '" />');
+                pagingTableSb.append('<input class="' + btnClass + ' firstPage" type="button" id="' + options.firstPageId + '" value="' + $.bsgridLanguage.pagingToolbar.firstPage + '" />');
                 pagingTableSb.append('&nbsp;&nbsp;');
-                pagingTableSb.append('<input class="' + btnClass + ' prevPage" type="button" id="' + options.prevPageId + '" value="' + $.bsgrid_gridLanguage.pagingToolbar.prevPage + '" />');
+                pagingTableSb.append('<input class="' + btnClass + ' prevPage" type="button" id="' + options.prevPageId + '" value="' + $.bsgridLanguage.pagingToolbar.prevPage + '" />');
                 pagingTableSb.append('</td>');
-                pagingTableSb.append('<td>' + $.bsgrid_gridLanguage.pagingToolbar.currentDisplayPageAndTotalPages(options.currPageId, options.totalPagesId) + '</td>');
+                pagingTableSb.append('<td>' + $.bsgridLanguage.pagingToolbar.currentDisplayPageAndTotalPages(options.currPageId, options.totalPagesId) + '</td>');
                 pagingTableSb.append('<td>');
-                pagingTableSb.append('<input class="' + btnClass + ' nextPage" type="button" id="' + options.nextPageId + '" value="' + $.bsgrid_gridLanguage.pagingToolbar.nextPage + '" />');
+                pagingTableSb.append('<input class="' + btnClass + ' nextPage" type="button" id="' + options.nextPageId + '" value="' + $.bsgridLanguage.pagingToolbar.nextPage + '" />');
                 pagingTableSb.append('&nbsp;&nbsp;');
-                pagingTableSb.append('<input class="' + btnClass + ' lastPage" type="button" id="' + options.lastPageId + '" value="' + $.bsgrid_gridLanguage.pagingToolbar.lastPage + '" />');
+                pagingTableSb.append('<input class="' + btnClass + ' lastPage" type="button" id="' + options.lastPageId + '" value="' + $.bsgridLanguage.pagingToolbar.lastPage + '" />');
                 pagingTableSb.append('</td>');
                 pagingTableSb.append('<td>');
                 pagingTableSb.append('<input type="text" id="' + options.gotoPageInputId + '" style="width: 40px" />');
                 pagingTableSb.append('&nbsp;');
-                pagingTableSb.append('<input class="' + btnClass + ' gotoPage" type="button" id="' + options.gotoPageId + '" value="' + $.bsgrid_gridLanguage.pagingToolbar.gotoPage + '" />');
+                pagingTableSb.append('<input class="' + btnClass + ' gotoPage" type="button" id="' + options.gotoPageId + '" value="' + $.bsgridLanguage.pagingToolbar.gotoPage + '" />');
                 pagingTableSb.append('</td>');
                 pagingTableSb.append('</tr>');
                 pagingTableSb.append('</table>');
@@ -453,34 +480,34 @@
         setPagingToolbarEvents: function (options) {
             if (!options.settings.pageAll) {
                 if (options.settings.pageSizeSelect) {
-                    $.fn.bsgrid_grid.resetPerPageValues(options);
+                    $.fn.bsgrid.resetPerPageValues(options);
                     $('#' + options.pageSizeId).change(function () {
                         options.settings.pageSize = parseInt($(this).val());
-                        $.fn.bsgrid_grid.setGridBlankBody(options);
+                        $.fn.bsgrid.setGridBlankBody(options);
                         // if change pageSize, then page first
-                        $.fn.bsgrid_grid.page(1, options);
+                        $.fn.bsgrid.page(1, options);
                     });
                 }
 
                 $('#' + options.firstPageId).click(function () {
-                    $.fn.bsgrid_grid.firstPage(options);
+                    $.fn.bsgrid.firstPage(options);
                 });
                 $('#' + options.prevPageId).click(function () {
-                    $.fn.bsgrid_grid.prevPage(options);
+                    $.fn.bsgrid.prevPage(options);
                 });
                 $('#' + options.nextPageId).click(function () {
-                    $.fn.bsgrid_grid.nextPage(options);
+                    $.fn.bsgrid.nextPage(options);
                 });
                 $('#' + options.lastPageId).click(function () {
-                    $.fn.bsgrid_grid.lastPage(options);
+                    $.fn.bsgrid.lastPage(options);
                 });
                 $('#' + options.gotoPageInputId).keyup(function (e) {
                     if (e.which == 13) {
-                        $.fn.bsgrid_grid.gotoPage(options);
+                        $.fn.bsgrid.gotoPage(options);
                     }
                 });
                 $('#' + options.gotoPageId).click(function () {
-                    $.fn.bsgrid_grid.gotoPage(options);
+                    $.fn.bsgrid.gotoPage(options);
                 });
             }
         },
@@ -534,60 +561,60 @@
         },
 
         refreshPage: function refreshPage(options) {
-            $.fn.bsgrid_grid.page($.fn.bsgrid_grid.getCurPage(options), options);
+            $.fn.bsgrid.page($.fn.bsgrid.getCurPage(options), options);
         },
 
         firstPage: function (options) {
-            var curPage = $.fn.bsgrid_grid.getCurPage(options);
+            var curPage = $.fn.bsgrid.getCurPage(options);
             if (curPage <= 1) {
-                alert($.bsgrid_gridLanguage.isFirstPage);
+                alert($.bsgridLanguage.isFirstPage);
                 return;
             }
-            $.fn.bsgrid_grid.page(1, options);
+            $.fn.bsgrid.page(1, options);
         },
 
         prevPage: function (options) {
-            var curPage = $.fn.bsgrid_grid.getCurPage(options);
+            var curPage = $.fn.bsgrid.getCurPage(options);
             if (curPage <= 1) {
-                alert($.bsgrid_gridLanguage.isFirstPage);
+                alert($.bsgridLanguage.isFirstPage);
                 return;
             }
-            $.fn.bsgrid_grid.page(parseInt(curPage) - 1, options);
+            $.fn.bsgrid.page(parseInt(curPage) - 1, options);
         },
 
         nextPage: function (options) {
-            var curPage = $.fn.bsgrid_grid.getCurPage(options);
+            var curPage = $.fn.bsgrid.getCurPage(options);
             if (curPage >= options.totalPages) {
-                alert($.bsgrid_gridLanguage.isLastPage);
+                alert($.bsgridLanguage.isLastPage);
                 return;
             }
-            $.fn.bsgrid_grid.page(parseInt(curPage) + 1, options);
+            $.fn.bsgrid.page(parseInt(curPage) + 1, options);
         },
 
         lastPage: function (options) {
-            var curPage = $.fn.bsgrid_grid.getCurPage(options);
+            var curPage = $.fn.bsgrid.getCurPage(options);
             if (curPage >= options.totalPages) {
-                alert($.bsgrid_gridLanguage.isLastPage);
+                alert($.bsgridLanguage.isLastPage);
                 return;
             }
-            $.fn.bsgrid_grid.page(options.totalPages, options);
+            $.fn.bsgrid.page(options.totalPages, options);
         },
 
         gotoPage: function (options) {
             var goPage = $('#' + options.gotoPageInputId).val();
             if (isNaN(goPage)) {
-                alert($.bsgrid_gridLanguage.needInteger);
+                alert($.bsgridLanguage.needInteger);
             } else if (parseInt(goPage) < 1 || parseInt(goPage) > options.totalPages) {
-                alert($.bsgrid_gridLanguage.needRange(1, options.totalPages));
+                alert($.bsgridLanguage.needRange(1, options.totalPages));
             } else {
-                $.fn.bsgrid_grid.page(parseInt(goPage), options);
+                $.fn.bsgrid.page(parseInt(goPage), options);
             }
         },
 
         sort: function (options, obj) {
             var field = $(obj).attr('sortName');
             // revert style
-            $.fn.bsgrid_grid.grtGridHeaderObject(options).each(function () {
+            $.fn.bsgrid.grtGridHeaderObject(options).each(function () {
                 if ($.trim($(this).attr(options.settings.colsProperties.sortAttr)).length != 0) {
                     $(this).find('a').attr('class', 'sort sort-view');
                 }
@@ -605,7 +632,7 @@
                 options.sortOrder = 'desc';
                 $(obj).attr('class', 'sort sort-desc');
             }
-            $.fn.bsgrid_grid.refreshPage(options);
+            $.fn.bsgrid.refreshPage(options);
         },
 
         clearGridBodyData: function (options) {
@@ -618,6 +645,6 @@
             );
         }
 
-    }
+    };
 
 })(jQuery);

@@ -1,5 +1,5 @@
 /**
- * JQuery.bsgrid v1.0beta by @Baishui2004
+ * JQuery.bsgrid v1.0 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -49,7 +49,7 @@ $.bsgrid = {
      */
     getKeysString: function (obj, delimiter) {
         if (delimiter == undefined) {
-            delimiter = ','
+            delimiter = ',';
         }
         var params = new StringBuilder();
         if (obj instanceof Array) {

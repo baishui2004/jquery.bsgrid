@@ -1,14 +1,14 @@
 @CHARSET "UTF-8";
 
-.bsgrid_gridPaging table {
+.bsgridPaging table {
     width: 500px;
 }
 
-.bsgrid_gridPaging table.noPageSizeSelect {
+.bsgridPaging table.noPageSizeSelect {
     width: 400px;
 }
 
-.bsgrid_gridPaging .pagingBtn {
+.bsgridPaging .pagingBtn {
     cursor: pointer;
     border: 0;
     width: 16px;
@@ -18,38 +18,38 @@
     margin: 0 3px;
 }
 
-.bsgrid_gridPaging .pagingBtn.firstPage {
+.bsgridPaging .pagingBtn.firstPage {
     background-image: url(../image/icons/paging/go-first-view.png);
 }
 
-.bsgrid_gridPaging .pagingBtn.prevPage {
+.bsgridPaging .pagingBtn.prevPage {
     background-image: url(../image/icons/paging/go-previous-view.png);
 }
 
-.bsgrid_gridPaging .pagingBtn.nextPage {
+.bsgridPaging .pagingBtn.nextPage {
     background-image: url(../image/icons/paging/go-next-view.png);
 }
 
-.bsgrid_gridPaging .pagingBtn.lastPage {
+.bsgridPaging .pagingBtn.lastPage {
     background-image: url(../image/icons/paging/go-last-view.png);
 }
 
-.bsgrid_gridPaging .pagingBtn.firstPage.disabledCls {
+.bsgridPaging .pagingBtn.firstPage.disabledCls {
     background-image: url(../image/icons/paging/go-first-view.gray.png);
 }
 
-.bsgrid_gridPaging .pagingBtn.prevPage.disabledCls {
+.bsgridPaging .pagingBtn.prevPage.disabledCls {
     background-image: url(../image/icons/paging/go-previous-view.gray.png);
 }
 
-.bsgrid_gridPaging .pagingBtn.nextPage.disabledCls {
+.bsgridPaging .pagingBtn.nextPage.disabledCls {
     background-image: url(../image/icons/paging/go-next-view.gray.png);
 }
 
-.bsgrid_gridPaging .pagingBtn.lastPage.disabledCls {
+.bsgridPaging .pagingBtn.lastPage.disabledCls {
     background-image: url(../image/icons/paging/go-last-view.gray.png);
 }
 
-.bsgrid_gridPaging .pagingBtn.gotoPage {
+.bsgridPaging .pagingBtn.gotoPage {
     background-image: url(../image/icons/paging/go-jump-2.png);
 }

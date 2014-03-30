@@ -20,7 +20,7 @@
     <script type="text/javascript" src="override.pop.js"></script>
 </head>
 <body style="background-color: #fff;">
-<table id="searchTable" class="bsgrid_grid">
+<table id="searchTable" class="bsgrid">
     <tr>
         <th w_index="XH" width="5%;">XH</th>
         <th w_index="ID" width="5%;">ID</th>
@@ -32,10 +32,9 @@
         <th w_index="ID" w_render="operate('${ID}');" width="10%;">Operate</th>
     </tr>
 </table>
-<p/>
 <script type="text/javascript">
     $(function () {
-        $.fn.bsgrid_grid.init('searchTable', {
+        $.fn.bsgrid.init('searchTable', {
             url: '../grid/data/simple.json',
             pageSizeSelect: true,
             pageSize: 10

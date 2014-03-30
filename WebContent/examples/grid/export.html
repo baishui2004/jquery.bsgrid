@@ -1,13 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Export Grid</title>
     <link rel="stylesheet" href="../../sources/css/grid.css"/>
     <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="../../sources/js/common.js"></script>
-    <script type="text/javascript" src="../../sources/js/lang/grid.zh_CN.js"></script>
+    <script type="text/javascript" src="../../sources/js/lang/grid.en.js"></script>
     <script type="text/javascript" src="../../sources/js/grid.js"></script>
     <script type="text/javascript" src="../../sources/js/util.js"></script>
     <script type="text/javascript" src="../../sources/js/export.js"></script>
@@ -23,7 +23,7 @@
     <button type="button" onclick="doExport();">Export</button>
     -->
 </form>
-<table id="searchTable" class="bsgrid_grid">
+<table id="searchTable" class="bsgrid">
     <tr>
         <th w_index="XH" width="5%;">XH</th>
         <th w_index="ID" width="5%;">ID</th>
@@ -55,11 +55,10 @@ Documention:
 4, settings.colWidthPercentmultiplier
    if set column width N%, then column width will reset N*colWidthPercentmultiplier.
 </pre>
-<p/>
 <script type="text/javascript">
     var gridObj;
     $(function () {
-        gridObj = $.fn.bsgrid_grid.init('searchTable', {
+        gridObj = $.fn.bsgrid.init('searchTable', {
             url: 'data/simple.json',
             pageSizeSelect: true,
             pageSize: 10
@@ -71,7 +70,7 @@ Documention:
     }
 
     function doExport() {
-        alert('Only test request params, To see it in browser address url.')
+        alert('Only test request params, To see it in browser address url.');
         gridObj.options.otherParames = $('#searchForm').serializeArray();
         $.bsgrid_export.doExport($('#searchTable tr th'), gridObj.options.otherParames, {
             url: 'export.html', // only test request params

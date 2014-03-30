@@ -1,5 +1,5 @@
 /**
- * JQuery.bsgrid v1.0beta by @Baishui2004
+ * JQuery.bsgrid v1.0 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -9,12 +9,12 @@
  */
 (function ($) {
 
-    $.bsgrid_gridLanguage = {
+    $.bsgridLanguage = {
         isFirstPage: '已經是第一頁！',
         isLastPage: '已經是最後一頁！',
         needInteger: '請輸入數字！',
         needRange: function (start, end) {
-            return '請輸入一個在' + start + '到' + end + '之間的數字！'
+            return '請輸入一個在' + start + '到' + end + '之間的數字！';
         },
         errorForRequestData: '請求數據失敗！',
         errorForSendOrRequestData: '發送或請求數據失敗！',
@@ -26,7 +26,7 @@
                 return '當前顯示:&nbsp;<span id="' + startRowId + '"></span>&nbsp;-&nbsp;<span id="' + endRowId + '"></span>';
             },
             totalRows: function (totalRowsId) {
-                return '共:&nbsp;<span id="' + totalRowsId + '"></span>'
+                return '共:&nbsp;<span id="' + totalRowsId + '"></span>';
             },
             currentDisplayPageAndTotalPages: function (currPageId, totalPagesId) {
                 return '<div><span id="' + currPageId + '"></span>&nbsp;/&nbsp;<span id="' + totalPagesId + '"></span></div>';
@@ -38,6 +38,6 @@
             gotoPage: '跳&nbsp;轉'
         },
         loadingDataMessage: '正在加載數據，請稍候......'
-    }
+    };
 
 })(jQuery);

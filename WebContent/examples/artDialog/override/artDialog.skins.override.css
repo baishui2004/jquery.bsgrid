@@ -5,6 +5,7 @@
     background: #000;
     filter: alpha(opacity=10);
     opacity: .1;
+    -moz-opacity:0.1;
 }
 
 /* Modify pop window's background color. Original #f7f7f7 at blue.css line 38. */

@@ -1,5 +1,5 @@
 /**
- * JQuery.bsgrid v1.0beta by @Baishui2004
+ * JQuery.bsgrid v1.0 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -9,12 +9,12 @@
  */
 (function ($) {
 
-    $.bsgrid_gridLanguage = {
+    $.bsgridLanguage = {
         isFirstPage: 'This is first page!',
         isLastPage: 'This is last page!',
         needInteger: 'Please input number!',
         needRange: function (start, end) {
-            return 'Please input a number between ' + start + ' and ' + end + '!'
+            return 'Please input a number between ' + start + ' and ' + end + '!';
         },
         errorForRequestData: 'Request datas fail!',
         errorForSendOrRequestData: 'Send or request datas fail!',
@@ -26,7 +26,7 @@
                 return 'Display:&nbsp;<span id="' + startRowId + '"></span>&nbsp;-&nbsp;<span id="' + endRowId + '"></span>';
             },
             totalRows: function (totalRowsId) {
-                return 'Count:&nbsp;<span id="' + totalRowsId + '"></span>'
+                return 'Count:&nbsp;<span id="' + totalRowsId + '"></span>';
             },
             currentDisplayPageAndTotalPages: function (currPageId, totalPagesId) {
                 return '<div><span id="' + currPageId + '"></span>&nbsp;/&nbsp;<span id="' + totalPagesId + '"></span></div>';
@@ -38,6 +38,6 @@
             gotoPage: 'Goto'
         },
         loadingDataMessage: 'Loading data, Please wait......'
-    }
+    };
 
 })(jQuery);
