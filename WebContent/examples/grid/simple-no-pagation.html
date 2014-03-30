@@ -1,0 +1,42 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Simple Grid No Pagation</title>
+    <link rel="stylesheet" href="../../sources/css/grid.css"/>
+    <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="../../sources/js/common.js"></script>
+    <script type="text/javascript" src="../../sources/js/lang/grid.zh_CN.js"></script>
+    <script type="text/javascript" src="../../sources/js/grid.js"></script>
+</head>
+<body style="background-color: #fff;">
+<table id="searchTable" class="bsgrid_grid">
+    <tr>
+        <th w_index="XH" width="5%;">XH</th>
+        <th w_index="ID" width="5%;">ID</th>
+        <th w_index="CHAR" w_align="left" w_title="true" width="15%;">CHAR</th>
+        <th w_index="TEXT" w_align="left" w_length="50" width="30%;">TEXT</th>
+        <th w_index="DATE" width="15%;">DATE</th>
+        <th w_index="TIME" width="15%;">TIME</th>
+        <th w_index="NUM" width="5%;">NUM</th>
+        <th w_render="operate('${ID}');" width="10%;">Operate</th>
+    </tr>
+</table>
+<p/>
+<script type="text/javascript">
+    $(function () {
+        $.fn.bsgrid_grid.init('searchTable', {
+            url: 'data/simple.json',
+            // autoLoad: false,
+            pageSizeSelect: true,
+            pageAll: true
+        });
+    });
+
+    function operate(id) {
+        return '<a href="#" onclick="alert(\'ID=' + id + '\');">Operate</a>';
+    }
+</script>
+</body>
+</html>
