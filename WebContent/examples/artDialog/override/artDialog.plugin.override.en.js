@@ -12,6 +12,6 @@
         alertDialogTitle: 'Message',
         confirmDialogTitle: 'Confirm',
         promptDialogTitle: 'Prompt'
-    }
+    };
 
 })(jQuery);

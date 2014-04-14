@@ -63,7 +63,7 @@ Documention:
 
 1, input:
    showType: 'false', 'view', 'add,edit', and so on, blank equals 'view,add,edit'
-   editAble: 'false', other value display
+   editAble: 'false', other value display and can edit
 2, span.inputTip
    showType: 'false', 'view', 'add,edit', and so on, blank equals 'view,add,edit'
 </pre>
@@ -183,7 +183,8 @@ Documention:
         } else if (type == 'add') {
             alert($('#formDemo').serialize());
         } else if (type == 'edit') {
-            alert($('#formDemo').serialize());
+        	// editAble false not commit
+            alert($('#formDemo :not([editAble="false"])').serialize());
         } else {
             alert('None.');
         }

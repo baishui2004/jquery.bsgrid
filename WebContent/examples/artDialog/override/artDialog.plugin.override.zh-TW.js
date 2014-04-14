@@ -12,6 +12,6 @@
         alertDialogTitle: '提示',
         confirmDialogTitle: '確認',
         promptDialogTitle: '輸入'
-    }
+    };
 
 })(jQuery);

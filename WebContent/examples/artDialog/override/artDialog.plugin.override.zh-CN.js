@@ -12,6 +12,6 @@
         alertDialogTitle: '提示',
         confirmDialogTitle: '确认',
         promptDialogTitle: '输入'
-    }
+    };
 
 })(jQuery);
