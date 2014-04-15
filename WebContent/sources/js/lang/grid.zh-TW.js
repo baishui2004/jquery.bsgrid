@@ -37,7 +37,8 @@
             lastPage: '末&nbsp;頁',
             gotoPage: '跳&nbsp;轉'
         },
-        loadingDataMessage: '正在加載數據，請稍候......'
+        loadingDataMessage: '正在加載數據，請稍候......',
+        noDataToDisplay: '沒有數據可以用於顯示。'
     };
 
 })(jQuery);

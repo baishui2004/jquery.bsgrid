@@ -78,8 +78,10 @@
                     this.unlockScreen(options, xhr, ts);
                 }
             },
+            displayBlankRows: true,
             stripeRows: false, // stripe rows
             pagingToolbarAlign: 'right',
+            displayPagingToolbarOnlyMultiPages: false,
             pagingBtnClass: 'pagingBtn' // paging toolbar button css class
         },
 
@@ -155,10 +157,6 @@
                 });
             });
 
-            $.fn.bsgrid.setGridBlankBody(options);
-            if ($.fn.bsgrid.defaults.stripeRows) {
-                $('#' + gridId + ' tr:even').addClass('even_index_row');
-            }
             if ($.fn.bsgrid.defaults.isProcessLockScreen) {
                 $.fn.bsgrid.addLockScreen();
             }
@@ -309,7 +307,6 @@
                             options.totalPages = 1;
 
                             options.settings.pageSize = options.totalRows;
-                            $.fn.bsgrid.setGridBlankBody(options);
                         }
 
                         var pageSize = options.settings.pageSize;
@@ -322,10 +319,16 @@
                         rowSize = pageSize > rowSize ? rowSize : pageSize;
                         var startRow = (parseInt(options.curPage) - 1) * parseInt(pageSize) + 1;
                         var endRow = (parseInt(options.curPage) - 1) * parseInt(pageSize) + rowSize;
+                        startRow = startRow > endRow ? endRow : startRow;
                         options.startRow = startRow;
                         options.endRow = endRow;
                         $('#' + options.startRowId).html(options.startRow);
                         $('#' + options.endRowId).html(options.endRow);
+
+                        $.fn.bsgrid.setGridBlankBody(options);
+                        if (rowSize == 0) {
+                            return;
+                        }
 
                         var headerTh = $.fn.bsgrid.grtGridHeaderObject(options);
                         $('#' + options.gridId + ' tr:not(:first)').each(
@@ -400,11 +403,11 @@
             // remove rows
             $('#' + options.gridId + ' tr:not(:first)').remove();
 
+            var header = $.fn.bsgrid.grtGridHeaderObject(options);
             // add rows
             var rowSb = '';
             if (options.settings.pageSize > 0) {
                 var alignAttr = options.settings.colsProperties.alignAttr;
-                var header = $.fn.bsgrid.grtGridHeaderObject(options);
 
                 var trSb = new StringBuilder();
                 trSb.append('<tr>');
@@ -415,13 +418,29 @@
                     trSb.append(' style="text-align: ' + align + ';"');
                     trSb.append('></td>');
                 }
+                trSb.append('</tr>');
                 rowSb = trSb.toString();
             }
             var rowsSb = new StringBuilder();
-            for (var pi = 0; pi < options.settings.pageSize; pi++) {
-                rowsSb.append(rowSb);
+            var rowSize = options.settings.pageSize;
+            if (!$.fn.bsgrid.defaults.displayBlankRows) {
+                rowSize = options.endRow - options.startRow + 1;
+                rowSize = options.endRow > 0 ? rowSize : 0;
+            }
+            if (rowSize == 0) {
+                rowsSb.append('<tr><td colspan="' + header.length + '">' + $.bsgridLanguage.noDataToDisplay + '</td></tr>');
+            } else {
+                for (var pi = 0; pi < rowSize; pi++) {
+                    rowsSb.append(rowSb);
+                }
             }
             $('#' + options.gridId).append(rowsSb.toString());
+
+            if (rowSize != 0) {
+                if ($.fn.bsgrid.defaults.stripeRows) {
+                    $('#' + options.gridId + ' tr:even').addClass('even_index_row');
+                }
+            }
         },
 
         addLockScreen: function () {
@@ -483,7 +502,7 @@
                     $.fn.bsgrid.resetPerPageValues(options);
                     $('#' + options.pageSizeId).change(function () {
                         options.settings.pageSize = parseInt($(this).val());
-                        $.fn.bsgrid.setGridBlankBody(options);
+                        $(this).trigger('blur');
                         // if change pageSize, then page first
                         $.fn.bsgrid.page(1, options);
                     });
@@ -514,19 +533,25 @@
 
         dynamicChangePagingButtonStype: function (options) {
             var disabledCls = 'disabledCls';
-            if (options.curPage == 1) {
+            if (options.curPage <= 1) {
                 $('#' + options.firstPageId).addClass(disabledCls);
                 $('#' + options.prevPageId).addClass(disabledCls);
             } else {
                 $('#' + options.firstPageId).removeClass(disabledCls);
                 $('#' + options.prevPageId).removeClass(disabledCls);
             }
-            if (options.curPage == options.totalPages) {
+            if (options.curPage >= options.totalPages) {
                 $('#' + options.nextPageId).addClass(disabledCls);
                 $('#' + options.lastPageId).addClass(disabledCls);
             } else {
                 $('#' + options.nextPageId).removeClass(disabledCls);
                 $('#' + options.lastPageId).removeClass(disabledCls);
+            }
+
+            if ($.fn.bsgrid.defaults.displayPagingToolbarOnlyMultiPages && options.totalPages <= 1) {
+                $('#' + options.pagingToolbarId).css('display', 'none');
+            } else {
+                $('#' + options.pagingToolbarId).css('display', 'block');
             }
         },
 

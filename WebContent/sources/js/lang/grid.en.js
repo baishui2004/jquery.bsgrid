@@ -37,7 +37,8 @@
             lastPage: 'Last',
             gotoPage: 'Goto'
         },
-        loadingDataMessage: 'Loading data, Please wait......'
+        loadingDataMessage: 'Loading data, Please wait......',
+        noDataToDisplay: 'No data to display.'
     };
 
 })(jQuery);

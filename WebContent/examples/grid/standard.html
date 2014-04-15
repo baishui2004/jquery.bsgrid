@@ -107,13 +107,19 @@ Documention:
      $.fn.bsgrid.setPagingToolbarEvents(options)
      $.fn.bsgrid.dynamicChangePagingButtonStype(options)
 
-6, stripe rows
+6, displayPagingToolbarOnlyMultiPages
+   $.fn.bsgrid.defaults.displayPagingToolbarOnlyMultiPages, true or false, default false means alway diaplay pagingToolbar
+
+7, displayBlankRows
+   $.fn.bsgrid.defaults.displayBlankRows, true or false, default true
+   
+8, stripe rows
    $.fn.bsgrid.defaults.stripeRows, true or false, default false, css: grid.css -> '.bsgrid tr.even_index_row'
 
-7, request post params names, global setting
+9, request post params names, global setting
    to modify that: $.fn.bsgrid.defaults.requestParamsName.X = '', X may pageSize, curPage, sortName, sortOrder
 
-8, skins
+10, skins
    in addition to grid.css, other need skins/grid_*.css
 </pre>
 <script type="text/javascript">
@@ -128,6 +134,8 @@ Documention:
         // $.fn.bsgrid.defaults.unlockScreen = function (options, xhr, ts) {
         //     console.log('Unlock Screen!');
         // };
+
+        $.fn.bsgrid.defaults.stripeRows = true;
 
         // init
         gridObj = $.fn.bsgrid.init('searchTable', {
