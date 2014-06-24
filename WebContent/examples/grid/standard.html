@@ -55,7 +55,7 @@
         <th w_index="DATE" width="15%;">DATE</th>
         <th w_index="TIME" width="15%;">TIME</th>
         <th w_index="NUM" width="5%;">NUM</th>
-        <th w_render="operate('${XH}', '${ID}');" width="10%;">Operate</th>
+        <th w_render="operate" width="10%;">Operate</th>
     </tr>
 </table>
 <p/>
@@ -64,7 +64,7 @@ Documention:
 
 1, th properties:
    w_index: column index
-   w_render: use js code, it will use eval(code) to execute it. To use data index, it must like ${IndexName}, and note that here this indexName can not contains '}'
+   w_render: use js function name, it will use eval(code) to execute it, and that function show have param record, rowIndex, colIndex, options.
      Note: if column has property w_render, then ignore property w_index. It's be allowed to no property w_index or w_render
    w_align: body column align, not header th
    w_sort:  like "id", "id,desc", "id,asc"
@@ -137,6 +137,16 @@ Documention:
 
         $.fn.bsgrid.defaults.stripeRows = true;
 
+        // additional render per row
+        $.fn.bsgrid.additionalRenderPerRow = function (record, rowIndex, options){
+            console.log('[additional render per row]      ' + 'ID=' + record['ID'] + ', rowIndex=' + rowIndex);
+        };
+
+        // additional after render grid
+        $.fn.bsgrid.additionalAfterRenderGrid = function (parseSuccess, gridData, options){
+            console.log('[additional after render grid]   ' + 'parseSuccess=' + parseSuccess);
+        };
+
         // init
         gridObj = $.fn.bsgrid.init('searchTable', {
             url: 'data/json.jsp',
@@ -147,8 +157,8 @@ Documention:
         });
     });
 
-    function operate(xh, id) {
-        return '<a href="#" onclick="alert(\'XH=' + xh + ', ID=' + id + '\');">Operate</a>';
+    function operate(record, rowIndex, colIndex, options) {
+        return '<a href="#" onclick="alert(\'ID=' + record['ID'] + ', rowIndex=' + rowIndex + ', colIndex=' + colIndex + '\');">Operate</a>';
     }
 </script>
 </body>

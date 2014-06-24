@@ -29,7 +29,7 @@
         <th w_index="DATE" width="15%;">DATE</th>
         <th w_index="TIME" width="15%;">TIME</th>
         <th w_index="NUM" width="5%;">NUM</th>
-        <th w_index="ID" w_render="operate('${ID}');" width="10%;">Operate</th>
+        <th w_index="ID" w_render="operate" width="10%;">Operate</th>
     </tr>
 </table>
 <script type="text/javascript">
@@ -41,8 +41,8 @@
         });
     });
 
-    function operate(id) {
-        return '<a href="#" onclick="alert(\'edit. ID=' + id + '\');">edit</a>&emsp;<a href="#" onclick="doDelete(' + id + ');">delete</a>';
+    function operate(record, rowIndex, colIndex, options, options) {
+        return '<a href="#" onclick="alert(\'edit. ID=' + record['ID'] + '\');">edit</a>&emsp;<a href="#" onclick="doDelete(' + record['ID'] + ');">delete</a>';
     }
 
     function doDelete(id) {

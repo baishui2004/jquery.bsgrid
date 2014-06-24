@@ -16,7 +16,7 @@
 <br />&nbsp;
 <table id="searchTable" class="bsgrid">
     <tr>
-        <th w_render="checkbox('${ID}')" width="3%;"><input type="checkbox"/></th>
+        <th w_render="checkbox" width="3%;"><input type="checkbox"/></th>
         <th w_index="XH" width="5%;">XH</th>
         <th w_index="ID" width="5%;">ID</th>
         <th w_index="CHAR" w_align="left" w_title="true" width="15%;">CHAR</th>
@@ -24,7 +24,7 @@
         <th w_index="DATE" width="15%;">DATE</th>
         <th w_index="TIME" width="15%;">TIME</th>
         <th w_index="NUM" width="5%;">NUM</th>
-        <th w_render="operate('${ID}');" width="10%;">Operate</th>
+        <th w_render="operate" width="10%;">Operate</th>
     </tr>
 </table>
 <script type="text/javascript">
@@ -45,8 +45,8 @@
 
     });
 
-    function checkbox(id) {
-        return '<input type="checkbox" value="' + id + '"/>';
+    function checkbox(record, rowIndex, colIndex, options) {
+        return '<input type="checkbox" value="' + record['ID'] + '"/>';
     }
 
     function getCheckedIds() {
@@ -57,8 +57,8 @@
         alert(ids.length > 0 ? ids.substring(1) : '');
     }
 
-    function operate(id) {
-        return '<a href="#" onclick="alert(\'ID=' + id + '\');">Operate</a>';
+    function operate(record, rowIndex, colIndex, options) {
+        return '<a href="#" onclick="alert(\'ID=' + record['ID'] + '\');">Operate</a>';
     }
 </script>
 </body>

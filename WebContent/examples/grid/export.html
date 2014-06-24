@@ -32,7 +32,7 @@
         <th w_index="DATE" width="15%;">DATE</th>
         <th w_index="TIME" width="15%;">TIME</th>
         <th w_index="NUM" width="5%;">NUM</th>
-        <th w_render="operate('${ID}');" w_export="false" width="10%;">Operate</th>
+        <th w_render="operate" w_export="false" width="10%;">Operate</th>
     </tr>
 </table>
 <p/>
@@ -65,8 +65,8 @@ Documention:
         });
     });
 
-    function operate(id) {
-        return '<a href="#" onclick="alert(\'ID=' + id + '\');">Operate</a>';
+    function operate(record, rowIndex, colIndex, options) {
+        return '<a href="#" onclick="alert(\'ID=' + record['ID'] + '\');">Operate</a>';
     }
 
     function doExport() {

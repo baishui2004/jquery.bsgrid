@@ -20,7 +20,7 @@
         <th w_index="DATE" width="15%;">DATE</th>
         <th w_index="TIME" width="15%;">TIME</th>
         <th w_index="NUM" width="5%;">NUM</th>
-        <th w_render="operate('${ID}');" width="10%;">Operate</th>
+        <th w_render="operate" width="10%;">Operate</th>
     </tr>
 </table>
 <script type="text/javascript">
@@ -36,8 +36,8 @@
         });
     });
 
-    function operate(id) {
-        return '<a href="#" onclick="alert(\'ID=' + id + '\');">Operate</a>';
+    function operate(record, rowIndex, colIndex, options) {
+        return '<a href="#" onclick="alert(\'ID=' + record.find('ID').text() + ', rowIndex=' + rowIndex + ', colIndex=' + colIndex + '\');">Operate</a>';
     }
 </script>
 </body>

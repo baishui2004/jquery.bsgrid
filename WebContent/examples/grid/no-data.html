@@ -20,13 +20,14 @@
         <th w_index="DATE" width="15%;">DATE</th>
         <th w_index="TIME" width="15%;">TIME</th>
         <th w_index="NUM" width="5%;">NUM</th>
-        <th w_render="operate('${ID}');" width="10%;">Operate</th>
+        <th w_render="operate" width="10%;">Operate</th>
     </tr>
 </table>
 <script type="text/javascript">
     $(function () {
         $.fn.bsgrid.defaults.displayBlankRows = false;
         $.fn.bsgrid.defaults.displayPagingToolbarOnlyMultiPages = true;
+        // $.bsgridLanguage.noDataToDisplay = '<img src="no-data.png" />'; // can set a html code paragraph
 
         $.fn.bsgrid.init('searchTable', {
             url: 'data/no-data.json',
@@ -36,8 +37,8 @@
         });
     });
 
-    function operate(id) {
-        return '<a href="#" onclick="alert(\'ID=' + id + '\');">Operate</a>';
+    function operate(record, rowIndex, colIndex, options) {
+        return '<a href="#" onclick="alert(\'ID=' + record['ID'] + '\');">Operate</a>';
     }
 </script>
 </body>
