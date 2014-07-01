@@ -1,18 +1,29 @@
 /**
- * JQuery.bsgrid v1.01 by @Baishui2004
+ * JQuery.bsgrid v1.10 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
 /**
  * @author Baishui2004
- * @Date March 17, 2014
+ * @Date July 1, 2014
  */
 (function ($) {
 
     $.bsgrid_export = {
 
-        // defaults
+        // defaults settings
         defaults: {
+            url: '', // export url
+            exportFileName: 'export', // export file name, not contains file suffix
+            colsProperties: {
+                width: 100,
+                align: 'center',
+                exportAttr: 'w_export',
+                indexAttr: 'w_index',
+                widthAttr: 'width',
+                alignAttr: 'w_align'
+            },
+            colWidthPercentmultiplier: 14, // if set column width N%, then column width will reset N*14
             // request params name
             requestParamsName: {
                 exportFileName: 'exportFileName',
@@ -20,20 +31,6 @@
                 colIndexs: 'dataIndexs',
                 colWidths: 'dataLengths',
                 colAligns: 'dataAligns'
-            },
-            // defaults settings
-            settings: {
-                url: '', // export url
-                exportFileName: 'export', // export file name, not contains file suffix
-                colsProperties: {
-                    width: 100,
-                    align: 'center',
-                    exportAttr: 'w_export',
-                    indexAttr: 'w_index',
-                    widthAttr: 'width',
-                    alignAttr: 'w_align'
-                },
-                colWidthPercentmultiplier: 14 // if set column width N%, then column width will reset N*14
             }
         },
 
@@ -53,7 +50,7 @@
             if (settings == undefined) {
                 settings = {};
             }
-            $.extend(true, exportSettings, $.bsgrid_export.defaults.settings, settings);
+            $.extend(true, exportSettings, $.bsgrid_export.defaults, settings);
 
             var colNames = '', colIndexs = '', colWidths = '', colAligns = '';
             for (var i = 0; i < exportCols.length; i++) {
@@ -85,11 +82,11 @@
             }
 
             document.location.href = exportSettings.url + (exportSettings.url.indexOf('?') < 0 ? '?' : '&')
-                + $.bsgrid_export.defaults.requestParamsName.exportFileName + '=' + encodeURIComponent(encodeURIComponent(exportSettings.exportFileName))
-                + '&' + $.bsgrid_export.defaults.requestParamsName.colNames + '=' + encodeURIComponent(encodeURIComponent(colNames.substring(1)))
-                + '&' + $.bsgrid_export.defaults.requestParamsName.colIndexs + '=' + colIndexs.substring(1)
-                + '&' + $.bsgrid_export.defaults.requestParamsName.colWidths + '=' + colWidths.substring(1)
-                + '&' + $.bsgrid_export.defaults.requestParamsName.colAligns + '=' + colAligns.substring(1)
+                + exportSettings.requestParamsName.exportFileName + '=' + encodeURIComponent(encodeURIComponent(exportSettings.exportFileName))
+                + '&' + exportSettings.requestParamsName.colNames + '=' + encodeURIComponent(encodeURIComponent(colNames.substring(1)))
+                + '&' + exportSettings.requestParamsName.colIndexs + '=' + colIndexs.substring(1)
+                + '&' + exportSettings.requestParamsName.colWidths + '=' + colWidths.substring(1)
+                + '&' + exportSettings.requestParamsName.colAligns + '=' + colAligns.substring(1)
                 + (exportParamsObj.length == 0 ? '' : ('&' + $.bsgrid.param(exportParamsObj, true)));
         }
 

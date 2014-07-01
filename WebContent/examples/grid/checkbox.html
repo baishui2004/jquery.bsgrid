@@ -19,7 +19,7 @@
         <th w_render="checkbox" width="3%;"><input type="checkbox"/></th>
         <th w_index="XH" width="5%;">XH</th>
         <th w_index="ID" width="5%;">ID</th>
-        <th w_index="CHAR" w_align="left" w_title="true" width="15%;">CHAR</th>
+        <th w_index="CHAR" w_align="left" w_tip="true" width="15%;">CHAR</th>
         <th w_index="TEXT" w_align="left" w_length="50" width="27%;">TEXT</th>
         <th w_index="DATE" width="15%;">DATE</th>
         <th w_index="TIME" width="15%;">TIME</th>
@@ -35,11 +35,11 @@
             pageSize: 10
         });
 
-        $('#searchTable tr th input[type=checkbox]').change(function () {
+        $('#searchTable tr:first th:first input[type=checkbox]').change(function () {
             if ($(this).attr('checked')) {
-                $('#searchTable tr td input[type=checkbox]').attr('checked', true);
+                $('#searchTable tr:not(:first) td input[type=checkbox]').attr('checked', true);
             } else {
-                $('#searchTable tr td input[type=checkbox]').attr('checked', false);
+                $('#searchTable tr:not(:first) td input[type=checkbox]').attr('checked', false);
             }
         });
 
@@ -51,7 +51,7 @@
 
     function getCheckedIds() {
         var ids = '';
-        $('#searchTable tr td input:checked').each(function () {
+        $('#searchTable tr:not(:first) td input:checked').each(function () {
             ids += ',' + $(this).val();
         });
         alert(ids.length > 0 ? ids.substring(1) : '');

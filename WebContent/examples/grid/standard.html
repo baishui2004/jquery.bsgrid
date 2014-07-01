@@ -19,20 +19,21 @@
 &emsp;<input type="button" value="Get endRow" onclick="alert(gridObj.options.endRow);"/>
 
 <p/>
-&emsp;<input type="button" value="First page" onclick="gridObj.firstPage(gridObj.options);"/>
-&emsp;<input type="button" value="Prev page" onclick="gridObj.prevPage(gridObj.options);"/>
-&emsp;<input type="button" value="Next page" onclick="gridObj.nextPage(gridObj.options);"/>
-&emsp;<input type="button" value="Last page" onclick="gridObj.lastPage(gridObj.options);"/>
+&emsp;<input type="button" value="First page" onclick="gridObj.firstPage();"/>
+&emsp;<input type="button" value="Prev page" onclick="gridObj.prevPage();"/>
+&emsp;<input type="button" value="Next page" onclick="gridObj.nextPage();"/>
+&emsp;<input type="button" value="Last page" onclick="gridObj.lastPage();"/>
+&emsp;<input type="button" value="Page 2" onclick="gridObj.page(2);"/>
 &emsp;<input type="button" value="Goto page 2"
-             onclick="$('#' + gridObj.options.gotoPageInputId).val(2); gridObj.gotoPage(gridObj.options);"/>
+             onclick="$('#' + gridObj.options.gotoPageInputId).val(2); gridObj.gotoPage();"/>
 
 <p/>
-&emsp;<input type="button" value="Refresh page" onclick="gridObj.refreshPage(gridObj.options);"/>
+&emsp;<input type="button" value="Refresh page" onclick="gridObj.refreshPage();"/>
 &emsp;<input type="button" value="Get sort name" onclick="alert(gridObj.options.sortName);"/>
 &emsp;<input type="button" value="Get sort order" onclick="alert(gridObj.options.sortOrder);"/>
 &emsp;<input type="button" value="Sort by ID"
-             onclick="gridObj.sort(gridObj.options, $('#' + gridObj.options.gridId + ' tr:first th:eq(1) a'));"/>
-&emsp;<input type="button" value="Clear grid body data" onclick="gridObj.clearGridBodyData(gridObj.options);"/>
+             onclick="gridObj.sort($('#' + gridObj.options.gridId + ' tr:first th:eq(1) a'));"/>
+&emsp;<input type="button" value="Clear grid body data" onclick="gridObj.clearGridBodyData();"/>
 
 <p/>
 
@@ -42,15 +43,15 @@
     &emsp;<input type="button" value="Set other parames"
                  onclick="gridObj.options.otherParames = $('#searchParams').serializeArray(); alert('set success!')"/>
     &emsp;<input type="button" value="Get page request condition"
-                 onclick="alert(gridObj.getPageCondition(gridObj.options.curPage, gridObj.options));"/>
+                 onclick="alert(gridObj.getPageCondition(gridObj.options.curPage));"/>
 </form>
 
 <p/>
 <table id="searchTable" class="bsgrid">
     <tr>
-        <th w_index="XH" w_sort="XH,desc" width="5%;">XH</th>
+        <th w_index="XH" w_sort="XH,desc" w_hidden="true" width="5%;">XH</th>
         <th w_index="ID" w_sort="ID" width="5%;">ID</th>
-        <th w_index="CHAR" w_align="left" w_title="true" width="15%;">CHAR</th>
+        <th w_index="CHAR" w_align="left" w_tip="true" width="15%;">CHAR</th>
         <th w_index="TEXT" w_align="left" w_length="50" width="30%;" style="text-align: left;">TEXT</th>
         <th w_index="DATE" width="15%;">DATE</th>
         <th w_index="TIME" width="15%;">TIME</th>
@@ -64,16 +65,18 @@ Documention:
 
 1, th properties:
    w_index: column index
-   w_render: use js function name, it will use eval(code) to execute it, and that function show have param record, rowIndex, colIndex, options.
-     Note: if column has property w_render, then ignore property w_index. It's be allowed to no property w_index or w_render
-   w_align: body column align, not header th
    w_sort:  like "id", "id,desc", "id,asc"
+   w_align: body column align, not header th
    w_length: if column's value length longer than it, auto sub and title it
              sub: txt.substring(0, MaxLength-3) + '...'
              if column's render is not false, then this property is not make effective to it
-   w_title: if set "true", then will tip column, ignore if it's length is longer than w_length
+   w_render: use js function name, it will use eval(code) to execute it, and that function show have param record, rowIndex, colIndex, options.
+     Note: if column has property w_render, then ignore property w_index. It's be allowed to no property w_index or w_render
+   w_hidden: if set "true", then will not display this column
+   w_tip: if set "true", then will tip column, ignore if it's length is longer than w_length
+          method, $.fn.bsgrid.columnTip, global method
 
-2, $.fn.bsgrid.defaults.settings or $.fn.bsgrid.init(gridId, settings) second param settings
+2, $.fn.bsgrid.defaults or $.fn.bsgrid.init(gridId, settings) second param settings
    url, page request url
    dataType, 'json', 'xml', default 'json'
    autoLoad, load onReady, default true
@@ -81,45 +84,44 @@ Documention:
    pageSize, if set value little then 1, then pageAll will auto set true, default 20
    pageSizeSelect, if display pageSize select option, use with property pageSizeForGrid, default false
    pageSizeForGrid: pageSize select option
-   longLengthAotoSubAndTitle: if column's value length longer than it, auto sub and title it, default true
-                                 sub: txt.substring(0, MaxLength-3) + '...'
-                                 if column's render is not false, then this property is not make effective to it
+   displayBlankRows, true or false, default true
+   stripeRows, true or false, default false, css: grid.css -> '.bsgrid tr.even_index_row'
+   displayPagingToolbarOnlyMultiPages, true or false, default false means alway diaplay pagingToolbar
+   isProcessLockScreen, process lock screen, default true
+   longLengthAotoSubAndTip: if column's value length longer than it, auto sub and tip it, default true
+       sub: txt.substring(0, MaxLength-3) + '...'. if column's render is not false, then this property is not make effective to it
+       method, $.fn.bsgrid.longLengthSubAndTip, global method
+   beforeSend, method before page ajax request send
+   complete, method after page ajax request complete
 
-3, process lock screen, global setting
-   $.fn.bsgrid.defaults.lockScreen, user lock screen method
-   $.fn.bsgrid.defaults.unlockScreen, user lock screen method
-   If modify these settings bellow, please see source first, then you should not modify it to avoid incorrect.
-     $.fn.bsgrid.defaults.isProcessLockScreen, default true
-     $.fn.bsgrid.defaults.beforeSend, process page beforeSend method, default lock screen
-     $.fn.bsgrid.defaults.complete, process page complete method, default unlock screen
+3, process lock screen, global method
+   $.fn.bsgrid.lockScreen, user lock screen method
+   $.fn.bsgrid.unlockScreen, user lock screen method
 
-4, th properties default:
-   $.fn.bsgrid.defaults.settings.colsProperties, properties follow:
-     body row column config: align, maxLength
-     config properties's name: indexAttr, sortAttr, alignAttr, lengthAttr, renderAttr, titleAttr
-
-5, $.fn.bsgrid.defaults.pagingToolbarAlign, global setting
+4, Paging Toolbar
+   $.fn.bsgrid.defaults.pagingToolbarAlign
      paging toolbar align: left, center, right, default right
-   $.fn.bsgrid.defaults.pagingBtnClass, global setting
+   $.fn.bsgrid.defaults.pagingBtnClass
      paging toolbar button css class, default 'pagingBtn' in grid.css
-   How to Change Paging Toolbar: global setting
+   How to Change Paging Toolbar, global method
      $.fn.bsgrid.addPagingToolbar(options)
      $.fn.bsgrid.setPagingToolbarEvents(options)
-     $.fn.bsgrid.dynamicChangePagingButtonStype(options)
+     $.fn.bsgrid.dynamicChangePagingButtonStyle(options)
 
-6, displayPagingToolbarOnlyMultiPages
-   $.fn.bsgrid.defaults.displayPagingToolbarOnlyMultiPages, true or false, default false means alway diaplay pagingToolbar
+5, additional render
+   $.fn.bsgrid.defaults.additionalBeforeRenderGrid, additional before render grid
+   $.fn.bsgrid.defaults.additionalRenderPerRow, additional render per row, no matter blank row or not blank row
+   $.fn.bsgrid.defaults.additionalAfterRenderGrid, additional after render grid
 
-7, displayBlankRows
-   $.fn.bsgrid.defaults.displayBlankRows, true or false, default true
-   
-8, stripe rows
-   $.fn.bsgrid.defaults.stripeRows, true or false, default false, css: grid.css -> '.bsgrid tr.even_index_row'
+6, th properties default:
+   $.fn.bsgrid.defaults.colsProperties, properties follow:
+     body row every column config: align, maxLength
+     config properties's name: indexAttr, sortAttr, alignAttr, lengthAttr, renderAttr, hiddenAttr, tipAttr
 
-9, request post params names, global setting
+7, request post params names
    to modify that: $.fn.bsgrid.defaults.requestParamsName.X = '', X may pageSize, curPage, sortName, sortOrder
 
-10, skins
+8, skins
    in addition to grid.css, other need skins/grid_*.css
 </pre>
 <script type="text/javascript">
@@ -128,22 +130,27 @@ Documention:
         // $.fn.bsgrid.defaults.pagingToolbarAlign = 'center'; // default right
 
         // rewrite lock and unlock screen
-        // $.fn.bsgrid.defaults.lockScreen = function (options, xhr) {
+        // $.fn.bsgrid.lockScreen = function (options, xhr) {
         //     console.log('Lock Screen!');
         // };
-        // $.fn.bsgrid.defaults.unlockScreen = function (options, xhr, ts) {
+        // $.fn.bsgrid.unlockScreen = function (options, xhr, ts) {
         //     console.log('Unlock Screen!');
         // };
 
         $.fn.bsgrid.defaults.stripeRows = true;
 
-        // additional render per row
-        $.fn.bsgrid.additionalRenderPerRow = function (record, rowIndex, options){
-            console.log('[additional render per row]      ' + 'ID=' + record['ID'] + ', rowIndex=' + rowIndex);
+        // additional before render grid
+        $.fn.bsgrid.defaults.additionalBeforeRenderGrid = function (parseSuccess, gridData, options) {
+            console.log('[additional before render grid]   ' + 'parseSuccess=' + parseSuccess);
+        }
+        // additional render per row, no matter blank row or not blank row
+        $.fn.bsgrid.defaults.additionalRenderPerRow = function (record, rowIndex, options) {
+            if (record != null) { // null record render blank row
+                console.log('[additional render per row]      ' + 'ID=' + record['ID'] + ', rowIndex=' + rowIndex);
+            }
         };
-
         // additional after render grid
-        $.fn.bsgrid.additionalAfterRenderGrid = function (parseSuccess, gridData, options){
+        $.fn.bsgrid.defaults.additionalAfterRenderGrid = function (parseSuccess, gridData, options) {
             console.log('[additional after render grid]   ' + 'parseSuccess=' + parseSuccess);
         };
 
