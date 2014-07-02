@@ -1,5 +1,5 @@
 /**
-* JQuery.bsgrid v1.10 by @Baishui2004
+* JQuery.bsgrid v1.11 by @Baishui2004
 * Copyright 2014 Apache v2 License
 * https://github.com/baishui2004/jquery.bsgrid
 */

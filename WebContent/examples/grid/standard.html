@@ -154,6 +154,12 @@ Documention:
             console.log('[additional after render grid]   ' + 'parseSuccess=' + parseSuccess);
         };
 
+        // rewrite refreshPage method
+        $.fn.bsgrid.refreshPage = function (options) {
+            console.log('rewrite refreshPage method');
+            $.fn.bsgrid.page($.fn.bsgrid.getCurPage(options), options);
+        };
+
         // init
         gridObj = $.fn.bsgrid.init('searchTable', {
             url: 'data/json.jsp',
