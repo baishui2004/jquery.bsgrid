@@ -34,24 +34,29 @@
     overflow: auto;
 }
 
+.bsgrid_form .formInput input, .bsgrid_form .formInput select, .bsgrid_form .formInput textarea, .bsgrid_form .formInput div {
+    width: 72%;
+    background-color: white;
+}
+
 .bsgrid_form .formInput input {
-    width: 200px;
     height: 24px;
     line-height: 24px;
     vertical-align: middle;
     padding-left: 1px;
 }
 
-.bsgrid_form .formInput select {
-    width: 204px;
+.bsgrid_form .formInput textarea, .bsgrid_form .formInput div {
+    height: 100px;
 }
 
-.bsgrid_form .formInput textarea {
-    width: 200px;
-    height: 65px;
+.bsgrid_form .formInput div {
+    overflow: auto;
+    word-wrap: break-word;
 }
 
 .bsgrid_form .formInput .inputTip {
+    width: 28%;
     margin-left: 3px;
     color: #f18300;
     font-size: 12px;

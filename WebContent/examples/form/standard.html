@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Simple Form</title>
+    <title>Standard Form</title>
     <link rel="stylesheet" href="../../sources/css/form.css"/>
     <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="../../sources/js/common.js"></script>
@@ -21,13 +21,27 @@
             <td class="formInput">
                 <input name="account" type="text" editAble="false" value="Account" />
                 <span class="inputTip" showType="add">Start with letter, can contains number</span>
-                <span class="inputTip" showType="edit">Can not modify</span>
+                <span class="inputTip" showType="edit,edit-custom">Can not modify</span>
             </td>
         </tr>
-        <tr showType="add,edit">
+        <tr showType="add,edit-custom">
             <td class="formLabel">Password:</td>
             <td class="formInput">
-                <input name="password" type="password" value="123456" />
+                <input name="password" editAble="false" type="password" value="123456" />
+            </td>
+        </tr>
+        <tr>
+            <td class="formLabel"><span class="require">*</span>Name:</td>
+            <td class="formInput"><input name="name" edit-customAble="false" type="text" value="Name" /></td>
+        </tr>
+        <tr showType="view,add,edit">
+            <td class="formLabel">Sex:</td>
+            <td class="formInput"><select name="sex" editAble="false" edit-customAble="false"><option value="1">male</option><option value="2">female</option></select></td>
+        </tr>
+        <tr showType="view,add,edit">
+            <td class="formLabel">Remark:</td>
+            <td class="formInput">
+                <textarea name="remark" editAble="false" edit-customAble="false">This textarea is editAble false.This textarea is editAble false.This textarea is editAble false.This textarea is editAble false.This textarea is editAble false.</textarea>
             </td>
         </tr>
         <tr>
@@ -41,11 +55,21 @@
                 &emsp;
                 <input type="button" value="edit style" onclick="formObj.showForm('edit');" />
                 &emsp;
+                <input type="button" value="edit-custom style" onclick="formObj.showForm('edit-custom');" />
+                &emsp;
                 <input type="button" value="Commit" onclick="doCommit();" />
             </td>
         </tr>
     </table>
 </form>
+<pre>
+Documention:
+
+1, .bsgrid_form *:
+   showType: 'view*', 'add*', 'edit*', 'add*,edit*', and so on, no deal blank, '*' means zero or more characters.
+2, .bsgrid_form :input:
+   edit*Able: 'false', other value display and can edit, '*' means zero or more characters.
+</pre>
 <script type="text/javascript">
     var formObj;
     $(function () {
@@ -61,6 +85,9 @@
         } else if (type == 'edit') {
         	// editAble false not commit
             alert($('#formDemo :not([editAble="false"])').serialize());
+        } else if (type == 'edit-custom') {
+        	// edit-customAble false not commit
+            alert($('#formDemo :not([edit-customAble="false"])').serialize());
         } else {
             alert('None.');
         }

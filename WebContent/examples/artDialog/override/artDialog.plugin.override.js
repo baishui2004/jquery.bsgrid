@@ -68,6 +68,18 @@
      * @param title  dilog title
      */
     $.confirm = $.dialog.confirm = function (msg, ok, cancel, follow, title) {
+        if (ok == undefined) {
+            ok = function(){
+                this.close();
+                return true;
+            };
+        }
+        if (cancel == undefined) {
+            cancel = function () {
+                this.close();
+                return false;
+            };
+        }
         if (title == undefined) {
             title = $.bsgrid_artDialog.confirmDialogTitle;
         }
@@ -91,12 +103,22 @@
      *  prompt dialog.
      *
      * @param msg           message
-     * @param fn            callback function after trigger ok
      * @param defaultValue  default value
+     * @param fn            callback function after trigger ok
      * @param follow        HTMLElement, set dialog follow HTMLElement
      * @param title         dilog title
      */
-    $.prompt = $.dialog.prompt = function (msg, ok, defaultValue, follow, title) {
+    $.prompt = $.dialog.prompt = function (msg, defaultValue, ok, cancel, follow, title) {
+        if (ok == undefined) {
+            ok = function (newText) {
+                return newText;
+            };
+        }
+        if (cancel == undefined) {
+            cancel = function () {
+                this.close();
+            };
+        }
         if (title == undefined) {
             title = $.bsgrid_artDialog.promptDialogTitle;
         }
@@ -108,9 +130,10 @@
                 msg,
                 '</div>',
                 '<div>',
-                '<input type="text" class="d-input-text" value="',
+                '<textarea class="d-input-text"',
+                ' style="width:200px; height:100px; overflow:auto; padding:0px 0px;">',
                 defaultValue,
-                '" style="width:18em;padding:6px 4px" />',
+                '</textarea>',
                 '</div>'
             ].join(''),
             initialize: function () {
@@ -121,8 +144,7 @@
             ok: function () {
                 return ok && ok.call(this, input.value);
             },
-            cancel: function () {
-            }
+            cancel: cancel
         };
         defaultValue = defaultValue || '';
         var input;

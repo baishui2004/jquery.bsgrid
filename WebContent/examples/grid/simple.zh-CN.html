@@ -5,6 +5,12 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Simple zh-CN Grid</title>
     <link rel="stylesheet" href="../../sources/css/grid.css"/>
+    <style type="text/css">
+        /* row hover */
+        .bsgrid tr:hover {
+            background-color: #ffe48d;
+        }
+    </style>
     <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="../../sources/js/common.js"></script>
     <script type="text/javascript" src="../../sources/js/lang/grid.zh-CN.js"></script>
@@ -29,7 +35,8 @@
             url: 'data/simple.json',
             // autoLoad: false,
             pageSizeSelect: true,
-            pageSize: 10
+            pageSize: 10,
+            stripeRows: true
         });
     });
 

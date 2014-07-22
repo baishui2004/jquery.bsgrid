@@ -24,7 +24,7 @@ a.bsgrid_icon {
  * Style 2, how to use:
  * <button type="button" class="bsgrid_icon icon_view" onclick="alert('view!');">View</button>
  * OR
- * <input class="bsgrid_icon icon_view" type="button" onclick="alert('view!');" value="View" />
+ * <input type="button" class="bsgrid_icon icon_view" onclick="alert('view!');" value="View" />
  */
 input.bsgrid_icon, button.bsgrid_icon {
     padding-left: 20px;
