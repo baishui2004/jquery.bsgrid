@@ -4,6 +4,8 @@
  * https://github.com/baishui2004/jquery.bsgrid
  */
 /**
+ * require common.js, util.js.
+ *
  * @author Baishui2004
  * @Date July 1, 2014
  */

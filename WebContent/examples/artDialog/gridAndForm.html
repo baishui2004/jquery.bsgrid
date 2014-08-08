@@ -37,6 +37,9 @@
     NUM:&nbsp;<input type="text" name="NUM" value="NUM"/>
     &emsp;
     <input type="button" onclick="doSearch();" value="Search"/>
+    &nbsp;Look search params in browser console.
+    &emsp;
+    <input type="button" onclick="doAdd();" value="Add"/>
 </form>
 <table id="searchTable" class="bsgrid">
     <tr>
@@ -86,7 +89,6 @@
             </tr>
             <tr>
                 <td colspan="2" style="text-align: center; border-left-width: 0; border-right-width: 0; border-bottom-width: 0;">
-                    <input type="hidden" name="bsgrid_form_type" />
                     <input type="button" value="Save" onclick="doCommit();" />
                     &emsp;
                     <input type="button" value="Cancel" onclick="gridFormDialog.hidden();" />
@@ -113,7 +115,7 @@
             var gridFormHtml = $("#artDialog-gridForm").html();
             $("#artDialog-gridForm").html('');
             gridFormDialog = $.dialog({
-                id: 'artDialog-gridForm',
+                id: 'artDialog-gridForm-dialog',
                 title: 'Form',
                 width: 400,
                 height: 350,
@@ -149,6 +151,11 @@
                 + '&emsp;<a href="#" onclick="doDelete(' + rowIndex + ');">Delete</a>';
     }
 
+    function doAdd() {
+        $('#gridForm')[0].reset();
+        showFormDialog('add');
+    }
+
     function doView(rowIndex) {
         fillDataAndShowFormDialog('view', rowIndex);
     }
@@ -162,7 +169,7 @@
         // get column value by record and index: gridObj.getRecordIndexValue(record, index)
         // get column value by rowIndex and index: gridObj.getColumnValue(rowIndex, index)
         var record = gridObj.getRecord(rowIndex);
-        $('#gridForm :input[name!=bsgrid_form_type]').each(function () {
+        $('#gridForm :input').each(function () {
             var input_name = $.trim($(this).attr('name'));
             if (input_name != '') {
                 var input_value = gridObj.getRecordIndexValue(record, input_name);
@@ -177,6 +184,10 @@
                 }
             }
         });
+        showFormDialog(type);
+    }
+
+    function showFormDialog(type) {
         gridFormObject.showForm(type);
         if (type == 'view') {
             $('#gridForm :button[value=Save]').hide();
@@ -185,7 +196,7 @@
         }
         gridFormDialog.title(type);
         // hide artDialog footer
-        $('div[aria-labelledby=d-title-artDialog-gridForm] .d-footer').hide();
+        $('div[aria-labelledby=d-title-artDialog-gridForm-dialog] .d-footer').hide();
         gridFormDialog.visible();
     }
 
@@ -197,14 +208,14 @@
     }
 
     function doCommit() {
-        var type = $('#gridForm input[name=bsgrid_form_type]').val();
+        var type = gridFormObject.options.formType;;
         if (type == 'view') {
             alert('This is view.');
         } else if (type == 'add') {
-            alert($('#gridForm').serialize());
+            alert($('#gridForm').serialize() + '&formType=' + type);
         } else if (type == 'edit') {
             // editAble false not commit
-            alert($('#gridForm :not([editAble="false"])').serialize());
+            alert($('#gridForm :not([editAble="false"])').serialize() + '&formType=' + type);
         } else {
             alert('None.');
         }

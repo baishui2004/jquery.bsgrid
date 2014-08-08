@@ -27,7 +27,8 @@
             var options = {
                 settings: $.extend(true, {}, $.fn.bsgrid_form.defaults, settings),
                 formId: formId,
-                jqueryObj: $('#' + formId)
+                jqueryObj: $('#' + formId),
+                formType: ''
             };
 
             var formObj = {
@@ -82,7 +83,7 @@
         },
 
         showForm: function (options, type) {
-            $('input[name=bsgrid_form_type]', options.jqueryObj).val(type);
+            options.formType = type;
 
             this.showOrHideRequireSpan(options, type);
             this.showOrHideAssistForms(options, type);

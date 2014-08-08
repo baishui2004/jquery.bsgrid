@@ -47,7 +47,6 @@
         </tr>
         <tr>
             <td colspan="2" style="text-align: center;">
-                <input type="hidden" name="bsgrid_form_type" />
                 <input type="button" value="Refresh" onclick="location.href = location.href;" />
                 &emsp;
                 <input type="button" value="view style" onclick="formObj.showForm('view');" />
@@ -78,17 +77,17 @@ Documention:
     });
 
     function doCommit() {
-        var type = $('#formDemo input[name=bsgrid_form_type]').val();
+        var type = formObj.options.formType;
         if (type == 'view') {
             alert('This is view.');
         } else if (type == 'add') {
-            alert($('#formDemo').serialize());
+            alert($('#formDemo').serialize() + '&formType=' + type);
         } else if (type == 'edit') {
         	// editAble false not commit
-            alert($('#formDemo :not([editAble="false"])').serialize());
+            alert($('#formDemo :not([editAble="false"])').serialize() + '&formType=' + type);
         } else if (type == 'edit-custom') {
         	// edit-customAble false not commit
-            alert($('#formDemo :not([edit-customAble="false"])').serialize());
+            alert($('#formDemo :not([edit-customAble="false"])').serialize() + '&formType=' + type);
         } else {
             alert('None.');
         }
