@@ -94,11 +94,16 @@ Documention:
    beforeSend, method before page ajax request send
    complete, method after page ajax request complete
 
-3, process lock screen, global method
+3, These three methods could call after grid data rendered.
+   gridObj.getRecord(rowIndex): get record by rowIndex
+   gridObj.getRecordIndexValue(record, index): get column value by record and index
+   gridObj.getColumnValue(rowIndex, index): get column value by rowIndex and index
+
+4, process lock screen, global method
    $.fn.bsgrid.lockScreen, user lock screen method
    $.fn.bsgrid.unlockScreen, user lock screen method
 
-4, Paging Toolbar
+5, Paging Toolbar
    $.fn.bsgrid.defaults.pagingToolbarAlign
      paging toolbar align: left, center, right, default right
    $.fn.bsgrid.defaults.pagingBtnClass
@@ -108,20 +113,20 @@ Documention:
      $.fn.bsgrid.setPagingToolbarEvents(options)
      $.fn.bsgrid.dynamicChangePagingButtonStyle(options)
 
-5, additional render
+6, additional render
    $.fn.bsgrid.defaults.additionalBeforeRenderGrid, additional before render grid
    $.fn.bsgrid.defaults.additionalRenderPerRow, additional render per row, no matter blank row or not blank row
    $.fn.bsgrid.defaults.additionalAfterRenderGrid, additional after render grid
 
-6, th properties default:
+7, th properties default:
    $.fn.bsgrid.defaults.colsProperties, properties follow:
      body row every column config: align, maxLength
      config properties's name: indexAttr, sortAttr, alignAttr, lengthAttr, renderAttr, hiddenAttr, tipAttr
 
-7, request post params names
+8, request post params names
    to modify that: $.fn.bsgrid.defaults.requestParamsName.X = '', X may pageSize, curPage, sortName, sortOrder
 
-8, skins
+9, skins
    in addition to grid.css, other need skins/grid_*.css
 </pre>
 <script type="text/javascript">

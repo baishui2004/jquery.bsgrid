@@ -1,0 +1,13 @@
+@CHARSET "UTF-8";
+
+.bsgrid_form table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.bsgrid_form table td {
+    height: 22px;
+    padding: 4px;
+    line-height: 20px;
+    border: solid 1px #eee;
+}

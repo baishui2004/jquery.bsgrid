@@ -6,18 +6,6 @@
     background-color: white;
 }
 
-.bsgrid_form table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.bsgrid_form table td {
-    height: 22px;
-    padding: 4px;
-    line-height: 20px;
-    border: solid 1px #eee;
-}
-
 .bsgrid_form .formLabel {
     width: 25%;
     color: #000;
@@ -53,6 +41,7 @@
 .bsgrid_form .formInput div {
     overflow: auto;
     word-wrap: break-word;
+    word-break: break-all;
 }
 
 .bsgrid_form .formInput .inputTip {

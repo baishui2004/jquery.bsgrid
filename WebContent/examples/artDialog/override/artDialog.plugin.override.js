@@ -46,7 +46,11 @@
         var params = {
             id: 'Alert',
             title: title,
-            content: msg,
+            content: [
+                '<div style="width:200px; height:75px; overflow:auto; font-size:12px; word-wrap: break-word; word-break: break-all; margin-bottom:0; padding:0;">',
+                msg,
+                '</div>'
+            ].join(''),
             ok: true,
             beforeunload: fn
         };
@@ -86,7 +90,11 @@
         var params = {
             id: 'Confirm',
             title: title,
-            content: msg,
+            content: [
+                '<div style="width:200px; height:75px; overflow:auto; font-size:12px; word-wrap: break-word; word-break: break-all; margin-bottom:0; padding:0;">',
+                msg,
+                '</div>'
+            ].join(''),
             ok: ok,
             cancel: cancel,
             cancelValue: $.bsgrid_artDialog.cancelValue
@@ -126,12 +134,12 @@
             id: 'Prompt',
             title: title,
             content: [
-                '<div style="margin-bottom:5px;font-size:12px">',
+                '<div style="width:200px; font-size:12px; word-wrap: break-word; word-break: break-all; margin-bottom:5px; padding:0;">',
                 msg,
                 '</div>',
                 '<div>',
                 '<textarea class="d-input-text"',
-                ' style="width:200px; height:100px; overflow:auto; padding:0px 0px;">',
+                ' style="width:200px; height:75px; overflow:auto; font-size:12px; padding:0;">',
                 defaultValue,
                 '</textarea>',
                 '</div>'

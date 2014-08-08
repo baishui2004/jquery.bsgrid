@@ -105,7 +105,7 @@
             if (type.startWith('view')) {
                 $('.formLabel span.require', options.jqueryObj).hide();
             } else if (type.startWith('edit')) {
-                $('.formLabel:has(span.require) ~ .formInput:has(:input[' + type + 'Able=false])', options.jqueryObj).parent('tr').find('span.require').hide();
+                $('.formLabel:has(span.require) ~ .formInput:has(:input[' + type + 'Able=false])', options.jqueryObj).prev().find('span.require').hide();
             } else {
                 $('.formLabel span.require', options.jqueryObj).show();
             }

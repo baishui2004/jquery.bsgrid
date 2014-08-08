@@ -35,7 +35,7 @@ $(function () {
     if ($.browser.msie && $.browser.version == '9.0') {
         // Under IE9, if not set width or set width 'auto', it will cause dialog not display in center. These three line code is to solve it below.
         alert().hidden().time(1);
-        confirm('', false).hidden().time(1);
+        confirm('').hidden().time(1);
         prompt('', '').hidden().time(1);
 
         setInterval(modifyDialogAndMaskZIndex, 500);

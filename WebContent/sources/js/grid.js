@@ -140,6 +140,15 @@
                 page: function (curPage) {
                     $.fn.bsgrid.page(curPage, options);
                 },
+                getRecord: function (row) {
+                    return $.fn.bsgrid.getRecord(row, options);
+                },
+                getRecordIndexValue: function (record, index) {
+                    return $.fn.bsgrid.getRecordIndexValue(record, index, options);
+                },
+                getColumnValue: function (row, index) {
+                    return $.fn.bsgrid.getColumnValue(row, index, options);
+                },
                 getCurPage: function () {
                     return $.fn.bsgrid.getCurPage(options);
                 },
@@ -203,7 +212,10 @@
 
             // auto load
             if (options.settings.autoLoad) {
-                gridObj.page(1);
+                // delay 10 millisecond for return gridObj first, then page
+                setTimeout(function () {
+                    gridObj.page(1);
+                }, 10);
             }
 
             return gridObj;
@@ -400,6 +412,7 @@
                                 if (i < rowSize) {
                                     record = $.fn.bsgrid.parseData.getRecord(dataType, data, i);
                                 }
+                                $.fn.bsgrid.storeRowData(i, record, options);
                                 $(this).find('td').each(function (j) {
                                     // column index
                                     var index = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.indexAttr));
@@ -444,6 +457,28 @@
                     alert($.bsgridLanguage.errorForSendOrRequestData);
                 }
             });
+        },
+
+        storeRowData: function (row, record, options) {
+            $('#' + options.gridId + ' tr:eq(' + (row + 1) + ')').data('record', record);
+        },
+
+        getRecord: function (row, options) {
+            var record = $('#' + options.gridId + ' tr:eq(' + (row + 1) + ')').data('record');
+            return record == undefined ? null : record;
+        },
+
+        getRecordIndexValue: function (record, index, options) {
+            if (record == null) {
+                return '';
+            } else {
+                return $.fn.bsgrid.parseData.getColumnValue(options.settings.dataType, record, index);
+            }
+        },
+
+        getColumnValue: function (row, index, options) {
+            var record = $.fn.bsgrid.getRecord(row, options);
+            return $.fn.bsgrid.getRecordIndexValue(record, index, options);
         },
 
         getCurPage: function (options) {
