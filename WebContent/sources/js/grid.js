@@ -94,7 +94,7 @@
                 settings: $.extend(true, {}, $.fn.bsgrid.defaults, settings),
 
                 gridId: gridId,
-                // page toolbar
+                // paging toolbar
                 totalRowsId: gridId + '_pt_totalRows',
                 totalPagesId: gridId + '_pt_totalPages',
                 currPageId: gridId + '_pt_currPage',
@@ -370,16 +370,14 @@
                     var parseSuccess = $.fn.bsgrid.parseData.success(dataType, gridData);
                     options.settings.additionalBeforeRenderGrid(parseSuccess, gridData, options);
                     if (parseSuccess) {
+                        options.totalRows = $.fn.bsgrid.parseData.totalRows(dataType, gridData);
                         if (!options.settings.pageAll) {
-                            options.totalRows = $.fn.bsgrid.parseData.totalRows(dataType, gridData);
                             options.curPage = $.fn.bsgrid.parseData.curPage(dataType, gridData);
                             var totalPages = parseInt(options.totalRows / options.settings.pageSize);
                             options.totalPages = parseInt((options.totalRows % options.settings.pageSize == 0) ? totalPages : totalPages + 1);
                         } else { // display all datas, no paging
-                            options.totalRows = $.fn.bsgrid.parseData.totalRows(dataType, gridData);
                             options.curPage = 1;
                             options.totalPages = 1;
-
                             options.settings.pageSize = options.totalRows;
                         }
 
