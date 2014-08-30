@@ -115,8 +115,8 @@
                 // other parameters, values: false, A Object or A jquery serialize Array
                 otherParames: false,
 
-                // paging toolbar
-                pagingToolbarId: gridId + '_pagingToolbar',
+                // paging toolbar id
+                pagingToolbarId: gridId + '_pt',
 
                 totalRows: 0,
                 totalPages: 0,
@@ -664,11 +664,11 @@
          */
         addPagingToolbar: function (options) {
             var pagingTableSb = new StringBuilder();
-            pagingTableSb.append('<table class="bsgridPaging"><tr><td align="' + options.settings.pagingToolbarAlign + '">');
+            pagingTableSb.append('<table id="' + options.pagingToolbarId + '" class="bsgridPaging" style="display: none;"><tr><td align="' + options.settings.pagingToolbarAlign + '">');
             if (options.settings.pageAll) {
                 pagingTableSb.append($.bsgridLanguage.pagingToolbar.totalRows(options.totalRowsId) + '&nbsp;&nbsp;&nbsp;');
             } else {
-                pagingTableSb.append('<table id="' + options.pagingToolbarId + '" class="' + (options.settings.pageSizeSelect ? '' : 'noPageSizeSelect') + '" style="display: none;">');
+                pagingTableSb.append('<table class="' + (options.settings.pageSizeSelect ? '' : 'noPageSizeSelect') + '">');
                 pagingTableSb.append('<tr>');
                 if (options.settings.pageSizeSelect) {
                     if ($.inArray(options.settings.pageSize, options.settings.pageSizeForGrid) == -1) {
