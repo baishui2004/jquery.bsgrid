@@ -16,7 +16,7 @@ $.fn.bsgrid.getCurPage = function (options) {
 };
 
 $.fn.bsgrid.refreshPage = function (options) {
-    $.fn.bsgrid.getGridObj(options.pagingId).page($.fn.bsgrid.getCurPage(options));
+    $.fn.bsgrid.getGridObj(options.gridId).page($.fn.bsgrid.getCurPage(options));
 };
 
 $.fn.bsgrid.firstPage = function (options) {
@@ -80,8 +80,8 @@ $.fn.bsgrid.setPagingValues = function (options) {
     var totalPages = parseInt(totalRows / options.settings.pageSize);
     totalPages = parseInt((totalRows % options.settings.pageSize == 0) ? totalPages : totalPages + 1);
 
-    $('#' + options.pagingId).data("jqPagination").options.max_page = totalPages;
-    var page_string = $('#' + options.pagingId).data("jqPagination").options.page_string;
+    $('#' + options.pagingId).data('jqPagination').options.max_page = totalPages;
+    var page_string = $('#' + options.pagingId).data('jqPagination').options.page_string;
     page_string = page_string.replace('{current_page}', curPage).replace('{max_page}', totalPages + '');
     $('#' + options.pagingId + ' input').data('current-page', curPage).data('max-page', totalPages).val(page_string);
 };
