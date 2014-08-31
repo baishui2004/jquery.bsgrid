@@ -1,5 +1,5 @@
 /**
- * JQuery.bsgrid v1.11 by @Baishui2004
+ * jQuery.bsgrid v1.20 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -15,13 +15,10 @@
 
         // defaults settings
         defaults: {
-            pageAll: false, // display all datas, no paging only count
-            pageSize: 20, // page size. if set value little then 1, then pageAll will auto set true
+            pageSize: 20, // page size.
             pageSizeSelect: false, // if display pageSize select option
             pageSizeForGrid: [5, 10, 20, 25, 50, 100, 200, 500], // pageSize select option
-            pagingToolbarAlign: 'right',
-            pagingBtnClass: 'pagingBtn', // paging toolbar button css class
-            displayPagingToolbarOnlyMultiPages: false
+            pagingBtnClass: 'pagingBtn' // paging toolbar button css class
         },
 
         pagingObjs: {
@@ -37,7 +34,7 @@
                 pagingId: pagingId,
                 totalRowsId: pagingId + '_totalRows',
                 totalPagesId: pagingId + '_totalPages',
-                currPageId: pagingId + '_currPage',
+                curPageId: pagingId + '_curPage',
                 gotoPageInputId: pagingId + '_gotoPageInput',
                 gotoPageId: pagingId + '_gotoPage',
                 pageSizeId: pagingId + '_pageSize',
@@ -50,15 +47,11 @@
 
                 totalRows: 0,
                 totalPages: 0,
-                currPage: 1,
+                curPage: 1,
+                curPageRowsNum: 0,
                 startRow: 0,
                 endRow: 0
             };
-
-            if (options.settings.pageAll || options.settings.pageSize < 1) {
-                options.settings.pageAll = true;
-                options.settings.pageSize = 0;
-            }
 
             var pagingObj = {
                 options: options,
@@ -83,11 +76,11 @@
                 lastPage: function () {
                     $.fn.bsgrid_paging.lastPage(options);
                 },
-                gotoPage: function () {
-                    $.fn.bsgrid_paging.gotoPage(options);
+                gotoPage: function (goPage) {
+                    $.fn.bsgrid_paging.gotoPage(options, goPage);
                 },
-                addPagingToolbar: function () {
-                    $.fn.bsgrid_paging.addPagingToolbar(options);
+                createPagingToolbar: function () {
+                    return $.fn.bsgrid_paging.createPagingToolbar(options);
                 },
                 setPagingToolbarEvents: function () {
                     $.fn.bsgrid_paging.setPagingToolbarEvents(options);
@@ -98,15 +91,15 @@
                 resetPerPageValues: function () {
                     $.fn.bsgrid_paging.resetPerPageValues(options);
                 },
-                setPagingValues: function (curPage, totalRows, rowSize) {
-                    $.fn.bsgrid_paging.setPagingValues(curPage, totalRows, rowSize, options);
+                setPagingValues: function (curPage, totalRows) {
+                    $.fn.bsgrid_paging.setPagingValues(curPage, totalRows, options);
                 }
             };
 
             // store mapping paging id to pagingObj
             $.fn.bsgrid_paging.pagingObjs[pagingId] = pagingObj;
 
-            pagingObj.addPagingToolbar();
+            $('#' + pagingId).append(pagingObj.createPagingToolbar());
             pagingObj.setPagingToolbarEvents();
 
             return pagingObj;
@@ -119,12 +112,13 @@
 
         page: function (curPage, options) {
             var gridObj = $.fn.bsgrid.getGridObj(options.settings.gridId);
-            $.fn.bsgrid.copySamePropsFromObjs1ToObjs2(options.settings, gridObj.options.settings);
+            gridObj.options.settings.pageSize = options.settings.pageSize;
+            gridObj.options.curPage = options.curPage;
             $.fn.bsgrid.page(curPage, gridObj.options);
         },
 
         getCurPage: function (options) {
-            var curPage = $('#' + options.currPageId).html();
+            var curPage = $('#' + options.curPageId).html();
             return curPage == '' ? 1 : curPage;
         },
 
@@ -168,61 +162,59 @@
             $.fn.bsgrid_paging.page(options.totalPages, options);
         },
 
-        gotoPage: function (options) {
-            var goPage = $('#' + options.gotoPageInputId).val();
+        gotoPage: function (options, goPage) {
+            if (goPage == undefined) {
+                goPage = $('#' + options.gotoPageInputId).val();
+            }
             if (isNaN(goPage)) {
                 alert($.bsgridLanguage.needInteger);
             } else if (parseInt(goPage) < 1 || parseInt(goPage) > options.totalPages) {
                 alert($.bsgridLanguage.needRange(1, options.totalPages));
             } else {
+                $('#' + options.gotoPageInputId).val(goPage);
                 $.fn.bsgrid_paging.page(parseInt(goPage), options);
             }
         },
 
         /**
-         * add paging toolbar.
+         * create paging toolbar.
          *
          * @param options
          */
-        addPagingToolbar: function (options) {
-            var pagingTableSb = new StringBuilder();
-            pagingTableSb.append('<table id="' + options.pagingId + '" class="bsgridPaging" style="display: none;"><tr><td align="' + options.settings.pagingToolbarAlign + '">');
-            if (options.settings.pageAll) {
-                pagingTableSb.append($.bsgridLanguage.pagingToolbar.totalRows(options.totalRowsId) + '&nbsp;&nbsp;&nbsp;');
-            } else {
-                pagingTableSb.append('<table class="' + (options.settings.pageSizeSelect ? '' : 'noPageSizeSelect') + '">');
-                pagingTableSb.append('<tr>');
-                if (options.settings.pageSizeSelect) {
-                    if ($.inArray(options.settings.pageSize, options.settings.pageSizeForGrid) == -1) {
-                        options.settings.pageSizeForGrid.push(options.settings.pageSize);
-                    }
-                    pagingTableSb.append('<td>' + $.bsgridLanguage.pagingToolbar.pageSizeDisplay(options.pageSizeId) + '</td>');
-                }
-                pagingTableSb.append('<td>' + $.bsgridLanguage.pagingToolbar.currentDisplayRows(options.startRowId, options.endRowId) + '</td>');
-                pagingTableSb.append('<td>' + $.bsgridLanguage.pagingToolbar.totalRows(options.totalRowsId) + '</td>');
-                var btnClass = options.settings.pagingBtnClass;
-                pagingTableSb.append('<td>');
-                pagingTableSb.append('<input class="' + btnClass + ' firstPage" type="button" id="' + options.firstPageId + '" value="' + $.bsgridLanguage.pagingToolbar.firstPage + '" />');
-                pagingTableSb.append('&nbsp;&nbsp;');
-                pagingTableSb.append('<input class="' + btnClass + ' prevPage" type="button" id="' + options.prevPageId + '" value="' + $.bsgridLanguage.pagingToolbar.prevPage + '" />');
-                pagingTableSb.append('</td>');
-                pagingTableSb.append('<td>' + $.bsgridLanguage.pagingToolbar.currentDisplayPageAndTotalPages(options.currPageId, options.totalPagesId) + '</td>');
-                pagingTableSb.append('<td>');
-                pagingTableSb.append('<input class="' + btnClass + ' nextPage" type="button" id="' + options.nextPageId + '" value="' + $.bsgridLanguage.pagingToolbar.nextPage + '" />');
-                pagingTableSb.append('&nbsp;&nbsp;');
-                pagingTableSb.append('<input class="' + btnClass + ' lastPage" type="button" id="' + options.lastPageId + '" value="' + $.bsgridLanguage.pagingToolbar.lastPage + '" />');
-                pagingTableSb.append('</td>');
-                pagingTableSb.append('<td>');
-                pagingTableSb.append('<input type="text" id="' + options.gotoPageInputId + '" style="width: 40px" />');
-                pagingTableSb.append('&nbsp;');
-                pagingTableSb.append('<input class="' + btnClass + ' gotoPage" type="button" id="' + options.gotoPageId + '" value="' + $.bsgridLanguage.pagingToolbar.gotoPage + '" />');
-                pagingTableSb.append('</td>');
-                pagingTableSb.append('</tr>');
-                pagingTableSb.append('</table>');
-            }
-            pagingTableSb.append('</td></tr></table>');
+        createPagingToolbar: function (options) {
+            var pagingSb = new StringBuilder();
 
-            $('#' + options.settings.gridId).after(pagingTableSb.toString());
+            pagingSb.append('<table class="' + (options.settings.pageSizeSelect ? '' : 'noPageSizeSelect') + '">');
+            pagingSb.append('<tr>');
+            if (options.settings.pageSizeSelect) {
+                if ($.inArray(options.settings.pageSize, options.settings.pageSizeForGrid) == -1) {
+                    options.settings.pageSizeForGrid.push(options.settings.pageSize);
+                }
+                pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.pageSizeDisplay(options.pageSizeId) + '</td>');
+            }
+            pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.currentDisplayRows(options.startRowId, options.endRowId) + '</td>');
+            pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.totalRows(options.totalRowsId) + '</td>');
+            var btnClass = options.settings.pagingBtnClass;
+            pagingSb.append('<td>');
+            pagingSb.append('<input class="' + btnClass + ' firstPage" type="button" id="' + options.firstPageId + '" value="' + $.bsgridLanguage.pagingToolbar.firstPage + '" />');
+            pagingSb.append('&nbsp;&nbsp;');
+            pagingSb.append('<input class="' + btnClass + ' prevPage" type="button" id="' + options.prevPageId + '" value="' + $.bsgridLanguage.pagingToolbar.prevPage + '" />');
+            pagingSb.append('</td>');
+            pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.currentDisplayPageAndTotalPages(options.curPageId, options.totalPagesId) + '</td>');
+            pagingSb.append('<td>');
+            pagingSb.append('<input class="' + btnClass + ' nextPage" type="button" id="' + options.nextPageId + '" value="' + $.bsgridLanguage.pagingToolbar.nextPage + '" />');
+            pagingSb.append('&nbsp;&nbsp;');
+            pagingSb.append('<input class="' + btnClass + ' lastPage" type="button" id="' + options.lastPageId + '" value="' + $.bsgridLanguage.pagingToolbar.lastPage + '" />');
+            pagingSb.append('</td>');
+            pagingSb.append('<td>');
+            pagingSb.append('<input type="text" id="' + options.gotoPageInputId + '" style="width: 40px" />');
+            pagingSb.append('&nbsp;');
+            pagingSb.append('<input class="' + btnClass + ' gotoPage" type="button" id="' + options.gotoPageId + '" value="' + $.bsgridLanguage.pagingToolbar.gotoPage + '" />');
+            pagingSb.append('</td>');
+            pagingSb.append('</tr>');
+            pagingSb.append('</table>');
+
+            return pagingSb.toString();
         },
 
         /**
@@ -231,38 +223,36 @@
          * @param options
          */
         setPagingToolbarEvents: function (options) {
-            if (!options.settings.pageAll) {
-                if (options.settings.pageSizeSelect) {
-                    $.fn.bsgrid_paging.resetPerPageValues(options);
-                    $('#' + options.pageSizeId).change(function () {
-                        options.settings.pageSize = parseInt($(this).val());
-                        $(this).trigger('blur');
-                        // if change pageSize, then page first
-                        $.fn.bsgrid_paging.page(1, options);
-                    });
-                }
-
-                $('#' + options.firstPageId).click(function () {
-                    $.fn.bsgrid_paging.firstPage(options);
-                });
-                $('#' + options.prevPageId).click(function () {
-                    $.fn.bsgrid_paging.prevPage(options);
-                });
-                $('#' + options.nextPageId).click(function () {
-                    $.fn.bsgrid_paging.nextPage(options);
-                });
-                $('#' + options.lastPageId).click(function () {
-                    $.fn.bsgrid_paging.lastPage(options);
-                });
-                $('#' + options.gotoPageInputId).keyup(function (e) {
-                    if (e.which == 13) {
-                        $.fn.bsgrid_paging.gotoPage(options);
-                    }
-                });
-                $('#' + options.gotoPageId).click(function () {
-                    $.fn.bsgrid_paging.gotoPage(options);
+            if (options.settings.pageSizeSelect) {
+                $.fn.bsgrid_paging.resetPerPageValues(options);
+                $('#' + options.pageSizeId).change(function () {
+                    options.settings.pageSize = parseInt($(this).val());
+                    $(this).trigger('blur');
+                    // if change pageSize, then page first
+                    $.fn.bsgrid_paging.page(1, options);
                 });
             }
+
+            $('#' + options.firstPageId).click(function () {
+                $.fn.bsgrid_paging.firstPage(options);
+            });
+            $('#' + options.prevPageId).click(function () {
+                $.fn.bsgrid_paging.prevPage(options);
+            });
+            $('#' + options.nextPageId).click(function () {
+                $.fn.bsgrid_paging.nextPage(options);
+            });
+            $('#' + options.lastPageId).click(function () {
+                $.fn.bsgrid_paging.lastPage(options);
+            });
+            $('#' + options.gotoPageInputId).keyup(function (e) {
+                if (e.which == 13) {
+                    $.fn.bsgrid_paging.gotoPage(options);
+                }
+            });
+            $('#' + options.gotoPageId).click(function () {
+                $.fn.bsgrid_paging.gotoPage(options);
+            });
         },
 
         /**
@@ -285,12 +275,6 @@
             } else {
                 $('#' + options.nextPageId).removeClass(disabledCls);
                 $('#' + options.lastPageId).removeClass(disabledCls);
-            }
-
-            if (options.settings.displayPagingToolbarOnlyMultiPages && options.totalPages <= 1) {
-                $('#' + options.pagingId).hide();
-            } else {
-                $('#' + options.pagingId).show();
             }
         },
 
@@ -326,35 +310,31 @@
          *
          * @param curPage current page number
          * @param totalRows total rows number
-         * @param rowSize current page rows number
          * @param options paging options
          */
-        setPagingValues: function (curPage, totalRows, rowSize, options) {
-            options.totalRows = totalRows;
-            if (!options.settings.pageAll) {
-                options.curPage = curPage;
-                var totalPages = parseInt(options.totalRows / options.settings.pageSize);
-                options.totalPages = parseInt((options.totalRows % options.settings.pageSize == 0) ? totalPages : totalPages + 1);
-            } else { // display all datas, no paging
-                options.curPage = 1;
-                options.totalPages = 1;
-                options.settings.pageSize = options.totalRows;
-            }
-
+        setPagingValues: function (curPage, totalRows, options) {
             var pageSize = options.settings.pageSize;
-            $('#' + options.totalRowsId).html(options.totalRows);
-            $('#' + options.totalPagesId).html(options.totalPages);
-            $('#' + options.currPageId).html(options.curPage);
-            $.fn.bsgrid_paging.dynamicChangePagingButtonStyle(options);
+            var totalPages = parseInt(totalRows / pageSize);
+            totalPages = parseInt((totalRows % pageSize == 0) ? totalPages : totalPages + 1);
+            var curPageRowsNum = (curPage * pageSize < totalRows) ? pageSize : (totalRows - (curPage - 1) * pageSize);
+            var startRow = (curPage - 1) * pageSize + 1;
+            var endRow = (curPage - 1) * pageSize + curPageRowsNum;
+            startRow = curPageRowsNum == 0 ? 0 : startRow;
 
-            rowSize = pageSize > rowSize ? rowSize : pageSize;
-            var startRow = (parseInt(options.curPage) - 1) * parseInt(pageSize) + 1;
-            var endRow = (parseInt(options.curPage) - 1) * parseInt(pageSize) + rowSize;
-            startRow = startRow > endRow ? endRow : startRow;
+            options.totalRows = totalRows;
+            options.totalPages = totalPages;
+            options.curPage = curPage;
+            options.curPageRowsNum = curPageRowsNum;
             options.startRow = startRow;
             options.endRow = endRow;
+
+            $('#' + options.totalRowsId).html(options.totalRows);
+            $('#' + options.totalPagesId).html(options.totalPages);
+            $('#' + options.curPageId).html(options.curPage);
             $('#' + options.startRowId).html(options.startRow);
             $('#' + options.endRowId).html(options.endRow);
+
+            $.fn.bsgrid_paging.dynamicChangePagingButtonStyle(options);
         }
     };
 

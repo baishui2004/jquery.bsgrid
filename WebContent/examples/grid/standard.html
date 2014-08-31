@@ -12,24 +12,24 @@
     <script type="text/javascript" src="../../sources/js/grid.js"></script>
 </head>
 <body style="background-color: #fff;">
-&emsp;<input type="button" value="Get pageSize" onclick="alert(gridObj.pagingObj.options.settings.pageSize);"/>
-&emsp;<input type="button" value="Get totalRows" onclick="alert(gridObj.pagingObj.options.totalRows);"/>
-&emsp;<input type="button" value="Get totalPages" onclick="alert(gridObj.pagingObj.options.totalPages);"/>
-&emsp;<input type="button" value="Get curPage" onclick="alert(gridObj.pagingObj.options.curPage);"/>
-&emsp;<input type="button" value="Get startRow" onclick="alert(gridObj.pagingObj.options.startRow);"/>
-&emsp;<input type="button" value="Get endRow" onclick="alert(gridObj.pagingObj.options.endRow);"/>
+&emsp;<input type="button" value="Get pageSize" onclick="alert(gridObj.options.settings.pageSize);"/>
+&emsp;<input type="button" value="Get totalRows" onclick="alert(gridObj.options.totalRows);"/>
+&emsp;<input type="button" value="Get totalPages" onclick="alert(gridObj.options.totalPages);"/>
+&emsp;<input type="button" value="Get curPage" onclick="alert(gridObj.options.curPage);"/>
+&emsp;<input type="button" value="Get curPage RowsNum" onclick="alert(gridObj.options.curPageRowsNum);"/>
+&emsp;<input type="button" value="Get startRow" onclick="alert(gridObj.options.startRow);"/>
+&emsp;<input type="button" value="Get endRow" onclick="alert(gridObj.options.endRow);"/>
 
 <p/>
-&emsp;<input type="button" value="First page" onclick="gridObj.pagingObj.firstPage();"/>
-&emsp;<input type="button" value="Prev page" onclick="gridObj.pagingObj.prevPage();"/>
-&emsp;<input type="button" value="Next page" onclick="gridObj.pagingObj.nextPage();"/>
-&emsp;<input type="button" value="Last page" onclick="gridObj.pagingObj.lastPage();"/>
-&emsp;<input type="button" value="Page 2" onclick="gridObj.pagingObj.page(2);"/>
-&emsp;<input type="button" value="Goto page 2"
-             onclick="$('#' + gridObj.pagingObj.options.gotoPageInputId).val(2); gridObj.pagingObj.gotoPage();"/>
+&emsp;<input type="button" value="First page" onclick="gridObj.firstPage();"/>
+&emsp;<input type="button" value="Prev page" onclick="gridObj.prevPage();"/>
+&emsp;<input type="button" value="Next page" onclick="gridObj.nextPage();"/>
+&emsp;<input type="button" value="Last page" onclick="gridObj.lastPage();"/>
+&emsp;<input type="button" value="Page 2" onclick="gridObj.page(2);"/>
+&emsp;<input type="button" value="Goto page 2" onclick="gridObj.gotoPage(2);"/>
 
 <p/>
-&emsp;<input type="button" value="Refresh page" onclick="gridObj.pagingObj.refreshPage();"/>
+&emsp;<input type="button" value="Refresh page" onclick="gridObj.refreshPage();"/>
 &emsp;<input type="button" value="Get sort name" onclick="alert(gridObj.options.sortName);"/>
 &emsp;<input type="button" value="Get sort order" onclick="alert(gridObj.options.sortOrder);"/>
 &emsp;<input type="button" value="Sort by ID"
@@ -110,7 +110,8 @@ Documention:
    $.fn.bsgrid.defaults.pagingBtnClass
      paging toolbar button css class, default 'pagingBtn' in grid.css
    How to Change Paging Toolbar, global method
-     $.fn.bsgrid.addPagingToolbar(options)
+     $.fn.bsgrid.createPagingOutTab(options)
+     $.fn.bsgrid.createPagingToolbar(options)
      $.fn.bsgrid.setPagingToolbarEvents(options)
      $.fn.bsgrid.dynamicChangePagingButtonStyle(options)
 
@@ -163,7 +164,7 @@ Documention:
         // rewrite refreshPage method
         $.fn.bsgrid.refreshPage = function (options) {
             console.log('rewrite refreshPage method');
-            $.fn.bsgrid.page($.fn.bsgrid_paging.getCurPage(options), options);
+            $.fn.bsgrid.page($.fn.bsgrid.getCurPage(options), options);
         };
 
         // init

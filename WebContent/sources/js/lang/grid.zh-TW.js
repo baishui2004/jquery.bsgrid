@@ -1,11 +1,11 @@
 /**
- * JQuery.bsgrid v1.11 by @Baishui2004
+ * jQuery.bsgrid v1.20 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
 /**
  * @author Baishui2004
- * @Date March 19, 2014
+ * @Date August 31, 2014
  */
 (function ($) {
 
@@ -18,6 +18,9 @@
         },
         errorForRequestData: '請求數據失敗！',
         errorForSendOrRequestData: '發送或請求數據失敗！',
+        noPagingation: function (noPagingationId) {
+            return '共:&nbsp;<span id="' + noPagingationId + '"></span>';
+        },
         pagingToolbar: {
             pageSizeDisplay: function (pageSizeId) {
                 return '每頁顯示:&nbsp;<select id="' + pageSizeId + '"></select>';
@@ -28,8 +31,8 @@
             totalRows: function (totalRowsId) {
                 return '共:&nbsp;<span id="' + totalRowsId + '"></span>';
             },
-            currentDisplayPageAndTotalPages: function (currPageId, totalPagesId) {
-                return '<div><span id="' + currPageId + '"></span>&nbsp;/&nbsp;<span id="' + totalPagesId + '"></span></div>';
+            currentDisplayPageAndTotalPages: function (curPageId, totalPagesId) {
+                return '<div><span id="' + curPageId + '"></span>&nbsp;/&nbsp;<span id="' + totalPagesId + '"></span></div>';
             },
             firstPage: '首&nbsp;頁',
             prevPage: '上一頁',

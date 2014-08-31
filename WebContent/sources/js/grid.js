@@ -1,5 +1,5 @@
 /**
- * JQuery.bsgrid v1.11 by @Baishui2004
+ * jQuery.bsgrid v1.20 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -93,6 +93,9 @@
             var options = {
                 settings: $.extend(true, {}, $.fn.bsgrid.defaults, settings),
                 gridId: gridId,
+                noPagingationId: gridId + '_no_pagination',
+                pagingOutTabId: gridId + '_pt_outTab',
+                pagingId: gridId + '_pt',
                 // sort
                 sortName: '',
                 sortOrder: '',
@@ -100,7 +103,8 @@
                 otherParames: false,
                 totalRows: 0,
                 totalPages: 0,
-                currPage: 1,
+                curPage: 1,
+                curPageRowsNum: 0,
                 startRow: 0,
                 endRow: 0
             };
@@ -136,18 +140,58 @@
                 setGridBlankBody: function () {
                     $.fn.bsgrid.setGridBlankBody(options);
                 },
+                createPagingOutTab: function () {
+                    $.fn.bsgrid.createPagingOutTab(options);
+                },
                 clearGridBodyData: function () {
                     $.fn.bsgrid.clearGridBodyData(options);
+                },
+                getCurPage: function () {
+                    return $.fn.bsgrid.getCurPage(options);
+                },
+                refreshPage: function () {
+                    $.fn.bsgrid.refreshPage(options);
+                },
+                firstPage: function () {
+                    $.fn.bsgrid.firstPage(options);
+                },
+                prevPage: function () {
+                    $.fn.bsgrid.prevPage(options);
+                },
+                nextPage: function () {
+                    $.fn.bsgrid.nextPage(options);
+                },
+                lastPage: function () {
+                    $.fn.bsgrid.lastPage(options);
+                },
+                gotoPage: function (goPage) {
+                    $.fn.bsgrid.gotoPage(options, goPage);
+                },
+                initPaging: function () {
+                    return $.fn.bsgrid.initPaging(options);
+                },
+                setPagingValues: function (curPage, totalRows) {
+                    $.fn.bsgrid.setPagingValues(curPage, totalRows, options);
                 }
             };
 
             // store mapping grid id to gridObj
             $.fn.bsgrid.gridObjs[gridId] = gridObj;
 
+            // if no pagination
+            if (options.settings.pageAll || options.settings.pageSize < 1) {
+                options.settings.pageAll = true;
+                options.settings.pageSize = 0;
+            }
+
             gridObj.appendHeaderSort();
 
             // init paging
-            gridObj.pagingObj = $.fn.bsgrid.initPaging(gridId, options);
+            gridObj.createPagingOutTab();
+
+            if (!options.settings.pageAll) {
+                gridObj.pagingObj = gridObj.initPaging();
+            }
 
             if (options.settings.isProcessLockScreen) {
                 $.fn.bsgrid.addLockScreen(options);
@@ -313,22 +357,51 @@
                     var parseSuccess = $.fn.bsgrid.parseData.success(dataType, gridData);
                     options.settings.additionalBeforeRenderGrid(parseSuccess, gridData, options);
                     if (parseSuccess) {
-                        var curPage = $.fn.bsgrid.parseData.curPage(dataType, gridData);
-                        var totalRows = $.fn.bsgrid.parseData.totalRows(dataType, gridData);
-                        var data = $.fn.bsgrid.parseData.data(dataType, gridData);
-                        var rowSize = data.length;
-                        $.fn.bsgrid.setPagingValues(curPage, totalRows, rowSize, options);
+                        var totalRows = parseInt($.fn.bsgrid.parseData.totalRows(dataType, gridData));
+                        curPage = parseInt($.fn.bsgrid.parseData.curPage(dataType, gridData));
+
+                        if (options.settings.pageAll) {
+                            // display all datas, no paging
+                            curPage = 1;
+                            options.settings.pageSize = totalRows;
+                            $('#' + options.noPagingationId).html(totalRows);
+                        } else {
+                            $.fn.bsgrid.setPagingValues(curPage, totalRows, options);
+                        }
+
+                        var pageSize = options.settings.pageSize;
+                        var curPageRowsNum = (curPage * pageSize < totalRows) ? pageSize : (totalRows - (curPage - 1) * pageSize);
+                        var totalPages = parseInt(totalRows / pageSize);
+                        totalPages = parseInt((totalRows % pageSize == 0) ? totalPages : totalPages + 1);
+                        var startRow = (curPage - 1) * pageSize + 1;
+                        var endRow = (curPage - 1) * pageSize + curPageRowsNum;
+                        startRow = curPageRowsNum == 0 ? 0 : startRow;
+
+                        // set options pagination values
+                        options.totalRows = totalRows;
+                        options.totalPages = totalPages;
+                        options.curPage = curPage;
+                        options.curPageRowsNum = curPageRowsNum;
+                        options.startRow = startRow;
+                        options.endRow = endRow;
+
+                        if (options.settings.displayPagingToolbarOnlyMultiPages && totalPages <= 1) {
+                            $('#' + options.pagingOutTabId).hide();
+                        } else {
+                            $('#' + options.pagingOutTabId).show();
+                        }
 
                         $.fn.bsgrid.setGridBlankBody(options);
-                        if (rowSize == 0) {
+                        if (curPageRowsNum == 0) {
                             return;
                         }
 
                         var headerTh = $.fn.bsgrid.getGridHeaderObject(options);
+                        var data = $.fn.bsgrid.parseData.data(dataType, gridData);
                         $('#' + options.gridId + ' tr:not(:first)').each(
                             function (i) {
                                 var record = null;
-                                if (i < rowSize) {
+                                if (i < curPageRowsNum) {
                                     record = $.fn.bsgrid.parseData.getRecord(dataType, data, i);
                                 }
                                 $.fn.bsgrid.storeRowData(i, record, options);
@@ -342,7 +415,7 @@
                                     // column text max length
                                     var maxLen = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.lengthAttr));
                                     maxLen = maxLen.length != 0 ? parseInt(maxLen) : options.settings.colsProperties.maxLength;
-                                    if (i < rowSize) {
+                                    if (i < curPageRowsNum) {
                                         if (render != '') {
                                             var render_method = eval(render);
                                             var render_html = render_method(record, i, j, options);
@@ -489,25 +562,36 @@
                 rowSb = trSb.toString();
             }
             var rowsSb = new StringBuilder();
-            var rowSize = options.settings.pageSize;
+            var curPageRowsNum = options.settings.pageSize;
             if (!options.settings.displayBlankRows) {
-                rowSize = options.endRow - options.startRow + 1;
-                rowSize = options.endRow > 0 ? rowSize : 0;
+                curPageRowsNum = options.endRow - options.startRow + 1;
+                curPageRowsNum = options.endRow > 0 ? curPageRowsNum : 0;
             }
-            if (rowSize == 0) {
+            if (curPageRowsNum == 0) {
                 rowsSb.append('<tr><td colspan="' + header.length + '">' + $.bsgridLanguage.noDataToDisplay + '</td></tr>');
             } else {
-                for (var pi = 0; pi < rowSize; pi++) {
+                for (var pi = 0; pi < curPageRowsNum; pi++) {
                     rowsSb.append(rowSb);
                 }
             }
             $('#' + options.gridId).append(rowsSb.toString());
 
-            if (rowSize != 0) {
+            if (curPageRowsNum != 0) {
                 if (options.settings.stripeRows) {
                     $('#' + options.gridId + ' tr:even').addClass('even_index_row');
                 }
             }
+        },
+
+        createPagingOutTab: function (options) {
+            var pagingOutTabSb = new StringBuilder();
+            pagingOutTabSb.append('<table id="' + options.pagingOutTabId + '" class="bsgridPaging" style="display: none;"><tr><td align="' + options.settings.pagingToolbarAlign + '">');
+            // display all datas, no paging
+            if (options.settings.pageAll) {
+                pagingOutTabSb.append($.bsgridLanguage.noPagingation(options.noPagingationId) + '&nbsp;&nbsp;&nbsp;');
+            }
+            pagingOutTabSb.append('</td></tr></table>');
+            $('#' + options.gridId).after(pagingOutTabSb.toString());
         },
 
         clearGridBodyData: function (options) {
@@ -593,34 +677,55 @@
             }
         },
 
-        /**
-         * copy same properties's value from objects1 to objects2.
-         *
-         * @param objects1
-         * @param objects2
-         */
-        copySamePropsFromObjs1ToObjs2: function (objects1, objects2) {
-            for (var key1 in objects1) {
-                for (var key2 in objects2) {
-                    // check param if a object:
-                    // js: !!(param && 'object' == typeof param)
-                    // jquery: $.isPlainObject(param)
-                    if (key1 == key2 && !($.isPlainObject(objects1[key1]) || $.isPlainObject(objects2[key2]))) {
-                        objects2[key2] = objects1[key1];
-                    }
-                }
-            }
+        getCurPage: function (options) {
+            return $.fn.bsgrid.getGridObj(options.gridId).pagingObj.getCurPage();
+        },
+
+        refreshPage: function (options) {
+            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.refreshPage();
+        },
+
+        firstPage: function (options) {
+            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.firstPage();
+        },
+
+        prevPage: function (options) {
+            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.prevPage();
+        },
+
+        nextPage: function (options) {
+            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.nextPage();
+        },
+
+        lastPage: function (options) {
+            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.lastPage();
+        },
+
+        gotoPage: function (options, goPage) {
+            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.gotoPage(goPage);
         },
 
         /**
          * init paging.
          *
-         * @param gridId grid id
          * @param options grid options
          */
-        initPaging: function (gridId, options) {
-            $.fn.bsgrid.copySamePropsFromObjs1ToObjs2(options.settings, $.fn.bsgrid_paging.defaults);
-            return $.fn.bsgrid_paging.init(gridId + '_pt', {gridId: gridId});
+        initPaging: function (options) {
+            $('#' + options.pagingOutTabId + ' td').attr('id', options.pagingId);
+
+            // copy same properties's
+            var pagingObj = $.fn.bsgrid_paging.init(options.pagingId, {
+                gridId: options.gridId,
+                pageSize: options.settings.pageSize,
+                pageSizeSelect: options.settings.pageSizeSelect,
+                pageSizeForGrid: options.settings.pageSizeForGrid,
+                pagingBtnClass: options.settings.pagingBtnClass
+            });
+
+            // copy property pageSizeForGrid back
+            options.settings.pageSizeForGrid = pagingObj.options.settings.pageSizeForGrid;
+
+            return pagingObj;
         },
 
         /**
@@ -628,13 +733,10 @@
          *
          * @param curPage current page number
          * @param totalRows total rows number
-         * @param rowSize current page rows number
          * @param options grid options
          */
-        setPagingValues: function (curPage, totalRows, rowSize, options) {
-            var gridObj = $.fn.bsgrid.getGridObj(options.gridId);
-            gridObj.pagingObj.setPagingValues(curPage, totalRows, rowSize);
-            $.fn.bsgrid.copySamePropsFromObjs1ToObjs2(gridObj.pagingObj.options, options);
+        setPagingValues: function (curPage, totalRows, options) {
+            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.setPagingValues(curPage, totalRows);
         }
 
     };

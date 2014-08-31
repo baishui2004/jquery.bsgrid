@@ -1,7 +1,7 @@
-jquery.bsgrid 简单易用的jquery grid插件
+jQuery.bsgrid 简单易用的jQuery Grid插件
 =======================================
 
-<a href="https://github.com/baishui2004/common_gui_tools" target="_blank">jquery bsgrid</a>，A Simple jquery grid plugin with pagation and export. 一个简单易用的jquery grid插件，支持分页或不分页，支持json、xml数据格式，对导出友好，扩展性友好。
+<a href="https://github.com/baishui2004/common_gui_tools" target="_blank">jquery bsgrid</a>，A simple jQuery Grid plugin with pagation and export. 一个简单易用的jQuery Grid插件，支持分页或不分页，支持json、xml数据格式，对导出友好，扩展性友好。
 
 当前插件版本：1.11
 <br />
