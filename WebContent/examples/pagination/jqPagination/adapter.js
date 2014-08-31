@@ -74,7 +74,9 @@ $.fn.bsgrid.initPaging = function (options) {
     });
 };
 
-$.fn.bsgrid.setPagingValues = function (curPage, totalRows, options) {
+$.fn.bsgrid.setPagingValues = function (options) {
+    var curPage = options.curPage;
+    var totalRows = options.totalRows;
     var totalPages = parseInt(totalRows / options.settings.pageSize);
     totalPages = parseInt((totalRows % options.settings.pageSize == 0) ? totalPages : totalPages + 1);
 

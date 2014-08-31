@@ -170,8 +170,8 @@
                 initPaging: function () {
                     return $.fn.bsgrid.initPaging(options);
                 },
-                setPagingValues: function (curPage, totalRows) {
-                    $.fn.bsgrid.setPagingValues(curPage, totalRows, options);
+                setPagingValues: function () {
+                    $.fn.bsgrid.setPagingValues(options);
                 }
             };
 
@@ -365,8 +365,6 @@
                             curPage = 1;
                             options.settings.pageSize = totalRows;
                             $('#' + options.noPagingationId).html(totalRows);
-                        } else {
-                            $.fn.bsgrid.setPagingValues(curPage, totalRows, options);
                         }
 
                         var pageSize = options.settings.pageSize;
@@ -384,6 +382,10 @@
                         options.curPageRowsNum = curPageRowsNum;
                         options.startRow = startRow;
                         options.endRow = endRow;
+
+                        if (!options.settings.pageAll) {
+                            $.fn.bsgrid.setPagingValues(options);
+                        }
 
                         if (options.settings.displayPagingToolbarOnlyMultiPages && totalPages <= 1) {
                             $('#' + options.pagingOutTabId).hide();
@@ -731,12 +733,10 @@
         /**
          * Set paging values.
          *
-         * @param curPage current page number
-         * @param totalRows total rows number
          * @param options grid options
          */
-        setPagingValues: function (curPage, totalRows, options) {
-            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.setPagingValues(curPage, totalRows);
+        setPagingValues: function (options) {
+            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.setPagingValues(options.curPage, options.totalRows);
         }
 
     };
