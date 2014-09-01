@@ -16,12 +16,11 @@ $.fn.bsgrid.getCurPage = function (options) {
 };
 
 $.fn.bsgrid.refreshPage = function (options) {
-    $('#' + options.pagingId).data('bsgrid-curPage', '');
     $.fn.bsgrid.getGridObj(options.gridId).page($.fn.bsgrid.getCurPage(options));
 };
 
 $.fn.bsgrid.firstPage = function (options) {
-    $.fn.bsgrid.getGridObj(options.gridId).page(1);
+    $('#' + options.pagingId).jPages(1);
 };
 
 $.fn.bsgrid.prevPage = function (options) {
@@ -30,7 +29,7 @@ $.fn.bsgrid.prevPage = function (options) {
         alert($.bsgridLanguage.isFirstPage);
         return;
     }
-    $.fn.bsgrid.getGridObj(options.gridId).page(curPage - 1);
+    $('#' + options.pagingId).jPages(curPage - 1);
 };
 
 $.fn.bsgrid.nextPage = function (options) {
@@ -39,11 +38,11 @@ $.fn.bsgrid.nextPage = function (options) {
         alert($.bsgridLanguage.isLastPage);
         return;
     }
-    $.fn.bsgrid.getGridObj(options.gridId).page(curPage + 1);
+    $('#' + options.pagingId).jPages(curPage + 1);
 };
 
 $.fn.bsgrid.lastPage = function (options) {
-    $.fn.bsgrid.getGridObj(options.gridId).page(options.totalPages);
+    $('#' + options.pagingId).jPages(options.totalPages);
 };
 
 $.fn.bsgrid.gotoPage = function (options, goPage) {
@@ -55,7 +54,7 @@ $.fn.bsgrid.gotoPage = function (options, goPage) {
     } else if (parseInt(goPage) < 1 || parseInt(goPage) > options.totalPages) {
         alert($.bsgridLanguage.needRange(1, options.totalPages));
     } else {
-        $.fn.bsgrid.getGridObj(options.gridId).page(goPage);
+        $('#' + options.pagingId).jPages(goPage);
     }
 };
 
@@ -70,6 +69,7 @@ $.fn.bsgrid.setPagingValues = function (options) {
         ulInnerHtml.append('<li></li>');
     }
     $('#' + options.pagingId + '-ul').html(ulInnerHtml.toString());
+    $('#' + options.pagingId).data('bsgrid-curPage', options.curPage);
     $('#' + options.pagingId).jPages({
         containerID: options.pagingId + '-ul',
         perPage: options.settings.pageSize,
@@ -82,11 +82,7 @@ $.fn.bsgrid.setPagingValues = function (options) {
         startRange: 2,
         endRange: 2,
         callback: function (pages, items) { // function(pages, items) { }
-            var curPage_o = $.trim($('#' + options.pagingId).data('bsgrid-curPage'));
-            if (curPage_o == '') {
-                $('#' + options.pagingId).data('bsgrid-curPage', 1);
-            } else if (curPage_o != '' && parseInt(curPage_o) != pages.current) {
-                $('#' + options.pagingId).data('bsgrid-curPage', pages.current);
+            if (parseInt($.trim($('#' + options.pagingId).data('bsgrid-curPage'))) != pages.current) {
                 $.fn.bsgrid.getGridObj(options.gridId).page(pages.current);
             }
         }

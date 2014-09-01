@@ -21,6 +21,7 @@
                 ulInnerHtml.append('<li></li>');
             }
             $('#searchTable_pt-ul').html(ulInnerHtml.toString());
+            $("#searchTable_pt").data('bsgrid-curPage', options.curPage);
             $("#searchTable_pt").jPages({
                 containerID: "searchTable_pt-ul",
                 perPage: options.settings.pageSize,
@@ -33,11 +34,7 @@
                 startRange: 2,
                 endRange: 2,
                 callback: function (pages, items) { // function(pages, items) { }
-                    var curPage_o = $.trim($("#searchTable_pt").data('bsgrid-curPage'));
-                    if (curPage_o == '') {
-                        $("#searchTable_pt").data('bsgrid-curPage', 1);
-                    } else if (curPage_o != '' && parseInt(curPage_o) != pages.current) {
-                        $("#searchTable_pt").data('bsgrid-curPage', pages.current);
+                    if (parseInt($.trim($("#searchTable_pt").data('bsgrid-curPage'))) != pages.current) {
                         $.fn.bsgrid.getGridObj(options.gridId).page(pages.current);
                     }
                 }
