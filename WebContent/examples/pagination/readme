@@ -4,9 +4,25 @@ Source:  https://github.com/beneverard/jqPagination
 License: GPL v3
 Version: Version bump (1.4)  Commit: 33b19cb
 
+With bsgrid(use adapter.js), Not Support properties: pageSizeSelect, pageSizeForGrid, pagingBtnClass
+
+
 
 2, jquery_pagination          Require jQuery 1.4.2+
 Source:  https://github.com/gbirke/jquery_pagination/
 License: GPL v2
 Version: v2.2.1
 
+With bsgrid(use adapter.js), Not Support properties: pageSizeSelect, pageSizeForGrid, pagingToolbarAlign, pagingBtnClass
+
+
+
+3, jPaginate                  Require jQuery 1.3.2+
+Website: http://tympanus.net/codrops/2009/11/17/jpaginate-a-fancy-jquery-pagination-plugin/
+Demo:    http://tympanus.net/jPaginate/
+Source:  http://tympanus.net/jPaginate/jPaginate.zip
+License: None
+Version: 2009-12-09 15:40
+Multi Pagination Support: No
+
+With bsgrid(use adapter.js), Not Support properties: pageSizeSelect, pageSizeForGrid, pagingToolbarAlign, pagingBtnClass

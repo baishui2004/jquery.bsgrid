@@ -389,9 +389,11 @@
                         }
 
                         if (options.settings.displayPagingToolbarOnlyMultiPages && totalPages <= 1) {
+                            $('#' + options.pagingId).hide();
                             $('#' + options.pagingOutTabId).hide();
                         } else {
                             $('#' + options.pagingOutTabId).show();
+                            $('#' + options.pagingId).show();
                         }
 
                         $.fn.bsgrid.setGridBlankBody(options);
