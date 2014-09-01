@@ -319,7 +319,8 @@
             var curPageRowsNum = (curPage * pageSize < totalRows) ? pageSize : (totalRows - (curPage - 1) * pageSize);
             var startRow = (curPage - 1) * pageSize + 1;
             var endRow = (curPage - 1) * pageSize + curPageRowsNum;
-            startRow = curPageRowsNum == 0 ? 0 : startRow;
+            startRow = curPageRowsNum <= 0 ? 0 : startRow;
+            endRow = curPageRowsNum <= 0 ? 0 : endRow;
 
             options.totalRows = totalRows;
             options.totalPages = totalPages;

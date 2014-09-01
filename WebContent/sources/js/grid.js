@@ -373,7 +373,8 @@
                         totalPages = parseInt((totalRows % pageSize == 0) ? totalPages : totalPages + 1);
                         var startRow = (curPage - 1) * pageSize + 1;
                         var endRow = (curPage - 1) * pageSize + curPageRowsNum;
-                        startRow = curPageRowsNum == 0 ? 0 : startRow;
+                        startRow = curPageRowsNum <= 0 ? 0 : startRow;
+                        endRow = curPageRowsNum <= 0 ? 0 : endRow;
 
                         // set options pagination values
                         options.totalRows = totalRows;
@@ -400,11 +401,13 @@
 
                         var headerTh = $.fn.bsgrid.getGridHeaderObject(options);
                         var data = $.fn.bsgrid.parseData.data(dataType, gridData);
+                        var dataLen = data.length;
                         $('#' + options.gridId + ' tr:not(:first)').each(
                             function (i) {
                                 var record = null;
                                 if (i < curPageRowsNum) {
-                                    record = $.fn.bsgrid.parseData.getRecord(dataType, data, i);
+                                    // support parse return all datas or only return current page datas
+                                    record = $.fn.bsgrid.parseData.getRecord(dataType, data, dataLen != totalRows ? i : startRow + i - 1);
                                 }
                                 $.fn.bsgrid.storeRowData(i, record, options);
                                 $(this).find('td').each(function (j) {
