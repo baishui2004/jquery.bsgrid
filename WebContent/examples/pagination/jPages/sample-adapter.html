@@ -3,14 +3,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Grid With jqPagination (Adapter, Require JSP Env)</title>
+    <title>Grid With jPages (Adapter, Require JSP Env)</title>
     <link rel="stylesheet" href="../../../sources/css/grid.css"/>
-    <script type="text/javascript" src="../jquery-1.7.2.min.js"></script>
+    <script type="text/javascript" src="../jquery-1.8.3.min.js"></script>
     <script type="text/javascript" src="../../../sources/js/common.js"></script>
     <script type="text/javascript" src="../../../sources/js/lang/grid.en.js"></script>
     <script type="text/javascript" src="../../../sources/js/grid.js"></script>
-    <link rel="stylesheet" href="css/jqpagination.css"/>
-    <script type="text/javascript" src="js/jquery.jqpagination.min.js"></script>
+    <link rel="stylesheet" href="css/jPages.css"/>
+    <script type="text/javascript" src="js/jPages.min.js"></script>
     <script type="text/javascript" src="adapter.js"></script>
 </head>
 <body style="background-color: #fff;">
@@ -31,7 +31,7 @@
         $.fn.bsgrid.init('searchTable', {
             url: '../../grid/data/json.jsp',
             // autoLoad: false,
-            pageSize: 10
+            pageSize: 2
         });
     });
 

@@ -2,10 +2,10 @@
 
 /* grid header */
 .bsgrid th {
-    background: url(../../image/skins/sky_blue2/bg.gif) repeat-x #f4f4f4;
+    background: url(../../images/skins/sky_blue2/bg.gif) repeat-x #f4f4f4;
 }
 
 /* paging toolbar button */
 .bsgridPaging .pagingBtn {
-    background: url(../../image/skins/sky_blue2/bg.gif) repeat-x #f4f4f4;
+    background: url(../../images/skins/sky_blue2/bg.gif) repeat-x #f4f4f4;
 }

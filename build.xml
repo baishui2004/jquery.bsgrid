@@ -116,9 +116,9 @@
 
 	<!--
 	<target name="copy.images" depends="init">
-		<delete dir="${dir.dest}/image" />
-		<mkdir dir="${dir.dest}/image" />
-		<copydir src="${dir.web}/sources/image" dest="${dir.dest}/image/"></copydir>
+		<delete dir="${dir.dest}/images" />
+		<mkdir dir="${dir.dest}/images" />
+		<copydir src="${dir.web}/sources/image" dest="${dir.dest}/images/"></copydir>
 	</target>
 	-->
 

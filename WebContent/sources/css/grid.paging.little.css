@@ -19,37 +19,37 @@
 }
 
 .bsgridPaging .pagingBtn.firstPage {
-    background-image: url(../image/icons/paging/go-first-view.png);
+    background-image: url(../images/icons/paging/go-first-view.png);
 }
 
 .bsgridPaging .pagingBtn.prevPage {
-    background-image: url(../image/icons/paging/go-previous-view.png);
+    background-image: url(../images/icons/paging/go-previous-view.png);
 }
 
 .bsgridPaging .pagingBtn.nextPage {
-    background-image: url(../image/icons/paging/go-next-view.png);
+    background-image: url(../images/icons/paging/go-next-view.png);
 }
 
 .bsgridPaging .pagingBtn.lastPage {
-    background-image: url(../image/icons/paging/go-last-view.png);
+    background-image: url(../images/icons/paging/go-last-view.png);
 }
 
 .bsgridPaging .pagingBtn.firstPage.disabledCls {
-    background-image: url(../image/icons/paging/go-first-view.gray.png);
+    background-image: url(../images/icons/paging/go-first-view.gray.png);
 }
 
 .bsgridPaging .pagingBtn.prevPage.disabledCls {
-    background-image: url(../image/icons/paging/go-previous-view.gray.png);
+    background-image: url(../images/icons/paging/go-previous-view.gray.png);
 }
 
 .bsgridPaging .pagingBtn.nextPage.disabledCls {
-    background-image: url(../image/icons/paging/go-next-view.gray.png);
+    background-image: url(../images/icons/paging/go-next-view.gray.png);
 }
 
 .bsgridPaging .pagingBtn.lastPage.disabledCls {
-    background-image: url(../image/icons/paging/go-last-view.gray.png);
+    background-image: url(../images/icons/paging/go-last-view.gray.png);
 }
 
 .bsgridPaging .pagingBtn.gotoPage {
-    background-image: url(../image/icons/paging/go-jump-2.png);
+    background-image: url(../images/icons/paging/go-jump-2.png);
 }
