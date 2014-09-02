@@ -5,6 +5,7 @@ License: GPL v3
 Version: Version bump (1.4)  Commit: 33b19cb
 
 With bsgrid(use adapter.js), Not Support properties: pageSizeSelect, pageSizeForGrid, pagingBtnClass
+                             Multi Pagination Support: Yes
 
 
 
@@ -14,6 +15,7 @@ License: GPL v2
 Version: v2.2.1
 
 With bsgrid(use adapter.js), Not Support properties: pageSizeSelect, pageSizeForGrid, pagingToolbarAlign, pagingBtnClass
+                             Multi Pagination Support: Yes
 
 
 
@@ -23,9 +25,10 @@ Demo:    http://tympanus.net/jPaginate/
 Source:  http://tympanus.net/jPaginate/jPaginate.zip
 License: None
 Version: 2009-12-09 15:40
-Multi Pagination Support: No
 
 With bsgrid(use adapter.js), Not Support properties: pageSizeSelect, pageSizeForGrid, pagingToolbarAlign, pagingBtnClass
+                             Multi Pagination Support: Yes
+
 
 
 4, jPages                     Require jQuery 1.8+, Client side pagination with jQuery and CSS3
@@ -34,7 +37,8 @@ Source:  https://github.com/luis-almeida/jPages/
 License: MIT
 Version: v0.7 (21.10.2012) Commit: b6a51c9
 
-With bsgrid(use adapter.js), Not Support properties:pageSizeSelect, pageSizeForGrid, pagingBtnClass
+With bsgrid(use adapter.js), Not Support properties: pageSizeSelect, pageSizeForGrid, pagingBtnClass
+                             Multi Pagination Support: Yes
 
 
 
@@ -45,7 +49,8 @@ Source:  http://www.egrappler.com/contents/smartpaginator/source/smartpaginator.
 License: GPL
 Version: 2012-02-23
 
-With bsgrid(use adapter.js), Not Support properties:pageSizeSelect, pageSizeForGrid, pagingBtnClass
+With bsgrid(use adapter.js), Not Support properties: pageSizeSelect, pageSizeForGrid, pagingBtnClass
+                             Multi Pagination Support: Yes
 
 
 
@@ -55,4 +60,5 @@ Source:  https://github.com/remylab/jpaginator/
 License: MIT
 Version: Sep 14, 2013 Commit: 81685b0
 
-With bsgrid(use adapter.js), Not Support properties:pageSizeSelect, pageSizeForGrid, pagingBtnClass
+With bsgrid(use adapter.js), Not Support properties: pageSizeSelect, pageSizeForGrid, pagingBtnClass
+                             Multi Pagination Support: Yes
