@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Simple Paging</title>
+    <link rel="stylesheet" href="../../sources/css/grid.paging.css"/>
+    <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="../../sources/js/common.js"></script>
+    <script type="text/javascript" src="../../sources/js/lang/grid.en.js"></script>
+    <script type="text/javascript" src="../../sources/js/grid.paging.js"></script>
+</head>
+<body style="background-color: #fff;">
+<div id="page-result" style="width: 768px; height: 300px; padding:5px; border: solid 1px #888;"></div>
+<div id="simple-pt"></div>
+<script type="text/javascript">
+    var pagingObj;
+    $(function () {
+        // init
+        pagingObj = $.fn.bsgrid_paging.init('simple-pt', {
+            pageSize: 1
+        });
+        // overwrite page method
+        $.fn.bsgrid_paging.page = function (curPage, options) {
+            // do something to get totalRows
+            var totalRows = 10;
+
+            // this below must exist, to set paging values and css styles
+            pagingObj.setPagingValues(curPage, totalRows); // setPagingValues(curPage, totalRows)
+
+            // paged properties values
+            $('#page-result').html(curPage);
+        };
+        // page first
+        pagingObj.page(1);
+    });
+
+    // least paging
+    $(function () {
+        $('#simple-pt').css('display', 'none');
+        $('#simple-pt-least').css({
+            width: $('#page-result').width() + 2 * (parseInt($('#page-result').css('padding')) + parseInt($('#page-result').css('border-width'))),
+            'border-with': 0
+        });
+    });
+</script>
+<div id="simple-pt-least">
+    <table style="width: 100%;">
+        <tr>
+            <td style="text-align: left;">
+                <button type="button" onclick="pagingObj.prevPage();">&lt;--</button>
+            </td>
+            <td style="text-align: right;">
+                <button type="button" onclick="pagingObj.nextPage();">--&gt;</button>
+            </td>
+        </tr>
+    </table>
+</div>
+</body>
+</html>

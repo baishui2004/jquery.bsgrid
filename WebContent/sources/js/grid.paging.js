@@ -177,7 +177,7 @@
             if (goPage == undefined) {
                 goPage = $('#' + options.gotoPageInputId).val();
             }
-            if (isNaN(goPage)) {
+            if ($.trim(goPage) == '' || isNaN(goPage)) {
                 alert($.bsgridLanguage.needInteger);
             } else if (parseInt(goPage) < 1 || parseInt(goPage) > options.totalPages) {
                 alert($.bsgridLanguage.needRange(1, options.totalPages));

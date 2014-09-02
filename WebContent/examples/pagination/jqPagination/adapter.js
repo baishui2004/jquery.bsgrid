@@ -39,7 +39,7 @@ $.fn.bsgrid.gotoPage = function (options, goPage) {
     if (goPage == undefined) {
         return;
     }
-    if (isNaN(goPage)) {
+    if ($.trim(goPage) == '' || isNaN(goPage)) {
         alert($.bsgridLanguage.needInteger);
     } else if (parseInt(goPage) < 1 || parseInt(goPage) > options.totalPages) {
         alert($.bsgridLanguage.needRange(1, options.totalPages));
