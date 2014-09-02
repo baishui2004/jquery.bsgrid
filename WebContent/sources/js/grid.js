@@ -339,7 +339,7 @@
         },
 
         page: function (curPage, options) {
-            if ($.trim(goPage) == '' || isNaN(curPage)) {
+            if ($.trim(curPage) == '' || isNaN(curPage)) {
                 alert($.bsgridLanguage.needInteger);
                 return;
             }
