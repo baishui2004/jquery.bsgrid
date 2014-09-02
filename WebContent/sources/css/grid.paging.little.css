@@ -1,13 +1,19 @@
 @CHARSET "UTF-8";
 
-.bsgridPaging table {
+.bsgridPaging {
+    font-family: 'Times New Roman';
     width: 500px;
 }
 
-.bsgridPaging table.noPageSizeSelect {
+.bsgridPaging.noPageSizeSelect {
     width: 400px;
 }
 
+.bsgridPaging td {
+    text-align: center;
+}
+
+/* paging toolbar button */
 .bsgridPaging .pagingBtn {
     cursor: pointer;
     border: 0;

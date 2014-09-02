@@ -592,7 +592,7 @@
 
         createPagingOutTab: function (options) {
             var pagingOutTabSb = new StringBuilder();
-            pagingOutTabSb.append('<table id="' + options.pagingOutTabId + '" class="bsgridPaging" style="display: none;"><tr><td align="' + options.settings.pagingToolbarAlign + '">');
+            pagingOutTabSb.append('<table id="' + options.pagingOutTabId + '" class="bsgridPagingOutTab" style="display: none;"><tr><td align="' + options.settings.pagingToolbarAlign + '">');
             // display all datas, no paging
             if (options.settings.pageAll) {
                 pagingOutTabSb.append($.bsgridLanguage.noPagingation(options.noPagingationId) + '&nbsp;&nbsp;&nbsp;');

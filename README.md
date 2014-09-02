@@ -58,10 +58,12 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
 <pre>
 引用文件：
     &lt;link rel="stylesheet" href="../../sources/css/grid.css"/&gt;
+    &lt;link rel="stylesheet" href="../../sources/css/grid.paging.css"/&gt;
     &lt;script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"&gt;&lt;/script&gt;
     &lt;script type="text/javascript" src="../../sources/js/common.js"&gt;&lt;/script&gt;
     &lt;script type="text/javascript" src="../../sources/js/lang/grid.en.js"&gt;&lt;/script&gt;
     &lt;script type="text/javascript" src="../../sources/js/grid.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="../../sources/js/grid.paging.js"&gt;&lt;/script&gt;
 实现代码：
     &lt;table id="searchTable" class="bsgrid"&gt;
         &lt;tr&gt;

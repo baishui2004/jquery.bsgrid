@@ -184,7 +184,7 @@
         createPagingToolbar: function (options) {
             var pagingSb = new StringBuilder();
 
-            pagingSb.append('<table class="' + (options.settings.pageSizeSelect ? '' : 'noPageSizeSelect') + '">');
+            pagingSb.append('<table class="bsgridPaging' + (options.settings.pageSizeSelect ? '' : ' noPageSizeSelect') + '">');
             pagingSb.append('<tr>');
             if (options.settings.pageSizeSelect) {
                 if ($.inArray(options.settings.pageSize, options.settings.pageSizeForGrid) == -1) {
