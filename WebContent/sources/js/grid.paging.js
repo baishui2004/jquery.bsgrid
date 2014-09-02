@@ -88,9 +88,6 @@
                 dynamicChangePagingButtonStyle: function () {
                     $.fn.bsgrid_paging.dynamicChangePagingButtonStyle(options);
                 },
-                resetPerPageValues: function () {
-                    $.fn.bsgrid_paging.resetPerPageValues(options);
-                },
                 setPagingValues: function (curPage, totalRows) {
                     $.fn.bsgrid_paging.setPagingValues(curPage, totalRows, options);
                 }
@@ -100,6 +97,21 @@
             $.fn.bsgrid_paging.pagingObjs[pagingId] = pagingObj;
 
             $('#' + pagingId).append(pagingObj.createPagingToolbar());
+            // page size select
+            if (options.settings.pageSizeSelect) {
+                if ($.inArray(options.settings.pageSize, options.settings.pageSizeForGrid) == -1) {
+                    options.settings.pageSizeForGrid.push(options.settings.pageSize);
+                }
+                options.settings.pageSizeForGrid.sort(function (a, b) {
+                    return a - b;
+                });
+                var optionsSb = new StringBuilder();
+                for (var i = 0; i < options.settings.pageSizeForGrid.length; i++) {
+                    var pageVal = options.settings.pageSizeForGrid[i];
+                    optionsSb.append('<option value="' + pageVal + '">' + pageVal + '</option>');
+                }
+                $('#' + options.pageSizeId).html(optionsSb.toString()).val(options.settings.pageSize);
+            }
             pagingObj.setPagingToolbarEvents();
 
             return pagingObj;
@@ -113,7 +125,6 @@
         page: function (curPage, options) {
             var gridObj = $.fn.bsgrid.getGridObj(options.settings.gridId);
             gridObj.options.settings.pageSize = options.settings.pageSize;
-            gridObj.options.curPage = options.curPage;
             $.fn.bsgrid.page(curPage, gridObj.options);
         },
 
@@ -187,9 +198,6 @@
             pagingSb.append('<table class="bsgridPaging' + (options.settings.pageSizeSelect ? '' : ' noPageSizeSelect') + '">');
             pagingSb.append('<tr>');
             if (options.settings.pageSizeSelect) {
-                if ($.inArray(options.settings.pageSize, options.settings.pageSizeForGrid) == -1) {
-                    options.settings.pageSizeForGrid.push(options.settings.pageSize);
-                }
                 pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.pageSizeDisplay(options.pageSizeId) + '</td>');
             }
             pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.currentDisplayRows(options.startRowId, options.endRowId) + '</td>');
@@ -224,7 +232,6 @@
          */
         setPagingToolbarEvents: function (options) {
             if (options.settings.pageSizeSelect) {
-                $.fn.bsgrid_paging.resetPerPageValues(options);
                 $('#' + options.pageSizeId).change(function () {
                     options.settings.pageSize = parseInt($(this).val());
                     $(this).trigger('blur');
@@ -275,33 +282,6 @@
             } else {
                 $('#' + options.nextPageId).removeClass(disabledCls);
                 $('#' + options.lastPageId).removeClass(disabledCls);
-            }
-        },
-
-        /**
-         * This method is copy from: jquery.tablePagination.0.5.js. http://neoalchemy.org/tablePagination.html MIT licenses
-         * Little modify.
-         *
-         * @param options
-         */
-        resetPerPageValues: function (options) {
-            var isRowsPerPageMatched = false;
-            var optsPerPage = options.settings.pageSizeForGrid;
-            optsPerPage.sort(function (a, b) {
-                return a - b;
-            });
-            var perPageDropdown = $('#' + options.pageSizeId)[0];
-            for (var i = 0; i < optsPerPage.length; i++) {
-                if (optsPerPage[i] == options.settings.pageSize) {
-                    perPageDropdown.options[i] = new Option(optsPerPage[i], optsPerPage[i], true, true);
-                    isRowsPerPageMatched = true;
-                }
-                else {
-                    perPageDropdown.options[i] = new Option(optsPerPage[i], optsPerPage[i]);
-                }
-            }
-            if (!isRowsPerPageMatched) {
-                options.settings.pageSizeForGrid = optsPerPage[0];
             }
         },
 

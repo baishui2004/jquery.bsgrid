@@ -80,8 +80,33 @@ $.fn.bsgrid.setPagingValues = function (options) {
     var totalPages = parseInt(totalRows / options.settings.pageSize);
     totalPages = parseInt((totalRows % options.settings.pageSize == 0) ? totalPages : totalPages + 1);
 
+    $('#' + options.pagingId).data('jqPagination').options.current_page = curPage;
     $('#' + options.pagingId).data('jqPagination').options.max_page = totalPages;
     var page_string = $('#' + options.pagingId).data('jqPagination').options.page_string;
     page_string = page_string.replace('{current_page}', curPage).replace('{max_page}', totalPages + '');
     $('#' + options.pagingId + ' input').data('current-page', curPage).data('max-page', totalPages).val(page_string);
+    $('#' + options.pagingId).data('jqPagination').setLinks(curPage);
+
+    // page size select
+    if (options.settings.pageSizeSelect) {
+        $('#' + options.pagingId + '_pageSize').remove();
+        $('#' + options.pagingId).prepend('<select id="' + options.pagingId + '_pageSize' + '" style="margin: 1px 0; border-width: 0;"></select>');
+        var optionsSb = new StringBuilder();
+        for (var i = 0; i < options.settings.pageSizeForGrid.length; i++) {
+            var pageVal = options.settings.pageSizeForGrid[i];
+            optionsSb.append('<option value="' + pageVal + '">' + pageVal + '</option>');
+        }
+        $('#' + options.pagingId + '_pageSize').html(optionsSb.toString()).val(options.settings.pageSize);
+        // select change event
+        $('#' + options.pagingId + '_pageSize').change(function () {
+            options.settings.pageSize = parseInt($(this).val());
+            $(this).trigger('blur');
+            // if change pageSize, then page first
+            if (options.curPage == 1) {
+                $.fn.bsgrid.refreshPage(options);
+            } else {
+                $.fn.bsgrid.gotoPage(options, 1);
+            }
+        });
+    }
 };

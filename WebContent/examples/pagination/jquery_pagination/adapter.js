@@ -81,4 +81,27 @@ $.fn.bsgrid.setPagingValues = function (options) {
             return false;
         }
     });
+
+    // page size select
+    if (options.settings.pageSizeSelect) {
+        $('#' + options.pagingId + '_pageSize').remove();
+        $('#' + options.pagingId + ' .pagination').prepend('<select id="' + options.pagingId + '_pageSize' + '"></select>');
+        var optionsSb = new StringBuilder();
+        for (var i = 0; i < options.settings.pageSizeForGrid.length; i++) {
+            var pageVal = options.settings.pageSizeForGrid[i];
+            optionsSb.append('<option value="' + pageVal + '">' + pageVal + '</option>');
+        }
+        $('#' + options.pagingId + '_pageSize').html(optionsSb.toString()).val(options.settings.pageSize);
+        // select change event
+        $('#' + options.pagingId + '_pageSize').change(function () {
+            options.settings.pageSize = parseInt($(this).val());
+            $(this).trigger('blur');
+            // if change pageSize, then page first
+            if (options.curPage == 1) {
+                $.fn.bsgrid.refreshPage(options);
+            } else {
+                $.fn.bsgrid.gotoPage(options, 1);
+            }
+        });
+    }
 };

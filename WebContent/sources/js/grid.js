@@ -110,6 +110,14 @@
             };
 
             options.settings.dataType = options.settings.dataType.toLowerCase();
+            if (options.settings.pageSizeSelect) {
+                if ($.inArray(options.settings.pageSize, options.settings.pageSizeForGrid) == -1) {
+                    options.settings.pageSizeForGrid.push(options.settings.pageSize);
+                }
+                options.settings.pageSizeForGrid.sort(function (a, b) {
+                    return a - b;
+                });
+            }
 
             var gridObj = {
                 options: options,
@@ -719,20 +727,14 @@
          */
         initPaging: function (options) {
             $('#' + options.pagingOutTabId + ' td').attr('id', options.pagingId);
-
-            // copy same properties's
-            var pagingObj = $.fn.bsgrid_paging.init(options.pagingId, {
+            // config same properties's
+            return $.fn.bsgrid_paging.init(options.pagingId, {
                 gridId: options.gridId,
                 pageSize: options.settings.pageSize,
                 pageSizeSelect: options.settings.pageSizeSelect,
                 pageSizeForGrid: options.settings.pageSizeForGrid,
                 pagingBtnClass: options.settings.pagingBtnClass
             });
-
-            // copy property pageSizeForGrid back
-            options.settings.pageSizeForGrid = pagingObj.options.settings.pageSizeForGrid;
-
-            return pagingObj;
         },
 
         /**

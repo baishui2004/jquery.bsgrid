@@ -74,4 +74,27 @@ $.fn.bsgrid.setPagingValues = function (options) {
             $.fn.bsgrid.getGridObj(options.gridId).page(page);
         }
     });
+
+    // page size select
+    if (options.settings.pageSizeSelect) {
+        $('#' + options.pagingId + '_pageSize').remove();
+        $('#' + options.pagingId + ' .jPag-control-front').append('<select id="' + options.pagingId + '_pageSize' + '" style="margin-top: 4px;"></select>');
+        var optionsSb = new StringBuilder();
+        for (var i = 0; i < options.settings.pageSizeForGrid.length; i++) {
+            var pageVal = options.settings.pageSizeForGrid[i];
+            optionsSb.append('<option value="' + pageVal + '">' + pageVal + '</option>');
+        }
+        $('#' + options.pagingId + '_pageSize').html(optionsSb.toString()).val(options.settings.pageSize);
+        // select change event
+        $('#' + options.pagingId + '_pageSize').change(function () {
+            options.settings.pageSize = parseInt($(this).val());
+            $(this).trigger('blur');
+            // if change pageSize, then page first
+            if (options.curPage == 1) {
+                $.fn.bsgrid.refreshPage(options);
+            } else {
+                $.fn.bsgrid.gotoPage(options, 1);
+            }
+        });
+    }
 };
