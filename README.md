@@ -3,36 +3,44 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
 
 <a href="https://github.com/baishui2004/common_gui_tools" target="_blank">jquery bsgrid</a>，A simple jQuery Grid plugin with pagation and export. 一个简单易用的jQuery Grid插件，支持分页或不分页，支持json、xml数据格式，对导出友好，扩展性友好。
 
-当前插件版本：1.11
+当前插件版本：1.20
 <br />
-文档更新日期：2014-08-26
+文档更新日期：2014-09-03
 <br />
 在线示例地址：[http://jquery-bsgrid.coding.io/](http://jquery-bsgrid.coding.io/)
 
-###BSGrid的由来###
-&emsp;&emsp;首先，澄清插件名称为何叫BSGrid，是因为敝人常用bs开头的字符做英文账号的缘故。BSGrid诞生的原因是主流插件或框架的grid使用或扩展比较复杂。
+###bsgrid的由来###
+&emsp;&emsp;首先，澄清插件名称为何叫bsgrid，是因为敝人常用bs开头的字符做英文账号的缘故。bsgrid诞生的原因是主流插件或框架的grid使用或扩展比较复杂。
 <br />
 以下仅简单说下各插件或框架的grid：
 <br />&emsp;&emsp;1，目前主流Grid基本比较适用于内网系统，对于外网系统适用而言，想要改变皮肤样式，字体大小等都非常困难；
 <br />&emsp;&emsp;2，主流Grid封装的太好，这反而造成了其扩展性能不是很好，并且其methods、properties很多，上手不容易；
-<br />&emsp;&emsp;3，主流grid大多数未提供无分页情况下后台数据的全部展现
+<br />&emsp;&emsp;3，主流grid大多数不提供无分页情况下后台数据的全部展现。
 
-###BSGrid的特点###
-&emsp;&emsp;1，轻量级，基于jQuery及Html Table，除了对加载数据、分页、渲染数据的简单封装外，不额外增加特别的功能；CSS样式精致简洁，对于扩展修改非常容易；
-<br />&emsp;&emsp;2，使用友好，对于一个简单的表格展现，仅仅数十行代码即可完成，并且支持json或xml两种数据格式；且支持友好的导出参数构建；
+###bsgrid的特点###
+&emsp;&emsp;1，轻量级，基于jQuery及HTML Table，除了对加载数据、分页、渲染数据的简单封装外，不额外增加特别的功能；模块化JS代码，可按需加载；CSS样式精致简洁，对于扩展修改非常容易；
+<br />&emsp;&emsp;2，使用友好，对于一个简单的表格展现，仅仅数十行代码即可完成，并且支持json、xml两种数据格式；且支持友好的导出参数构建；
 <br />&emsp;&emsp;3，自带load加载数据遮罩，并很容易进行扩展或重写；
 <br />&emsp;&emsp;4，扩展性好，插件有特别好的扩展性，易于对插件本身进行局部甚至较大的修改，易于改变展现样式、渲染数据；插件放开了属性及方法的全局修改权限，所有方法都可在外部进行全局重写，而无需修改插件本身的代码。
 
 ###对于主流Grid的简单理解###
 大概说下目前的一些主流grid插件或框架的grid
-<br />&emsp;&emsp;1，ExtJS，功能丰富，封装好，但属重量级产品，需要加载大体积文件，且响应速度较慢，需商业授权，一般用在内网系统；
-<br />&emsp;&emsp;2，DHtmlx，同样功能丰富，封装好，不过其可以根据所需要的模块进行加载，速度方面快于ExtJS，需商业授权，由于其样式不易修改，同样一般用在内网系统；
+<br />&emsp;&emsp;1，ExtJS，功能丰富，封装好，但属重量级产品，需要加载大体积文件，且响应速度较慢，需商业授权，一般用于内部系统；
+<br />&emsp;&emsp;2，DHtmlx，同样功能丰富，封装好，不过其可以根据所需要的模块进行加载，速度方面快于ExtJS，需商业授权，由于其样式不易修改，同样一般用于内部系统；
 <br />&emsp;&emsp;3，EasyUI，基于jQuery，语法使用jQuery，却部分地方像ExtJS的写法，在不需其源码的情况下无需商业授权，因无源码而不方便按需模块化加载，也很难改变皮肤样式；
 <br />&emsp;&emsp;4，jQGrid，基于jQuery，开源免费且功能特别强大，但同样其样式不易修改；
 <br />&emsp;&emsp;5，Flexigrid，基于jQuery，功能逊色，但轻量级，methods、properties较少，不失为想用ExtJS、EasyUI却难以上手这两者的另外一个选择。
 
-###BSGrid示例目录###
+###bsgrid示例目录###
 <pre>
+以下列出Grid及Grid With ArtDialog的示例并作以说明；Util、Button、Form、Paging、Grid With Other Pagination部分的示例简述如下：
+
+Util：  演示util.js，提供form表单序列化为字符串的方法(区别于jquery的param方法)，以及form表单序列化name为字符串的方法
+Button：演示icon.css，提供两种图标样式
+Form：  演示form.js、form.css，对于表单的敏捷处理，包括获取表单值、给表单赋值、表单的查看新增编辑模式、表单各种模式下的tip提示
+Paging：演示grid.paging.js分页工具条，不依赖grid.js
+Grid With Other Pagination：演示Grid集成第三方分页工具条使用
+
 1，<a href="#Example Index">Example Index</a>
 2，<a href="#Simple Grid">Simple Grid</a>
 3，<a href="#Simple zh-CN Grid">Simple zh-CN Grid</a>
@@ -132,6 +140,7 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
        url: 'data/simple.json',
        pageAll: true
    });
+补充说明：不分页则无需加载grid.paging.css、grid.paging.js
 </pre>
 
 #####6，<a id="No Diaplay Blank Rows">No Diaplay Blank Rows</a>#####
@@ -153,7 +162,7 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
 </pre>
 
 #####8，<a id="Grid With Checkbox">Grid With Checkbox</a>#####
-BSGrid内置并不支持checkbox的直接配置，通过column列的w_render属性实现：
+bsgrid内置并不支持checkbox的直接配置，通过column列的w_render属性实现：
 <br />
 ![Grid With Checkbox](https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-08_grid_with_checkbox.png)
 <pre>
@@ -186,29 +195,25 @@ BSGrid内置并不支持checkbox的直接配置，通过column列的w_render属�
 <br />
 ![Grid With Little Paging](https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-09_grid_with_little_paging.png)
 <pre>
-额外引入以下两个文件即可（注意引用顺序），这两个文件是对内置工具条的重写，简单的数几十行代码，充分体现了可扩展性特别强：
+将grid.paging.css替换为grid.paging.little.css，并额外引入grid.paging.little.js（注意引用顺序），这个JS文件是对内置工具条展现的部分重写，简单的数几十行代码，充分体现了可扩展性特别强：
    &lt;link rel="stylesheet" href="../../sources/css/grid.paging.little.css"/&gt;
    &lt;script type="text/javascript" src="../../sources/js/grid.paging.little.js"&gt;&lt;/script&gt;
 </pre>
 
 #####10，<a id="Standard Grid">Standard Grid</a>#####
-演示BSGrid的大部分对外调用方法，并描述主要配置属性及其作用。
+演示bsgrid的大部分对外调用方法，并描述主要配置属性及其作用。
 <br />
 此处为了演示分页，后台使用jsp页面模拟分页数据，可以完整的展示排序，分页。
 <br />
 ![Standard Grid](https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-10_standard_grid.png)
-<pre>
-</pre>
 
 #####11，<a id="Multi Grid">Multi Grid</a>#####
-支持一个页面多grid：
+支持一个页面显示多个grid：
 <br />
 ![Multi Grid](https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-11_multi_grid.png)
-<pre>
-</pre>
 
 #####12，<a id="Export Grid">Export Grid</a>#####
-BSGrid并不是提供导出Grid的页面数据功能，而是进行导出参数的组织：
+bsgrid并不是提供导出Grid的页面数据功能，而是进行导出参数的组织：
 <br />
 ![Export Grid](https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-12_export_grid.png)
 <pre>
@@ -243,7 +248,7 @@ http://jquery-bsgrid.coding.io/examples/grid/export.html?exportFileName=Export%2
 </pre>
 
 #####13，<a id="Grid with ArtDialog">Grid with ArtDialog</a>#####
-结合ArtDialog使用，演示使用artDialog的锁屏遮罩样式以及覆盖JS原生的alert、confirm、prompt方法。
+结合artDialog，演示使用artDialog的锁屏遮罩样式，以及演示使用artDialog覆盖JS原生alert、confirm、prompt方法的使用。
 <br />
 <b>特别注意：</b>
 <br />&emsp;&emsp;JS原生的alert、confirm、prompt方法是阻塞的，而使用artDialog覆盖的alert、confirm、prompt方法是非阻塞的，artDialog覆盖的方法是用回调方式实现阻塞的等待执行代码效果，详细可参看示例：[Pop with ArtDialog](http://jquery-bsgrid.coding.io/examples/artDialog/pop.html)
