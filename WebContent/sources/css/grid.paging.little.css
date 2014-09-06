@@ -15,6 +15,11 @@
     text-align: center;
 }
 
+/* paging toolbar pageSize select */
+.bsgridPaging select {
+    font-size: inherit;
+}
+
 /* paging toolbar button */
 .bsgridPaging .pagingBtn {
     cursor: pointer;
@@ -58,6 +63,7 @@
 
 .bsgridPaging .gotoPageInput {
     width: 40px;
+    font-size: inherit;
     color: inherit;
     border:solid 1px #ccc;
 }
