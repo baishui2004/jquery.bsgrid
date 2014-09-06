@@ -6,8 +6,7 @@
 }
 
 .bsgrid_form table td {
-    height: 22px;
     padding: 4px;
-    line-height: 20px;
+    line-height: 150%;
     border: solid 1px #eee;
 }

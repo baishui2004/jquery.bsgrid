@@ -1,12 +1,14 @@
 @CHARSET "UTF-8";
 
 .bsgridPaging {
-    font-family: 'Times New Roman';
-    width: 768px;
+    font-size: 13px;
+    font-family: '微软雅黑', Verdana, sans-serif, '宋体', serif;
+    width: 720px;
+    border-collapse: collapse;
 }
 
 .bsgridPaging.noPageSizeSelect {
-    width: 628px;
+    width: 600px;
 }
 
 .bsgridPaging td {
@@ -16,13 +18,12 @@
 /* paging toolbar button */
 .bsgridPaging .pagingBtn {
     cursor: pointer;
-    border: 0;
-    width: 55px;
-    height: 22px;
+    border-width: 0;
     background: url(../images/skins/default/bg.gif) repeat-x #f4f4f4;
-    color: #000;
-    padding: 0 5px;
-    margin: 0 5px;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    padding: 1px 3px;
 }
 
 .bsgridPaging .pagingBtn.disabledCls {
@@ -39,6 +40,12 @@
 }
 
 .bsgridPaging .pagingBtn.lastPage {
+}
+
+.bsgridPaging .gotoPageInput {
+    width: 40px;
+    color: inherit;
+    border:solid 1px #ccc;
 }
 
 .bsgridPaging .pagingBtn.gotoPage {

@@ -3,9 +3,9 @@
 .bsgrid_icon {
     cursor: pointer;
     height: 24px;
+    font-family: '微软雅黑', Verdana, sans-serif, '宋体', serif;
     font-size: 12px;
-    font-family: "微软雅黑", "宋体", Arial, sans-serif;
-    line-height: 16px;
+    line-height: 150%;
     color: #b22222;;
     background: no-repeat 3px center;
 }

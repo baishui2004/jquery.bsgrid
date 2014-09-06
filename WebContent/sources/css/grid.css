@@ -2,25 +2,20 @@
 
 /* font style */
 .bsgrid {
-    font-family: 'Times New Roman';
+    font-size: 13px;
+    font-family: '微软雅黑', Verdana, sans-serif, '宋体', serif;
 }
 
 /* grid table */
 table.bsgrid {
     width: 98%;
     margin-right: 5px;
-    font-size: 14px;
     border-collapse: collapse;
-}
-
-/* grid even index row color */
-.bsgrid tr.even_index_row {
-    background-color: #eeeeff;
 }
 
 /* grid header */
 .bsgrid th {
-    font-size: 13px;
+    font-weight: 400;
     background: url(../images/skins/default/bg.gif) repeat-x #f4f4f4;
 }
 
@@ -29,12 +24,18 @@ table.bsgrid {
     height: 22px;
     padding: 3px;
     border: solid 1px #ccc;
+    background-color: white;
     text-align: center;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     color: #333;
-    line-height: 22px;
+    line-height: 150%;
+}
+
+/* grid even index row column color */
+.bsgrid tr.even_index_row td {
+    background-color: #eeeeff;
 }
 
 /* href */
@@ -107,21 +108,20 @@ table.bsgrid {
 }
 
 .bsgrid.loading {
-    font-size: 13px;
-    line-height: 17px;
+    padding-left: 5px;
+    line-height: 150%;
 }
 
 .bsgrid.loading span {
-    font-size: 14px;
-    line-height: 16px;
-    background: url("../images/loading.gif") no-repeat;
+    background: url("../images/loading.gif") no-repeat center;
 }
 
 /* paging toolbar out table */
 .bsgridPagingOutTab {
     width: 98%;
     margin-right: 5px;
-    font-size: 14px;
     border-collapse: collapse;
-    border-width: 0;
+    border: solid 1px #ccc;
+    background-color: white;
+    border-top-width: 0;
 }

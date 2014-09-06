@@ -2,24 +2,24 @@
 
 /* grid header */
 .bsgrid th {
-    background-image: url(../../images/skins/sky_blue/bg.gif);
+    background-image: url(../../images/skins/flexigrid/bg.gif);
 }
 
 /* grid header and column */
 .bsgrid th, .bsgrid td {
-    border-color: #a4bed4;
+    border-color: #ccc;
     background-color: white;
     color: black;
 }
 
 /* grid even index row column color */
 .bsgrid tr.even_index_row td {
-    background-color: #e3efff;
+    background-color: #f7f7f7;
 }
 
 /* paging toolbar out table */
 .bsgridPagingOutTab {
-    border-color: #a4bed4;
+    border-color: #ccc;
     background-color: white;
 }
 
@@ -29,10 +29,10 @@
 
 /* paging toolbar button */
 .bsgridPaging .pagingBtn {
-    background-image: url(../../images/skins/sky_blue/bg.gif);
-    border: solid 1px #a4bed4;
+    background-image: url(../../images/skins/flexigrid/bg.gif);
+    border: solid 1px #ccc;
 }
 
 .bsgridPaging .gotoPageInput {
-    border-color: #a4bed4;
+    border-color: #ccc;
 }

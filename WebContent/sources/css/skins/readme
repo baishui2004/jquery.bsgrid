@@ -1,0 +1,33 @@
+Style                  From
+grid_access.css        ExtJS: extjs-4.1.0\resources\css\ext-all-access-debug.css
+grid_blue.css          ExtJS: extjs-4.1.0\resources\css\ext-all-debug.css
+grid_gray.css          ExtJS: extjs-4.1.0\resources\css\ext-all-gray-debug.css
+
+ExtJS Style Mapping:
+font color:                       .x-body
+th and td background-color:       .x-panel-body-default
+border-color:                     .x-panel-body-default
+tr.even row td background-color:  .x-grid-row-alt
+
+
+
+Style                  From
+grid_sky_blue.css      ExtJS: Dhtmlx Edition 3.0\dhtmlxGrid\codebase\dhtmlxgrid.css
+                              Dhtmlx Edition 3.0\dhtmlxGrid\codebase\skins\dhtmlxgrid_dhx_skyblue.css
+
+Dhtmlx Style Mapping:
+font color:
+th and td background-color:       div.gridbox .objbox
+border-color:                     div.gridbox_dhx_skyblue
+tr.even row td background-color:  div.gridbox_dhx_skyblue .odd_dhx_skyblue
+
+
+
+Style                  From
+flexigrid.css          ExtJS: flexigrid-1.1\css\flexigrid.css
+
+FlexiGrid Style Mapping:
+font color:                       .flexigrid
+th and td background-color:       .flexigrid div.bDiv
+border-color:                     .flexigrid div.bDiv
+tr.even row td background-color:  .flexigrid tr.erow td

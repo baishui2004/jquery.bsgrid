@@ -2,10 +2,37 @@
 
 /* grid header */
 .bsgrid th {
-    background: url(../../images/skins/blue/bg.gif) repeat-x #f4f4f4;
+    background-image: url(../../images/skins/blue/bg.gif);
+}
+
+/* grid header and column */
+.bsgrid th, .bsgrid td {
+    border-color: #99bce8;
+    background-color: white;
+    color: black;
+}
+
+/* grid even index row column color */
+.bsgrid tr.even_index_row td {
+    background-color: #fafafa;
+}
+
+/* paging toolbar out table */
+.bsgridPagingOutTab {
+    border-color: #99bce8;
+    background-color: white;
+}
+
+.bsgridPaging {
+    color: black;
 }
 
 /* paging toolbar button */
 .bsgridPaging .pagingBtn {
-    background: url(../../images/skins/blue/bg.gif) repeat-x #f4f4f4;
+    background-image: url(../../images/skins/blue/bg.gif);
+    border: solid 1px #99bce8;
+}
+
+.bsgridPaging .gotoPageInput {
+    border-color: #99bce8;
 }

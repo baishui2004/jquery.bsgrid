@@ -630,7 +630,7 @@
                 lockScreenHtml.append('<div class="bsgrid lockscreen" times="0">');
                 lockScreenHtml.append('</div>');
                 lockScreenHtml.append('<div class="bsgrid loading_div">');
-                lockScreenHtml.append('<table><tr><td><center><div class="bsgrid loading"><span>&emsp;</span>&nbsp;' + $.bsgridLanguage.loadingDataMessage + '&emsp;<center></div></td></tr></table>');
+                lockScreenHtml.append('<table><tr><td><center><div class="bsgrid loading"><span>&nbsp;&emsp;</span>&nbsp;' + $.bsgridLanguage.loadingDataMessage + '&emsp;<center></div></td></tr></table>');
                 lockScreenHtml.append('</div>');
                 $('body').append(lockScreenHtml.toString());
             }

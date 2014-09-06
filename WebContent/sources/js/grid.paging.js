@@ -215,7 +215,7 @@
             pagingSb.append('<input class="' + btnClass + ' lastPage" type="button" id="' + options.lastPageId + '" value="' + $.bsgridLanguage.pagingToolbar.lastPage + '" />');
             pagingSb.append('</td>');
             pagingSb.append('<td>');
-            pagingSb.append('<input type="text" id="' + options.gotoPageInputId + '" style="width: 40px" />');
+            pagingSb.append('<input class="gotoPageInput" type="text" id="' + options.gotoPageInputId + '" />');
             pagingSb.append('&nbsp;');
             pagingSb.append('<input class="' + btnClass + ' gotoPage" type="button" id="' + options.gotoPageId + '" value="' + $.bsgridLanguage.pagingToolbar.gotoPage + '" />');
             pagingSb.append('</td>');
