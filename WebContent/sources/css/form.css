@@ -7,7 +7,7 @@
 }
 
 .bsgrid_form .formLabel {
-    width: 25%;
+    width: 20%;
     color: #000;
     text-align: right;
     white-space: nowrap;
@@ -16,14 +16,14 @@
 }
 
 .bsgrid_form .formInput {
-    width: 75%;
+    width: 80%;
     color: #333;
     text-align: left;
     overflow: auto;
 }
 
 .bsgrid_form .formInput input, .bsgrid_form .formInput select, .bsgrid_form .formInput textarea, .bsgrid_form .formInput div {
-    width: 72%;
+    width: 64%;
     background-color: white;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .bsgrid_form .formInput .inputTip {
-    width: 28%;
+    width: 36%;
     margin-left: 3px;
     color: #f18300;
     font-size: 12px;

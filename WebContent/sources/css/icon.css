@@ -60,6 +60,14 @@ input.bsgrid_icon, button.bsgrid_icon {
     background-image: url(../images/icons/edit-delete-7.png);
 }
 
+.icon_close {
+    background-image: url(../images/icons/window-close-4.png);
+}
+
+.icon_close2 {
+    background-image: url(../images/icons/window-close.png);
+}
+
 .icon_find {
     background-image: url(../images/icons/edit-find-8.png);
 }
@@ -126,4 +134,20 @@ input.bsgrid_icon, button.bsgrid_icon {
 
 .icon_documentation {
     background-image: url(../images/icons/documentation.png);
+}
+
+.icon_text {
+    background-image: url(../images/icons/mimetypes/silk_style/page-white_text.png);
+}
+
+.icon_pdf {
+    background-image: url(../images/icons/mimetypes/silk_style/page-white_acrobat.png);
+}
+
+.icon_excel {
+    background-image: url(../images/icons/mimetypes/silk_style/page-white_excel.png);
+}
+
+.icon_word {
+    background-image: url(../images/icons/mimetypes/silk_style/page-white_word.png);
 }
