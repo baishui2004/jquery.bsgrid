@@ -22,7 +22,7 @@
     overflow: auto;
 }
 
-.bsgrid_form .formInput input, .bsgrid_form .formInput select, .bsgrid_form .formInput textarea, .bsgrid_form .formInput div {
+.bsgrid_form .formInput input, .bsgrid_form .formInput select, .bsgrid_form .formInput textarea, .bsgrid_form .formInput div.assist {
     width: 64%;
     background-color: white;
 }
@@ -34,14 +34,23 @@
     padding-left: 1px;
 }
 
-.bsgrid_form .formInput textarea, .bsgrid_form .formInput div {
+.bsgrid_form .formInput textarea, .bsgrid_form .formInput div.assist {
     height: 100px;
 }
 
-.bsgrid_form .formInput div {
+.bsgrid_form .formInput div.assist {
     overflow: auto;
     word-wrap: break-word;
     word-break: break-all;
+}
+
+.bsgrid_form .formInput .radio {
+	width: 20px;
+}
+
+.bsgrid_form .formInput .checkbox {
+	width: 20px;
+	text-align: left;
 }
 
 .bsgrid_form .formInput .inputTip {

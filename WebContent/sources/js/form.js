@@ -78,7 +78,7 @@
                 }
             });
             $('.formInput textarea', options.jqueryObj).each(function () {
-                $(this).before('<div style="display: none;"></div>');
+                $(this).before('<div class="assist" style="display: none;"></div>');
             });
         },
 
