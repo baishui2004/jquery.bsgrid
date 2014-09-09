@@ -94,6 +94,7 @@ table.bsgrid {
 .bsgrid.loading_div td {
     width: 100%;
     height: 100%;
+    background-color: transparent;
     text-align: center;
     vertical-align: middle;
 }
