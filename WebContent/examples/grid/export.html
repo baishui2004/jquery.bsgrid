@@ -32,7 +32,7 @@
         <th w_index="CHAR" w_align="left" w_tip="true" width="15%;">CHAR</th>
         <th w_index="TEXT" w_align="left" w_length="30" width="30%;">TEXT</th>
         <th w_index="DATE" width="15%;">DATE</th>
-        <th w_index="TIME" width="15%;">TIME</th>
+        <th w_index="TIME" w_hidden="true" width="15%;">TIME</th>
         <th w_index="NUM" width="5%;">NUM</th>
         <th w_render="operate" w_export="false" width="10%;">Operate</th>
     </tr>
@@ -74,8 +74,8 @@ Documention:
     function doExport() {
         alert('Only test request params, To see it in browser address url.');
         gridObj.options.otherParames = $('#searchForm').serializeArray();
-        $.bsgrid_export.doExport($('#searchTable tr th'), gridObj.options.otherParames, {
-            url: 'export.html', // only test request params
+        $.bsgrid_export.doExport($('#searchTable tr:eq(0) th[w_hidden!="true"]'), gridObj.options.otherParames, {
+            url: 'export.html' + '?sortName=' + gridObj.options.sortName + '&sortOrder=' + gridObj.options.sortOrder, // only test request params
             exportFileName: 'Export Example',
             colsProperties: {
                 width: 120
