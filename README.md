@@ -18,6 +18,7 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
 <div>
 <div style="display:none;">
 <style type="text/css">
+<!--
 	.tabImg {
 		width: 100%;
 		border-collapse: collapse;
@@ -35,6 +36,7 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
 		width: 100%;
 		border: solid 0 white;
 	}
+-->
 </style>
 </div>
 </div>
