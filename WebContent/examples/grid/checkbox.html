@@ -4,13 +4,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Grid With Checkbox</title>
-    <link rel="stylesheet" href="../../sources/css/grid.css"/>
-    <link rel="stylesheet" href="../../sources/css/grid.paging.css"/>
+    <link rel="stylesheet" href="../../builds/merged/grid.simple.min.css"/>
     <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
-    <script type="text/javascript" src="../../sources/js/common.js"></script>
-    <script type="text/javascript" src="../../sources/js/lang/grid.en.js"></script>
-    <script type="text/javascript" src="../../sources/js/grid.js"></script>
-    <script type="text/javascript" src="../../sources/js/grid.paging.js"></script>
+    <script type="text/javascript" src="../../builds/js/lang/grid.en.min.js"></script>
+    <script type="text/javascript" src="../../builds/merged/grid.simple.min.js"></script>
 </head>
 <body style="background-color: #fff;">
 <br />&nbsp;
@@ -18,7 +15,7 @@
 <br />&nbsp;
 <table id="searchTable" class="bsgrid">
     <tr>
-        <th w_render="checkbox" width="3%;"><input type="checkbox"/></th>
+        <th w_render="checkbox" w_index="ID" width="3%;"><input type="checkbox"/></th>
         <th w_index="XH" width="5%;">XH</th>
         <th w_index="ID" width="5%;">ID</th>
         <th w_index="CHAR" w_align="left" w_tip="true" width="15%;">CHAR</th>
@@ -37,18 +34,22 @@
             pageSize: 10
         });
 
-        $('#searchTable tr:first th:first input[type=checkbox]').change(function () {
-            if ($(this).attr('checked')) {
-                $('#searchTable tr:not(:first) td input[type=checkbox]').attr('checked', true);
-            } else {
-                $('#searchTable tr:not(:first) td input[type=checkbox]').attr('checked', false);
-            }
-        });
+    	// 表格的checkbox选择
+    	if($('#searchTable tr:first th input[type=checkbox]').length == 1) {
+    	    $('#searchTable tr:first th input[type=checkbox]').change(function () {
+    	        if ($(this).attr('checked')) {
+    	            $('#searchTable tr:not(:first) td input[type=checkbox]').attr('checked', true);
+    	        } else {
+    	            $('#searchTable tr:not(:first) td input[type=checkbox]').attr('checked', false);
+    	        }
+    	    });
+    	}
 
     });
 
     function checkbox(record, rowIndex, colIndex, options) {
-        return '<input type="checkbox" value="' + record['ID'] + '"/>';
+    	var headerTh = $.fn.bsgrid.getGridHeaderObject(options);
+    	return '<input type="checkbox" value="' + $.fn.bsgrid.parseData.getColumnValue(options.settings.dataType, record, $.trim(headerTh.eq(colIndex).attr(options.settings.colsProperties.indexAttr))) + '"/>';
     }
 
     function getCheckedIds() {

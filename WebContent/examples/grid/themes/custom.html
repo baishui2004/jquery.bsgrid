@@ -4,8 +4,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Custom Blue Style Grid</title>
-    <link rel="stylesheet" href="../../../sources/css/grid.css"/>
+    <link rel="stylesheet" href="../../../builds/merged/grid.simple.min.css"/>
     <style type="text/css">
+        /****** grid style start ******/
         /* grid header */
         .bsgrid th {
             background: #c7e1fa none;
@@ -23,14 +24,14 @@
         .bsgrid tr.even_index_row td {
             background-color: #f2f9ff;
         }
+        /****** grid style end ******/
+        
+        /****** paging style start ******/
         /* paging toolbar out table */
         .bsgridPagingOutTab {
             border-color: #b2cfe1;
             background-color: white;
         }
-    </style>
-    <link rel="stylesheet" href="../../../sources/css/grid.paging.css"/>
-    <style type="text/css">
         .bsgridPaging {
             font-size: 16px;
             color: #274d6d;
@@ -43,12 +44,11 @@
         .bsgridPaging .gotoPageInput {
             border-color: #b2cfe1;
         }
+        /****** paging style end ******/
     </style>
     <script type="text/javascript" src="../../../plugins/jquery-1.4.4.min.js"></script>
-    <script type="text/javascript" src="../../../sources/js/common.js"></script>
-    <script type="text/javascript" src="../../../sources/js/lang/grid.en.js"></script>
-    <script type="text/javascript" src="../../../sources/js/grid.js"></script>
-    <script type="text/javascript" src="../../../sources/js/grid.paging.js"></script>
+    <script type="text/javascript" src="../../../builds/js/lang/grid.en.min.js"></script>
+    <script type="text/javascript" src="../../../builds/merged/grid.simple.min.js"></script>
 </head>
 <body style="background-color: #fff;">
 <table id="searchTable" class="bsgrid">

@@ -1,11 +1,13 @@
 jQuery.bsgrid 简单易用的jQuery Grid插件
 =======================================
 
-<a href="https://github.com/baishui2004/common_gui_tools" target="_blank">jquery bsgrid</a>，A simple jQuery Grid plugin with pagation and export. 一个简单易用的jQuery Grid插件，支持分页或不分页，支持json、xml数据格式，对导出友好，扩展性友好。
+<a href="https://github.com/baishui2004/common_gui_tools" target="_blank">jquery bsgrid</a>，A simple jQuery Grid plugin with pagation, export and easy to expand. 一个简单易用的jQuery Grid插件，支持分页或不分页，支持json、xml数据格式，对导出友好，扩展性友好。
 
-当前插件版本：1.20
+插件开源协议：Apache Licence 2
 <br />
-文档更新日期：2014-09-03
+当前插件版本：1.21
+<br />
+文档更新日期：2014-10-15
 <br />
 在线示例地址：[http://jquery-bsgrid.coding.io/](http://jquery-bsgrid.coding.io/)
 
@@ -20,9 +22,51 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
 ###bsgrid的特点###
 &emsp;&emsp;1，轻量级，基于jQuery及HTML Table，除了对加载数据、分页、渲染数据的简单封装外，不额外增加特别的功能；模块化JS代码，可按需加载；CSS样式精致简洁，对于扩展修改非常容易；
 <br />&emsp;&emsp;2，使用友好，对于一个简单的表格展现，仅仅数十行代码即可完成，并且支持json、xml两种数据格式；且支持友好的导出参数构建；
-<br />&emsp;&emsp;3，内置多套经典样式风格，效果参看examples\grid\themes\*.html；可非常容易的修改表格使用字体大小，参看示例examples\grid\themes\custom.html，仅需修改该示例样式中的两处font-size即可；
+<br />&emsp;&emsp;3，内置多套经典样式风格，效果参看examples\grid\themes\\*.html；可非常容易的修改表格使用字体大小，参看示例examples\grid\themes\custom.html，仅需修改该示例样式中的两处font-size即可；
 <br />&emsp;&emsp;4，自带load加载数据遮罩，并很容易进行扩展或重写；
 <br />&emsp;&emsp;5，扩展性好，插件有特别好的扩展性，易于对插件本身进行局部甚至较大的修改，易于改变展现样式、渲染数据；插件放开了属性及方法的全局修改权限，所有方法都可在外部进行全局重写，而无需修改插件本身的代码。
+<style type="text/css">
+	.tabImg {
+		width: 100%;
+		border-collapse: collapse;
+	}
+	.tabImg td {
+		border: solid 1 green;
+		padding: 0;
+		margin: 0;
+	}
+	.tabImg td a{
+		font-size: 2px;
+	}
+	.tabImg td img{
+		width: 100%;
+		border: solid 0 white;
+	}
+</style>
+<table class="tabImg">
+	<tr>
+		<td><img title="ExtJS Gray Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins01-ExtJS%20Gray%20Style.png"></td>
+		<td><img title="ExtJS Blue Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins02-ExtJS Blue Style.png"></td>
+		<td><img title="ExtJS Access Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins03-ExtJS Access Style.png"></td>
+    </tr>
+    <tr>
+		<td><img title="FlexiGrid Gray Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins04-FlexiGrid Gray Style.png"></td>
+		<td><img title="Dhtmlx Sky Blue Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins05-Dhtmlx Sky Blue Style.png"></td>
+		<td><img title="Custom Blue Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins06-Custom Blue Style.png"></td>
+    </tr>
+</table>
+<table class="tabImg">
+	<tr>
+		<td><img title="" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/.png"></td>
+		<td><img title="" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/.png"></td>
+		<td><img title="" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/.png"></td>
+    </tr>
+    <tr>
+		<td><img title="" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/.png"></td>
+		<td><img title="" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/.png"></td>
+		<td><img title="" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/.png"></td>
+    </tr>
+</table>
 
 ###对于主流Grid的简单理解###
 大概说下目前的一些主流grid插件或框架的grid
@@ -30,7 +74,7 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
 <br />&emsp;&emsp;2，DHtmlx，同样功能丰富，封装好，不过其可以根据所需要的模块进行加载，速度方面快于ExtJS，需商业授权，由于其样式不易修改，同样一般用于内部系统；
 <br />&emsp;&emsp;3，EasyUI，基于jQuery，语法使用jQuery，却部分地方像ExtJS的写法，在不需其源码的情况下无需商业授权，因无源码而不方便按需模块化加载，也很难改变皮肤样式；
 <br />&emsp;&emsp;4，jQGrid，基于jQuery，开源免费且功能特别强大，但同样其样式不易修改；
-<br />&emsp;&emsp;5，Flexigrid，基于jQuery，功能逊色，但轻量级，methods、properties较少，不失为想用ExtJS、EasyUI却难以上手这两者的另外一个选择。
+<br />&emsp;&emsp;5，Flexigrid，基于jQuery，功能逊色，但轻量级，methods、properties较少，不失为想用ExtJS Grid或EasyUI Grid却难以上手这两者的另外一个选择。
 
 ###bsgrid示例目录###
 <pre>
@@ -168,18 +212,22 @@ bsgrid内置并不支持checkbox的直接配置，通过column列的w_render属�
 ![Grid With Checkbox](https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-08_grid_with_checkbox.png)
 <pre>
 实现代码：主要部分
-   &lt;th w_render="checkbox" width="3%;"&gt;&lt;input type="checkbox"/&gt;&lt;/th&gt;
+   &lt;th w_render="checkbox" w_index="ID" width="3%;"&gt;&lt;input type="checkbox"/&gt;&lt;/th&gt;
 
-   $('#searchTable tr:first th:first input[type=checkbox]').change(function () {
-       if ($(this).attr('checked')) {
-           $('#searchTable tr:not(:first) td input[type=checkbox]').attr('checked', true);
-       } else {
-           $('#searchTable tr:not(:first) td input[type=checkbox]').attr('checked', false);
-       }
-   });
+   // 表格的checkbox选择
+   if($('#searchTable tr:first th input[type=checkbox]').length == 1) {
+       $('#searchTable tr:first th input[type=checkbox]').change(function () {
+           if ($(this).attr('checked')) {
+               $('#searchTable tr:not(:first) td input[type=checkbox]').attr('checked', true);
+           } else {
+               $('#searchTable tr:not(:first) td input[type=checkbox]').attr('checked', false);
+           }
+       });
+   }
 
    function checkbox(record, rowIndex, colIndex, options) {
-       return '&lt;input type="checkbox" value="' + record['ID'] + '"/&gt;';
+    	var headerTh = $.fn.bsgrid.getGridHeaderObject(options);
+    	return '<input type="checkbox" value="' + $.fn.bsgrid.parseData.getColumnValue(options.settings.dataType, record, $.trim(headerTh.eq(colIndex).attr(options.settings.colsProperties.indexAttr))) + '"/>';
    }
 
    function getCheckedIds() {
