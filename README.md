@@ -16,6 +16,7 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
 #####首先给出典型效果图示#####
 1，内置多套皮肤（点击下面对应皮肤图片可查看示例页面），并可非常容易的自定义皮肤（参考<a href="http://jquery-bsgrid.coding.io/examples/grid/themes/custom.html" target="_blank">Custom Blue Style</a>）
 <div style="display:none;">
+<!--
 <style type="text/css">
 	.tabImg {
 		width: 100%;
@@ -30,14 +31,12 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
         text-align: center;
         vertical-align: top;
 	}
-	.tabImg td a{
-		font-size: 2px;
-	}
 	.tabImg td img{
 		width: 100%;
 		border: solid 0 white;
 	}
 </style>
+-->
 </div>
 <table class="tabImg">
 	<tr>
