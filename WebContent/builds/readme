@@ -1,8 +1,8 @@
-builds/grid.simple.min.css   merged builds/css: grid.min.css, grid.paging.min.css
-builds/grid.simple.min.js    merged builds/js:  common.min.js, grid.paging.min.js, grid.min.js
+builds/merged/grid.simple.min.css   merged builds/css: grid.min.css, grid.paging.min.css
+builds/merged/grid.simple.min.js    merged builds/js:  common.min.js, grid.paging.min.js, grid.min.js
 
-builds/grid.all.min.css      merged builds/css: grid.min.css, grid.paging.min.css, icon.min.css
-builds/grid.all.min.js       merged builds/js:  common.min.js, util.min.js, grid.paging.min.js, grid.min.js, export.min.js
+builds/merged/grid.all.min.css      merged builds/css: grid.min.css, grid.paging.min.css, icon.min.css
+builds/merged/grid.all.min.js       merged builds/js:  common.min.js, util.min.js, grid.paging.min.js, grid.min.js, export.min.js
 
-builds/bsgrid.all.min.css    merged builds/css: grid.min.css, grid.paging.min.css, icon.min.css, form.min.css
-builds/bsgrid.all.min.js     merged builds/js:  common.min.js, util.min.js, grid.paging.min.js, grid.min.js, export.min.js, form.min.js
+builds/merged/bsgrid.all.min.css    merged builds/css: grid.min.css, grid.paging.min.css, icon.min.css, form.min.css
+builds/merged/bsgrid.all.min.js     merged builds/js:  common.min.js, util.min.js, grid.paging.min.js, grid.min.js, export.min.js, form.min.js

@@ -3,37 +3,32 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
 
 <a href="https://github.com/baishui2004/common_gui_tools" target="_blank">jquery bsgrid</a>，A simple jQuery Grid plugin with pagation, export and easy to expand. 一个简单易用的jQuery Grid插件，支持分页或不分页，支持json、xml数据格式，对导出友好，扩展性友好。
 
-插件开源协议：Apache Licence 2
-<br />
-当前插件版本：1.21
-<br />
-文档更新日期：2014-10-15
-<br />
-在线示例地址：[http://jquery-bsgrid.coding.io/](http://jquery-bsgrid.coding.io/)
+本插件的早期及当前版本已在多个项目中使用。
 
-###bsgrid的由来###
-&emsp;&emsp;首先，澄清插件名称为何叫bsgrid，是因为敝人常用bs开头的字符做英文账号的缘故。bsgrid诞生的原因是主流插件或框架的grid使用或扩展比较复杂。
+开源协议：Apache Licence 2
 <br />
-以下仅简单说下各插件或框架的grid：
-<br />&emsp;&emsp;1，目前主流Grid基本比较适用于内网系统，对于外网系统适用而言，想要改变皮肤样式，字体大小等都非常困难；
-<br />&emsp;&emsp;2，主流Grid封装的太好，这反而造成了其扩展性能不是很好，并且其methods、properties很多，上手不容易；
-<br />&emsp;&emsp;3，主流grid大多数不提供无分页情况下后台数据的全部展现。
+插件版本：1.21
+<br />
+更新日期：2014-10-16
+<br />
+在线演示：[http://jquery-bsgrid.coding.io/](http://jquery-bsgrid.coding.io/)
 
-###bsgrid的特点###
-&emsp;&emsp;1，轻量级，基于jQuery及HTML Table，除了对加载数据、分页、渲染数据的简单封装外，不额外增加特别的功能；模块化JS代码，可按需加载；CSS样式精致简洁，对于扩展修改非常容易；
-<br />&emsp;&emsp;2，使用友好，对于一个简单的表格展现，仅仅数十行代码即可完成，并且支持json、xml两种数据格式；且支持友好的导出参数构建；
-<br />&emsp;&emsp;3，内置多套经典样式风格，效果参看examples\grid\themes\\*.html；可非常容易的修改表格使用字体大小，参看示例examples\grid\themes\custom.html，仅需修改该示例样式中的两处font-size即可；
-<br />&emsp;&emsp;4，自带load加载数据遮罩，并很容易进行扩展或重写；
-<br />&emsp;&emsp;5，扩展性好，插件有特别好的扩展性，易于对插件本身进行局部甚至较大的修改，易于改变展现样式、渲染数据；插件放开了属性及方法的全局修改权限，所有方法都可在外部进行全局重写，而无需修改插件本身的代码。
+#####首先给出典型效果图示#####
+1，内置多套皮肤（点击下面对应皮肤图片可查看示例页面），并可非常容易的自定义皮肤（参考<a href="http://jquery-bsgrid.coding.io/examples/grid/themes/custom.html" target="_blank">Custom Blue Style</a>）
+<div style="display:none;">
 <style type="text/css">
 	.tabImg {
 		width: 100%;
 		border-collapse: collapse;
 	}
 	.tabImg td {
+        color: green;
 		border: solid 1 green;
+        background-color: white;
 		padding: 0;
 		margin: 0;
+        text-align: center;
+        vertical-align: top;
 	}
 	.tabImg td a{
 		font-size: 2px;
@@ -43,30 +38,100 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
 		border: solid 0 white;
 	}
 </style>
+</div>
 <table class="tabImg">
 	<tr>
-		<td><img title="ExtJS Gray Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins01-ExtJS%20Gray%20Style.png"></td>
-		<td><img title="ExtJS Blue Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins02-ExtJS Blue Style.png"></td>
-		<td><img title="ExtJS Access Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins03-ExtJS Access Style.png"></td>
+		<td>ExtJS Gray Style
+            <br />
+            <a href="http://jquery-bsgrid.coding.io/examples/grid/themes/gray.html" target="_blank">
+            <img title="ExtJS Gray Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins01-ExtJS Gray Style.png"></a>
+        </td>
+		<td>ExtJS Blue Style
+            <br />
+            <a href="http://jquery-bsgrid.coding.io/examples/grid/themes/blue.html" target="_blank">
+            <img title="ExtJS Blue Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins02-ExtJS Blue Style.png"></a>
+        </td>
     </tr>
     <tr>
-		<td><img title="FlexiGrid Gray Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins04-FlexiGrid Gray Style.png"></td>
-		<td><img title="Dhtmlx Sky Blue Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins05-Dhtmlx Sky Blue Style.png"></td>
-		<td><img title="Custom Blue Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins06-Custom Blue Style.png"></td>
+		<td>ExtJS Access Style
+            <br />
+            <a href="http://jquery-bsgrid.coding.io/examples/grid/themes/access.html" target="_blank">
+            <img title="ExtJS Access Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins03-ExtJS Access Style.png"></a>
+        </td>
+		<td>FlexiGrid Gray Style
+            <br />
+            <a href="http://jquery-bsgrid.coding.io/examples/grid/themes/flexigrid.html" target="_blank">
+            <img title="FlexiGrid Gray Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins04-FlexiGrid Gray Style.png"></a>
+        </td>
+    </tr>
+    <tr>
+		<td>Dhtmlx Sky Blue Style
+            <br />
+            <a href="http://jquery-bsgrid.coding.io/examples/grid/themes/sky_blue.html" target="_blank">
+            <img title="Dhtmlx Sky Blue Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins05-Dhtmlx Sky Blue Style.png"></a>
+        </td>
+		<td>Custom Blue Style
+            <br />
+            <a href="http://jquery-bsgrid.coding.io/examples/grid/themes/custom.html" target="_blank">
+            <img title="Custom Blue Style" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-skins06-Custom Blue Style.png"></a>
+        </td>
     </tr>
 </table>
+2，可以非常方便的集成第三方分页工具条使用（点击下面对应皮肤图片可查看示例页面）
 <table class="tabImg">
 	<tr>
-		<td><img title="" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/.png"></td>
-		<td><img title="" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/.png"></td>
-		<td><img title="" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/.png"></td>
+		<td>With jqPagination
+            <br />
+            <a href="http://jquery-bsgrid.coding.io/examples/pagination/jqPagination/sample-adapter.html" target="_blank">
+            <img title="With jqPagination" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-pagination01-With jqPagination.png"></a>
+        </td>
+		<td>With jquery_pagination
+            <br />
+            <a href="http://jquery-bsgrid.coding.io/examples/pagination/jquery_pagination/sample-adapter.html" target="_blank">
+            <img title="With jquery_pagination" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-pagination02-With jquery_pagination.png"></a>
+        </td>
     </tr>
     <tr>
-		<td><img title="" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/.png"></td>
-		<td><img title="" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/.png"></td>
-		<td><img title="" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/.png"></td>
+		<td>With jPaginate
+            <br />
+            <a href="http://jquery-bsgrid.coding.io/examples/pagination/jPaginate/sample-adapter.html" target="_blank">
+            <img title="With jPaginate" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-pagination03-With jPaginate.png"></a>
+        </td>
+		<td>With jPages
+            <br />
+            <a href="http://jquery-bsgrid.coding.io/examples/pagination/jPages/sample-adapter.html" target="_blank">
+            <img title="With jPages" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-pagination04-With jPages.png"></a>
+        </td>
+    </tr>
+    <tr>
+		<td>With smartpaginator
+            <br />
+            <a href="http://jquery-bsgrid.coding.io/examples/pagination/smartpaginator/sample-adapter.html" target="_blank">
+            <img title="With smartpaginator" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-pagination05-With smartpaginator.png"></a>
+        </td>
+		<td>With jPaginator
+            <br />
+            <a href="http://jquery-bsgrid.coding.io/examples/pagination/jPaginator/sample-adapter.html" target="_blank">
+            <img title="With jPaginator" src="https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-pagination06-With jPaginator.png"></a>
+        </td>
     </tr>
 </table>
+
+
+###bsgrid的由来###
+&emsp;&emsp;首先，澄清插件名称为何叫bsgrid，是因为敝人常用bs开头的字符做英文账号的缘故。bsgrid诞生的原因是主流插件或框架的grid使用或扩展比较复杂。
+<br />
+以下仅简单说下各插件或框架的grid：
+<br />&emsp;&emsp;1，目前主流Grid基本比较适用于内部系统，对于外部系统适用而言，想要改变皮肤样式，字体大小等都非常困难；
+<br />&emsp;&emsp;2，主流Grid封装的太好，这反而造成了其扩展性能不是很好，并且其methods、properties很多，上手不容易；
+<br />&emsp;&emsp;3，主流grid大多数不提供无分页情况下后台数据的全部展现。
+
+###bsgrid的特点###
+&emsp;&emsp;1，轻量级，基于jQuery及HTML Table，除了对加载数据、分页、渲染数据的简单封装外，不额外增加特别的功能；模块化JS代码，可按需加载；CSS样式精致简洁，对于扩展修改非常容易；
+<br />&emsp;&emsp;2，使用友好，对于一个简单的表格展现，仅仅数十行代码即可完成，并且支持json、xml两种数据格式；且支持友好的导出参数构建；
+<br />&emsp;&emsp;3，内置多套经典样式风格，效果参看examples\grid\themes\\*.html；可非常容易的修改表格使用字体大小，参看示例examples\grid\themes\custom.html，仅需修改该示例样式中的两处font-size即可；
+<br />&emsp;&emsp;4，自带load加载数据遮罩，并很容易进行扩展或重写；
+<br />&emsp;&emsp;5，扩展性好，插件有特别好的扩展性，易于对插件本身进行局部甚至较大的修改，易于改变展现样式、渲染数据；插件放开了属性及方法的全局修改权限，所有方法都可在外部进行全局重写，而无需修改插件本身的代码。
 
 ###对于主流Grid的简单理解###
 大概说下目前的一些主流grid插件或框架的grid
@@ -80,11 +145,18 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
 <pre>
 以下列出Grid及Grid With ArtDialog的示例并作以说明；Util、Button、Form、Paging、Grid With Other Pagination部分的示例简述如下：
 
-Util：  演示util.js，提供form表单序列化为字符串的方法(区别于jquery的param方法)，以及form表单序列化name为字符串的方法
-Button：演示icon.css，提供两种图标样式
-Form：  演示form.js、form.css，对于表单的敏捷处理，包括获取表单值、给表单赋值、表单的查看新增编辑模式、表单各种模式下的tip提示
-Paging：演示grid.paging.js分页工具条，不依赖grid.js
+Util：  演示util.min.js，提供form表单序列化为字符串的方法(区别于jquery的param方法)，以及form表单序列化name为字符串的方法
+Button：演示icon.min.css，提供两种图标样式
+Form：  演示form.min.js、form.min.css，对于表单的敏捷处理，包括获取表单值、给表单赋值、表单的查看新增编辑模式、表单各种模式下的tip提示
+Paging：演示grid.paging.min.js分页工具条，不依赖grid.min.js
 Grid With Other Pagination：演示Grid集成第三方分页工具条使用
+Merged Files: 目录builds/merged，合并经常一起使用的css、js，合并文件描述文件builds/readme
+              grid.simple.min.css     合并grid、paging分页css样式
+              grid.simple.min.js      合并grid、paging分页js脚本
+              grid.all.min.css        合并grid、paging分页、icon图标css样式
+              grid.all.min.js         合并grid、paging分页、grid导出构建js脚本
+              bsgrid.all.min.css      合并grid、paging分页、icon图标、form表单css样式
+              bsgrid.all.min.js       合并grid、paging分页、grid导出构建、form表单js脚本
 
 1，<a href="#Example Index">Example Index</a>
 2，<a href="#Simple Grid">Simple Grid</a>
@@ -110,13 +182,10 @@ Grid With Other Pagination：演示Grid集成第三方分页工具条使用
 ![Simple Grid](https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-02_simple_grid.png)
 <pre>
 引用文件：
-    &lt;link rel="stylesheet" href="../../sources/css/grid.css"/&gt;
-    &lt;link rel="stylesheet" href="../../sources/css/grid.paging.css"/&gt;
+    &lt;link rel="stylesheet" href="../../builds/merged/grid.simple.min.css"/&gt;
     &lt;script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"&gt;&lt;/script&gt;
-    &lt;script type="text/javascript" src="../../sources/js/common.js"&gt;&lt;/script&gt;
-    &lt;script type="text/javascript" src="../../sources/js/lang/grid.en.js"&gt;&lt;/script&gt;
-    &lt;script type="text/javascript" src="../../sources/js/grid.js"&gt;&lt;/script&gt;
-    &lt;script type="text/javascript" src="../../sources/js/grid.paging.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="../../builds/js/lang/grid.en.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="../../builds/merged/grid.simple.min.js"&gt;&lt;/script&gt;
 实现代码：
     &lt;table id="searchTable" class="bsgrid"&gt;
         &lt;tr&gt;
@@ -149,7 +218,7 @@ Grid With Other Pagination：演示Grid集成第三方分页工具条使用
 #####3，<a id="Simple zh-CN Grid">Simple zh-CN Grid</a>#####
 ![Simple zh-CN Grid](https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-03_simple_zh-CN_grid.png)
 <pre>
-1，插件语言本地化文件：grid.en.js、grid.zh-CN.js、grid.zh-TW.js
+1，插件语言本地化文件：grid.en.min.js、grid.zh-CN.min.js、grid.zh-TW.min.js
 
 2，行间隔色配置：stripeRows: true
 
@@ -185,7 +254,7 @@ Grid With Other Pagination：演示Grid集成第三方分页工具条使用
        url: 'data/simple.json',
        pageAll: true
    });
-补充说明：不分页则无需加载grid.paging.css、grid.paging.js
+补充说明：不分页则无需加载grid.paging.min.css、grid.paging.min.js
 </pre>
 
 #####6，<a id="No Diaplay Blank Rows">No Diaplay Blank Rows</a>#####
@@ -227,7 +296,7 @@ bsgrid内置并不支持checkbox的直接配置，通过column列的w_render属�
 
    function checkbox(record, rowIndex, colIndex, options) {
     	var headerTh = $.fn.bsgrid.getGridHeaderObject(options);
-    	return '<input type="checkbox" value="' + $.fn.bsgrid.parseData.getColumnValue(options.settings.dataType, record, $.trim(headerTh.eq(colIndex).attr(options.settings.colsProperties.indexAttr))) + '"/>';
+    	return '&lt;input type="checkbox" value="' + $.fn.bsgrid.parseData.getColumnValue(options.settings.dataType, record, $.trim(headerTh.eq(colIndex).attr(options.settings.colsProperties.indexAttr))) + '"/&gt;';
    }
 
    function getCheckedIds() {
@@ -244,9 +313,9 @@ bsgrid内置并不支持checkbox的直接配置，通过column列的w_render属�
 <br />
 ![Grid With Little Paging](https://raw.githubusercontent.com/baishui2004/jquery.bsgrid/master/WebContent/documention/images/jquery.bsgrid-09_grid_with_little_paging.png)
 <pre>
-将grid.paging.css替换为grid.paging.little.css，并额外引入grid.paging.little.js（注意引用顺序），这个JS文件是对内置工具条展现的部分重写，简单的数几十行代码，充分体现了可扩展性特别强：
-   &lt;link rel="stylesheet" href="../../sources/css/grid.paging.little.css"/&gt;
-   &lt;script type="text/javascript" src="../../sources/js/grid.paging.little.js"&gt;&lt;/script&gt;
+将grid.paging.min.css替换为grid.paging.little.min.css，并额外引入grid.paging.little.min.js（注意引用顺序），这个JS文件是对内置工具条展现的部分重写，简单的数几十行代码，充分体现了可扩展性特别强：
+   &lt;link rel="stylesheet" href="../../builds/css/grid.paging.little.min.css"/&gt;
+   &lt;script type="text/javascript" src="../../builds/js/grid.paging.little.min.js"&gt;&lt;/script&gt;
 </pre>
 
 #####10，<a id="Standard Grid">Standard Grid</a>#####
@@ -270,7 +339,7 @@ bsgrid并不是提供导出Grid的页面数据功能，而是进行导出参数�
 http://jquery-bsgrid.coding.io/examples/grid/export.html?exportFileName=Export%2520Example&dataNames=XH%252CID%252CCHAR%252CTEXT%252CDATE%252CTIME%252CNUM&dataIndexs=XH,ID,CHAR,TEXT,DATE,TIME,NUM&dataLengths=50,50,150,300,150,150,50&dataAligns=center,center,left,left,center,center,center&param1=param1&param2=param2
 
 需要额外引用用于导出的JS：
-    &lt;script type="text/javascript" src="../../sources/js/export.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="../../builds/js/export.min.js"&gt;&lt;/script&gt;
 
 代码实现，如下，静态页面部分仅再需要增加一个导出按钮即可：
     var gridObj;
