@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Grid With jquery_pagination (Adapter, Require JSP Env)</title>
+    <title>Grid With jquery_pagination (Adapter)</title>
     <link rel="stylesheet" href="../../../builds/css/grid.min.css"/>
     <script type="text/javascript" src="../../../plugins/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="../../../builds/js/common.min.js"></script>
@@ -27,8 +27,9 @@
     </tr>
 </table>
 <script type="text/javascript">
+    var gridObj;
     $(function () {
-        $.fn.bsgrid.init('searchTable', {
+        gridObj = $.fn.bsgrid.init('searchTable', {
             url: '../../grid/data/json.jsp',
             // autoLoad: false,
             pageSizeSelect: true,
@@ -37,7 +38,7 @@
     });
 
     function operate(record, rowIndex, colIndex, options) {
-        return '<a href="#" onclick="alert(\'ID=' + record['ID'] + '\');">Operate</a>';
+        return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">Operate</a>';
     }
 </script>
 </body>

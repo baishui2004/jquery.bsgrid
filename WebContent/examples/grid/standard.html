@@ -3,39 +3,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Standard Grid (Require JSP Env)</title>
+    <title>Standard Grid</title>
     <link rel="stylesheet" href="../../builds/merged/grid.simple.min.css"/>
     <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="../../builds/js/lang/grid.en.min.js"></script>
     <script type="text/javascript" src="../../builds/merged/grid.simple.min.js"></script>
 </head>
 <body style="background-color: #fff;">
-&emsp;<input type="button" value="Get pageSize" onclick="alert(gridObj.options.settings.pageSize);"/>
-&emsp;<input type="button" value="Get totalRows" onclick="alert(gridObj.options.totalRows);"/>
-&emsp;<input type="button" value="Get totalPages" onclick="alert(gridObj.options.totalPages);"/>
-&emsp;<input type="button" value="Get curPage" onclick="alert(gridObj.options.curPage);"/>
-&emsp;<input type="button" value="Get curPage RowsNum" onclick="alert(gridObj.options.curPageRowsNum);"/>
-&emsp;<input type="button" value="Get startRow" onclick="alert(gridObj.options.startRow);"/>
-&emsp;<input type="button" value="Get endRow" onclick="alert(gridObj.options.endRow);"/>
-
-<p/>
-&emsp;<input type="button" value="First page" onclick="gridObj.firstPage();"/>
-&emsp;<input type="button" value="Prev page" onclick="gridObj.prevPage();"/>
-&emsp;<input type="button" value="Next page" onclick="gridObj.nextPage();"/>
-&emsp;<input type="button" value="Last page" onclick="gridObj.lastPage();"/>
-&emsp;<input type="button" value="Page 2" onclick="gridObj.page(2);"/>
-&emsp;<input type="button" value="Goto page 2" onclick="gridObj.gotoPage(2);"/>
-
-<p/>
-&emsp;<input type="button" value="Refresh page" onclick="gridObj.refreshPage();"/>
-&emsp;<input type="button" value="Get sort name" onclick="alert(gridObj.options.sortName);"/>
-&emsp;<input type="button" value="Get sort order" onclick="alert(gridObj.options.sortOrder);"/>
-&emsp;<input type="button" value="Sort by ID"
-             onclick="gridObj.sort($('#' + gridObj.options.gridId + ' tr:first th:eq(1) a'));"/>
-&emsp;<input type="button" value="Clear grid body data" onclick="gridObj.clearGridBodyData();"/>
-
-<p/>
-
 <form id="searchParams">
     &emsp;param1:<input type="text" name="param1" value="param1"/>
     &emsp;param2:<input type="text" name="param2" value="param2"/>
@@ -58,11 +32,79 @@
         <th w_render="operate" width="10%;">Operate</th>
     </tr>
 </table>
+
+<p/>
+&emsp;<input type="button" value="Get pageSize" onclick="alert(gridObj.options.settings.pageSize);"/>
+&emsp;<input type="button" value="Get totalRows" onclick="alert(gridObj.options.totalRows);"/>
+&emsp;<input type="button" value="Get totalPages" onclick="alert(gridObj.options.totalPages);"/>
+&emsp;<input type="button" value="Get curPage" onclick="alert(gridObj.options.curPage);"/>
+&emsp;<input type="button" value="Get curPage RowsNum" onclick="alert(gridObj.options.curPageRowsNum);"/>
+&emsp;<input type="button" value="Get startRow" onclick="alert(gridObj.options.startRow);"/>
+&emsp;<input type="button" value="Get endRow" onclick="alert(gridObj.options.endRow);"/>
+
+<p/>
+&emsp;<input type="button" value="First page" onclick="gridObj.firstPage();"/>
+&emsp;<input type="button" value="Prev page" onclick="gridObj.prevPage();"/>
+&emsp;<input type="button" value="Next page" onclick="gridObj.nextPage();"/>
+&emsp;<input type="button" value="Last page" onclick="gridObj.lastPage();"/>
+&emsp;<input type="button" value="Page 2" onclick="gridObj.page(2);"/>
+&emsp;<input type="button" value="Goto page 2" onclick="gridObj.gotoPage(2);"/>
+
+<p/>
+&emsp;<input type="button" value="select row 2" onclick="gridObj.selectRow(2);"/>
+&emsp;<input type="button" value="unSelect row" onclick="gridObj.unSelectRow();"/>
+&emsp;<input type="button" value="get Selected Row" onclick="alert(gridObj.getSelectedRow());"/>
+&emsp;<input type="button" value="get Selected Row(inner html)" onclick="alert(gridObj.getSelectedRow().html());"/>
+&emsp;<input type="button" value="get Row 2 ID value" onclick="alert(gridObj.getColumnValue(2, 'ID'));"/>
+&emsp;<input type="button" value="get Selected Row record" onclick="alert(gridObj.getRowRecord(gridObj.getSelectedRow()));"/>
+&emsp;<input type="button" value="get Selected Row record ID value" onclick="alert(gridObj.getRecordIndexValue(gridObj.getRowRecord(gridObj.getSelectedRow()), 'ID'));"/>
+
+<p/>
+&emsp;<input type="button" value="Refresh page" onclick="gridObj.refreshPage();"/>
+&emsp;<input type="button" value="Get sort name" onclick="alert(gridObj.options.sortName);"/>
+&emsp;<input type="button" value="Get sort order" onclick="alert(gridObj.options.sortOrder);"/>
+&emsp;<input type="button" value="Sort by ID"
+             onclick="gridObj.sort($('#' + gridObj.options.gridId + ' tr:first th:eq(1)'));"/>
+&emsp;<input type="button" value="Clear grid body data" onclick="gridObj.clearGridBodyData();"/>
 <p/>
 <pre>
 Documention:
 
-1, th properties:
+1, skins
+   in addition to grid.css, other need skins/grid_*.css
+
+2, settings: $.fn.bsgrid.defaults or $.fn.bsgrid.init(gridId, settings) second param settings
+   url: page request url
+   dataType: 'json', 'xml', default 'json'
+   autoLoad: load onReady, default true
+   pageAll: display all datas, no paging only count, default false
+   pageSize: if set value little then 1, then pageAll will auto set true, default 20
+   pageSizeSelect: if display pageSize select option, use with property pageSizeForGrid, default false
+   pageSizeForGrid: pageSize select option
+   displayBlankRows: true or false, default true
+   stripeRows: true or false, default false, css: grid.css -> '.bsgrid tr.even_index_row'
+   pagingToolbarAlign: default 'right', other values 'left', 'center'
+   pagingBtnClass: default 'pagingBtn', paging toolbar button css class, write in grid.paging*.css
+   displayPagingToolbarOnlyMultiPages: true or false, default false means alway diaplay pagingToolbar
+   isProcessLockScreen: process lock screen, default true
+   longLengthAotoSubAndTip: if column's value length longer than it, auto sub and tip it, default true
+       sub: txt.substring(0, MaxLength-3) + '...'. if column's render is not false, then this property is not make effective to it
+       method, $.fn.bsgrid.longLengthSubAndTip, global method
+   beforeSend: method before page ajax request send
+   complete: method after page ajax request complete
+   extend config methos, use write see grid.extend.js(Note that it's advanced use with little difficult):
+       extend.initGridMethods: extend init grid methods
+       extend.beforeRenderGridMethods: extend before render grid methods
+       extend.renderPerColumnMethods: extend render per column methods, no matter blank column or not blank column
+       extend.renderPerRowMethods: extend render per row methods, no matter blank row or not blank row
+       extend.afterRenderGridMethods: extend after render grid methods
+   additional render methods:
+       additionalBeforeRenderGrid: additional before render grid
+       additionalRenderPerColumn: additional render per column, no matter blank column or not blank column
+       additionalRenderPerRow: additional render per row, no matter blank row or not blank row
+       additionalAfterRenderGrid: additional after render grid
+
+3, th properties
    w_index: column index
    w_sort:  like "id", "id,desc", "id,asc"
    w_align: body column align, not header th
@@ -75,34 +117,52 @@ Documention:
    w_tip: if set "true", then will tip column, ignore if it's length is longer than w_length
           method, $.fn.bsgrid.columnTip, global method
 
-2, $.fn.bsgrid.defaults or $.fn.bsgrid.init(gridId, settings) second param settings
-   url, page request url
-   dataType, 'json', 'xml', default 'json'
-   autoLoad, load onReady, default true
-   pageAll, display all datas, no paging only count, default false
-   pageSize, if set value little then 1, then pageAll will auto set true, default 20
-   pageSizeSelect, if display pageSize select option, use with property pageSizeForGrid, default false
-   pageSizeForGrid: pageSize select option
-   displayBlankRows, true or false, default true
-   stripeRows, true or false, default false, css: grid.css -> '.bsgrid tr.even_index_row'
-   displayPagingToolbarOnlyMultiPages, true or false, default false means alway diaplay pagingToolbar
-   isProcessLockScreen, process lock screen, default true
-   longLengthAotoSubAndTip: if column's value length longer than it, auto sub and tip it, default true
-       sub: txt.substring(0, MaxLength-3) + '...'. if column's render is not false, then this property is not make effective to it
-       method, $.fn.bsgrid.longLengthSubAndTip, global method
-   beforeSend, method before page ajax request send
-   complete, method after page ajax request complete
+   th extend properties:
+   w_edit: extend render column, values: text, hidden, password, radio, button, checkbox, textarea
 
-3, These three methods could call after grid data rendered.
-   gridObj.getRecord(rowIndex): get record by rowIndex
+4, these four get record or column's value methods could call after grid data rendered
+   gridObj.getRecord(rowIndex): get record by rowIndex, note that index from 0
+   gridObj.getRowRecord(rowObj): get row record by row's tr object
    gridObj.getRecordIndexValue(record, index): get column value by record and index
    gridObj.getColumnValue(rowIndex, index): get column value by rowIndex and index
 
-4, process lock screen, global method
+5, these thress select row methods could call after grid data rendered
+   gridObj.selectRow(rowIndex): note that index from 0
+   gridObj.unSelectRow()
+   gridObj.getSelectedRow(): get selected row's tr object
+
+6, grid other methods list
+   gridObj.getPageCondition(curPage)
+   gridObj.page(curPage)
+   gridObj.getCurPage()
+   gridObj.refreshPage()
+   gridObj.firstPage()
+   gridObj.prevPage()
+   gridObj.nextPage()
+   gridObj.lastPage()
+   gridObj.gotoPage(pageNo)
+
+   gridObj.sort(thObj)
+   gridObj.getGridHeaderObject()
+   gridObj.getColumnAttr(colIndex, attrName)
+   gridObj.clearGridBodyData()
+
+   gridObj.setGridBlankBody()
+   gridObj.appendHeaderSort()
+   gridObj.createPagingOutTab()
+   gridObj.initPaging()
+   gridObj.setPagingValues()
+
+7, bsgrid other useful methods
+   $.fn.bsgrid.getGridObj(gridId): get grid object
+   $.fn.bsgrid.columnTip(obj, value, record): tip column
+   $.fn.bsgrid.longLengthSubAndTip(obj, value, maxLen, record): if column's value length longer than it, auto sub and tip it. sub: txt.substring(0, MaxLength-3) + '...'.
+
+8, process lock screen, global method
    $.fn.bsgrid.lockScreen, user lock screen method
    $.fn.bsgrid.unlockScreen, user lock screen method
 
-5, Paging Toolbar
+9, Paging Toolbar
    $.fn.bsgrid.defaults.pagingToolbarAlign
      paging toolbar align: left, center, right, default right
    $.fn.bsgrid.defaults.pagingBtnClass
@@ -113,21 +173,17 @@ Documention:
      $.fn.bsgrid.setPagingToolbarEvents(options)
      $.fn.bsgrid.dynamicChangePagingButtonStyle(options)
 
-6, additional render
-   $.fn.bsgrid.defaults.additionalBeforeRenderGrid, additional before render grid
-   $.fn.bsgrid.defaults.additionalRenderPerRow, additional render per row, no matter blank row or not blank row
-   $.fn.bsgrid.defaults.additionalAfterRenderGrid, additional after render grid
-
-7, th properties default:
+10, th properties default:
    $.fn.bsgrid.defaults.colsProperties, properties follow:
      body row every column config: align, maxLength
      config properties's name: indexAttr, sortAttr, alignAttr, lengthAttr, renderAttr, hiddenAttr, tipAttr
+     extend properties's name: editAttr
 
-8, request post params names
+11, request post params names
    to modify that: $.fn.bsgrid.defaults.requestParamsName.X = '', X may pageSize, curPage, sortName, sortOrder
 
-9, skins
-   in addition to grid.css, other need skins/grid_*.css
+12,grid other config
+   $.fn.bsgrid.addRowsClickEvent(options): add rows click event
 </pre>
 <script type="text/javascript">
     var gridObj;
@@ -147,11 +203,11 @@ Documention:
         // additional before render grid
         $.fn.bsgrid.defaults.additionalBeforeRenderGrid = function (parseSuccess, gridData, options) {
             console.log('[additional before render grid]   ' + 'parseSuccess=' + parseSuccess);
-        }
+        };
         // additional render per row, no matter blank row or not blank row
         $.fn.bsgrid.defaults.additionalRenderPerRow = function (record, rowIndex, options) {
             if (record != null) { // null record render blank row
-                console.log('[additional render per row]      ' + 'ID=' + record['ID'] + ', rowIndex=' + rowIndex);
+                console.log('[additional render per row]      ' + 'ID=' + gridObj.getRecordIndexValue(record, 'ID') + ', rowIndex=' + rowIndex);
             }
         };
         // additional after render grid
@@ -176,7 +232,7 @@ Documention:
     });
 
     function operate(record, rowIndex, colIndex, options) {
-        return '<a href="#" onclick="alert(\'ID=' + record['ID'] + ', rowIndex=' + rowIndex + ', colIndex=' + colIndex + '\');">Operate</a>';
+        return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + ', rowIndex=' + rowIndex + ', colIndex=' + colIndex + '\');">Operate</a>';
     }
 </script>
 </body>

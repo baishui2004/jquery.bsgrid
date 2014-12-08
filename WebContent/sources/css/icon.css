@@ -136,6 +136,14 @@ input.bsgrid_icon, button.bsgrid_icon {
     background-image: url(../images/icons/documentation.png);
 }
 
+.icon_config {
+    background-image: url(../images/icons/configure-2.png);
+}
+
+.icon_config2 {
+    background-image: url(../images/icons/system-config-boot.png);
+}
+
 .icon_text {
     background-image: url(../images/icons/mimetypes/silk_style/page-white_text.png);
 }

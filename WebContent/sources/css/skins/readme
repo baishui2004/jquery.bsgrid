@@ -8,6 +8,7 @@ font color:                       .x-body
 th and td background-color:       .x-panel-body-default
 border-color:                     .x-panel-body-default
 tr.even row td background-color:  .x-grid-row-alt
+tr.selected td background-color:  .x-grid-row-selected
 
 
 
@@ -20,6 +21,7 @@ font color:
 th and td background-color:       div.gridbox .objbox
 border-color:                     div.gridbox_dhx_skyblue
 tr.even row td background-color:  div.gridbox_dhx_skyblue .odd_dhx_skyblue
+tr.selected td background-color:  tr.rowselected
 
 
 
@@ -31,3 +33,4 @@ font color:                       .flexigrid
 th and td background-color:       .flexigrid div.bDiv
 border-color:                     .flexigrid div.bDiv
 tr.even row td background-color:  .flexigrid tr.erow td
+tr.selected td background-color:  .trSelected

@@ -3,208 +3,151 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Examples Index</title>
+    <title>jquery.bsgrid - �?���?��易用的jQuery Grid插件</title>
     <style type="text/css">
         body {
             font-size: 16px;
-            text-align: center;
+            color: #555;
+            line-height: 24px;
+            background-color: white;
+            padding: 10px;
+        }
+        
+        a {
+        	font-size: 16px;
+        	color: blue;
+        	text-decoration: underline;
         }
 
-        table {
-            border-collapse: collapse;
-        }
-
-        td {
-            text-align: left;
-            height: 30px;
-            width: 245px;
-            padding-left: 5px;
-            border: solid 1px #999;
-        }
+		.tabImg {
+			width: 100%;
+			border-collapse: collapse;
+		}
+		.tabImg td {
+			font-size: 18px;
+	        color: green;
+			border: solid 1px #aaa;
+	        background-color: white;
+			padding: 0;
+			margin: 0;
+	        text-align: center;
+	        vertical-align: top;
+		}
+		.tabImg td img{
+			width: 100%;
+			border: solid 0 white;
+		}
     </style>
 </head>
-<body style="background-color: white;">
-<center>
-    <br/>
-    <table>
-        <tr>
-            <td colspan="4" style="font-size: 18px;font-weight: 900;color: blue; border: 0;">Examples Index</td>
-        </tr>
-        <tr>
-            <td style="font-size: 15px; font-weight: 900;">
-                Util
-            </td>
-            <td colspan="3">
-                <a href="examples/util.html">Util</a>
-            </td>
-        </tr>
-        <tr>
-            <td style="font-size: 15px; font-weight: 900;">
-                Button
-            </td>
-            <td colspan="3">
-                <a href="examples/button.html">Button</a>
-            </td>
-        </tr>
-        <tr>
-            <td style="font-size: 15px; font-weight: 900;">
-                Form
-            </td>
-            <td>
-                <a href="examples/form/simple.html">Simple Form</a>
-            </td>
-            <td colspan="2">
-                <a href="examples/form/standard.html">Standard Form</a>
-            </td>
-        </tr>
-        <tr>
-            <td style="font-size: 15px; font-weight: 900;">
-                Paging
-            </td>
-            <td>
-                <a href="examples/paging/simple.html">Simple Paging</a>
-            </td>
-            <td>
-                <a href="examples/paging/simple.little.html">Simple Little Paging</a>
-            </td>
-            <td>
-                <a href="examples/paging/least.html">Least Paging</a>
-            </td>
-        </tr>
-        <tr>
-            <td rowspan="7" style="font-size: 15px; font-weight: 900;">
-                Grid
-            </td>
-            <td>
-                <a href="examples/grid/simple.html">Simple Grid</a>
-            </td>
-            <td>
-                <a href="examples/grid/simple.zh-CN.html">Simple zh-CN Grid (Row Hover)</a>
-            </td>
-            <td>
-                <a href="examples/grid/simple-xml.html">Simple XML Data Grid</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="examples/grid/themes/gray.html">ExtJS Gray Style</a>
-            </td>
-            <td>
-                <a href="examples/grid/themes/blue.html">ExtJS Blue Style</a>
-            </td>
-            <td>
-                <a href="examples/grid/themes/access.html">ExtJS Access Style</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="examples/grid/themes/flexigrid.html">FlexiGrid Gray Style</a>
-            </td>
-            <td>
-                <a href="examples/grid/themes/sky_blue.html">Dhtmlx Sky Blue Style</a>
-            </td>
-            <td>
-                <a href="examples/grid/themes/custom.html">Custom Blue Style</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="examples/grid/no-pagation.html">No Pagation</a>
-            </td>
-            <td>
-                <a href="examples/grid/no-display-blank-rows.html">No Diaplay Blank Rows</a>
-            </td>
-            <td>
-                <a href="examples/grid/no-data.html">No Data</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="examples/grid/checkbox.html">Grid With Checkbox</a>
-            </td>
-            <td colspan="2">
-                <a href="examples/grid/paging.little.html">Grid With Little Paging</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="examples/grid/standard.html">Standard Grid (Require JSP Env)</a>
-            </td>
-            <td colspan="2">
-                <a href="examples/grid/multi.html">Multi Grid</a>
-            </td>
-        </tr>
-        <tr>
-            <td colspan="3">
-                <a href="examples/grid/export.html">Export Grid</a>
-            </td>
-        </tr>
-        <tr>
-            <td style="font-size: 15px; font-weight: 900;">
-                Grid With ArtDialog
-            </td>
-            <td>
-                <a href="examples/artDialog/pop.html">Pop with ArtDialog</a>
-            </td>
-            <td>
-                <a href="examples/artDialog/grid.html">Grid with ArtDialog</a>
-            </td>
-            <td>
-                <a href="examples/artDialog/gridAndForm.html">Grid And Form with ArtDialog</a>
-            </td>
-        </tr>
-        <tr>
-            <td rowspan="6" style="font-size: 15px; font-weight: 900;">
-                Grid With Other Pagination<br/>(Require JSP Env)&emsp;&nbsp;&nbsp;<a href="examples/pagination/readme">Note</a>
-            </td>
-            <td>
-                <a href="examples/pagination/jqPagination/sample.html">With jqPagination</a>
-            </td>
-            <td colspan="2">
-                <a href="examples/pagination/jqPagination/sample-adapter.html">With jqPagination (Adapter)</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="examples/pagination/jquery_pagination/sample.html">With jquery_pagination</a>
-            </td>
-            <td colspan="2">
-                <a href="examples/pagination/jquery_pagination/sample-adapter.html">With jquery_pagination (Adapter)</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="examples/pagination/jPaginate/sample.html">With jPaginate</a>
-            </td>
-            <td colspan="2">
-                <a href="examples/pagination/jPaginate/sample-adapter.html">With jPaginate (Adapter)</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="examples/pagination/jPages/sample.html">With jPages</a>
-            </td>
-            <td colspan="2">
-                <a href="examples/pagination/jPages/sample-adapter.html">With jPages (Adapter)</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="examples/pagination/smartpaginator/sample.html">With smartpaginator</a>
-            </td>
-            <td colspan="2">
-                <a href="examples/pagination/smartpaginator/sample-adapter.html">With  smartpaginator(Adapter)</a>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <a href="examples/pagination/jPaginator/sample.html">With jPaginator</a>
-            </td>
-            <td colspan="2">
-                <a href="examples/pagination/jPaginator/sample-adapter.html">With  jPaginator(Adapter)</a>
-            </td>
-        </tr>
-    </table>
-</center>
+<body>
+<a style="font-size: 48px; color: green; text-decoration: none; font-weight: 400;" href="https://github.com/baishui2004/jquery.bsgrid" target="_blank">jquery.bsgrid</a>
+&emsp;�?���?��易用的jQuery Grid插件，支持分页或不分页，支持json、xml数据格式，对导出友好，扩展�?友好�?
+<div style="font-size: 15px;">
+	<br />
+	在线演示�?a href="examples/en.html" target="_blank">示例导航1</a>
+		&emsp;<a href="examples/en-table.html" target="_blank">示例导航2</a>
+		&emsp;<a href="examples/grid/standard.html" target="_blank">方法及属性的使用演示与说�?/a>
+	<br />
+	项目链接�?a href="https://github.com/baishui2004/jquery.bsgrid" target="_blank">插件源码</a>
+		&emsp;&nbsp;&nbsp;<a href="README.md.html" target="_blank">在线文档</a>
+		&emsp;&nbsp;&nbsp;<a href="https://github.com/baishui2004/jquery.bsgrid/raw/master/README.md.pdf" target="_blank">离线文档</a>
+	<br />
+	插件版本�?a href="https://github.com/baishui2004/jquery.bsgrid/tree/v1.30/" target="_blank">1.30</a>
+		&emsp;<a href="https://github.com/baishui2004/jquery.bsgrid/tree/v1.21/" target="_blank">1.21</a>
+	<br />
+	插件协议�?a href="http://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank">Apache Licence 2</a>
+</div>
+<br />
+<h2>典型皮肤效果图示</h2>
+<table class="tabImg">
+	<tr>
+		<td>ExtJS Gray Style
+            <br />
+            <a href="examples/grid/themes/gray.html" target="_blank">
+            <img title="ExtJS Gray Style - 点击图片查看示例�? src="https://github.com/baishui2004/jquery.bsgrid/raw/master/WebContent/documention/images/jquery.bsgrid-skins01-ExtJS Gray Style.png" /></a>
+        </td>
+		<td>ExtJS Blue Style
+            <br />
+            <a href="examples/grid/themes/blue.html" target="_blank">
+            <img title="ExtJS Blue Style - 点击图片查看示例�? src="https://github.com/baishui2004/jquery.bsgrid/raw/master/WebContent/documention/images/jquery.bsgrid-skins02-ExtJS Blue Style.png" /></a>
+        </td>
+    </tr>
+    <tr>
+		<td>ExtJS Access Style
+            <br />
+            <a href="examples/grid/themes/access.html" target="_blank">
+            <img title="ExtJS Access Style - 点击图片查看示例�? src="https://github.com/baishui2004/jquery.bsgrid/raw/master/WebContent/documention/images/jquery.bsgrid-skins03-ExtJS Access Style.png" /></a>
+        </td>
+		<td>FlexiGrid Gray Style
+            <br />
+            <a href="examples/grid/themes/flexigrid.html" target="_blank">
+            <img title="FlexiGrid Gray Style - 点击图片查看示例�? src="https://github.com/baishui2004/jquery.bsgrid/raw/master/WebContent/documention/images/jquery.bsgrid-skins04-FlexiGrid Gray Style.png" /></a>
+        </td>
+    </tr>
+    <tr>
+		<td>Dhtmlx Sky Blue Style
+            <br />
+            <a href="examples/grid/themes/sky_blue.html" target="_blank">
+            <img title="Dhtmlx Sky Blue Style - 点击图片查看示例�? src="https://github.com/baishui2004/jquery.bsgrid/raw/master/WebContent/documention/images/jquery.bsgrid-skins05-Dhtmlx Sky Blue Style.png" /></a>
+        </td>
+		<td>Custom Blue Style
+            <br />
+            <a href="examples/grid/themes/custom.html" target="_blank">
+            <img title="Custom Blue Style - 点击图片查看示例�? src="https://github.com/baishui2004/jquery.bsgrid/raw/master/WebContent/documention/images/jquery.bsgrid-skins06-Custom Blue Style.png" /></a>
+        </td>
+    </tr>
+</table>
+<br />
+<h2>jquery.bsgrid的特�?/h2>
+1，轻量级，基于jQuery及HTML Table，除了对加载数据、分页�?渲染数据的简单封装外，不额外增加特别的功能；模块化JS代码，可按需加载；CSS样式精致�?��，对于扩展修改非常容易；
+<br />
+2，使用友好，对于�?���?��的表格展现，仅仅数十行代码即可完成，并且支持json、xml两种数据格式；且支持友好的导出参数构建；
+<br />
+3，内置多套经典样式风格，效果参看examples\grid\themes\*.html；可非常容易的修改表格使用字体大小，参看示例examples\grid\themes\custom.html，仅�?��改该示例样式中的两处font-size即可�?
+<br />
+4，自带load加载数据遮罩，并很容易进行扩展或重写�?
+<br />
+5，扩展�?好，插件有特别好的扩展�?，易于对插件本身进行�?��甚至较大的修改，易于改变展现样式、渲染数据；插件放开了属性及方法的全�?��改权限，�?��方法都可在外部进行全�?��写，而无�?��改插件本身的代码�?
+<br />
+<br />
+<h2>入门示例</h2>
+<a href="examples/grid/simple.html" target="_blank">
+	<img title="Simple Grid - 点击图片查看示例�? src="https://github.com/baishui2004/jquery.bsgrid/raw/master/WebContent/documention/images/jquery.bsgrid-02_simple_grid.png" />
+</a>
+<pre style="font-size: 12px; background-color: #eee; color: #333;">
+引用文件�?
+    &lt;link rel="stylesheet" href="../../builds/merged/grid.simple.min.css"/&gt;
+    &lt;script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="../../builds/js/lang/grid.en.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="../../builds/merged/grid.simple.min.js"&gt;&lt;/script&gt;
+实现代码�?
+    &lt;table id="searchTable" class="bsgrid"&gt;
+        &lt;tr&gt;
+            &lt;th w_index="XH" width="5%;"&gt;XH&lt;/th&gt;
+            &lt;th w_index="ID" width="5%;"&gt;ID&lt;/th&gt;
+            &lt;th w_index="CHAR" w_align="left" w_tip="true" width="15%;"&gt;CHAR&lt;/th&gt;
+            &lt;th w_index="TEXT" w_align="left" w_length="50" width="30%;"&gt;TEXT&lt;/th&gt;
+            &lt;th w_index="DATE" width="15%;"&gt;DATE&lt;/th&gt;
+            &lt;th w_index="TIME" width="15%;"&gt;TIME&lt;/th&gt;
+            &lt;th w_index="NUM" width="5%;"&gt;NUM&lt;/th&gt;
+            &lt;th w_render="operate" width="10%;"&gt;Operate&lt;/th&gt;
+        &lt;/tr&gt;
+    &lt;/table&gt;
+    &lt;script type="text/javascript"&gt;
+        var gridObj;
+        $(function () {
+            gridObj = $.fn.bsgrid.init('searchTable', {
+                url: 'data/json.jsp',
+                // autoLoad: false,
+                pageSizeSelect: true,
+                pageSize: 10
+            });
+        });
+    
+        function operate(record, rowIndex, colIndex, options) {
+            return '&lt;a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');"&gt;Operate&lt;/a&gt;';
+        }
+    &lt;/script&gt;
+</pre>
 </body>
 </html>

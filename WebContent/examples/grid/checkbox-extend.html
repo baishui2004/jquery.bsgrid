@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Grid With Checkbox</title>
+    <link rel="stylesheet" href="../../builds/merged/grid.simple.min.css"/>
+    <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="../../builds/js/lang/grid.en.min.js"></script>
+    <script type="text/javascript" src="../../builds/merged/grid.simple.min.js"></script>
+    <script type="text/javascript" src="../../builds/js/grid.extend.min.js"></script>
+</head>
+<body style="background-color: #fff;">
+<br />&nbsp;
+<input type="button" value="Get Checked Ids" onclick="getCheckedIds()"  />
+<br />&nbsp;
+<table id="searchTable" class="bsgrid">
+    <tr>
+        <th w_edit="checkbox" w_index="ID" width="3%;"><input type="checkbox"/></th>
+        <th w_edit="text" w_index="XH" width="5%;">XH</th>
+        <th w_index="ID" width="5%;">ID</th>
+        <th w_index="CHAR" w_align="left" w_tip="true" width="15%;">CHAR</th>
+        <th w_index="TEXT" w_align="left" w_length="50" width="27%;">TEXT</th>
+        <th w_index="DATE" width="15%;">DATE</th>
+        <th w_index="TIME" width="15%;">TIME</th>
+        <th w_index="NUM" width="5%;">NUM</th>
+        <th w_render="operate" width="10%;">Operate</th>
+    </tr>
+</table>
+<script type="text/javascript">
+    var gridObj;
+    $(function () {
+        gridObj = $.fn.bsgrid.init('searchTable', {
+        	//autoLoad: false,
+            url: 'data/simple.xml',
+            dataType: 'xml',
+            pageSizeSelect: true,
+            pageSize: 10
+        });
+    });
+
+    function getCheckedIds() {
+    	var records = getCheckedRecords();
+        var ids = '';
+        for(var i = 0; i < records.length; i++) {
+        	ids += ',' + gridObj.getRecordIndexValue(records[i], 'ID');
+        }
+        alert(ids.length > 0 ? ids.substring(1) : '');
+    }
+    
+    function getCheckedRecords() {
+        var records = new Array();
+        $('#searchTable tr:not(:first)').each(function() {
+        	if($(this).find('td(0)>input:checked').length == 1){
+        		records[records.length] = gridObj.getRowRecord($(this));
+        	}
+        });
+        return records;
+    }
+
+    function operate(record, rowIndex, colIndex, options) {
+        return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">Operate</a>';
+    }
+</script>
+</body>
+</html>

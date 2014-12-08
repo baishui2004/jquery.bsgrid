@@ -56,14 +56,14 @@ Documention:
     var gridObj;
     $(function () {
         gridObj = $.fn.bsgrid.init('searchTable', {
-            url: 'data/simple.json',
+            url: 'data/json.jsp',
             pageSizeSelect: true,
             pageSize: 10
         });
     });
 
     function operate(record, rowIndex, colIndex, options) {
-        return '<a href="#" onclick="alert(\'ID=' + record['ID'] + '\');">Operate</a>';
+        return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">Operate</a>';
     }
 
     function doExport() {

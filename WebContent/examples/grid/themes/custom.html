@@ -64,9 +64,10 @@
     </tr>
 </table>
 <script type="text/javascript">
+    var gridObj;
     $(function () {
-        $.fn.bsgrid.init('searchTable', {
-            url: '../data/simple.json',
+        gridObj = $.fn.bsgrid.init('searchTable', {
+            url: '../data/json.jsp',
             // autoLoad: false,
             pageSizeSelect: true,
             stripeRows: true,
@@ -75,7 +76,7 @@
     });
 
     function operate(record, rowIndex, colIndex, options) {
-        return '<a href="#" onclick="alert(\'ID=' + record['ID'] + '\');">Operate</a>';
+        return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">Operate</a>';
     }
 </script>
 </body>

@@ -28,22 +28,18 @@
         // $.bsgridLanguage.noDataToDisplay = '<img src="no-data.png" />'; // can set a html code paragraph
 
         // global setting
-        // $.fn.bsgrid.defaults.displayBlankRows = false;
-        // $.fn.bsgrid.defaults.displayPagingToolbarOnlyMultiPages = true;
+        // $.fn.bsgrid.defaults.displayBlankRows = false; // default true
+        // $.fn.bsgrid.defaults.displayPagingToolbarOnlyMultiPages = true; // default false
 
         $.fn.bsgrid.init('searchTable', {
             url: 'data/no-data.json',
             // autoLoad: false,
             pageSizeSelect: true,
             pageSize: 10,
-            displayBlankRows: false,
-            displayPagingToolbarOnlyMultiPages: true
+            displayBlankRows: false, // single grid setting
+            displayPagingToolbarOnlyMultiPages: true // single grid setting
         });
     });
-
-    function operate(record, rowIndex, colIndex, options) {
-        return '<a href="#" onclick="alert(\'ID=' + record['ID'] + '\');">Operate</a>';
-    }
 </script>
 </body>
 </html>

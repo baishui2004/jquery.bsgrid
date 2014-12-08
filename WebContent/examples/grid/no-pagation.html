@@ -30,15 +30,19 @@
     </tr>
 </table>
 <script type="text/javascript">
+    var gridObj;
     $(function () {
-        $.fn.bsgrid.init('searchTable', {
+        // global setting
+        // $.fn.bsgrid.defaults.pageAll = true; // default false
+
+        gridObj = $.fn.bsgrid.init('searchTable', {
             url: 'data/simple.json',
-            pageAll: true
+            pageAll: true // single grid setting
         });
     });
 
     function operate(record, rowIndex, colIndex, options) {
-        return '<a href="#" onclick="alert(\'ID=' + record['ID'] + '\');">Operate</a>';
+        return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">Operate</a>';
     }
 </script>
 </body>

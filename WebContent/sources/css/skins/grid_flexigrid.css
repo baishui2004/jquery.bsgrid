@@ -17,6 +17,11 @@
     background-color: #f7f7f7;
 }
 
+/* grid selected row column color */
+.bsgrid tr.selected td {
+    background-color: #d5effc!important;
+}
+
 /* paging toolbar out table */
 .bsgridPagingOutTab {
     border-color: #ccc;

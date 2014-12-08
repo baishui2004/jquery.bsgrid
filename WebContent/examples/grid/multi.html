@@ -52,27 +52,27 @@
 <script type="text/javascript">
     $(function () {
         $.fn.bsgrid.init('searchTable', {
-            url: 'data/simple.json',
+            url: 'data/json.jsp',
             pageSizeSelect: true,
             pageSize: 3
         });
 
         $.fn.bsgrid.init('searchTable2', {
-            url: 'data/simple.json',
+            url: 'data/json.jsp',
             pageSizeSelect: true,
             pageSize: 5,
             pagingToolbarAlign: 'center'
         });
 
         $.fn.bsgrid.init('searchTable3', {
-            url: 'data/simple.json',
+            url: 'data/json.jsp',
             pageAll: true,
             pagingToolbarAlign: 'left'
         });
     });
 
     function operate(record, rowIndex, colIndex, options) {
-        return '<a href="#" onclick="alert(\'ID=' + record['ID'] + '\');">Operate</a>';
+        return '<a href="#" onclick="alert(\'ID=' + $.fn.bsgrid.getGridObj(options.gridId).getRecordIndexValue(record, 'ID') + '\');">Operate</a>';
     }
 </script>
 </body>

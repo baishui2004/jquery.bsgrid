@@ -80,6 +80,7 @@
 			<fileset dir="${dir.yuicompressor.compress.js}_tmp" includes="util.min.js" />
 			<fileset dir="${dir.yuicompressor.compress.js}_tmp" includes="grid.paging.min.js" />
 			<fileset dir="${dir.yuicompressor.compress.js}_tmp" includes="grid.min.js" />
+			<fileset dir="${dir.yuicompressor.compress.js}_tmp" includes="grid.extend.min.js" />
 			<fileset dir="${dir.yuicompressor.compress.js}_tmp" includes="export.min.js" />
 		</concat>
 		<concat encoding="utf-8" fixlastline="on" destfile="${dir.yuicompressor.compress}/merged/bsgrid.all.min.js">
@@ -88,6 +89,7 @@
 			<fileset dir="${dir.yuicompressor.compress.js}_tmp" includes="util.min.js" />
 			<fileset dir="${dir.yuicompressor.compress.js}_tmp" includes="grid.paging.min.js" />
 			<fileset dir="${dir.yuicompressor.compress.js}_tmp" includes="grid.min.js" />
+			<fileset dir="${dir.yuicompressor.compress.js}_tmp" includes="grid.extend.min.js" />
 			<fileset dir="${dir.yuicompressor.compress.js}_tmp" includes="export.min.js" />
 			<fileset dir="${dir.yuicompressor.compress.js}_tmp" includes="form.min.js" />
 		</concat>

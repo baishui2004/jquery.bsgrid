@@ -38,6 +38,11 @@ table.bsgrid {
     background-color: #eeeeff;
 }
 
+/* grid selected row column color */
+.bsgrid tr.selected td {
+    background-color: #fff1cc!important;
+}
+
 /* href */
 .bsgrid a {
     color: #ff6600;

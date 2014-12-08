@@ -1,5 +1,5 @@
 /**
- * jQuery.bsgrid v1.21 by @Baishui2004
+ * jQuery.bsgrid v1.30 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -15,6 +15,7 @@
 
         // defaults settings
         defaults: {
+            loopback: false, // if true, page 1 prev then totalPages, totalPages next then 1
             pageSize: 20, // page size.
             pageSizeSelect: false, // if display pageSize select option
             pageSizeForGrid: [5, 10, 20, 25, 50, 100, 200, 500], // pageSize select option
@@ -149,8 +150,13 @@
         prevPage: function (options) {
             var curPage = $.fn.bsgrid_paging.getCurPage(options);
             if (curPage <= 1) {
-                alert($.bsgridLanguage.isFirstPage);
-                return;
+                if (options.settings.loopback && options.totalPages > 0) {
+                    $.fn.bsgrid_paging.page(options.totalPages, options);
+                    return;
+                } else {
+                    alert($.bsgridLanguage.isFirstPage);
+                    return;
+                }
             }
             $.fn.bsgrid_paging.page(parseInt(curPage) - 1, options);
         },
@@ -158,8 +164,13 @@
         nextPage: function (options) {
             var curPage = $.fn.bsgrid_paging.getCurPage(options);
             if (curPage >= options.totalPages) {
-                alert($.bsgridLanguage.isLastPage);
-                return;
+                if (options.settings.loopback && curPage > 0) {
+                    $.fn.bsgrid_paging.page(1, options);
+                    return;
+                } else {
+                    alert($.bsgridLanguage.isLastPage);
+                    return;
+                }
             }
             $.fn.bsgrid_paging.page(parseInt(curPage) + 1, options);
         },
