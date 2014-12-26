@@ -95,13 +95,13 @@ Documention:
    extend config methos, use write see grid.extend.js(Note that it's advanced use with little difficult):
        extend.initGridMethods: extend init grid methods
        extend.beforeRenderGridMethods: extend before render grid methods
+       extend.renderPerRowMethods: extend render per row methods, no matter blank row or not blank row, before render per column methods
        extend.renderPerColumnMethods: extend render per column methods, no matter blank column or not blank column
-       extend.renderPerRowMethods: extend render per row methods, no matter blank row or not blank row
        extend.afterRenderGridMethods: extend after render grid methods
    additional render methods:
        additionalBeforeRenderGrid: additional before render grid
+       additionalRenderPerRow: additional render per row, no matter blank row or not blank row, before additional render per column
        additionalRenderPerColumn: additional render per column, no matter blank column or not blank column
-       additionalRenderPerRow: additional render per row, no matter blank row or not blank row
        additionalAfterRenderGrid: additional after render grid
 
 3, th properties
@@ -204,8 +204,8 @@ Documention:
         $.fn.bsgrid.defaults.additionalBeforeRenderGrid = function (parseSuccess, gridData, options) {
             console.log('[additional before render grid]   ' + 'parseSuccess=' + parseSuccess);
         };
-        // additional render per row, no matter blank row or not blank row
-        $.fn.bsgrid.defaults.additionalRenderPerRow = function (record, rowIndex, options) {
+        // additional render per row, no matter blank row or not blank row, before additional render per column
+        $.fn.bsgrid.defaults.additionalRenderPerRow = function (record, rowIndex, trObj, options) {
             if (record != null) { // null record render blank row
                 console.log('[additional render per row]      ' + 'ID=' + gridObj.getRecordIndexValue(record, 'ID') + ', rowIndex=' + rowIndex);
             }

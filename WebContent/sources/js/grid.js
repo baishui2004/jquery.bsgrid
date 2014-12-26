@@ -67,13 +67,13 @@
                 beforeRenderGridMethods: {
                     // methodAlias: methodName // method params: parseSuccess, gridData, options
                 },
+                // extend render per row methods, no matter blank row or not blank row, before render per column methods
+                renderPerRowMethods: {
+                    // methodAlias: methodName // method params: record, rowIndex, trObj, options
+                },
                 // extend render per column methods, no matter blank column or not blank column
                 renderPerColumnMethods: {
-                    // methodAlias: methodName // method params: record, rowIndex, colIndex, options
-                },
-                // extend render per row methods, no matter blank row or not blank row
-                renderPerRowMethods: {
-                    // methodAlias: methodName // method params: record, rowIndex, options
+                    // methodAlias: methodName // method params: record, rowIndex, colIndex, tdObj, trObj, options
                 },
                 // extend after render grid methods
                 afterRenderGridMethods: {
@@ -90,23 +90,26 @@
             additionalBeforeRenderGrid: function (parseSuccess, gridData, options) {
             },
             /**
+             * additional render per row, no matter blank row or not blank row, before additional render per column.
+             *
+             * @param record row record, may be null
+             * @param rowIndex row index, from 0
+             * @param trObj row tr obj
+             * @param options
+             */
+            additionalRenderPerRow: function (record, rowIndex, trObj, options) {
+            },
+            /**
              * additional render per column, no matter blank column or not blank column.
              *
              * @param record row record, may be null
              * @param rowIndex row index, from 0
              * @param colIndex column index, from 0
+             * @param tdObj column td obj
+             * @param trObj row tr obj
              * @param options
              */
-            additionalRenderPerColumn: function (record, rowIndex, colIndex, options) {
-            },
-            /**
-             * additional render per row, no matter blank row or not blank row.
-             *
-             * @param record row record, may be null
-             * @param rowIndex row index, from 0
-             * @param options
-             */
-            additionalRenderPerRow: function (record, rowIndex, options) {
+            additionalRenderPerColumn: function (record, rowIndex, colIndex, tdObj, trObj, options) {
             },
             /**
              * additional after render grid.
@@ -473,12 +476,19 @@
                         $.fn.bsgrid.addRowsClickEvent(options);
                         $('#' + options.gridId + ' tr:not(:first)').each(
                             function (i) {
+                            	var trObj = $(this);
                                 var record = null;
                                 if (i < curPageRowsNum) {
                                     // support parse return all datas or only return current page datas
                                     record = $.fn.bsgrid.parseData.getRecord(dataType, data, dataLen != totalRows ? i : startRow + i - 1);
                                 }
                                 $.fn.bsgrid.storeRowData(i, record, options);
+                                
+                                for (var key in options.settings.extend.renderPerRowMethods) {
+                                    options.settings.extend.renderPerRowMethods[key](record, i, trObj, options);
+                                }
+                                options.settings.additionalRenderPerRow(record, i, trObj, options);
+                                
                                 $(this).find('td').each(function (j) {
                                     // column index
                                     var index = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.indexAttr));
@@ -511,17 +521,13 @@
                                         $(this).html('&nbsp;');
                                     }
                                     for (var key in options.settings.extend.renderPerColumnMethods) {
-                                        var renderPerColumn_html = options.settings.extend.renderPerColumnMethods[key](record, i, j, options);
+                                        var renderPerColumn_html = options.settings.extend.renderPerColumnMethods[key](record, i, j, $(this), trObj, options);
                                         if (renderPerColumn_html != null && renderPerColumn_html != false) {
                                             $(this).html(renderPerColumn_html);
                                         }
                                     }
-                                    options.settings.additionalRenderPerColumn(record, i, j, options);
+                                    options.settings.additionalRenderPerColumn(record, i, j, $(this), trObj, options);
                                 });
-                                for (var key in options.settings.extend.renderPerRowMethods) {
-                                    options.settings.extend.renderPerRowMethods[key](record, i, options);
-                                }
-                                options.settings.additionalRenderPerRow(record, i, options);
                             }
                         );
                     } else {
