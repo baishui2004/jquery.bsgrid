@@ -810,7 +810,11 @@
         },
 
         refreshPage: function (options) {
-            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.refreshPage();
+        	if (!options.settings.pageAll) {
+				$.fn.bsgrid.getGridObj(options.gridId).pagingObj.refreshPage();
+			} else {
+				$.fn.bsgrid.page(1, options);
+			}
         },
 
         firstPage: function (options) {
