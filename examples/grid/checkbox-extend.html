@@ -11,9 +11,7 @@
     <script type="text/javascript" src="../../builds/js/grid.extend.min.js"></script>
 </head>
 <body style="background-color: #fff;">
-<br />&nbsp;
 <input type="button" value="Get Checked Ids" onclick="getCheckedIds()"  />
-<br />&nbsp;
 <table id="searchTable" class="bsgrid">
     <tr>
         <th w_edit="checkbox" w_index="ID" width="3%;"><input type="checkbox"/></th>
@@ -35,7 +33,12 @@
             url: 'data/simple.xml',
             dataType: 'xml',
             pageSizeSelect: true,
-            pageSize: 10
+            pageSize: 10,
+            extend: { // here config extend for demo, actually not need
+                settings: {
+                    supportGridEdit: true // default true, if support extend grid edit
+                }
+            }
         });
     });
 

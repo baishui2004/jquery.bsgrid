@@ -476,19 +476,19 @@
                         $.fn.bsgrid.addRowsClickEvent(options);
                         $('#' + options.gridId + ' tr:not(:first)').each(
                             function (i) {
-                            	var trObj = $(this);
+                                var trObj = $(this);
                                 var record = null;
                                 if (i < curPageRowsNum) {
                                     // support parse return all datas or only return current page datas
                                     record = $.fn.bsgrid.parseData.getRecord(dataType, data, dataLen != totalRows ? i : startRow + i - 1);
                                 }
                                 $.fn.bsgrid.storeRowData(i, record, options);
-                                
+
                                 for (var key in options.settings.extend.renderPerRowMethods) {
                                     options.settings.extend.renderPerRowMethods[key](record, i, trObj, options);
                                 }
                                 options.settings.additionalRenderPerRow(record, i, trObj, options);
-                                
+
                                 $(this).find('td').each(function (j) {
                                     // column index
                                     var index = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.indexAttr));
@@ -797,7 +797,7 @@
          * @param record row record
          */
         longLengthSubAndTip: function (obj, value, maxLen, record) {
-            if (value.length > maxLen) {
+            if (value.length > maxLen && $(value).text().length == 0) {
                 $(obj).html(value.substring(0, maxLen - 3) + '...');
                 $.fn.bsgrid.columnTip(obj, value, record);
             } else {
@@ -810,11 +810,11 @@
         },
 
         refreshPage: function (options) {
-        	if (!options.settings.pageAll) {
-				$.fn.bsgrid.getGridObj(options.gridId).pagingObj.refreshPage();
-			} else {
-				$.fn.bsgrid.page(1, options);
-			}
+            if (!options.settings.pageAll) {
+                $.fn.bsgrid.getGridObj(options.gridId).pagingObj.refreshPage();
+            } else {
+                $.fn.bsgrid.page(1, options);
+            }
         },
 
         firstPage: function (options) {

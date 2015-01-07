@@ -1,5 +1,9 @@
-v1.31  2014-12-26
+v1.31  2014-01-06
 1，扩展(grid.extend)可拖动改变表头宽度；
+2，优化项目目录结构；
+3，完善grid的单元格tip展示，对于index有正确值且其value值不包括html标签元素，才计算其value长度并判断是否截断与tip展示；
+4，示例集成jquery.validationEngine.js例子演示；
+5，扩展(grid.extend)类似jqGrid的多字段选择查询效果；
 
 
 

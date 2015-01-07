@@ -11,6 +11,13 @@
  */
 (function ($) {
 
+    // extend settings
+    $.fn.bsgrid.defaults.extend.settings = {
+        supportGridEdit: true, // if support extend grid edit
+        supportColumnMove: true, // if support extend column move
+        searchConditionsContainerId: '' // simple search conditions's container id
+    };
+
     // config properties's name, values: text, hidden, password, radio, button, checkbox, textarea
     $.fn.bsgrid.defaults.colsProperties.editAttr = 'w_edit';
 
@@ -19,6 +26,9 @@
 
     // init form
     $.fn.bsgrid.extendInit.initForm = function (gridId, options) {
+        if (!options.settings.extend.settings.supportGridEdit) {
+            return;
+        }
         $.fn.bsgrid.getGridHeaderObject(options).each(function (hi) {
             var edit = $.trim($(this).attr(options.settings.colsProperties.editAttr));
             if (edit == 'checkbox') {
@@ -40,8 +50,41 @@
     $.fn.bsgrid.defaults.extend.initGridMethods['initForm'] = $.fn.bsgrid.extendInit.initForm;
 
 
+    // init search conditions
+    $.fn.bsgrid.extendInit.initSearchConditions = function (gridId, options) {
+        if ($.trim(options.settings.extend.settings.searchConditionsContainerId) == '') {
+            return;
+        }
+        var conditionsHtml = new StringBuilder();
+        conditionsHtml.append('<select class="bsgrid_conditions_select">');
+        var params = new Object();
+        $.fn.bsgrid.getGridHeaderObject(options).each(function () {
+            var index = $.trim($(this).attr(options.settings.colsProperties.indexAttr));
+            var text = $.trim($(this).text());
+            if (index != '' && text != '') {
+                params[index] = text;
+            }
+        });
+        for (var key in params) {
+            conditionsHtml.append('<option value="' + key + '">' + params[key] + '</option>');
+        }
+        conditionsHtml.append('</select>');
+        conditionsHtml.append('&nbsp;');
+        conditionsHtml.append('<input type="text" class="bsgrid_conditions_input" />');
+        $('#' + options.settings.extend.settings.searchConditionsContainerId).html(conditionsHtml.toString());
+        $('#' + options.settings.extend.settings.searchConditionsContainerId + ' select.bsgrid_conditions_select:eq(0)').change(function () {
+            $(this).next('input.bsgrid_conditions_input').attr('name', $(this).val());
+        }).trigger('change');
+    };
+
+    $.fn.bsgrid.defaults.extend.initGridMethods['initSearchConditions'] = $.fn.bsgrid.extendInit.initSearchConditions;
+
+
     // init column move
     $.fn.bsgrid.extendInit.initColumnMove = function (gridId, options) {
+        if (!options.settings.extend.settings.supportColumnMove) {
+            return;
+        }
         $('#' + options.gridId).css({'table-layout': 'fixed'});
         var headObj = $.fn.bsgrid.getGridHeaderObject(options);
         var headLen = headObj.length;
@@ -88,6 +131,7 @@
                     releaseDownData(obj, i, headLen);
                 }
             });
+
             function bindDownData(obj, i, headLen) {
                 if (i != 0) {
                     $(obj).prev().data('ex_mousedown', 'mousedown');
@@ -118,6 +162,9 @@
 
     // render form methods: text, hidden, password, radio, button, checkbox, textarea
     $.fn.bsgrid.extendRender.renderForm = function (record, rowIndex, colIndex, tdObj, trObj, options) {
+        if (!options.settings.extend.settings.supportGridEdit) {
+            return;
+        }
         if (rowIndex < options.curPageRowsNum) {
             var gridObj = $.fn.bsgrid.getGridObj(options.gridId);
             var index = gridObj.getColumnAttr(colIndex, options.settings.colsProperties.indexAttr);
