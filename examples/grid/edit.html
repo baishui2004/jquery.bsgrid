@@ -3,19 +3,25 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Grid Move Column</title>
+    <title>Edit Grid</title>
     <link rel="stylesheet" href="../../builds/merged/grid.all.min.css"/>
     <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="../../builds/js/lang/grid.zh-CN.min.js"></script>
     <script type="text/javascript" src="../../builds/merged/grid.all.min.js"></script>
 </head>
 <body style="background-color: #fff;">
+<input type="button" value="Get Checked Ids" onclick="getCheckedIds()"  />
+&emsp;
+<input type="button" value="Get Changed Rows Number" onclick="alert(gridObj.getChangedRowsIndexs().length)"  />
+&emsp;
+<input type="button" value="Get Changed Ids" onclick="getChangedIds()"  />
 <table id="searchTable" class="bsgrid">
     <tr>
-        <th w_index="XH" width="5%;">XH</th>
+        <th w_check="true" width="3%;"></th>
+        <th w_edit="text" w_index="XH" width="5%;">XH</th>
         <th w_index="ID" width="5%;">ID</th>
         <th w_index="CHAR" w_align="left" w_tip="true" width="15%;">CHAR</th>
-        <th w_index="TEXT" w_align="left" w_length="50" width="30%;">TEXT</th>
+        <th w_edit="textarea" w_index="TEXT" w_align="left" w_length="50" width="27%;">TEXT</th>
         <th w_index="DATE" width="15%;">DATE</th>
         <th w_index="TIME" width="15%;">TIME</th>
         <th w_index="NUM" width="5%;">NUM</th>
@@ -26,17 +32,36 @@
     var gridObj;
     $(function () {
         gridObj = $.fn.bsgrid.init('searchTable', {
+        	//autoLoad: false,
             url: 'data/json.jsp',
-            // autoLoad: false,
             pageSizeSelect: true,
             pageSize: 10,
             extend: {
                 settings: {
-                    supportColumnMove: true // if support extend column move, default false
+                    supportGridEdit: true, // default false, if support extend grid edit
+                    supportGridEditTriggerEvent: 'rowClick' // default 'rowClick', values: '', 'rowClick', 'rowDoubleClick', 'cellClick', 'cellDoubleClick'
                 }
             }
         });
     });
+
+    function getCheckedIds() {
+    	var records = gridObj.getCheckedRowsRecords();
+        var ids = '';
+        for(var i = 0; i < records.length; i++) {
+        	ids += ',' + gridObj.getRecordIndexValue(records[i], 'ID');
+        }
+        alert(ids.length > 0 ? ids.substring(1) : '');
+    }
+
+    function getChangedIds() {
+    	var records = gridObj.getChangedRowsRecords();
+        var ids = '';
+        for(var i = 0; i < records.length; i++) {
+        	ids += ',' + gridObj.getRecordIndexValue(records[i], 'ID');
+        }
+        alert(ids.length > 0 ? ids.substring(1) : '');
+    }
 
     function operate(record, rowIndex, colIndex, options) {
         return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">Operate</a>';

@@ -92,8 +92,9 @@ Documention:
        method, $.fn.bsgrid.longLengthSubAndTip, global method
    beforeSend: method before page ajax request send
    complete: method after page ajax request complete
-   extend.settings: supportGridEdit, if support extend grid edit, default true
-                    supportColumnMove, if support extend column move, default true
+   extend.settings: supportGridEdit, if support extend grid edit, default false
+                    supportGridEditTriggerEvent: values: '', 'rowClick', 'rowDoubleClick', 'cellClick', 'cellDoubleClick', default 'rowClick'
+                    supportColumnMove, if support extend column move, default false
                     searchConditions, simple search conditions's container id, default none
    extend config methods, use write see grid.extend.js(Note that it's advanced use with little difficult):
        extend.initGridMethods: extend init grid methods
@@ -121,6 +122,7 @@ Documention:
           method, $.fn.bsgrid.columnTip, global method
 
    th extend properties:
+   w_check: render checkbox to check rows, value: true
    w_edit: extend render column, values: text, hidden, password, radio, button, checkbox, textarea
 
 4, these four get record or column's value methods could call after grid data rendered

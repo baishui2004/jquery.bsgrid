@@ -1,17 +1,17 @@
 jQuery.bsgrid 简单易用的jQuery Grid插件
 =======================================
 
-<a href="https://github.com/baishui2004/jquery.bsgrid" target="_blank">jquery bsgrid</a>，A simple jQuery Grid plugin with pagation, export and easy to expand. 一个简单易用的jQuery Grid插件，支持分页或不分页，支持json、xml数据格式，对导出友好，扩展性友好。
+<a href="https://github.com/baishui2004/jquery.bsgrid" target="_blank">jquery bsgrid</a>，A simple jQuery Grid plugin, support json and xml data, has many themes and simple to extend, support pagation or no pagation, easy to expand and export. 一个简单易用的jQuery Grid插件，支持json、xml数据格式，自带多套皮肤且易于扩展，支持分页或不分页，对扩展性友好，导出友好。
 
 交流QQ群：254754154
-<br />
-本插件的早期及当前版本已在多个项目中使用。
 
-插件版本：1.30
+插件版本：1.31
 <br />
 开源协议：Apache Licence 2
 <br />
-更新日期：2014-12-05
+更新日期：2015-01-07
+<br />
+Github：[https://github.com/baishui2004/jquery.bsgrid/](https://github.com/baishui2004/jquery.bsgrid/)
 <br />
 在线演示：[http://bsgrid.oschina.mopaas.com/](http://bsgrid.oschina.mopaas.com/)
 <br />
@@ -164,10 +164,10 @@ Grid With Other Pagination：演示Grid集成第三方分页工具条使用
 Merged Files: 目录builds/merged，合并经常一起使用的css、js，合并文件描述文件builds/readme
               grid.simple.min.css     合并grid、paging分页css样式
               grid.simple.min.js      合并grid、paging分页js脚本
-              grid.all.min.css        合并grid、paging分页、icon图标css样式
-              grid.all.min.js         合并grid、paging分页、grid导出构建js脚本
-              bsgrid.all.min.css      合并grid、paging分页、icon图标、form表单css样式
-              bsgrid.all.min.js       合并grid、paging分页、grid导出构建、form表单js脚本
+              grid.all.min.css        合并grid、grid扩展、paging分页、icon图标css样式
+              grid.all.min.js         合并grid、grid扩展、paging分页、grid导出构建js脚本
+              bsgrid.all.min.css      合并grid、grid扩展、paging分页、icon图标、form表单css样式
+              bsgrid.all.min.js       合并grid、grid扩展、paging分页、grid导出构建、form表单js脚本
 
 1，<a href="#Example Index">Example Index</a>
 2，<a href="#Simple Grid">Simple Grid</a>

@@ -65,5 +65,20 @@ $.bsgrid = {
             }
         }
         return params.length > 0 ? params.toString().substring(1) : '';
+    },
+
+    /**
+     * Force push property in Object.
+     *
+     * @param obj
+     * @param key
+     * @param val
+     */
+    forcePushPropertyInObject: function (obj, key, val) {
+        if (obj.hasOwnProperty(key)) {
+            obj[key + '_f'] = val;
+        } else {
+            obj[key] = val;
+        }
     }
 };

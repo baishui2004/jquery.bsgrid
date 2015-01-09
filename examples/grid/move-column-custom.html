@@ -95,7 +95,7 @@
             });
         };
 
-        $.fn.bsgrid.defaults.extend.initGridMethods['initColumnMove'] = initColumnMove;
+        $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.initGridMethods, 'initColumnMove', initColumnMove);
 
         gridObj = $.fn.bsgrid.init('searchTable', {
             url: 'data/json.jsp',

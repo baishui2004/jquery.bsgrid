@@ -11,8 +11,9 @@
 String.prototype.startWith = function (string) {
     if (string == null || string == "" || this.length == 0 || string.length > this.length) {
         return false;
+    } else {
+        return this.substr(0, string.length) == string;
     }
-    return this.substr(0, string.length) == string;
 };
 
 /**
@@ -24,8 +25,9 @@ String.prototype.startWith = function (string) {
 String.prototype.endWith = function (string) {
     if (string == null || string == "" || this.length == 0 || string.length > this.length) {
         return false;
+    } else {
+        return this.substring(this.length - string.length) == string;
     }
-    return this.substring(this.length - string.length) == string;
 };
 
 /**

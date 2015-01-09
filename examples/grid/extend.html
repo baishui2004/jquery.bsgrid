@@ -4,11 +4,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Grid Extend</title>
-    <link rel="stylesheet" href="../../builds/merged/grid.simple.min.css"/>
+    <link rel="stylesheet" href="../../builds/merged/grid.all.min.css"/>
     <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="../../builds/js/lang/grid.zh-CN.min.js"></script>
-    <script type="text/javascript" src="../../builds/merged/grid.simple.min.js"></script>
-    <script type="text/javascript" src="../../builds/js/grid.extend.min.js"></script>
+    <script type="text/javascript" src="../../builds/merged/grid.all.min.js"></script>
 </head>
 <body style="background-color: #fff;">
 <table id="searchTable" class="bsgrid">
@@ -26,22 +25,22 @@
 </table>
 <script type="text/javascript">
 	//extend init grid methods
-	$.fn.bsgrid.defaults.extend.initGridMethods['extend_init'] = function(gridId, options){
+	$.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.initGridMethods, 'extend_init', function(gridId, options){
 		console.log('extend init method.');
-	}
+	});
 	// extend before render grid methods
-	$.fn.bsgrid.defaults.extend.beforeRenderGridMethods['extend_before_render_grid'] = function(parseSuccess, gridData, options){
+	$.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.beforeRenderGridMethods, 'extend_before_render_grid', function(parseSuccess, gridData, options){
 		console.log('extend before render grid method.');
-	}
+	});
 	// extend render per row methods, no matter blank row or not blank row, before render per column methods
-	$.fn.bsgrid.defaults.extend.renderPerRowMethods['extend_render_per_row'] = function(record, rowIndex, trObj, options){
+	$.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.renderPerRowMethods, 'extend_render_per_row', function(record, rowIndex, trObj, options){
 		if(rowIndex % 2 == 0){
 			trObj.find('td').css('background-color', 'pink');
 		}
 		console.log('extend render per row.');
-	}
+	});
 	// extend render per column methods, no matter blank column or not blank column
-	$.fn.bsgrid.defaults.extend.renderPerColumnMethods['extend_render_per_column'] = function(record, rowIndex, colIndex, tdObj, trObj, options){
+	$.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.renderPerColumnMethods, 'extend_render_per_column', function(record, rowIndex, colIndex, tdObj, trObj, options){
 		var val = gridObj.getRecordIndexValue(record, gridObj.getColumnAttr(colIndex, options.settings.colsProperties.indexAttr));
 		if(val.length > 30){
 			tdObj.css('background-color', 'blue');
@@ -49,11 +48,11 @@
 			tdObj.css('background-color', 'green');
 		}
 		console.log('extend render per column method.');
-	}
+	});
 	// extend after render grid methods
-	$.fn.bsgrid.defaults.extend.afterRenderGridMethods['extend_after_render_grid'] = function(parseSuccess, gridData, options){
+	$.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'extend_after_render_grid', function(parseSuccess, gridData, options){
 		console.log('extend after render grid method.');
-	}
+	});
 	
     var gridObj;
     $(function () {

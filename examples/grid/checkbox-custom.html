@@ -66,7 +66,7 @@
     function getCheckedRecords() {
         var records = new Array();
         $('#searchTable tr:not(:first)').each(function() {
-        	if($(this).find('td(0)>input:checked').length == 1){
+        	if($(this).find('td:eq(0)>input:checked').length == 1){
         		records[records.length] = gridObj.getRowRecord($(this));
         	}
         });
