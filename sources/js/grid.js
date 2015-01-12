@@ -24,6 +24,7 @@
             pageSizeForGrid: [5, 10, 20, 25, 50, 100, 200, 500], // pageSize select option
             displayBlankRows: true,
             stripeRows: false, // stripe rows
+            changeColorIfRowSelected: true, // change color if row selected
             pagingToolbarAlign: 'right',
             pagingBtnClass: 'pagingBtn', // paging toolbar button css class
             displayPagingToolbarOnlyMultiPages: false,
@@ -545,12 +546,15 @@
         },
 
         addRowsClickEvent: function (options) {
-            $('#' + options.gridId + ' tr:not(:first):lt(' + options.curPageRowsNum + ')').click(function () {
+            $('#' + options.gridId + ' tr:not(:first):lt(' + options.curPageRowsNum + ')').click(function (i) {
                 if ($(this).hasClass('selected')) {
-                    $(this).removeClass('selected');
+                    $(this).removeClass('selected').removeClass('selected_color');
                 } else {
                     $.fn.bsgrid.unSelectRow(options);
                     $(this).addClass('selected');
+                    if (options.settings.changeColorIfRowSelected) {
+                        $(this).addClass('selected_color');
+                    }
                 }
             });
         },
@@ -561,11 +565,15 @@
 
         selectRow: function (row, options) {
             $.fn.bsgrid.unSelectRow(options);
-            $('#' + options.gridId + ' tr:eq(' + (row + 1) + ')').addClass('selected');
+            var trObj = $('#' + options.gridId + ' tr:eq(' + (row + 1) + ')');
+            trObj.addClass('selected');
+            if (options.settings.changeColorIfRowSelected) {
+                trObj.addClass('selected_color');
+            }
         },
 
         unSelectRow: function (options) {
-            $.fn.bsgrid.getSelectedRow(options).removeClass('selected');
+            $.fn.bsgrid.getSelectedRow(options).removeClass('selected').removeClass('selected_color');
         },
 
         getRowRecord: function (rowObj) {

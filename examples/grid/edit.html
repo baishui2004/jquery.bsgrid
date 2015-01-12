@@ -5,6 +5,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Edit Grid</title>
     <link rel="stylesheet" href="../../builds/merged/grid.all.min.css"/>
+    <style type="text/css">
+        .bsgrid tr.selected td {background-color: #ffffff}
+    </style>
     <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="../../builds/js/lang/grid.zh-CN.min.js"></script>
     <script type="text/javascript" src="../../builds/merged/grid.all.min.js"></script>
@@ -12,15 +15,21 @@
 <body style="background-color: #fff;">
 <input type="button" value="Get Checked Ids" onclick="getCheckedIds()"  />
 &emsp;
+<input type="button" value="Active grid edit mode" onclick="gridObj.ActiveGridEditMode()"  />
+&emsp;
 <input type="button" value="Get Changed Rows Number" onclick="alert(gridObj.getChangedRowsIndexs().length)"  />
 &emsp;
+<input type="button" value="Get Changed Rows Indexs" onclick="alert(gridObj.getChangedRowsIndexs().toString())"  />
+&emsp;
 <input type="button" value="Get Changed Ids" onclick="getChangedIds()"  />
+&emsp;
+<input type="button" value="Get Rows Changed Columns value" onclick="getRowsChangedColumnsValue()"  />
 <table id="searchTable" class="bsgrid">
     <tr>
         <th w_check="true" width="3%;"></th>
         <th w_edit="text" w_index="XH" width="5%;">XH</th>
         <th w_index="ID" width="5%;">ID</th>
-        <th w_index="CHAR" w_align="left" w_tip="true" width="15%;">CHAR</th>
+        <th w_edit="text" w_index="CHAR" w_align="left" w_tip="true" width="15%;">CHAR</th>
         <th w_edit="textarea" w_index="TEXT" w_align="left" w_length="50" width="27%;">TEXT</th>
         <th w_index="DATE" width="15%;">DATE</th>
         <th w_index="TIME" width="15%;">TIME</th>
@@ -55,12 +64,25 @@
     }
 
     function getChangedIds() {
-    	var records = gridObj.getChangedRowsRecords();
+    	var records = gridObj.getChangedRowsOldRecords();
         var ids = '';
         for(var i = 0; i < records.length; i++) {
         	ids += ',' + gridObj.getRecordIndexValue(records[i], 'ID');
         }
         alert(ids.length > 0 ? ids.substring(1) : '');
+    }
+
+    function getRowsChangedColumnsValue() {
+        var valsStr = '';
+        $.each(gridObj.getRowsChangedColumnsValue(), function (key, object) {
+            valsStr += '\n' + key + ' [';
+            var cvalsStr = '';
+            $.each(object, function (ckey, cvalue) {
+                cvalsStr += ', ' + ckey + ': ' + cvalue;
+            });
+            valsStr += cvalsStr.substring(2) + ']';
+        });
+        alert(valsStr.length > 0 ? valsStr.substring(1) : '');
     }
 
     function operate(record, rowIndex, colIndex, options) {

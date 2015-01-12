@@ -49,14 +49,17 @@
         gridObj.getCheckedRowsRecords = function () {
             return $.fn.bsgrid.defaults.extend.getCheckedRowsRecords(options);
         };
+        gridObj.ActiveGridEditMode = function () {
+            return $.fn.bsgrid.defaults.extend.ActiveGridEditMode(options);
+        };
         gridObj.getChangedRowsIndexs = function () {
             return $.fn.bsgrid.defaults.extend.getChangedRowsIndexs(options);
         };
-        gridObj.getChangedRowsRecords = function () {
-            return $.fn.bsgrid.defaults.extend.getChangedRowsRecords(options);
+        gridObj.getChangedRowsOldRecords = function () {
+            return $.fn.bsgrid.defaults.extend.getChangedRowsOldRecords(options);
         };
-        gridObj.getChangedRowsNewRecords = function () {
-            return $.fn.bsgrid.defaults.extend.getChangedRowsNewRecords(options);
+        gridObj.getRowsChangedColumnsValue = function () {
+            return $.fn.bsgrid.defaults.extend.getRowsChangedColumnsValue(options);
         };
     };
     $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.initGridMethods, 'bindExtendMethods', $.fn.bsgrid.extendInitGrid.bindExtendMethods);
@@ -70,13 +73,13 @@
                     $(this).html('<input class="bsgrid_editgrid_check" type="checkbox"/>');
                 }
                 $(this).find('input[type=checkbox]').change(function () {
-                    if ($(this).attr('checked')) {
+                    if ($.bsgrid.adaptAttrOrProp($(this), 'checked')) {
                         $('#' + gridId + ' tr:not(:first)').each(function () {
-                            $(this).find('td:eq(' + hi + ')>input[type=checkbox]').attr('checked', true);
+                            $.bsgrid.adaptAttrOrProp($(this).find('td:eq(' + hi + ')>input[type=checkbox]'), 'checked', true);
                         });
                     } else {
                         $('#' + gridId + ' tr:not(:first)').each(function () {
-                            $(this).find('td:eq(' + hi + ')>input[type=checkbox]').attr('checked', false);
+                            $.bsgrid.adaptAttrOrProp($(this).find('td:eq(' + hi + ')>input[type=checkbox]'), 'checked', false);
                         });
                     }
                 });
@@ -305,13 +308,13 @@
 
     /*************** extend methods start ***************/
     /**
-     * Get Checked Rows Indexs, from 0.
+     * Gget checked rows indexs, from 0.
      *
      * @param options
      * @returns {Array}
      */
     $.fn.bsgrid.defaults.extend.getCheckedRowsIndexs = function (options) {
-        var rowIndexs = new Array();
+        var rowIndexs = [];
         $('#' + options.gridId + ' tr:not(:first)').each(function (i) {
             if ($(this).find('td>input:checked').length == 1) {
                 rowIndexs[rowIndexs.length] = i;
@@ -321,13 +324,13 @@
     };
 
     /**
-     * Get Checked Rows Records.
+     * Get checked rows records.
      *
      * @param options
      * @returns {Array}
      */
     $.fn.bsgrid.defaults.extend.getCheckedRowsRecords = function (options) {
-        var records = new Array();
+        var records = [];
         $.each($.fn.bsgrid.defaults.extend.getCheckedRowsIndexs(options), function (i, rowIndex) {
             records[records.length] = $.fn.bsgrid.getRecord(rowIndex, options);
         });
@@ -335,13 +338,25 @@
     };
 
     /**
-     * Get Changed Rows Indexs, from 0.
+     * Active grid edit mode.
+     *
+     * @param options
+     */
+    $.fn.bsgrid.defaults.extend.ActiveGridEditMode = function (options) {
+        $('#' + options.gridId + ' tr:not(:first):lt(' + options.curPageRowsNum + ') td .bsgrid_editgrid_hidden').each(function () {
+            var cloneObj = $(this).removeClass('bsgrid_editgrid_hidden').clone(true);
+            $(this).parent('td').html(cloneObj);
+        });
+    };
+
+    /**
+     * Get changed rows indexs, from 0.
      *
      * @param options
      * @returns {Array}
      */
     $.fn.bsgrid.defaults.extend.getChangedRowsIndexs = function (options) {
-        var rowIndexs = new Array();
+        var rowIndexs = [];
         $('#' + options.gridId + ' tr:not(:first)').each(function (i) {
             var cellChangedNumStr = $.trim($(this).data('change'));
             if (!isNaN(cellChangedNumStr) && parseInt(cellChangedNumStr) > 0) {
@@ -352,13 +367,13 @@
     };
 
     /**
-     * Get Changed Rows Records.
+     * Get changed rows old records.
      *
      * @param options
      * @returns {Array}
      */
-    $.fn.bsgrid.defaults.extend.getChangedRowsRecords = function (options) {
-        var records = new Array();
+    $.fn.bsgrid.defaults.extend.getChangedRowsOldRecords = function (options) {
+        var records = [];
         $.each($.fn.bsgrid.defaults.extend.getChangedRowsIndexs(options), function (i, rowIndex) {
             records[records.length] = $.fn.bsgrid.getRecord(rowIndex, options);
         });
@@ -366,18 +381,24 @@
     };
 
     /**
-     * Get Changed Rows New Records.
+     * Get rows changed columns value, return Object's key is 'row_'+rowIndex, value is a object.
      *
      * @param options
-     * @returns {Array}
+     * @returns {Object}
      */
-    $.fn.bsgrid.defaults.extend.getChangedRowsNewRecords = function (options) {
-        var records = new Array();
+    $.fn.bsgrid.defaults.extend.getRowsChangedColumnsValue = function (options) {
+        var values = {};
+        var gridObj = $.fn.bsgrid.getGridObj(options.gridId);
         $.each($.fn.bsgrid.defaults.extend.getChangedRowsIndexs(options), function (i, rowIndex) {
-            records[records.length] = $.fn.bsgrid.getRecord(rowIndex, options);
-            // TODO
+            values['row_' + rowIndex] = {};
+            $('#' + options.gridId + ' tr:eq(' + (rowIndex + 1) + ') td').each(function (ci) {
+                if ($(this).find('.bsgrid_editgrid_change').length > 0) {
+                    var index = gridObj.getColumnAttr(ci, options.settings.colsProperties.indexAttr);
+                    values['row_' + rowIndex][index] = $(this).find('.bsgrid_editgrid_change').val();
+                }
+            })
         });
-        return records;
+        return values;
     };
     /*************** extend methods end ***************/
 

@@ -18,7 +18,7 @@
 }
 
 /* grid selected row column color */
-.bsgrid tr.selected td {
+.bsgrid tr.selected.selected_color td {
     background-color: #fff1cc!important;
 }
 

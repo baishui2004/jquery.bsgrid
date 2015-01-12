@@ -172,9 +172,9 @@
                 var input_value = gridObj.getRecordIndexValue(record, input_name);
                 if ($(this).attr('type') == 'radio' || $(this).attr('type') == 'checkbox') {
                     if ((',' + input_value + ',').indexOf(',' + $(this).val() + ',') > -1) {
-                        $(this).attr('checked', 'checked');
+                        $.bsgrid.adaptAttrOrProp($(this), 'checked', true);
                     } else {
-                        $(this).removeAttr('checked');
+                        $.bsgrid.adaptAttrOrProp($(this), 'checked', false);
                     }
                 } else {
                     $(this).val(input_value);

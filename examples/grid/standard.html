@@ -83,6 +83,7 @@ Documention:
    pageSizeForGrid: pageSize select option
    displayBlankRows: true or false, default true
    stripeRows: true or false, default false, css: grid.css -> '.bsgrid tr.even_index_row'
+   changeColorIfRowSelected: true or false, default false, change color if row selected
    pagingToolbarAlign: default 'right', other values 'left', 'center'
    pagingBtnClass: default 'pagingBtn', paging toolbar button css class, write in grid.paging*.css
    displayPagingToolbarOnlyMultiPages: true or false, default false means alway diaplay pagingToolbar
@@ -131,10 +132,12 @@ Documention:
    gridObj.getRecordIndexValue(record, index): get column value by record and index
    gridObj.getColumnValue(rowIndex, index): get column value by rowIndex and index
 
-5, these thress select row methods could call after grid data rendered
+5, these thress select row methods and two check row methods could call after grid data rendered
    gridObj.selectRow(rowIndex): note that index from 0
    gridObj.unSelectRow()
    gridObj.getSelectedRow(): get selected row's tr object
+   gridObj.getCheckedRowsIndexs, get checked rows indexs, from 0
+   gridObj.getCheckedRowsRecords, get checked rows records
 
 6, grid other methods list
    gridObj.getPageCondition(curPage)
@@ -163,11 +166,17 @@ Documention:
    $.fn.bsgrid.columnTip(obj, value, record): tip column
    $.fn.bsgrid.longLengthSubAndTip(obj, value, maxLen, record): if column's value length longer than it, auto sub and tip it. sub: txt.substring(0, MaxLength-3) + '...'.
 
-8, process lock screen, global method
+8, bsgrid edit methods
+   gridObj.ActiveGridEditMode, active grid edit mode
+   gridObj.getChangedRowsIndexs, get changed rows indexs, from 0
+   gridObj.getChangedRowsOldRecords, get changed rows old records
+   gridObj.getRowsChangedColumnsValue, get rows changed columns value, return Object's key is 'row_'+rowIndex, value is a object
+
+9, process lock screen, global method
    $.fn.bsgrid.lockScreen, user lock screen method
    $.fn.bsgrid.unlockScreen, user lock screen method
 
-9, Paging Toolbar
+10, Paging Toolbar
    $.fn.bsgrid.defaults.pagingToolbarAlign
      paging toolbar align: left, center, right, default right
    $.fn.bsgrid.defaults.pagingBtnClass
@@ -178,16 +187,16 @@ Documention:
      $.fn.bsgrid.setPagingToolbarEvents(options)
      $.fn.bsgrid.dynamicChangePagingButtonStyle(options)
 
-10, th properties default:
+11, th properties default:
    $.fn.bsgrid.defaults.colsProperties, properties follow:
      body row every column config: align, maxLength
      config properties's name: indexAttr, sortAttr, alignAttr, lengthAttr, renderAttr, hiddenAttr, tipAttr
      extend properties's name: editAttr
 
-11, request post params names
+12, request post params names
    to modify that: $.fn.bsgrid.defaults.requestParamsName.X = '', X may pageSize, curPage, sortName, sortOrder
 
-12,grid other config
+13,grid other config
    $.fn.bsgrid.addRowsClickEvent(options): add rows click event
 </pre>
 <script type="text/javascript">

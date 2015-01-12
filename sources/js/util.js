@@ -80,5 +80,29 @@ $.bsgrid = {
         } else {
             obj[key] = val;
         }
+    },
+
+    /**
+     * Adapt attr() or prop() by jQuery Version.
+     *
+     * @param obj
+     * @param prop
+     * @param val
+     */
+    adaptAttrOrProp: function (obj, prop, val) {
+        var version = parseInt($.fn.jquery.substring(0, $.fn.jquery.indexOf('.', 2)).replace('.', ''));
+        if (val == undefined) {
+            if (version >= 16) {
+                return obj.prop(prop);
+            } else {
+                return obj.attr(prop);
+            }
+        } else {
+            if (version >= 16) {
+                obj.prop(prop, val);
+            } else {
+                obj.attr(prop, val);
+            }
+        }
     }
 };
