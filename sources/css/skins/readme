@@ -1,4 +1,4 @@
-Style                  From
+1, Style               From
 grid_access.css        ExtJS: extjs-4.1.0\resources\css\ext-all-access-debug.css
 grid_blue.css          ExtJS: extjs-4.1.0\resources\css\ext-all-debug.css
 grid_gray.css          ExtJS: extjs-4.1.0\resources\css\ext-all-gray-debug.css
@@ -12,9 +12,9 @@ tr.selected td background-color:  .x-grid-row-selected
 
 
 
-Style                  From
-grid_sky_blue.css      ExtJS: Dhtmlx Edition 3.0\dhtmlxGrid\codebase\dhtmlxgrid.css
-                              Dhtmlx Edition 3.0\dhtmlxGrid\codebase\skins\dhtmlxgrid_dhx_skyblue.css
+2, Style               From
+grid_sky_blue.css      Dhtmlx: Dhtmlx Edition 3.0\dhtmlxGrid\codebase\dhtmlxgrid.css
+                               Dhtmlx Edition 3.0\dhtmlxGrid\codebase\skins\dhtmlxgrid_dhx_skyblue.css
 
 Dhtmlx Style Mapping:
 font color:
@@ -25,8 +25,8 @@ tr.selected td background-color:  tr.rowselected
 
 
 
-Style                  From
-flexigrid.css          ExtJS: flexigrid-1.1\css\flexigrid.css
+3, Style               From
+flexigrid.css          FlexiGrid: flexigrid-1.1\css\flexigrid.css
 
 FlexiGrid Style Mapping:
 font color:                       .flexigrid
@@ -34,3 +34,21 @@ th and td background-color:       .flexigrid div.bDiv
 border-color:                     .flexigrid div.bDiv
 tr.even row td background-color:  .flexigrid tr.erow td
 tr.selected td background-color:  .trSelected
+
+
+
+4, Style               From
+grid_pure_gray.css     None
+
+
+
+5, Style               From
+grid_gray.css          EasyUI: jquery-easyui-1.2.6.zip\themes\gray\easyui.css
+
+EasyUI Style Mapping:
+font size:                        .datagrid-body td, .datagrid-footer td
+th background-color:              .datagrid-header
+td background-color:              None
+border:                           .datagrid-body td, .datagrid-footer td
+tr.even row td background-color:  .datagrid-row-alt
+tr.selected td background-color:  .datagrid-row-selected

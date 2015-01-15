@@ -13,12 +13,6 @@ table.bsgrid {
     border-collapse: collapse;
 }
 
-/* grid header */
-.bsgrid th {
-    font-weight: 400;
-    background: url(../images/skins/default/bg.gif) repeat-x #f4f4f4;
-}
-
 /* grid header and column */
 .bsgrid th, .bsgrid td {
     height: 22px;
@@ -33,6 +27,12 @@ table.bsgrid {
     line-height: 150%;
 }
 
+/* grid header */
+.bsgrid th {
+    font-weight: 400;
+    background: url(../images/skins/default/bg.gif) repeat-x #f4f4f4;
+}
+
 /* grid even index row column color */
 .bsgrid tr.even_index_row td {
     background-color: #eeeeff;
@@ -40,7 +40,7 @@ table.bsgrid {
 
 /* grid selected row column color */
 .bsgrid tr.selected.selected_color td {
-    background-color: #fff1cc!important;
+    background-color: #fff1cc !important;
 }
 
 /* href */

@@ -220,7 +220,6 @@ Merged Files: 目录builds/merged，合并经常一起使用的css、js，合并
                 pageSize: 10
             });
         });
-    
         function operate(record, rowIndex, colIndex, options) {
             return '&lt;a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');"&gt;Operate&lt;/a&gt;';
         }
@@ -362,7 +361,6 @@ http://bsgrid.oschina.mopaas.com/examples/grid/export.html?exportFileName=Export
             pageSize: 10
         });
     });
-
     function doExport() {
         alert('Only test request params, To see it in browser address url.');
         gridObj.options.otherParames = $('#searchForm').serializeArray();

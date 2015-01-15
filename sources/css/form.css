@@ -45,12 +45,12 @@
 }
 
 .bsgrid_form .formInput .radio {
-	width: 20px;
+    width: 20px;
 }
 
 .bsgrid_form .formInput .checkbox {
-	width: 20px;
-	text-align: left;
+    width: 20px;
+    text-align: left;
 }
 
 .bsgrid_form .formInput .inputTip {

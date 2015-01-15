@@ -343,6 +343,9 @@
      * @param options
      */
     $.fn.bsgrid.defaults.extend.ActiveGridEditMode = function (options) {
+        if (!options.settings.extend.settings.supportGridEdit) {
+            return;
+        }
         $('#' + options.gridId + ' tr:not(:first):lt(' + options.curPageRowsNum + ') td .bsgrid_editgrid_hidden').each(function () {
             var cloneObj = $(this).removeClass('bsgrid_editgrid_hidden').clone(true);
             $(this).parent('td').html(cloneObj);

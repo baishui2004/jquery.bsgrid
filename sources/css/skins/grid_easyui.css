@@ -1,0 +1,103 @@
+@CHARSET "UTF-8";
+
+/* font style */
+.bsgrid {
+    font-size: 12px;
+    border: 1px solid #ccc;
+}
+
+/* grid header and column */
+.bsgrid th, .bsgrid td {
+    border: 1px dotted #ccc;
+    background-color: white;
+    color: black;
+    line-height: 120%;
+    padding: 1px;
+}
+
+/* grid header */
+.bsgrid th {
+    border: 1px solid #ccc;
+    background-image: url(../../images/skins/easyui/bg.gif);
+}
+
+/* grid even index row column color */
+.bsgrid tr.even_index_row td {
+    background-color: #fafafa;
+}
+
+/* grid selected row column color */
+.bsgrid tr.selected.selected_color td {
+    background-color: #0092dc !important;
+}
+
+/* paging toolbar out table */
+.bsgridPagingOutTab {
+    border-color: #ccc;
+    background-color: white;
+}
+
+.bsgridPaging {
+    font-size: 12px;
+    font-family: '微软雅黑', Verdana, sans-serif, '宋体', serif;
+    color: black;
+    width: 500px;
+    border-collapse: collapse;
+
+}
+
+.bsgridPaging.noPageSizeSelect {
+    width: 400px;
+}
+
+.bsgridPaging td {
+    text-align: center;
+}
+
+/* paging toolbar pageSize select */
+.bsgridPaging select {
+    font-size: inherit;
+}
+
+/* paging toolbar button */
+.bsgridPaging .pagingBtn {
+    cursor: pointer;
+    border-width: 0;
+    width: 16px;
+    background: transparent no-repeat;
+    padding: 0;
+}
+
+.bsgridPaging .pagingBtn.firstPage {
+    background-image: url(../../images/skins/easyui/pagination_first.gif);
+}
+
+.bsgridPaging .pagingBtn.prevPage {
+    background-image: url(../../images/skins/easyui/pagination_prev.gif);
+}
+
+.bsgridPaging .pagingBtn.nextPage {
+    background-image: url(../../images/skins/easyui/pagination_next.gif);
+}
+
+.bsgridPaging .pagingBtn.lastPage {
+    background-image: url(../../images/skins/easyui/pagination_last.gif);
+}
+
+.bsgridPaging .pagingBtn.disabledCls {
+    color: #ccc;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+    -moz-opacity: 0.5;
+}
+
+.bsgridPaging .gotoPageInput {
+    width: 40px;
+    font-size: inherit;
+    color: inherit;
+    border: solid 1px #ccc;
+}
+
+.bsgridPaging .pagingBtn.gotoPage {
+    background-image: url(../../images/skins/easyui/layout_button_right.gif);
+}

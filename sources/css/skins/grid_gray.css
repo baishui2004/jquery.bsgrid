@@ -1,15 +1,15 @@
 @CHARSET "UTF-8";
 
-/* grid header */
-.bsgrid th {
-    background-image: url(../../images/skins/gray/bg.gif);
-}
-
 /* grid header and column */
 .bsgrid th, .bsgrid td {
     border-color: #d0d0d0;
     background-color: white;
     color: black;
+}
+
+/* grid header */
+.bsgrid th {
+    background-image: url(../../images/skins/gray/bg.gif);
 }
 
 /* grid even index row column color */
@@ -19,7 +19,7 @@
 
 /* grid selected row column color */
 .bsgrid tr.selected.selected_color td {
-    background-color: #e0e0e0!important;
+    background-color: #e0e0e0 !important;
 }
 
 /* paging toolbar out table */
