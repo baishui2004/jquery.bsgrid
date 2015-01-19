@@ -22,8 +22,8 @@
 <p/>
 <table id="searchTable" class="bsgrid">
     <tr>
-        <th w_index="XH" w_sort="XH,desc" w_hidden="true" width="5%;">XH</th>
-        <th w_index="ID" w_sort="ID" width="5%;">ID</th>
+        <th w_index="XH" w_sort="XH,desc" width="5%;">XH</th>
+        <th w_index="ID" w_sort="ID" w_hidden="true" width="5%;">ID</th>
         <th w_index="CHAR" w_align="left" w_tip="true" width="15%;">CHAR</th>
         <th w_index="TEXT" w_align="left" w_length="50" width="30%;" style="text-align: left;">TEXT</th>
         <th w_index="DATE" width="15%;">DATE</th>
@@ -64,7 +64,7 @@
 &emsp;<input type="button" value="Get sort name" onclick="alert(gridObj.options.sortName);"/>
 &emsp;<input type="button" value="Get sort order" onclick="alert(gridObj.options.sortOrder);"/>
 &emsp;<input type="button" value="Sort by ID"
-             onclick="gridObj.sort($('#' + gridObj.options.gridId + ' tr:first th:eq(1)'));"/>
+             onclick="gridObj.sort($('#' + gridObj.options.gridId + ' thead tr th:eq(1)'));"/>
 &emsp;<input type="button" value="Clear grid body data" onclick="gridObj.clearGridBodyData();"/>
 <p/>
 <pre>
@@ -151,7 +151,7 @@ Documention:
    gridObj.gotoPage(pageNo)
 
    gridObj.sort(thObj)
-   gridObj.getGridHeaderObject()
+   gridObj.getGridHeaderObject(), note only return thead last tr's th
    gridObj.getColumnAttr(colIndex, attrName)
    gridObj.clearGridBodyData()
 
@@ -167,7 +167,7 @@ Documention:
    $.fn.bsgrid.longLengthSubAndTip(obj, value, maxLen, record): if column's value length longer than it, auto sub and tip it. sub: txt.substring(0, MaxLength-3) + '...'.
 
 8, bsgrid edit methods
-   gridObj.ActiveGridEditMode, active grid edit mode
+   gridObj.activeGridEditMode, active grid edit mode
    gridObj.getChangedRowsIndexs, get changed rows indexs, from 0
    gridObj.getChangedRowsOldRecords, get changed rows old records
    gridObj.getRowsChangedColumnsValue, get rows changed columns value, return Object's key is 'row_'+rowIndex, value is a object

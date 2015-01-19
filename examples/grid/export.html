@@ -44,7 +44,7 @@ Documention:
                                    all above not set then use $.bsgrid_export.defaults.settings.colsProperties.width
 
 2, how to get column name:
-   $.trim($('th td').eq(n).text())
+   $.trim($('th').eq(n).text())
 
 3, url request params names, global setting
    to modify that: $.bsgrid_export.defaults.requestParamsName.X = '', X may exportFileName, colNames, colIndexs, colWidths, colAligns
@@ -69,7 +69,7 @@ Documention:
     function doExport() {
         alert('Only test request params, To see it in browser address url.');
         gridObj.options.otherParames = $('#searchForm').serializeArray();
-        $.bsgrid_export.doExport($('#searchTable tr:eq(0) th[w_hidden!="true"]'), gridObj.options.otherParames, {
+        $.bsgrid_export.doExport($('#searchTable thead tr th[w_hidden!="true"]'), gridObj.options.otherParames, {
             url: 'export.html' + '?sortName=' + gridObj.options.sortName + '&sortOrder=' + gridObj.options.sortOrder, // only test request params
             exportFileName: 'Export Example',
             colsProperties: {

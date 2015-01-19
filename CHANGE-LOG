@@ -1,4 +1,4 @@
-v1.31  2014-01-12
+v1.31  2014-01-19
 1，扩展(grid.extend)可拖动改变表头宽度；
 2，优化项目目录结构；
 3，完善grid的单元格tip展示，对于index有正确值且其value值不包括html标签元素，才计算其value长度并判断是否截断与tip展示；
@@ -7,7 +7,10 @@ v1.31  2014-01-12
 6，初步实现表格在线编辑功能；
 7，修正checked属性在jQuery1.6以后使用attr()方法的bug，改为1.6后使用prop()方法，提供工具方法$.bsgrid.adaptAttrOrProp(obj, prop, val)；
 8，给grid提供属性changeColorIfRowSelected，以便于自定义选中行后是否变色，默认为true有行背景色；
-9，增加Pure Gray以及EasyUI风格表格皮肤；
+9，增加Pure Gray、jqGrid、EasyUI、Bootstrap风格表格皮肤；
+10，重大更新，完善表格生成为thead、tbody、tfoot结构；
+11，表格支持多行表头，渲染数据以表头的最后一行为准，另多行表头暂不支持列宽手动调整；
+12，表格支持表底，表底支持count、countNotNone、sum、avg、max、min、concat聚合；
 
 
 

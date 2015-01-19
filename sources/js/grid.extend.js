@@ -25,6 +25,8 @@
     $.fn.bsgrid.defaults.colsProperties.checkAttr = 'w_check';
     // grid edit forms' values: text, hidden, password, radio, button, checkbox, textarea
     $.fn.bsgrid.defaults.colsProperties.editAttr = 'w_edit';
+    // aggregation, values: count, countNotNone, sum, avg, max, min, concat
+    $.fn.bsgrid.defaults.colsProperties.aggAttr = 'w_agg';
 
 
     // extend init grid
@@ -49,8 +51,8 @@
         gridObj.getCheckedRowsRecords = function () {
             return $.fn.bsgrid.defaults.extend.getCheckedRowsRecords(options);
         };
-        gridObj.ActiveGridEditMode = function () {
-            return $.fn.bsgrid.defaults.extend.ActiveGridEditMode(options);
+        gridObj.activeGridEditMode = function () {
+            return $.fn.bsgrid.defaults.extend.activeGridEditMode(options);
         };
         gridObj.getChangedRowsIndexs = function () {
             return $.fn.bsgrid.defaults.extend.getChangedRowsIndexs(options);
@@ -74,11 +76,11 @@
                 }
                 $(this).find('input[type=checkbox]').change(function () {
                     if ($.bsgrid.adaptAttrOrProp($(this), 'checked')) {
-                        $('#' + gridId + ' tr:not(:first)').each(function () {
+                        $('#' + gridId + ' tbody tr').each(function () {
                             $.bsgrid.adaptAttrOrProp($(this).find('td:eq(' + hi + ')>input[type=checkbox]'), 'checked', true);
                         });
                     } else {
-                        $('#' + gridId + ' tr:not(:first)').each(function () {
+                        $('#' + gridId + ' tbody tr').each(function () {
                             $.bsgrid.adaptAttrOrProp($(this).find('td:eq(' + hi + ')>input[type=checkbox]'), 'checked', false);
                         });
                     }
@@ -101,7 +103,7 @@
         $.fn.bsgrid.getGridHeaderObject(options).each(function () {
             var index = $.trim($(this).attr(options.settings.colsProperties.indexAttr));
             var text = $.trim($(this).text());
-            if (index != '' && text != '') {
+            if (index != '' && text != '' && $.trim(params[index]) == '') {
                 params[index] = text;
             }
         });
@@ -112,7 +114,7 @@
         conditionsHtml.append('&nbsp;');
         conditionsHtml.append('<input type="text" class="bsgrid_conditions_input" />');
         $('#' + options.settings.extend.settings.searchConditionsContainerId).html(conditionsHtml.toString());
-        $('#' + options.settings.extend.settings.searchConditionsContainerId + ' select.bsgrid_conditions_select:eq(0)').change(function () {
+        $('#' + options.settings.extend.settings.searchConditionsContainerId + ' select.bsgrid_conditions_select').change(function () {
             $(this).next('input.bsgrid_conditions_input').attr('name', $(this).val());
         }).trigger('change');
     };
@@ -122,7 +124,7 @@
 
     // init column move
     $.fn.bsgrid.extendInitGrid.initColumnMove = function (gridId, options) {
-        if (!options.settings.extend.settings.supportColumnMove) {
+        if (!options.settings.extend.settings.supportColumnMove || $('#' + options.gridId + ' thead tr').length != 1) {
             return;
         }
         $('#' + options.gridId).css({'table-layout': 'fixed'});
@@ -242,7 +244,7 @@
         if (!options.settings.extend.settings.supportGridEdit) {
             return;
         }
-        $('#' + options.gridId + ' tr:not(:first):lt(' + options.curPageRowsNum + ')').each(function (ri) {
+        $('#' + options.gridId + ' tbody tr:lt(' + options.curPageRowsNum + ')').each(function (ri) {
             // edit form change event
             var rowObj = this;
             $(rowObj).find('td').each(function (ci) {
@@ -303,6 +305,58 @@
     };
 
     $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'addGridEditEvent', $.fn.bsgrid.extendAfterRenderGrid.addGridEditEvent);
+
+    // aggregation
+    $.fn.bsgrid.extendAfterRenderGrid.aggregation = function (parseSuccess, gridData, options) {
+        var aggAttr = options.settings.colsProperties.aggAttr;
+        if ($('#' + options.gridId + ' tfoot td[' + aggAttr + '!=\'\']').length == 0) {
+            return;
+        }
+        var gridObj = $.fn.bsgrid.getGridObj(options.gridId);
+        $('#' + options.gridId + ' tfoot tr td[' + aggAttr + '!=\'\']').each(function () {
+            var aggInfo = $.trim($(this).attr(aggAttr));
+            if (aggInfo.length != 0) {
+                var aggInfoArray = aggInfo.split(',');
+                var aggName = aggInfoArray[0].toLocaleLowerCase();
+                var aggIndex = aggInfoArray.length > 1 ? aggInfoArray[1] : '';
+                var val = null;
+                if (aggName == 'count') {
+                    val = options.curPageRowsNum;
+                } else if (aggName == 'countnotnone' || aggName == 'sum' || aggName == 'avg' || aggName == 'max' || aggName == 'min' || aggName == 'concat') {
+                    if (aggName == 'countnotnone') {
+                        val = 0;
+                    }
+                    var valHtml = new StringBuilder();
+                    $('#' + options.gridId + ' tbody tr:lt(' + options.curPageRowsNum + ')').each(function (ri) {
+                        var rval = gridObj.getColumnValue(ri, aggIndex);
+                        if (rval == '') {
+                        } else if (aggName == 'countnotnone') {
+                            val = (val == null ? 0 : val) + 1;
+                        } else if (aggName == 'sum' || aggName == 'avg') {
+                            if (!isNaN(rval)) {
+                                val = (val == null ? 0 : val) + parseFloat(rval);
+                            }
+                        } else if (aggName == 'max' || aggName == 'min') {
+                            if (!isNaN(rval) && (val == null || (aggName == 'max' && parseFloat(rval) > val) || (aggName == 'min' && parseFloat(rval) < val))) {
+                                val = parseFloat(rval);
+                            }
+                        } else if (aggName == 'concat') {
+                            valHtml.append(rval);
+                        }
+                    });
+                    if (aggName == 'avg' && val != null) {
+                        val = val / options.curPageRowsNum;
+                    } else if (aggName == 'concat') {
+                        val = valHtml.toString();
+                    }
+                }
+                val = val == null ? '' : val;
+                $(this).html(val);
+            }
+        });
+    };
+
+    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'aggregation', $.fn.bsgrid.extendAfterRenderGrid.aggregation);
     /*************** extend after render grid end ***************/
 
 
@@ -315,7 +369,7 @@
      */
     $.fn.bsgrid.defaults.extend.getCheckedRowsIndexs = function (options) {
         var rowIndexs = [];
-        $('#' + options.gridId + ' tr:not(:first)').each(function (i) {
+        $('#' + options.gridId + ' tbody tr').each(function (i) {
             if ($(this).find('td>input:checked').length == 1) {
                 rowIndexs[rowIndexs.length] = i;
             }
@@ -342,11 +396,11 @@
      *
      * @param options
      */
-    $.fn.bsgrid.defaults.extend.ActiveGridEditMode = function (options) {
+    $.fn.bsgrid.defaults.extend.activeGridEditMode = function (options) {
         if (!options.settings.extend.settings.supportGridEdit) {
             return;
         }
-        $('#' + options.gridId + ' tr:not(:first):lt(' + options.curPageRowsNum + ') td .bsgrid_editgrid_hidden').each(function () {
+        $('#' + options.gridId + ' tbody tr:lt(' + options.curPageRowsNum + ') td .bsgrid_editgrid_hidden').each(function () {
             var cloneObj = $(this).removeClass('bsgrid_editgrid_hidden').clone(true);
             $(this).parent('td').html(cloneObj);
         });
@@ -360,7 +414,7 @@
      */
     $.fn.bsgrid.defaults.extend.getChangedRowsIndexs = function (options) {
         var rowIndexs = [];
-        $('#' + options.gridId + ' tr:not(:first)').each(function (i) {
+        $('#' + options.gridId + ' tbody tr').each(function (i) {
             var cellChangedNumStr = $.trim($(this).data('change'));
             if (!isNaN(cellChangedNumStr) && parseInt(cellChangedNumStr) > 0) {
                 rowIndexs[rowIndexs.length] = i;
@@ -394,7 +448,7 @@
         var gridObj = $.fn.bsgrid.getGridObj(options.gridId);
         $.each($.fn.bsgrid.defaults.extend.getChangedRowsIndexs(options), function (i, rowIndex) {
             values['row_' + rowIndex] = {};
-            $('#' + options.gridId + ' tr:eq(' + (rowIndex + 1) + ') td').each(function (ci) {
+            $('#' + options.gridId + ' tbody tr:eq(' + rowIndex + ') td').each(function (ci) {
                 if ($(this).find('.bsgrid_editgrid_change').length > 0) {
                     var index = gridObj.getColumnAttr(ci, options.settings.colsProperties.indexAttr);
                     values['row_' + rowIndex][index] = $(this).find('.bsgrid_editgrid_change').val();

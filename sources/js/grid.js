@@ -244,6 +244,17 @@
                 options.settings.pageSize = 0;
             }
 
+            if ($('#' + gridId).find('thead').length == 0) {
+                $('#' + gridId).prepend('<thead></thead>');
+                $('#' + gridId).find('tr:lt(' + ($('#' + gridId + ' tr').length - $('#' + gridId + ' tfoot tr').length) + ')').appendTo($('#' + gridId + ' thead'));
+            }
+            if ($('#' + gridId).find('tbody').length == 0) {
+                $('#' + gridId + ' thead').after('<tbody></tbody>');
+            }
+            if ($('#' + gridId).find('tfoot').length == 0) {
+                $('#' + gridId).append('<tfoot style="display: none;"></tfoot>');
+            }
+
             gridObj.appendHeaderSort();
 
             // init paging
@@ -475,7 +486,7 @@
                         var dataLen = data.length;
                         // add rows click event
                         $.fn.bsgrid.addRowsClickEvent(options);
-                        $('#' + options.gridId + ' tr:not(:first)').each(
+                        $('#' + options.gridId + ' tbody tr').each(
                             function (i) {
                                 var trObj = $(this);
                                 var record = null;
@@ -546,7 +557,7 @@
         },
 
         addRowsClickEvent: function (options) {
-            $('#' + options.gridId + ' tr:not(:first):lt(' + options.curPageRowsNum + ')').click(function (i) {
+            $('#' + options.gridId + ' tbody tr:lt(' + options.curPageRowsNum + ')').click(function (i) {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected').removeClass('selected_color');
                 } else {
@@ -560,12 +571,12 @@
         },
 
         getSelectedRow: function (options) {
-            return $('#' + options.gridId + ' tr.selected');
+            return $('#' + options.gridId + ' tbody tr.selected');
         },
 
         selectRow: function (row, options) {
             $.fn.bsgrid.unSelectRow(options);
-            var trObj = $('#' + options.gridId + ' tr:eq(' + (row + 1) + ')');
+            var trObj = $('#' + options.gridId + ' tbody tr:eq(' + row + ')');
             trObj.addClass('selected');
             if (options.settings.changeColorIfRowSelected) {
                 trObj.addClass('selected_color');
@@ -581,11 +592,11 @@
         },
 
         storeRowData: function (row, record, options) {
-            $('#' + options.gridId + ' tr:eq(' + (row + 1) + ')').data('record', record);
+            $('#' + options.gridId + ' tbody tr:eq(' + row + ')').data('record', record);
         },
 
         getRecord: function (row, options) {
-            var record = $('#' + options.gridId + ' tr:eq(' + (row + 1) + ')').data('record');
+            var record = $('#' + options.gridId + ' tbody tr:eq(' + row + ')').data('record');
             return record == undefined ? null : record;
         },
 
@@ -627,8 +638,14 @@
             $.fn.bsgrid.refreshPage(options);
         },
 
+        /**
+         * Note only return thead last tr's th.
+         *
+         * @param options
+         * @returns {*}
+         */
         getGridHeaderObject: function (options) {
-            return $('#' + options.gridId + ' tr').first().find('th');
+            return $('#' + options.gridId + ' thead tr:last').find('th');
         },
 
         getColumnAttr: function (colIndex, attrName, options) {
@@ -655,20 +672,18 @@
                         sortHtml += 'sort-view';
                     }
                     sortHtml += '">&nbsp;&nbsp;&nbsp;</a>'; // use: "&nbsp;&nbsp;&nbsp;", different from: "&emsp;" is: IE8 and IE9 not display "&emsp;"
-                    $(this).append(sortHtml);
+                    $(this).append(sortHtml).find('.sort').each(function () {
+                        $(this).click(function () {
+                            $.fn.bsgrid.sort($(this).parent('th'), options);
+                        });
+                    });
                 }
-            });
-
-            $('#' + options.gridId + ' th .sort').each(function () {
-                $(this).click(function () {
-                    $.fn.bsgrid.sort($(this).parent('th'), options);
-                });
             });
         },
 
         setGridBlankBody: function (options) {
             // remove rows
-            $('#' + options.gridId + ' tr:not(:first)').remove();
+            $('#' + options.gridId + ' tbody tr').remove();
 
             var header = $.fn.bsgrid.getGridHeaderObject(options);
             // add rows
@@ -708,11 +723,11 @@
                     rowsSb.append(rowSb);
                 }
             }
-            $('#' + options.gridId).append(rowsSb.toString());
+            $('#' + options.gridId + ' tbody').append(rowsSb.toString());
 
             if (curPageRowsNum != 0) {
                 if (options.settings.stripeRows) {
-                    $('#' + options.gridId + ' tr:even').addClass('even_index_row');
+                    $('#' + options.gridId + ' tbody tr:even').addClass('even_index_row');
                 }
             }
         },
@@ -729,13 +744,7 @@
         },
 
         clearGridBodyData: function (options) {
-            $('#' + options.gridId + ' tr:not(:first)').each(
-                function () {
-                    $(this).find('td').each(function () {
-                        $(this).html('&nbsp;');
-                    });
-                }
-            );
+            $('#' + options.gridId + ' tbody tr td').html('&nbsp;');
         },
 
         /**

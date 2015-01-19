@@ -35,14 +35,14 @@
         });
 
     	// 表格的checkbox选择
-    	if($('#searchTable tr:first th:eq(0) input[type=checkbox]').length == 1) {
-    	    $('#searchTable tr:first th:eq(0) input[type=checkbox]').change(function () {
+    	if($('#searchTable thead tr th:eq(0) input[type=checkbox]').length == 1) {
+    	    $('#searchTable thead tr th:eq(0) input[type=checkbox]').change(function () {
     	        if ($.bsgrid.adaptAttrOrProp($(this) ,'checked')) {
-    	        	$('#searchTable tr:not(:first)').each(function() {
+    	        	$('#searchTable tbody tr').each(function() {
 						$.bsgrid.adaptAttrOrProp($(this).find('td:eq(0)>input[type=checkbox]'), 'checked', true);
 					});
     	        } else {
-    	        	$('#searchTable tr:not(:first)').each(function() {
+    	        	$('#searchTable tbody tr').each(function() {
 						$.bsgrid.adaptAttrOrProp($(this).find('td:eq(0)>input[type=checkbox]'), 'checked', false);
 					});
     	        }
@@ -66,7 +66,7 @@
     
     function getCheckedRecords() {
         var records = new Array();
-        $('#searchTable tr:not(:first)').each(function() {
+        $('#searchTable tbody tr').each(function() {
         	if($(this).find('td:eq(0)>input:checked').length == 1){
         		records[records.length] = gridObj.getRowRecord($(this));
         	}

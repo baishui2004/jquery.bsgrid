@@ -44,11 +44,28 @@ grid_pure_gray.css     None
 
 5, Style               From
 grid_gray.css          EasyUI: jquery-easyui-1.2.6.zip\themes\gray\easyui.css
+grid_bootstrap.css     EasyUI: jquery-easyui-1.4.1.zip\themes\bootstrap\easyui.css
 
 EasyUI Style Mapping:
-font size:                        .datagrid-body td, .datagrid-footer td
+font size:                        [1.2.6] .datagrid-body td, .datagrid-footer td    [1.4.1] .datagrid-cell
 th background-color:              .datagrid-header
 td background-color:              None
-border:                           .datagrid-body td, .datagrid-footer td
+border:                           .datagrid-body td
 tr.even row td background-color:  .datagrid-row-alt
 tr.selected td background-color:  .datagrid-row-selected
+
+
+
+6, Style               From
+grid_jqgrid.css        jqGrid: jQuery Grid Plugin 4.4.3.zip\src\css\ui.jqgrid.css
+                       jQuery UI: jquery-ui-1.8.20.custom.zip\css\custom-theme\jquery-ui-1.8.2.custom.css
+
+jqGrid Style Mapping:
+font size:                        .ui-jqgrid
+border:                           .ui-jqgrid tr.ui-row-ltr td
+
+jQuery UI  Style Mapping:
+th background-color:              .ui-state-default, .ui-widget-content .ui-state-default, .ui-widget-header .ui-state-default
+td background-color:              .ui-widget-content
+tr.even row td background-color:  .ui-priority-secondary
+tr.selected td background-color:  .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight

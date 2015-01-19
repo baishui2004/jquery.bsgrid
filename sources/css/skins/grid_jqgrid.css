@@ -2,14 +2,14 @@
 
 /* font style */
 .bsgrid {
-    font-size: 12px;
-    border: 1px solid #ccc;
+    font-size: 11px;
+    border: 1px solid #a6c9e2;
 }
 
 /* grid header and column */
 .bsgrid th, .bsgrid td {
-    border: 1px dotted #ccc;
-    background-color: white;
+    border: 1px solid #a6c9e2;
+    background-color: #fcfdfd;
     color: black;
     line-height: 120%;
     padding: 1px;
@@ -17,28 +17,29 @@
 
 /* grid header */
 .bsgrid th {
-    border: 1px solid #ccc;
-    background-image: url(../../images/skins/easyui/bg.gif);
+    border: 1px solid #a6c9e2;
+    background: #dfeffc url(../../images/skins/jqgrid/ui-bg_glass_1x400.png);
+    color: #2e6e9e;
 }
 
 /* grid even index row column color */
 .bsgrid tr.even_index_row td {
-    background-color: #fafafa;
+    background-color: #fcfdfd;
 }
 
 /* grid selected row column color */
 .bsgrid tr.selected.selected_color td {
-    background-color: #0092dc !important;
+    background-color: #fbec88 !important;
 }
 
 /* paging toolbar out table */
 .bsgridPagingOutTab {
-    border-color: #ccc;
+    border-color: #a6c9e2;
     background-color: white;
 }
 
 .bsgridPaging {
-    font-size: 12px;
+    font-size: 11px;
     font-family: '微软雅黑', Verdana, sans-serif, '宋体', serif;
     color: black;
     width: 500px;
@@ -64,28 +65,28 @@
     cursor: pointer;
     border-width: 0;
     width: 16px;
-    background: none transparent no-repeat;
+    background: url(../../images/skins/jqgrid/ui-icons_256x240.png) transparent no-repeat;
     padding: 0;
 }
 
 .bsgridPaging .pagingBtn.firstPage {
-    background-image: url(../../images/skins/easyui/pagination_first.gif);
+    background-position: -80px -160px;
 }
 
 .bsgridPaging .pagingBtn.prevPage {
-    background-image: url(../../images/skins/easyui/pagination_prev.gif);
+    background-position: -48px -160px;
 }
 
 .bsgridPaging .pagingBtn.nextPage {
-    background-image: url(../../images/skins/easyui/pagination_next.gif);
+    background-position: -32px -160px;
 }
 
 .bsgridPaging .pagingBtn.lastPage {
-    background-image: url(../../images/skins/easyui/pagination_last.gif);
+    background-position: -64px -160px;
 }
 
 .bsgridPaging .pagingBtn.disabledCls {
-    color: #ccc;
+    color: #a6c9e2;
     filter: alpha(opacity=50);
     opacity: 0.5;
     -moz-opacity: 0.5;
@@ -95,9 +96,9 @@
     width: 40px;
     font-size: inherit;
     color: inherit;
-    border: solid 1px #ccc;
+    border: solid 1px #a6c9e2;
 }
 
 .bsgridPaging .pagingBtn.gotoPage {
-    background-image: url(../../images/skins/easyui/layout_button_right.gif);
+    background-position: -48px -192px;
 }
