@@ -13,11 +13,9 @@ $.bsgridLanguage.pagingToolbar.pageSizeDisplay = function (pageSizeId) {
 $.bsgridLanguage.pagingToolbar.currentDisplayRows = function (startRowId, endRowId) {
     return '&nbsp;<span id="' + startRowId + '"></span>&nbsp;-&nbsp;<span id="' + endRowId + '"></span>';
 };
-$.bsgridLanguage.pagingToolbar.totalRows = function (totalRowsId) {
-    return 'total&nbsp;&nbsp;<span id="' + totalRowsId + '"></span>';
-};
 $.bsgridLanguage.pagingToolbar.firstPage = '&nbsp;';
 $.bsgridLanguage.pagingToolbar.prevPage = '&nbsp;';
 $.bsgridLanguage.pagingToolbar.nextPage = '&nbsp;';
 $.bsgridLanguage.pagingToolbar.lastPage = '&nbsp;';
 $.bsgridLanguage.pagingToolbar.gotoPage = '&nbsp;';
+$.bsgridLanguage.pagingToolbar.refreshPage = '&nbsp;';

@@ -79,6 +79,7 @@ Documention:
    autoLoad: load onReady, default true
    pageAll: display all datas, no paging only count, default false
    pageSize: if set value little then 1, then pageAll will auto set true, default 20
+   multiSort: multi column sort support, default false
    pageSizeSelect: if display pageSize select option, use with property pageSizeForGrid, default false
    pageSizeForGrid: pageSize select option
    displayBlankRows: true or false, default true
@@ -97,6 +98,8 @@ Documention:
                     supportGridEditTriggerEvent: values: '', 'rowClick', 'rowDoubleClick', 'cellClick', 'cellDoubleClick', default 'rowClick'
                     supportColumnMove, if support extend column move, default false
                     searchConditions, simple search conditions's container id, default none
+                    fixedGridHeader, fixed grid header, auto height scroll, default false
+                    fixedGridHeight, fixed grid height, auto scroll, default '320px'
    extend config methods, use write see grid.extend.js(Note that it's advanced use with little difficult):
        extend.initGridMethods: extend init grid methods
        extend.beforeRenderGridMethods: extend before render grid methods

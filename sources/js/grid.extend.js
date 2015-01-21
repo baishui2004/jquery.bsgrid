@@ -16,7 +16,9 @@
         supportGridEdit: false, // if support extend grid edit
         supportGridEditTriggerEvent: 'rowClick', // values: '', 'rowClick', 'rowDoubleClick', 'cellClick', 'cellDoubleClick'
         supportColumnMove: false, // if support extend column move
-        searchConditionsContainerId: '' // simple search conditions's container id
+        searchConditionsContainerId: '', // simple search conditions's container id
+        fixedGridHeader: false, // fixed grid header, auto height scroll
+        fixedGridHeight: '320px' // fixed grid height, auto scroll
     };
 
 
@@ -40,6 +42,78 @@
     // extend after render grid
     $.fn.bsgrid.extendAfterRenderGrid = {};
 
+    // extend other methods
+    $.fn.bsgrid.extendOtherMethods = {};
+
+    /*************** extend other methods start ***************/
+    $.fn.bsgrid.extendOtherMethods.fixedHeader = function (iFirst, options) {
+        if ($.trim($('#' + options.gridId + '_fixedDiv').data('fixedGridLock')) == 'lock') {
+            return;
+        }
+        $('#' + options.gridId + '_fixedDiv').data('fixedGridLock', 'lock');
+        var headTrNum = $('#' + options.gridId + ' thead tr').length;
+        if (!iFirst) {
+            headTrNum = headTrNum / 2;
+            $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').remove();
+        }
+        var fixedGridHeight = getSize(options.settings.extend.settings.fixedGridHeight);
+        if (fixedGridHeight < $('#' + options.gridId).height()) {
+            $('#' + options.gridId + '_fixedDiv').height(fixedGridHeight);
+            $('#' + options.gridId).width($('#' + options.gridId + '_fixedDiv').width() - 18);
+            $('#' + options.gridId + '_fixedDiv').animate({scrollTop: '0px'}, 0);
+        } else {
+            $('#' + options.gridId + '_fixedDiv').height($('#' + options.gridId).height());
+            $('#' + options.gridId).width($('#' + options.gridId + '_fixedDiv').width() - 1);
+        }
+        $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').clone(true).prependTo('#' + options.gridId + ' thead');
+        $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').css({'z-index': 10, position: 'fixed'}).width($('#' + options.gridId + ' thead tr:last').width());
+        $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').each(function (i) {
+            var position = $('#' + options.gridId + ' thead tr:eq(' + (headTrNum + i) + ')').position();
+            $(this).css({top: position.top - getSize($(this).find('th').css('border-top-width')), left: position.left });
+        });
+
+        $('#' + options.gridId + ' thead tr:gt(' + (headTrNum - 1) + ')').each(function (ri) {
+            $(this).find('th').each(function (i) {
+                var thObj = $(this);
+                $('#' + options.gridId + ' thead tr:eq(' + ri + ') th:eq(' + i + ')').height(thObj.height() + ((ri == headTrNum - 1) ? 2 : 1) * getSize(thObj.css('border-top-width'))).width(thObj.width() + getSize(thObj.css('border-left-width')));
+            });
+        });
+        $('#' + options.gridId + '_fixedDiv').data('fixedGridLock', '');
+
+        function getSize(sizeStr) {
+            sizeStr = $.trim(sizeStr).toLowerCase().replace('px', '');
+            var sizeNum = parseFloat(sizeStr);
+            return isNaN(sizeNum) ? 0 : sizeNum;
+        }
+    };
+    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.initGridMethods, 'fixedHeader', function (gridId, options) {
+        if (!options.settings.extend.settings.fixedGridHeader) {
+            return;
+        }
+        $('#' + gridId).wrap('<div id="' + gridId + '_fixedDiv"></div>');
+        $('#' + gridId + '_fixedDiv').data('fixedGridLock', '');
+        $('#' + gridId + '_fixedDiv').css({
+            padding: 0,
+            'border-width': 0,
+            width: '98%',
+            'overflow-y': 'auto',
+            'margin-bottom': '-1px'
+        });
+        $('#' + gridId).css({width: 'auto'});
+        $('#' + gridId + '_pt_outTab').css({'border-top-width': '1px'});
+        $.fn.bsgrid.extendOtherMethods.fixedHeader(true, options);
+        $(window).resize(function () {
+            $.fn.bsgrid.extendOtherMethods.fixedHeader(false, options);
+        });
+    });
+
+    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'fixedHeader', function (parseSuccess, gridData, options) {
+        if (options.settings.extend.settings.fixedGridHeader) {
+            $.fn.bsgrid.extendOtherMethods.fixedHeader(false, options);
+        }
+    });
+
+    /*************** extend other methods end ***************/
 
     /*************** extend init grid start ***************/
         // bind extend methods

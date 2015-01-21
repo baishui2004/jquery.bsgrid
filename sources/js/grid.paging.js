@@ -38,6 +38,7 @@
                 curPageId: pagingId + '_curPage',
                 gotoPageInputId: pagingId + '_gotoPageInput',
                 gotoPageId: pagingId + '_gotoPage',
+                refreshPageId: pagingId + '_refreshPage',
                 pageSizeId: pagingId + '_pageSize',
                 firstPageId: pagingId + '_firstPage',
                 prevPageId: pagingId + '_prevPage',
@@ -229,6 +230,8 @@
             pagingSb.append('<input class="gotoPageInput" type="text" id="' + options.gotoPageInputId + '" />');
             pagingSb.append('&nbsp;');
             pagingSb.append('<input class="' + btnClass + ' gotoPage" type="button" id="' + options.gotoPageId + '" value="' + $.bsgridLanguage.pagingToolbar.gotoPage + '" />');
+            pagingSb.append('&nbsp;&nbsp;');
+            pagingSb.append('<input class="' + btnClass + ' refreshPage" type="button" id="' + options.refreshPageId + '" value="' + $.bsgridLanguage.pagingToolbar.refreshPage + '" />');
             pagingSb.append('</td>');
             pagingSb.append('</tr>');
             pagingSb.append('</table>');
@@ -270,6 +273,9 @@
             });
             $('#' + options.gotoPageId).click(function () {
                 $.fn.bsgrid_paging.gotoPage(options);
+            });
+            $('#' + options.refreshPageId).click(function () {
+                $.fn.bsgrid_paging.refreshPage(options);
             });
         },
 

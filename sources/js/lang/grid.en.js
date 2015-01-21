@@ -19,7 +19,7 @@
         errorForRequestData: 'Request datas fail!',
         errorForSendOrRequestData: 'Send or request datas fail!',
         noPagingation: function (noPagingationId) {
-            return 'Count:&nbsp;<span id="' + noPagingationId + '"></span>';
+            return 'Total:&nbsp;<span id="' + noPagingationId + '"></span>';
         },
         pagingToolbar: {
             pageSizeDisplay: function (pageSizeId) {
@@ -29,7 +29,7 @@
                 return 'Display:&nbsp;<span id="' + startRowId + '"></span>&nbsp;-&nbsp;<span id="' + endRowId + '"></span>';
             },
             totalRows: function (totalRowsId) {
-                return 'Count:&nbsp;<span id="' + totalRowsId + '"></span>';
+                return 'Total:&nbsp;<span id="' + totalRowsId + '"></span>';
             },
             currentDisplayPageAndTotalPages: function (curPageId, totalPagesId) {
                 return '<div><span id="' + curPageId + '"></span>&nbsp;/&nbsp;<span id="' + totalPagesId + '"></span></div>';
@@ -38,7 +38,8 @@
             prevPage: 'Prev',
             nextPage: 'Next',
             lastPage: 'Last',
-            gotoPage: 'Goto'
+            gotoPage: 'Goto',
+            refreshPage: 'Refresh'
         },
         loadingDataMessage: 'Loading data, Please wait......',
         noDataToDisplay: 'No data to display.'

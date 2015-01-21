@@ -20,6 +20,7 @@
             autoLoad: true, // load onReady
             pageAll: false, // display all datas, no paging only count
             pageSize: 20, // page size. if set value little then 1, then pageAll will auto set true
+            multiSort: false, // multi column sort support
             pageSizeSelect: false, // if display pageSize select option
             pageSizeForGrid: [5, 10, 20, 25, 50, 100, 200, 500], // pageSize select option
             displayBlankRows: true,
@@ -614,28 +615,54 @@
         },
 
         sort: function (obj, options) {
+            options.sortName = '';
+            options.sortOrder = '';
             var aObj = $(obj).find('a');
             var field = $(aObj).attr('sortName');
-            // revert style
+
             $.fn.bsgrid.getGridHeaderObject(options).each(function () {
-                if ($.trim($(this).attr(options.settings.colsProperties.sortAttr)).length != 0) {
-                    $(this).find('a').attr('class', 'sort sort-view');
+                var sortInfo = $.trim($(this).attr(options.settings.colsProperties.sortAttr));
+                if (sortInfo.length != 0) {
+                    var sortName = sortInfo.split(',')[0];
+                    var sortOrder = $.fn.bsgrid.getSortOrder($(this), options);
+
+                    if (!options.settings.multiSort && sortName != field) {
+                        // revert style
+                        $(this).find('a').attr('class', 'sort sort-view');
+                    } else {
+                        if (sortName == field) {
+                            if (sortOrder == '') {
+                                sortOrder = 'desc';
+                            } else if (sortOrder == 'desc') {
+                                sortOrder = 'asc';
+                            } else if (sortOrder == 'asc') {
+                                sortOrder = '';
+                            }
+                            $(this).find('a').attr('class', 'sort sort-' + (sortOrder == '' ? 'view' : sortOrder));
+                        }
+                        if (sortOrder != '') {
+                            options.sortName = ($.trim(options.sortName) == '') ? sortName : (options.sortName + ',' + sortName);
+                            options.sortOrder = ($.trim(options.sortOrder) == '') ? sortOrder : (options.sortOrder + ',' + sortOrder);
+                        }
+                    }
                 }
             });
-            if (options.sortName == field) {
-                if (options.sortOrder == 'asc') {
-                    options.sortOrder = 'desc';
-                    $(aObj).attr('class', 'sort sort-desc');
-                } else {
-                    options.sortOrder = 'asc';
-                    $(aObj).attr('class', 'sort sort-asc');
-                }
-            } else {
-                options.sortName = field;
-                options.sortOrder = 'desc';
-                $(aObj).attr('class', 'sort sort-desc');
-            }
+
             $.fn.bsgrid.refreshPage(options);
+        },
+
+        getSortOrder: function (obj, options) {
+            var sortOrder = $.trim($(obj).find('a').attr('class'));
+            if (sortOrder == 'sort sort-view') {
+                sortOrder = '';
+            } else if (sortOrder == 'sort sort-asc') {
+                sortOrder = 'asc';
+            } else if (sortOrder == 'sort sort-desc') {
+                sortOrder = 'desc';
+            } else {
+                sortOrder = '';
+            }
+            return sortOrder;
         },
 
         /**
@@ -665,8 +692,8 @@
                     var sortOrder = sortInfoArray.length > 1 ? sortInfoArray[1] : '';
                     var sortHtml = '<a href="#" sortName="' + sortName + '" class="sort ';
                     if (sortOrder != '' && (sortOrder == 'desc' || sortOrder == 'asc')) {
-                        options.sortName = sortName;
-                        options.sortOrder = sortOrder;
+                        options.sortName = ($.trim(options.sortName) == '') ? sortName : (options.sortName + ',' + sortName);
+                        options.sortOrder = ($.trim(options.sortOrder) == '') ? sortOrder : (options.sortOrder + ',' + sortOrder);
                         sortHtml += 'sort-' + sortOrder;
                     } else {
                         sortHtml += 'sort-view';

@@ -5,7 +5,7 @@
     int curPage = Integer.parseInt(request.getParameter("curPage"));
 
     final String sortName = request.getParameter("sortName");
-    String sortOrder = request.getParameter("sortOrder");
+    final String sortOrder = request.getParameter("sortOrder");
 
     // data list
     List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
@@ -37,6 +37,23 @@
                 }
             });
         }
+    } else if ("XH,ID".equals(sortName)) {
+        Collections.sort(data, new Comparator<Map<String, Object>>() {
+            public int compare(Map<String, Object> map1, Map<String, Object> map2) {
+                int xhCp = Integer.parseInt(map1.get("XH").toString()) - Integer.parseInt(map2.get("XH").toString());
+                int idCp = Integer.parseInt(map1.get("ID").toString()) - Integer.parseInt(map2.get("ID").toString());
+                if (sortOrder.equals("asc,asc")) {
+                    return xhCp == 0 ? idCp : xhCp;
+                } else if (sortOrder.equals("asc,desc")) {
+                    return xhCp == 0 ? -idCp : xhCp;
+                } else if (sortOrder.equals("desc,asc")) {
+                    return xhCp == 0 ? idCp : -xhCp;
+                } else if (sortOrder.equals("desc,desc")) {
+                    return xhCp == 0 ? -idCp : -xhCp;
+                }
+                return 0;
+            }
+        });
     }
 
     StringBuilder jsonSb = new StringBuilder();

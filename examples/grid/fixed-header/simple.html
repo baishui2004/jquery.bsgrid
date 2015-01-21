@@ -46,14 +46,12 @@
         $('#searchTable').append(lineTrs);
 
         $('#searchTable tr:eq(0)').clone().prependTo("#searchTable");
-        $('#searchTable tr:eq(0)').css({'z-index': 10, position: 'fixed'});
-        $('#searchTable tr:eq(0)').width($('#searchTable tr:eq(1)').width());
+        $('#searchTable tr:eq(0)').css({'z-index': 10, position: 'fixed'}).width($('#searchTable tr:eq(1)').width());
 
-        var thObj = $('#searchTable tr:eq(1) th');
-        thObj.each(function (i) {
+        var thObjs = $('#searchTable tr:eq(1) th');
+        thObjs.each(function (i) {
             var thObj = $(this);
-            $('#searchTable tr:eq(0) th:eq(' + i + ')').height(thObj.height());
-            $('#searchTable tr:eq(0) th:eq(' + i + ')').width(thObj.width() + getWidth(thObj.css('border-left-width')));
+            $('#searchTable tr:eq(0) th:eq(' + i + ')').height(thObj.height()).width(thObj.width() + getWidth(thObj.css('border-left-width')));
         });
     });
 

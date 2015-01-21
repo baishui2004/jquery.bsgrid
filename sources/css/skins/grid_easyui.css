@@ -41,13 +41,13 @@
     font-size: 12px;
     font-family: '微软雅黑', Verdana, sans-serif, '宋体', serif;
     color: black;
-    width: 500px;
+    width: 550px;
     border-collapse: collapse;
 
 }
 
 .bsgridPaging.noPageSizeSelect {
-    width: 400px;
+    width: 430px;
 }
 
 .bsgridPaging td {
@@ -100,4 +100,8 @@
 
 .bsgridPaging .pagingBtn.gotoPage {
     background-image: url(../../images/skins/easyui/layout_button_right.gif);
+}
+
+.bsgridPaging .pagingBtn.refreshPage {
+    background-image: url(../../images/skins/easyui/pagination_load.png);
 }

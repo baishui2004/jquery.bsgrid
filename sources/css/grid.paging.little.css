@@ -3,12 +3,12 @@
 .bsgridPaging {
     font-size: 13px;
     font-family: '微软雅黑', Verdana, sans-serif, '宋体', serif;
-    width: 500px;
+    width: 550px;
     border-collapse: collapse;
 }
 
 .bsgridPaging.noPageSizeSelect {
-    width: 400px;
+    width: 430px;
 }
 
 .bsgridPaging td {
@@ -70,4 +70,8 @@
 
 .bsgridPaging .pagingBtn.gotoPage {
     background-image: url(../images/icons/paging/go-jump-2.png);
+}
+
+.bsgridPaging .pagingBtn.refreshPage {
+    background-image: url(../images/icons/paging/view-refresh-3.png);
 }

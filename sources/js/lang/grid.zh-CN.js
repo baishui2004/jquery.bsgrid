@@ -38,7 +38,8 @@
             prevPage: '上一页',
             nextPage: '下一页',
             lastPage: '末&nbsp;页',
-            gotoPage: '跳&nbsp;转'
+            gotoPage: '跳&nbsp;转',
+            refreshPage: '刷&nbsp;新'
         },
         loadingDataMessage: '正在加载数据，请稍候......',
         noDataToDisplay: '没有数据可以用于显示。'
