@@ -15,8 +15,9 @@
 
         // defaults settings
         defaults: {
-            url: '', // page request url
             dataType: 'json',
+            localData: false, // values: false, json data, xml data
+            url: '', // page request url
             autoLoad: true, // load onReady
             pageAll: false, // display all datas, no paging only count
             pageSize: 20, // page size. if set value little then 1, then pageAll will auto set true
@@ -164,6 +165,9 @@
                 },
                 page: function (curPage) {
                     $.fn.bsgrid.page(curPage, options);
+                },
+                loadGridData: function (dataType, gridData) {
+                    $.fn.bsgrid.loadGridData(dataType, gridData, options);
                 },
                 getSelectedRow: function () {
                     return $.fn.bsgrid.getSelectedRow(options);
@@ -414,6 +418,14 @@
                 return;
             }
             var dataType = options.settings.dataType;
+            if (options.settings.localData != false) {
+                if (dataType == 'json') {
+                    $.fn.bsgrid.loadGridData(dataType, options.settings.localData, options);
+                } else if (dataType == 'xml') {
+                    $.fn.bsgrid.loadGridData(dataType, '<xml>' + options.settings.localData + '</xml>', options);
+                }
+                return;
+            }
             $.ajax({
                 type: 'post',
                 url: options.settings.url,
@@ -432,129 +444,133 @@
                     }
                 },
                 success: function (gridData, textStatus) {
-                    var parseSuccess = $.fn.bsgrid.parseData.success(dataType, gridData);
-                    for (var key in options.settings.extend.beforeRenderGridMethods) {
-                        options.settings.extend.beforeRenderGridMethods[key](parseSuccess, gridData, options);
-                    }
-                    options.settings.additionalBeforeRenderGrid(parseSuccess, gridData, options);
-                    if (parseSuccess) {
-                        var totalRows = parseInt($.fn.bsgrid.parseData.totalRows(dataType, gridData));
-                        curPage = parseInt($.fn.bsgrid.parseData.curPage(dataType, gridData));
-
-                        if (options.settings.pageAll) {
-                            // display all datas, no paging
-                            curPage = 1;
-                            options.settings.pageSize = totalRows;
-                            $('#' + options.noPagingationId).html(totalRows);
-                        }
-
-                        var pageSize = options.settings.pageSize;
-                        var curPageRowsNum = (curPage * pageSize < totalRows) ? pageSize : (totalRows - (curPage - 1) * pageSize);
-                        var totalPages = parseInt(totalRows / pageSize);
-                        totalPages = parseInt((totalRows % pageSize == 0) ? totalPages : totalPages + 1);
-                        var startRow = (curPage - 1) * pageSize + 1;
-                        var endRow = (curPage - 1) * pageSize + curPageRowsNum;
-                        startRow = curPageRowsNum <= 0 ? 0 : startRow;
-                        endRow = curPageRowsNum <= 0 ? 0 : endRow;
-
-                        // set options pagination values
-                        options.totalRows = totalRows;
-                        options.totalPages = totalPages;
-                        options.curPage = curPage;
-                        options.curPageRowsNum = curPageRowsNum;
-                        options.startRow = startRow;
-                        options.endRow = endRow;
-
-                        if (!options.settings.pageAll) {
-                            $.fn.bsgrid.setPagingValues(options);
-                        }
-
-                        if (options.settings.displayPagingToolbarOnlyMultiPages && totalPages <= 1) {
-                            $('#' + options.pagingId).hide();
-                            $('#' + options.pagingOutTabId).hide();
-                        } else {
-                            $('#' + options.pagingOutTabId).show();
-                            $('#' + options.pagingId).show();
-                        }
-
-                        $.fn.bsgrid.setGridBlankBody(options);
-                        if (curPageRowsNum == 0) {
-                            return;
-                        }
-
-                        var headerTh = $.fn.bsgrid.getGridHeaderObject(options);
-                        var data = $.fn.bsgrid.parseData.data(dataType, gridData);
-                        var dataLen = data.length;
-                        // add rows click event
-                        $.fn.bsgrid.addRowsClickEvent(options);
-                        $('#' + options.gridId + ' tbody tr').each(
-                            function (i) {
-                                var trObj = $(this);
-                                var record = null;
-                                if (i < curPageRowsNum) {
-                                    // support parse return all datas or only return current page datas
-                                    record = $.fn.bsgrid.parseData.getRecord(dataType, data, dataLen != totalRows ? i : startRow + i - 1);
-                                }
-                                $.fn.bsgrid.storeRowData(i, record, options);
-
-                                for (var key in options.settings.extend.renderPerRowMethods) {
-                                    options.settings.extend.renderPerRowMethods[key](record, i, trObj, options);
-                                }
-                                options.settings.additionalRenderPerRow(record, i, trObj, options);
-
-                                $(this).find('td').each(function (j) {
-                                    // column index
-                                    var index = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.indexAttr));
-                                    // column render
-                                    var render = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.renderAttr));
-                                    // column tip
-                                    var tip = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.tipAttr));
-                                    // column text max length
-                                    var maxLen = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.lengthAttr));
-                                    maxLen = maxLen.length != 0 ? parseInt(maxLen) : options.settings.colsProperties.maxLength;
-                                    if (i < curPageRowsNum) {
-                                        if (render != '') {
-                                            var render_method = eval(render);
-                                            var render_html = render_method(record, i, j, options);
-                                            $(this).html(render_html);
-                                        } else if (index != '') {
-                                            {
-                                                var value = $.fn.bsgrid.parseData.getColumnValue(dataType, record, index);
-                                                if (tip == 'true') {
-                                                    $.fn.bsgrid.columnTip(this, value, record);
-                                                }
-                                                if (options.settings.longLengthAotoSubAndTip) {
-                                                    $.fn.bsgrid.longLengthSubAndTip(this, value, maxLen, record);
-                                                } else {
-                                                    $(this).html(value);
-                                                }
-                                            }
-                                        }
-                                    } else {
-                                        $(this).html('&nbsp;');
-                                    }
-                                    for (var key in options.settings.extend.renderPerColumnMethods) {
-                                        var renderPerColumn_html = options.settings.extend.renderPerColumnMethods[key](record, i, j, $(this), trObj, options);
-                                        if (renderPerColumn_html != null && renderPerColumn_html != false) {
-                                            $(this).html(renderPerColumn_html);
-                                        }
-                                    }
-                                    options.settings.additionalRenderPerColumn(record, i, j, $(this), trObj, options);
-                                });
-                            }
-                        );
-                    } else {
-                        alert($.bsgridLanguage.errorForRequestData);
-                    }
-                    for (var key in options.settings.extend.afterRenderGridMethods) {
-                        options.settings.extend.afterRenderGridMethods[key](parseSuccess, gridData, options);
-                    }
-                    options.settings.additionalAfterRenderGrid(parseSuccess, gridData, options);
+                    $.fn.bsgrid.loadGridData(dataType, gridData, options);
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
                     alert($.bsgridLanguage.errorForSendOrRequestData);
                 }
             });
+        },
+
+        loadGridData: function (dataType, gridData, options) {
+            var parseSuccess = $.fn.bsgrid.parseData.success(dataType, gridData);
+            for (var key in options.settings.extend.beforeRenderGridMethods) {
+                options.settings.extend.beforeRenderGridMethods[key](parseSuccess, gridData, options);
+            }
+            options.settings.additionalBeforeRenderGrid(parseSuccess, gridData, options);
+            if (parseSuccess) {
+                var totalRows = parseInt($.fn.bsgrid.parseData.totalRows(dataType, gridData));
+                curPage = parseInt($.fn.bsgrid.parseData.curPage(dataType, gridData));
+
+                if (options.settings.pageAll) {
+                    // display all datas, no paging
+                    curPage = 1;
+                    options.settings.pageSize = totalRows;
+                    $('#' + options.noPagingationId).html(totalRows);
+                }
+
+                var pageSize = options.settings.pageSize;
+                var curPageRowsNum = (curPage * pageSize < totalRows) ? pageSize : (totalRows - (curPage - 1) * pageSize);
+                var totalPages = parseInt(totalRows / pageSize);
+                totalPages = parseInt((totalRows % pageSize == 0) ? totalPages : totalPages + 1);
+                var startRow = (curPage - 1) * pageSize + 1;
+                var endRow = (curPage - 1) * pageSize + curPageRowsNum;
+                startRow = curPageRowsNum <= 0 ? 0 : startRow;
+                endRow = curPageRowsNum <= 0 ? 0 : endRow;
+
+                // set options pagination values
+                options.totalRows = totalRows;
+                options.totalPages = totalPages;
+                options.curPage = curPage;
+                options.curPageRowsNum = curPageRowsNum;
+                options.startRow = startRow;
+                options.endRow = endRow;
+
+                if (!options.settings.pageAll) {
+                    $.fn.bsgrid.setPagingValues(options);
+                }
+
+                if (options.settings.displayPagingToolbarOnlyMultiPages && totalPages <= 1) {
+                    $('#' + options.pagingId).hide();
+                    $('#' + options.pagingOutTabId).hide();
+                } else {
+                    $('#' + options.pagingOutTabId).show();
+                    $('#' + options.pagingId).show();
+                }
+
+                $.fn.bsgrid.setGridBlankBody(options);
+                if (curPageRowsNum == 0) {
+                    return;
+                }
+
+                var headerTh = $.fn.bsgrid.getGridHeaderObject(options);
+                var data = $.fn.bsgrid.parseData.data(dataType, gridData);
+                var dataLen = data.length;
+                // add rows click event
+                $.fn.bsgrid.addRowsClickEvent(options);
+                $('#' + options.gridId + ' tbody tr').each(
+                    function (i) {
+                        var trObj = $(this);
+                        var record = null;
+                        if (i < curPageRowsNum) {
+                            // support parse return all datas or only return current page datas
+                            record = $.fn.bsgrid.parseData.getRecord(dataType, data, dataLen != totalRows ? i : startRow + i - 1);
+                        }
+                        $.fn.bsgrid.storeRowData(i, record, options);
+
+                        for (var key in options.settings.extend.renderPerRowMethods) {
+                            options.settings.extend.renderPerRowMethods[key](record, i, trObj, options);
+                        }
+                        options.settings.additionalRenderPerRow(record, i, trObj, options);
+
+                        $(this).find('td').each(function (j) {
+                            if (i < curPageRowsNum) {
+                                // column index
+                                var index = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.indexAttr));
+                                // column render
+                                var render = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.renderAttr));
+                                // column tip
+                                var tip = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.tipAttr));
+                                // column text max length
+                                var maxLen = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.lengthAttr));
+                                maxLen = maxLen.length != 0 ? parseInt(maxLen) : options.settings.colsProperties.maxLength;
+                                if (render != '') {
+                                    var render_method = eval(render);
+                                    var render_html = render_method(record, i, j, options);
+                                    $(this).html(render_html);
+                                } else if (index != '') {
+                                    {
+                                        var value = $.fn.bsgrid.parseData.getColumnValue(dataType, record, index);
+                                        if (tip == 'true') {
+                                            $.fn.bsgrid.columnTip(this, value, record);
+                                        }
+                                        if (options.settings.longLengthAotoSubAndTip) {
+                                            $.fn.bsgrid.longLengthSubAndTip(this, value, maxLen, record);
+                                        } else {
+                                            $(this).html(value);
+                                        }
+                                    }
+                                }
+                            } else {
+                                $(this).html('&nbsp;');
+                            }
+                            for (var key in options.settings.extend.renderPerColumnMethods) {
+                                var renderPerColumn_html = options.settings.extend.renderPerColumnMethods[key](record, i, j, $(this), trObj, options);
+                                if (renderPerColumn_html != null && renderPerColumn_html != false) {
+                                    $(this).html(renderPerColumn_html);
+                                }
+                            }
+                            options.settings.additionalRenderPerColumn(record, i, j, $(this), trObj, options);
+                        });
+                    }
+                );
+            } else {
+                alert($.bsgridLanguage.errorForRequestData);
+            }
+            for (var key in options.settings.extend.afterRenderGridMethods) {
+                options.settings.extend.afterRenderGridMethods[key](parseSuccess, gridData, options);
+            }
+            options.settings.additionalAfterRenderGrid(parseSuccess, gridData, options);
         },
 
         addRowsClickEvent: function (options) {
