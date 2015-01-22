@@ -3,21 +3,26 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
 
 <a href="https://github.com/baishui2004/jquery.bsgrid" target="_blank">jquery bsgrid</a>，A simple jQuery Grid plugin, support json and xml data, has many themes and simple to extend, support pagation or no pagation, easy to expand and export. 一个简单易用的jQuery Grid插件，支持json、xml数据格式，自带多套皮肤且易于扩展，支持分页或不分页，对扩展性友好，导出友好。
 
-交流QQ群：254754154
+QQ群交流：254754154
+<br />
+捐助：<a href="http://bsgrid.oschina.mopaas.com/donate.html" target="_blank" style="text-decoration: none;">支持长远发展，感谢您的认可！</a>
 
-插件版本：1.31
+源码：[Github](https://github.com/baishui2004/jquery.bsgrid/)
+&emsp;
+示例：<a href="http://bsgrid.oschina.mopaas.com/examples/en.html" target="_blank">导航一</a>
+		&emsp;<a href="http://bsgrid.oschina.mopaas.com/examples/en-table.html" target="_blank">导航二</a>
 <br />
-开源协议：Apache Licence 2
+版本：1.32
+&emsp;&emsp;&nbsp;协议：Apache Licence 2
+&emsp;更新日期：2015-01-22
 <br />
-更新日期：2015-01-07
+文档：<a href="http://bsgrid.oschina.mopaas.com/documention/README.md.html" target="_blank">HTML</a>
+        &emsp;&nbsp;&nbsp;<a href="http://bsgrid.oschina.mopaas.com/documention/README.md.pdf" target="_blank">PDF</a>
+        &emsp;<a href="http://bsgrid.oschina.mopaas.com/examples/grid/standard.html" target="_blank">方法及属性使用与说明</a>
 <br />
-Github：[https://github.com/baishui2004/jquery.bsgrid/](https://github.com/baishui2004/jquery.bsgrid/)
+依赖：jQuery 1.4.4 ~~ jQuery 1.11.2
 <br />
-在线演示：[http://bsgrid.oschina.mopaas.com/](http://bsgrid.oschina.mopaas.com/)
-<br />
-在线文档：[http://bsgrid.oschina.mopaas.com/documention/README.md.html](http://bsgrid.oschina.mopaas.com/documention/README.md.html)
-<br />
-文档中可能有部分图片显示不稳定（显示不出），可直接右键另存<a href="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/README.md.pdf">README.md.pdf</a>到本地查看此文档说明。
+支持浏览器：IE6+、Chrome、Firefox等
 
 #####首先给出典型效果图示#####
 1，内置多套皮肤（点击下面对应皮肤图片可查看示例页面），并可非常容易的自定义皮肤（参考<a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/custom.html" target="_blank">Custom Blue Style</a>）
@@ -49,39 +54,69 @@ Github：[https://github.com/baishui2004/jquery.bsgrid/](https://github.com/bais
 <div>
 <table class="tabImg">
 	<tr>
+		<td>Default Style
+            <br />
+            <a href="examples/grid/simple.html" target="_blank">
+            <img title="Default Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/themes/skins01-Default Style.png" /></a>
+        </td>
 		<td>ExtJS Gray Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/gray.html" target="_blank">
-            <img title="ExtJS Gray Style" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-skins01-ExtJS Gray Style.png"></a>
+            <a href="examples/grid/themes/gray.html" target="_blank">
+            <img title="ExtJS Gray Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/themes/skins02-ExtJS Gray Style.png" /></a>
         </td>
 		<td>ExtJS Blue Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/blue.html" target="_blank">
-            <img title="ExtJS Blue Style" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-skins02-ExtJS Blue Style.png"></a>
+            <a href="examples/grid/themes/blue.html" target="_blank">
+            <img title="ExtJS Gray Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/themes/skins03-ExtJS Blue Style.png" /></a>
         </td>
     </tr>
-    <tr>
+	<tr>
 		<td>ExtJS Access Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/access.html" target="_blank">
-            <img title="ExtJS Access Style" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-skins03-ExtJS Access Style.png"></a>
+            <a href="examples/grid/themes/access.html" target="_blank">
+            <img title="ExtJS Access Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/themes/skins04-ExtJS Access Style.png" /></a>
         </td>
 		<td>FlexiGrid Gray Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/flexigrid.html" target="_blank">
-            <img title="FlexiGrid Gray Style" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-skins04-FlexiGrid Gray Style.png"></a>
+            <a href="examples/grid/themes/flexigrid.html" target="_blank">
+            <img title="FlexiGrid Gray Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/themes/skins05-FlexiGrid Gray Style.png" /></a>
+        </td>
+		<td>Dhtmlx Sky Blue Style
+            <br />
+            <a href="examples/grid/themes/sky_blue.html" target="_blank">
+            <img title="Dhtmlx Sky Blue Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/themes/skins06-Dhtmlx Sky Blue Style.png" /></a>
         </td>
     </tr>
     <tr>
-		<td>Dhtmlx Sky Blue Style
+		<td>Pure Gray Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/sky_blue.html" target="_blank">
-            <img title="Dhtmlx Sky Blue Style" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-skins05-Dhtmlx Sky Blue Style.png"></a>
+            <a href="examples/grid/themes/pure_gray.html" target="_blank">
+            <img title="Pure Gray Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/themes/skins07-Pure Gray Style.png" /></a>
+        </td>
+		<td>jqGrid Style
+            <br />
+            <a href="examples/grid/themes/jqgrid.html" target="_blank">
+            <img title="jqGrid Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/themes/skins08-jqGrid Style.png" /></a>
+        </td>
+		<td>EasyUI Style
+            <br />
+            <a href="examples/grid/themes/easyui.html" target="_blank">
+            <img title="EasyUI Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/themes/skins09-EasyUI Style.png" /></a>
+        </td>
+    </tr>
+	<tr>
+		<td>Bootstrap Style
+            <br />
+            <a href="examples/grid/themes/bootstrap.html" target="_blank">
+            <img title="Bootstrap Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/themes/skins10-Bootstrap Style.png" /></a>
         </td>
 		<td>Custom Blue Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/custom.html" target="_blank">
-            <img title="Custom Blue Style" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-skins06-Custom Blue Style.png"></a>
+            <a href="examples/grid/themes/custom.html" target="_blank">
+            <img title="Custom Blue Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/themes/skins11-Custom Blue Style.png" /></a>
+        </td>
+		<td>
+            &nbsp;
         </td>
     </tr>
 </table>
@@ -164,22 +199,39 @@ Grid With Other Pagination：演示Grid集成第三方分页工具条使用
 Merged Files: 目录builds/merged，合并经常一起使用的css、js，合并文件描述文件builds/readme
               grid.simple.min.css     合并grid、paging分页css样式
               grid.simple.min.js      合并grid、paging分页js脚本
-              grid.all.min.css        合并grid、grid扩展、paging分页、icon图标css样式
-              grid.all.min.js         合并grid、grid扩展、paging分页、grid导出构建js脚本
-              bsgrid.all.min.css      合并grid、grid扩展、paging分页、icon图标、form表单css样式
-              bsgrid.all.min.js       合并grid、grid扩展、paging分页、grid导出构建、form表单js脚本
+              grid.all.min.css        合并grid、paging分页、grid扩展、icon图标css样式
+              grid.all.min.js         合并grid、paging分页、grid扩展、grid导出构建js脚本
+              form.all.min.css        合并form表单、icon图标css样式
+              form.all.min.js         合并form表单及其依赖js脚本
+              bsgrid.all.min.css      合并grid、paging分页、grid扩展、icon图标、form表单css样式
+              bsgrid.all.min.js       合并grid、paging分页、grid扩展、grid导出构建、form表单js脚本
 
 1，<a href="#Example Index">Example Index</a>
 2，<a href="#Simple Grid">Simple Grid</a>
-3，<a href="#Simple zh-CN Grid">Simple zh-CN Grid</a>
+3，<a href="#Simple en Grid">Simple en Grid</a>
+   <a href="#Simple Grid With Images">Simple Grid With Images</a>
 4，<a href="#Simple XML Data Grid">Simple XML Data Grid</a>
+   <a href="#Local Json Data">Local Json Data</a>
+   <a href="#Local Xml Data">Local Xml Data</a>
 5，<a href="#No Pagation">No Pagation</a>
 6，<a href="#No Diaplay Blank Rows">No Diaplay Blank Rows</a>
 7，<a href="#No Data">No Data</a>
 8，<a href="#Grid With Checkbox">Grid With Checkbox</a>
+   <a href="#With Custom Checkbox">With Custom Checkbox</a>
+   <a href="#Edit Grid">Edit Grid</a>
+   <a href="#Move Column">Move Column</a>
+   <a href="#Custom Move Column">Custom Move Column</a>
+   <a href="#Extend Conditions">Extend Conditions</a>
+   <a href="#Extend Grid">Extend Grid</a>
+   <a href="#Multi Header Grid">Multi Header Grid</a>
+   <a href="#Grid With Footer">Grid With Footer</a>
+   <a href="#Multi Sort Grid">Multi Sort Grid</a>
+   <a href="#Fixed Grid">Fixed Grid</a>
+   <a href="#Fixed Grid Custom">Fixed Grid Custom</a>
 9，<a href="#Grid With Little Paging">Grid With Little Paging</a>
 10，<a href="#Standard Grid">Standard Grid</a>
 11，<a href="#Multi Grid">Multi Grid</a>
+    <a href="#Multi Extend Grid">Multi Extend Grid</a>
 12，<a href="#Export Grid">Export Grid</a>
 13，<a href="#Grid with ArtDialog">Grid with ArtDialog</a>
 14，<a href="#Grid And Form with ArtDialog">Grid And Form with ArtDialog</a>
@@ -187,7 +239,9 @@ Merged Files: 目录builds/merged，合并经常一起使用的css、js，合并
 <!-- more -->
 
 #####1，<a id="Example Index">Example Index</a>#####
-![Example Index](https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-01_examples_index.png)
+![Example Index](https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-01_examples_index-01.png)
+<br/>
+![Example Index](https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-01_examples_index-02.png)
 
 #####2，<a id="Simple Grid">Simple Grid</a>#####
 ![Simple Grid](https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-02_simple_grid.png)
@@ -195,7 +249,7 @@ Merged Files: 目录builds/merged，合并经常一起使用的css、js，合并
 引用文件：
     &lt;link rel="stylesheet" href="../../builds/merged/grid.simple.min.css"/&gt;
     &lt;script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"&gt;&lt;/script&gt;
-    &lt;script type="text/javascript" src="../../builds/js/lang/grid.en.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="../../builds/js/lang/grid.zh-CN.min.js"&gt;&lt;/script&gt;
     &lt;script type="text/javascript" src="../../builds/merged/grid.simple.min.js"&gt;&lt;/script&gt;
 实现代码：
     &lt;table id="searchTable" class="bsgrid"&gt;
@@ -226,8 +280,8 @@ Merged Files: 目录builds/merged，合并经常一起使用的css、js，合并
     &lt;/script&gt;
 </pre>
 
-#####3，<a id="Simple zh-CN Grid">Simple zh-CN Grid</a>#####
-![Simple zh-CN Grid](https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-03_simple_zh-CN_grid.png)
+#####3，<a id="Simple en Grid">Simple en Grid</a>#####
+![Simple en Grid](https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-03_simple_en_grid.png)
 <pre>
 1，插件语言本地化文件：grid.en.min.js、grid.zh-CN.min.js、grid.zh-TW.min.js
 
@@ -238,6 +292,18 @@ Merged Files: 目录builds/merged，合并经常一起使用的css、js，合并
    .bsgrid tr:hover {
         background-color: #ffe48d;
    }
+</pre>
+
+#####&emsp;&nbsp;<a id="Simple Grid With Images">Simple Grid With Images</a>#####
+![Simple Grid With Images](https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-03_simple_grid_with_images.png)
+<pre>
+数据支持扩展渲染，th使用w_render属性，值是js方法名：
+    &lt;th w_render="renderImg" width="5%;"&gt;IMAGES&lt;/th&gt;
+renderImg方法：
+    function renderImg(record, rowIndex, colIndex, options) {
+        var idInt = parseInt($.trim(gridObj.getRecordIndexValue(record, 'ID')));
+        return '&lt;img src="../images/' + ((idInt % 3) == 0 ? 3 : (idInt % 3)) + '.jpg" width="32px" /&gt;';
+    }
 </pre>
 
 #####4，<a id="Simple XML Data Grid">Simple XML Data Grid</a>#####
@@ -253,6 +319,16 @@ Merged Files: 目录builds/merged，合并经常一起使用的css、js，合并
             pageSizeSelect: true,
             pageSize: 10
 　　});
+</pre>
+
+#####&emsp;&nbsp;<a id="Local Json Data">Local Json Data</a>#####
+<pre>
+示例页面：<a href="http://localhost:8780/bsgrid/examples/grid/local/json.html">Local Json Data</a>
+</pre>
+
+#####&emsp;&nbsp;<a id="Local Xml Data">Local Xml Data</a>#####
+<pre>
+示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/local/xml.html">Local Xml Data</a>
 </pre>
 
 #####5，<a id="No Pagation">No Pagation</a>#####
@@ -287,36 +363,62 @@ Merged Files: 目录builds/merged，合并经常一起使用的css、js，合并
 </pre>
 
 #####8，<a id="Grid With Checkbox">Grid With Checkbox</a>#####
-bsgrid内置并不支持checkbox的直接配置，通过column列的w_render属性实现：
 <br />
 ![Grid With Checkbox](https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-08_grid_with_checkbox.png)
+
+#####&emsp;&nbsp;<a id="With Custom Checkbox">With Custom Checkbox</a>#####
 <pre>
-实现代码：主要部分
-   &lt;th w_render="checkbox" w_index="ID" width="3%;"&gt;&lt;input type="checkbox"/&gt;&lt;/th&gt;
+示例页面：<a href="http://localhost:8780/bsgrid/examples/grid/checkbox-custom.html">With Custom Checkbox</a>
+</pre>
 
-   // 表格的checkbox选择
-   if($('#searchTable tr:first th input[type=checkbox]').length == 1) {
-       $('#searchTable tr:first th input[type=checkbox]').change(function () {
-           if ($(this).attr('checked')) {
-               $('#searchTable tr:not(:first) td input[type=checkbox]').attr('checked', true);
-           } else {
-               $('#searchTable tr:not(:first) td input[type=checkbox]').attr('checked', false);
-           }
-       });
-   }
+#####&emsp;&nbsp;<a id="Edit Grid">Edit Grid</a>#####
+<pre>
+示例页面：<a href="http://localhost:8780/bsgrid/examples/grid/edit.html">Edit Grid</a>
+</pre>
 
-   function checkbox(record, rowIndex, colIndex, options) {
-    	var headerTh = $.fn.bsgrid.getGridHeaderObject(options);
-    	return '&lt;input type="checkbox" value="' + $.fn.bsgrid.parseData.getColumnValue(options.settings.dataType, record, $.trim(headerTh.eq(colIndex).attr(options.settings.colsProperties.indexAttr))) + '"/&gt;';
-   }
+#####&emsp;&nbsp;<a id="Move Column">Move Column</a>#####
+<pre>
+示例页面：<a href="http://localhost:8780/bsgrid/examples/grid/move-column-extend.html">Move Column</a>
+</pre>
 
-   function getCheckedIds() {
-       var ids = '';
-       $('#searchTable tr:not(:first) td input:checked').each(function () {
-           ids += ',' + $(this).val();
-       });
-       alert(ids.length > 0 ? ids.substring(1) : '');
-   }
+#####&emsp;&nbsp;<a id="Custom Move Column">Custom Move Column</a>#####
+<pre>
+示例页面：<a href="http://localhost:8780/bsgrid/examples/grid/move-column-custom.html">Custom Move Column</a>
+</pre>
+
+#####&emsp;&nbsp;<a id="Extend Conditions">Extend Conditions</a>#####
+<pre>
+示例页面：<a href="http://localhost:8780/bsgrid/examples/grid/simple-conditions.html">Extend Conditions</a>
+</pre>
+
+#####&emsp;&nbsp;<a id="Extend Grid">Extend Grid</a>#####
+<pre>
+示例页面：<a href="http://localhost:8780/bsgrid/examples/grid/extend.html">Extend Grid</a>
+</pre>
+
+#####&emsp;&nbsp;<a id="Multi Header Grid">Multi Header Grid</a>#####
+<pre>
+示例页面：<a href="http://localhost:8780/bsgrid/examples/grid/multi-header.html">Multi Header Grid</a>
+</pre>
+
+#####&emsp;&nbsp;<a id="Grid With Footer">Grid With Footer</a>#####
+<pre>
+示例页面：<a href="http://localhost:8780/bsgrid/examples/grid/foot.html">Grid With Footer</a>
+</pre>
+
+#####&emsp;&nbsp;<a id="Multi Sort Grid">Multi Sort Grid</a>#####
+<pre>
+示例页面：<a href="http://localhost:8780/bsgrid/examples/grid/multi-sort.html">Multi Sort Grid</a>
+</pre>
+
+#####&emsp;&nbsp;<a id="Fixed Grid">Fixed Grid</a>#####
+<pre>
+示例页面：<a href="http://localhost:8780/bsgrid/examples/grid/fixed-header/fixed-header-extend.html">Fixed Grid</a>
+</pre>
+
+#####&emsp;&nbsp;<a id="Fixed Grid Custom">Fixed Grid Custom</a>#####
+<pre>
+示例页面：<a href="http://localhost:8780/bsgrid/examples/grid/fixed-header/fixed-header-custom.html">Fixed Grid Custom</a>
 </pre>
 
 #####9，<a id="Grid With Little Paging">Grid With Little Paging</a>#####
@@ -324,7 +426,7 @@ bsgrid内置并不支持checkbox的直接配置，通过column列的w_render属�
 <br />
 ![Grid With Little Paging](https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-09_grid_with_little_paging.png)
 <pre>
-将grid.paging.min.css替换为grid.paging.little.min.css，并额外引入grid.paging.little.min.js（注意引用顺序），这个JS文件是对内置工具条展现的部分重写，简单的数几十行代码，充分体现了可扩展性特别强：
+引入样式grid.paging.little.min.css，并额外引入grid.paging.little.min.js（注意引用顺序），这个JS文件是对内置工具条展现的部分重写，简单的数几十行代码，充分体现了可扩展性特别强：
    &lt;link rel="stylesheet" href="../../builds/css/grid.paging.little.min.css"/&gt;
    &lt;script type="text/javascript" src="../../builds/js/grid.paging.little.min.js"&gt;&lt;/script&gt;
 </pre>
@@ -340,6 +442,11 @@ bsgrid内置并不支持checkbox的直接配置，通过column列的w_render属�
 支持一个页面显示多个grid：
 <br />
 ![Multi Grid](https://github.com/baishui2004/jquery.bsgrid/raw/master/documention/images/jquery.bsgrid-11_multi_grid.png)
+
+#####&emsp;&nbsp;<a id="Multi Extend Grid">Multi Extend Grid</a>#####
+<pre>
+示例页面：<a href="http://localhost:8780/bsgrid/examples/grid/multi-extend.html">Multi Extend Grid</a>
+</pre>
 
 #####12，<a id="Export Grid">Export Grid</a>#####
 bsgrid并不是提供导出Grid的页面数据功能，而是进行导出参数的组织：
@@ -364,8 +471,8 @@ http://bsgrid.oschina.mopaas.com/examples/grid/export.html?exportFileName=Export
     function doExport() {
         alert('Only test request params, To see it in browser address url.');
         gridObj.options.otherParames = $('#searchForm').serializeArray();
-        $.bsgrid_export.doExport($('#searchTable tr th'), gridObj.options.otherParames, {
-            url: 'export.html', // only test request params
+        $.bsgrid_export.doExport($('#searchTable thead tr th[w_hidden!="true"]'), gridObj.options.otherParames, {
+            url: 'export.html' + '?sortName=' + gridObj.options.sortName + '&sortOrder=' + gridObj.options.sortOrder, // only test request params
             exportFileName: 'Export Example',
             colsProperties: {
                 width: 120
