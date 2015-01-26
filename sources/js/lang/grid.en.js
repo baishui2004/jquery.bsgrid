@@ -22,11 +22,19 @@
             return 'Total:&nbsp;<span id="' + noPagingationId + '"></span>';
         },
         pagingToolbar: {
-            pageSizeDisplay: function (pageSizeId) {
-                return 'PageSize:&nbsp;<select id="' + pageSizeId + '"></select>';
+            pageSizeDisplay: function (pageSizeId, ifLittle) {
+                var html = '';
+                if (!ifLittle) {
+                    html += 'PageSize:';
+                }
+                return html + '&nbsp;<select id="' + pageSizeId + '"></select>';
             },
-            currentDisplayRows: function (startRowId, endRowId) {
-                return 'Display:&nbsp;<span id="' + startRowId + '"></span>&nbsp;-&nbsp;<span id="' + endRowId + '"></span>';
+            currentDisplayRows: function (startRowId, endRowId, ifLittle) {
+                var html = '';
+                if (!ifLittle) {
+                    html += 'Display:';
+                }
+                return html + '&nbsp;<span id="' + startRowId + '"></span>&nbsp;-&nbsp;<span id="' + endRowId + '"></span>';
             },
             totalRows: function (totalRowsId) {
                 return 'Total:&nbsp;<span id="' + totalRowsId + '"></span>';

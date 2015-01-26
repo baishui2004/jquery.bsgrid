@@ -18,6 +18,7 @@
             loopback: false, // if true, page 1 prev then totalPages, totalPages next then 1
             pageSize: 20, // page size.
             pageSizeSelect: false, // if display pageSize select option
+            pageLittleToolbar: false, // if display page little toolbar
             pageSizeForGrid: [5, 10, 20, 25, 50, 100, 200, 500], // pageSize select option
             pagingBtnClass: 'pagingBtn' // paging toolbar button css class
         },
@@ -206,32 +207,33 @@
          */
         createPagingToolbar: function (options) {
             var pagingSb = new StringBuilder();
+            var littleBar = options.settings.pageLittleToolbar;
 
-            pagingSb.append('<table class="bsgridPaging' + (options.settings.pageSizeSelect ? '' : ' noPageSizeSelect') + '">');
+            pagingSb.append('<table class="bsgridPaging' + ( littleBar ? ' pageLittleToolbar' : '') + (options.settings.pageSizeSelect ? '' : ' noPageSizeSelect') + '">');
             pagingSb.append('<tr>');
             if (options.settings.pageSizeSelect) {
-                pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.pageSizeDisplay(options.pageSizeId) + '</td>');
+                pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.pageSizeDisplay(options.pageSizeId, littleBar) + '</td>');
             }
-            pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.currentDisplayRows(options.startRowId, options.endRowId) + '</td>');
+            pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.currentDisplayRows(options.startRowId, options.endRowId, littleBar) + '</td>');
             pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.totalRows(options.totalRowsId) + '</td>');
             var btnClass = options.settings.pagingBtnClass;
             pagingSb.append('<td>');
-            pagingSb.append('<input class="' + btnClass + ' firstPage" type="button" id="' + options.firstPageId + '" value="' + $.bsgridLanguage.pagingToolbar.firstPage + '" />');
+            pagingSb.append('<input class="' + btnClass + ' firstPage" type="button" id="' + options.firstPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.firstPage) + '" />');
             pagingSb.append('&nbsp;&nbsp;');
-            pagingSb.append('<input class="' + btnClass + ' prevPage" type="button" id="' + options.prevPageId + '" value="' + $.bsgridLanguage.pagingToolbar.prevPage + '" />');
+            pagingSb.append('<input class="' + btnClass + ' prevPage" type="button" id="' + options.prevPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.prevPage) + '" />');
             pagingSb.append('</td>');
             pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.currentDisplayPageAndTotalPages(options.curPageId, options.totalPagesId) + '</td>');
             pagingSb.append('<td>');
-            pagingSb.append('<input class="' + btnClass + ' nextPage" type="button" id="' + options.nextPageId + '" value="' + $.bsgridLanguage.pagingToolbar.nextPage + '" />');
+            pagingSb.append('<input class="' + btnClass + ' nextPage" type="button" id="' + options.nextPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.nextPage) + '" />');
             pagingSb.append('&nbsp;&nbsp;');
-            pagingSb.append('<input class="' + btnClass + ' lastPage" type="button" id="' + options.lastPageId + '" value="' + $.bsgridLanguage.pagingToolbar.lastPage + '" />');
+            pagingSb.append('<input class="' + btnClass + ' lastPage" type="button" id="' + options.lastPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.lastPage) + '" />');
             pagingSb.append('</td>');
             pagingSb.append('<td>');
             pagingSb.append('<input class="gotoPageInput" type="text" id="' + options.gotoPageInputId + '" />');
             pagingSb.append('&nbsp;');
-            pagingSb.append('<input class="' + btnClass + ' gotoPage" type="button" id="' + options.gotoPageId + '" value="' + $.bsgridLanguage.pagingToolbar.gotoPage + '" />');
+            pagingSb.append('<input class="' + btnClass + ' gotoPage" type="button" id="' + options.gotoPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.gotoPage) + '" />');
             pagingSb.append('&nbsp;&nbsp;');
-            pagingSb.append('<input class="' + btnClass + ' refreshPage" type="button" id="' + options.refreshPageId + '" value="' + $.bsgridLanguage.pagingToolbar.refreshPage + '" />');
+            pagingSb.append('<input class="' + btnClass + ' refreshPage" type="button" id="' + options.refreshPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.refreshPage) + '" />');
             pagingSb.append('</td>');
             pagingSb.append('</tr>');
             pagingSb.append('</table>');

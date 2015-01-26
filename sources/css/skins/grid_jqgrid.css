@@ -40,49 +40,16 @@
 
 .bsgridPaging {
     font-size: 11px;
-    font-family: '微软雅黑', Verdana, sans-serif, '宋体', serif;
     color: black;
-    width: 550px;
-    border-collapse: collapse;
-
-}
-
-.bsgridPaging.noPageSizeSelect {
-    width: 430px;
-}
-
-.bsgridPaging td {
-    text-align: center;
-}
-
-/* paging toolbar pageSize select */
-.bsgridPaging select {
-    font-size: inherit;
 }
 
 /* paging toolbar button */
 .bsgridPaging .pagingBtn {
-    cursor: pointer;
-    border-width: 0;
-    width: 16px;
+    background: none #fcfdfd;
+}
+
+.bsgridPaging.pagingLittleToolbar .pagingBtn {
     background: url(../../images/skins/jqgrid/ui-icons_256x240.png) transparent no-repeat;
-    padding: 0;
-}
-
-.bsgridPaging .pagingBtn.firstPage {
-    background-position: -80px -160px;
-}
-
-.bsgridPaging .pagingBtn.prevPage {
-    background-position: -48px -160px;
-}
-
-.bsgridPaging .pagingBtn.nextPage {
-    background-position: -32px -160px;
-}
-
-.bsgridPaging .pagingBtn.lastPage {
-    background-position: -64px -160px;
 }
 
 .bsgridPaging .pagingBtn.disabledCls {
@@ -92,17 +59,30 @@
     -moz-opacity: 0.5;
 }
 
-.bsgridPaging .gotoPageInput {
-    width: 40px;
-    font-size: inherit;
-    color: inherit;
-    border: solid 1px #a6c9e2;
+.bsgridPaging.pagingLittleToolbar .pagingBtn.firstPage {
+    background-position: -80px -160px;
 }
 
-.bsgridPaging .pagingBtn.gotoPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.prevPage {
+    background-position: -48px -160px;
+}
+
+.bsgridPaging.pagingLittleToolbar .pagingBtn.nextPage {
+    background-position: -32px -160px;
+}
+
+.bsgridPaging.pagingLittleToolbar .pagingBtn.lastPage {
+    background-position: -64px -160px;
+}
+
+.bsgridPaging .gotoPageInput {
+    border-color: #a6c9e2;
+}
+
+.bsgridPaging.pagingLittleToolbar .pagingBtn.gotoPage {
     background-position: -48px -192px;
 }
 
-.bsgridPaging .pagingBtn.refreshPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.refreshPage {
     background-position: -64px -80px;
 }

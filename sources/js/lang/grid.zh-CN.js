@@ -22,11 +22,19 @@
             return '共:&nbsp;<span id="' + noPagingationId + '"></span>';
         },
         pagingToolbar: {
-            pageSizeDisplay: function (pageSizeId) {
-                return '每页显示:&nbsp;<select id="' + pageSizeId + '"></select>';
+            pageSizeDisplay: function (pageSizeId, ifLittle) {
+                var html = '';
+                if (!ifLittle) {
+                    html += '每页显示:';
+                }
+                return html + '&nbsp;<select id="' + pageSizeId + '"></select>';
             },
-            currentDisplayRows: function (startRowId, endRowId) {
-                return '当前显示:&nbsp;<span id="' + startRowId + '"></span>&nbsp;-&nbsp;<span id="' + endRowId + '"></span>';
+            currentDisplayRows: function (startRowId, endRowId, ifLittle) {
+                var html = '';
+                if (!ifLittle) {
+                    html += '当前显示:';
+                }
+                return html + '&nbsp;<span id="' + startRowId + '"></span>&nbsp;-&nbsp;<span id="' + endRowId + '"></span>';
             },
             totalRows: function (totalRowsId) {
                 return '共:&nbsp;<span id="' + totalRowsId + '"></span>';

@@ -4,11 +4,10 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Simple Little Paging</title>
-    <link rel="stylesheet" href="../../builds/css/grid.paging.little.min.css"/>
+    <link rel="stylesheet" href="../../builds/css/grid.paging.min.css"/>
     <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="../../builds/js/common.min.js"></script>
     <script type="text/javascript" src="../../builds/js/lang/grid.zh-CN.min.js"></script>
-    <script type="text/javascript" src="../../builds/js/grid.paging.little.min.js"></script>
     <script type="text/javascript" src="../../builds/js/grid.paging.min.js"></script>
 </head>
 <body style="background-color: #fff;">
@@ -20,7 +19,8 @@
         // init
         pagingObj = $.fn.bsgrid_paging.init('simple-pt', {
             pageSize: 2,
-            pageSizeSelect: true
+            pageSizeSelect: true,
+            pageLittleToolbar: false
         });
         // overwrite page method
         $.fn.bsgrid_paging.page = function (curPage, options) {

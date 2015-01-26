@@ -7,8 +7,16 @@
     border-collapse: collapse;
 }
 
+.bsgridPaging.pageLittleToolbar {
+    width: 550px;
+}
+
 .bsgridPaging.noPageSizeSelect {
     width: 650px;
+}
+
+.bsgridPaging.pageLittleToolbar.pageLittleToolbar {
+    width: 430px;
 }
 
 .bsgridPaging td {
@@ -31,20 +39,46 @@
     padding: 1px 3px;
 }
 
+.bsgridPaging.pageLittleToolbar .pagingBtn {
+    width: 16px;
+    background: transparent no-repeat;
+    padding: 0;
+}
+
 .bsgridPaging .pagingBtn.disabledCls {
     color: #999;
 }
 
-.bsgridPaging .pagingBtn.firstPage {
+.bsgridPaging.pageLittleToolbar .pagingBtn.firstPage {
+    background-image: url(../images/icons/paging/go-first-view.png);
 }
 
-.bsgridPaging .pagingBtn.prevPage {
+.bsgridPaging.pageLittleToolbar .pagingBtn.prevPage {
+    background-image: url(../images/icons/paging/go-previous-view.png);
 }
 
-.bsgridPaging .pagingBtn.nextPage {
+.bsgridPaging.pageLittleToolbar .pagingBtn.nextPage {
+    background-image: url(../images/icons/paging/go-next-view.png);
 }
 
-.bsgridPaging .pagingBtn.lastPage {
+.bsgridPaging.pageLittleToolbar .pagingBtn.lastPage {
+    background-image: url(../images/icons/paging/go-last-view.png);
+}
+
+.bsgridPaging.pageLittleToolbar .pagingBtn.firstPage.disabledCls {
+    background-image: url(../images/icons/paging/go-first-view.gray.png);
+}
+
+.bsgridPaging.pageLittleToolbar .pagingBtn.prevPage.disabledCls {
+    background-image: url(../images/icons/paging/go-previous-view.gray.png);
+}
+
+.bsgridPaging.pageLittleToolbar .pagingBtn.nextPage.disabledCls {
+    background-image: url(../images/icons/paging/go-next-view.gray.png);
+}
+
+.bsgridPaging.pageLittleToolbar .pagingBtn.lastPage.disabledCls {
+    background-image: url(../images/icons/paging/go-last-view.gray.png);
 }
 
 .bsgridPaging .gotoPageInput {
@@ -54,8 +88,10 @@
     border: solid 1px #ccc;
 }
 
-.bsgridPaging .pagingBtn.gotoPage {
+.bsgridPaging.pageLittleToolbar .pagingBtn.gotoPage {
+    background-image: url(../images/icons/paging/go-jump-2.png);
 }
 
-.bsgridPaging .pagingBtn.refreshPage {
+.bsgridPaging.pageLittleToolbar .pagingBtn.refreshPage {
+    background-image: url(../images/icons/paging/view-refresh-3.png);
 }

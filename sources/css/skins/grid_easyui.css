@@ -39,49 +39,16 @@
 
 .bsgridPaging {
     font-size: 12px;
-    font-family: '微软雅黑', Verdana, sans-serif, '宋体', serif;
     color: black;
-    width: 550px;
-    border-collapse: collapse;
-
-}
-
-.bsgridPaging.noPageSizeSelect {
-    width: 430px;
-}
-
-.bsgridPaging td {
-    text-align: center;
-}
-
-/* paging toolbar pageSize select */
-.bsgridPaging select {
-    font-size: inherit;
 }
 
 /* paging toolbar button */
 .bsgridPaging .pagingBtn {
-    cursor: pointer;
-    border-width: 0;
-    width: 16px;
+    background: none white;
+}
+
+.bsgridPaging.pagingLittleToolbar .pagingBtn {
     background: none transparent no-repeat;
-    padding: 0;
-}
-
-.bsgridPaging .pagingBtn.firstPage {
-    background-image: url(../../images/skins/easyui/pagination_first.gif);
-}
-
-.bsgridPaging .pagingBtn.prevPage {
-    background-image: url(../../images/skins/easyui/pagination_prev.gif);
-}
-
-.bsgridPaging .pagingBtn.nextPage {
-    background-image: url(../../images/skins/easyui/pagination_next.gif);
-}
-
-.bsgridPaging .pagingBtn.lastPage {
-    background-image: url(../../images/skins/easyui/pagination_last.gif);
 }
 
 .bsgridPaging .pagingBtn.disabledCls {
@@ -91,17 +58,30 @@
     -moz-opacity: 0.5;
 }
 
-.bsgridPaging .gotoPageInput {
-    width: 40px;
-    font-size: inherit;
-    color: inherit;
-    border: solid 1px #ccc;
+.bsgridPaging.pagingLittleToolbar .pagingBtn.firstPage {
+    background-image: url(../../images/skins/easyui/pagination_first.gif);
 }
 
-.bsgridPaging .pagingBtn.gotoPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.prevPage {
+    background-image: url(../../images/skins/easyui/pagination_prev.gif);
+}
+
+.bsgridPaging.pagingLittleToolbar .pagingBtn.nextPage {
+    background-image: url(../../images/skins/easyui/pagination_next.gif);
+}
+
+.bsgridPaging.pagingLittleToolbar .pagingBtn.lastPage {
+    background-image: url(../../images/skins/easyui/pagination_last.gif);
+}
+
+.bsgridPaging .gotoPageInput {
+    border-color: #ccc;
+}
+
+.bsgridPaging.pagingLittleToolbar .pagingBtn.gotoPage {
     background-image: url(../../images/skins/easyui/layout_button_right.gif);
 }
 
-.bsgridPaging .pagingBtn.refreshPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.refreshPage {
     background-image: url(../../images/skins/easyui/pagination_load.png);
 }

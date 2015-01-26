@@ -23,6 +23,7 @@
             pageSize: 20, // page size. if set value little then 1, then pageAll will auto set true
             multiSort: false, // multi column sort support
             pageSizeSelect: false, // if display pageSize select option
+            pageLittleToolbar: false, // if display page little toolbar
             pageSizeForGrid: [5, 10, 20, 25, 50, 100, 200, 500], // pageSize select option
             displayBlankRows: true,
             stripeRows: false, // stripe rows
@@ -129,6 +130,10 @@
         },
 
         init: function (gridId, settings) {
+            if (!$('#' + gridId).hasClass('bsgrid')) {
+                $('#' + gridId).addClass('bsgrid');
+            }
+
             var options = {
                 settings: $.extend(true, {}, $.fn.bsgrid.defaults, settings),
                 gridId: gridId,
@@ -909,6 +914,7 @@
                 gridId: options.gridId,
                 pageSize: options.settings.pageSize,
                 pageSizeSelect: options.settings.pageSizeSelect,
+                pageLittleToolbar: options.settings.pageLittleToolbar,
                 pageSizeForGrid: options.settings.pageSizeForGrid,
                 pagingBtnClass: options.settings.pagingBtnClass
             });

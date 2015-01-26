@@ -1,4 +1,13 @@
+v1.33  2014-12-26 文档优化、示例优化、BUG修复
+
+1，修复grid使用hover样式后分页时遮罩颜色异常问题；
+2，去掉grid.paging.little.css及grid.paging.little.js，简化为使用参数pageLittleToolbar控制显示分页的little或正常样式；
+3，去掉html表格table的class="bsgrid"样式，改为使用jquery的addClass方法添加此样式，代码更简洁；
+
+
+
 v1.32  2014-01-22
+
 1，扩展(grid.extend)可拖动改变表头宽度；
 2，优化项目目录结构；
 3，完善grid的单元格tip展示，对于index有正确值且其value值不包括html标签元素，才计算其value长度并判断是否截断与tip展示；

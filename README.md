@@ -14,7 +14,7 @@ QQ群交流：254754154
 <br />
 版本：1.32
 &emsp;&emsp;&nbsp;协议：Apache Licence 2
-&emsp;更新日期：2015-01-22
+&emsp;更新日期：2015-01-26
 <br />
 文档：<a href="http://bsgrid.oschina.mopaas.com/documention/README.md.html" target="_blank">HTML</a>
         &emsp;&nbsp;&nbsp;<a href="http://bsgrid.oschina.mopaas.com/documention/README.md.pdf" target="_blank">PDF</a>
@@ -252,7 +252,7 @@ Merged Files: 目录builds/merged，合并经常一起使用的css、js，合并
     &lt;script type="text/javascript" src="../../builds/js/lang/grid.zh-CN.min.js"&gt;&lt;/script&gt;
     &lt;script type="text/javascript" src="../../builds/merged/grid.simple.min.js"&gt;&lt;/script&gt;
 实现代码：
-    &lt;table id="searchTable" class="bsgrid"&gt;
+    &lt;table id="searchTable"&gt;
         &lt;tr&gt;
             &lt;th w_index="XH" width="5%;"&gt;XH&lt;/th&gt;
             &lt;th w_index="ID" width="5%;"&gt;ID&lt;/th&gt;
@@ -426,9 +426,7 @@ renderImg方法：
 <br />
 ![Grid With Little Paging](https://github.com/baishui2004/jquery.bsgrid/raw/v1.32/documention/images/jquery.bsgrid-09_grid_with_little_paging.png)
 <pre>
-引入样式grid.paging.little.min.css，并额外引入grid.paging.little.min.js（注意引用顺序），这个JS文件是对内置工具条展现的部分重写，简单的数几十行代码，充分体现了可扩展性特别强：
-   &lt;link rel="stylesheet" href="../../builds/css/grid.paging.little.min.css"/&gt;
-   &lt;script type="text/javascript" src="../../builds/js/grid.paging.little.min.js"&gt;&lt;/script&gt;
+参看示例源码，仅需要设置参数pageLittleToolbar值为true即可，默认值为false。
 </pre>
 
 #####10，<a id="Standard Grid">Standard Grid</a>#####
