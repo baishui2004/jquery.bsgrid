@@ -58,7 +58,8 @@ Documention:
         gridObj = $.fn.bsgrid.init('searchTable', {
             url: 'data/json.jsp',
             pageSizeSelect: true,
-            pageSize: 10
+            pageSize: 10,
+            otherParames: $('#searchForm').serializeArray()
         });
     });
 

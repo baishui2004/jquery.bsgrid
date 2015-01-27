@@ -35,7 +35,7 @@
 /* paging toolbar button */
 .bsgridPaging .pagingBtn {
     background: #bbbbbb none;
-    border: solid 1px black;
+    border-color: black;
 }
 
 .bsgridPaging .gotoPageInput {

@@ -3,7 +3,6 @@
 /* font style */
 .bsgrid {
     font-size: 12px;
-    border: 1px solid #ccc;
 }
 
 /* grid header and column */
@@ -17,7 +16,7 @@
 
 /* grid header */
 .bsgrid th {
-    border: 1px solid #ccc;
+    border-style: solid;
     background-image: url(../../images/skins/easyui/bg.gif);
 }
 
@@ -45,32 +44,26 @@
 /* paging toolbar button */
 .bsgridPaging .pagingBtn {
     background: none white;
+    border-color: #ccc;
 }
 
-.bsgridPaging.pagingLittleToolbar .pagingBtn {
+.bsgridPaging.pageLittleToolbar .pagingBtn {
     background: none transparent no-repeat;
 }
 
-.bsgridPaging .pagingBtn.disabledCls {
-    color: #ccc;
-    filter: alpha(opacity=50);
-    opacity: 0.5;
-    -moz-opacity: 0.5;
-}
-
-.bsgridPaging.pagingLittleToolbar .pagingBtn.firstPage {
+.bsgridPaging.pageLittleToolbar .pagingBtn.firstPage {
     background-image: url(../../images/skins/easyui/pagination_first.gif);
 }
 
-.bsgridPaging.pagingLittleToolbar .pagingBtn.prevPage {
+.bsgridPaging.pageLittleToolbar .pagingBtn.prevPage {
     background-image: url(../../images/skins/easyui/pagination_prev.gif);
 }
 
-.bsgridPaging.pagingLittleToolbar .pagingBtn.nextPage {
+.bsgridPaging.pageLittleToolbar .pagingBtn.nextPage {
     background-image: url(../../images/skins/easyui/pagination_next.gif);
 }
 
-.bsgridPaging.pagingLittleToolbar .pagingBtn.lastPage {
+.bsgridPaging.pageLittleToolbar .pagingBtn.lastPage {
     background-image: url(../../images/skins/easyui/pagination_last.gif);
 }
 
@@ -78,10 +71,10 @@
     border-color: #ccc;
 }
 
-.bsgridPaging.pagingLittleToolbar .pagingBtn.gotoPage {
+.bsgridPaging.pageLittleToolbar .pagingBtn.gotoPage {
     background-image: url(../../images/skins/easyui/layout_button_right.gif);
 }
 
-.bsgridPaging.pagingLittleToolbar .pagingBtn.refreshPage {
+.bsgridPaging.pageLittleToolbar .pagingBtn.refreshPage {
     background-image: url(../../images/skins/easyui/pagination_load.png);
 }

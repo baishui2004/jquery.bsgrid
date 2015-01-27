@@ -3,6 +3,9 @@ v1.33  2014-12-26 文档优化、示例优化、BUG修复
 1，修复grid使用hover样式后分页时遮罩颜色异常问题；
 2，去掉grid.paging.little.css及grid.paging.little.js，简化为使用参数pageLittleToolbar控制显示分页的little或正常样式；
 3，去掉html表格table的class="bsgrid"样式，改为使用jquery的addClass方法添加此样式，代码更简洁；
+4，优化皮肤样式；
+5，给grid的bootstrap皮肤增加little paging工具条图标按钮样式；
+6，修改grid表格初始化init时不能使用参数otherParames的bug；
 
 
 

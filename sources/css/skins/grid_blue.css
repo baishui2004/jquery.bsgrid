@@ -35,7 +35,7 @@
 /* paging toolbar button */
 .bsgridPaging .pagingBtn {
     background-image: url(../../images/skins/blue/bg.gif);
-    border: solid 1px #99bce8;
+    border-color: #99bce8;
 }
 
 .bsgridPaging .gotoPageInput {

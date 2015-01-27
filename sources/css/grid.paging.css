@@ -26,27 +26,37 @@
 /* paging toolbar pageSize select */
 .bsgridPaging select {
     font-size: inherit;
+    width: auto;
+    height: auto;
+    padding: 1px;
+    margin: 1px;
 }
 
 /* paging toolbar button */
 .bsgridPaging .pagingBtn {
     cursor: pointer;
-    border-width: 0;
+    border: solid 1px #ccc;
     background: url(../images/skins/default/bg.gif) repeat-x #f4f4f4;
     font-size: inherit;
     font-family: inherit;
     color: inherit;
     padding: 1px 3px;
+    margin: 1px;
 }
 
 .bsgridPaging.pageLittleToolbar .pagingBtn {
     width: 16px;
+    border-width: 0;
     background: transparent no-repeat;
     padding: 0;
+    margin: 3px;
 }
 
 .bsgridPaging .pagingBtn.disabledCls {
     color: #999;
+    filter: alpha(opacity=50);
+    opacity: 0.5;
+    -moz-opacity: 0.5;
 }
 
 .bsgridPaging.pageLittleToolbar .pagingBtn.firstPage {
@@ -65,27 +75,28 @@
     background-image: url(../images/icons/paging/go-last-view.png);
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.firstPage.disabledCls {
-    background-image: url(../images/icons/paging/go-first-view.gray.png);
-}
-
-.bsgridPaging.pageLittleToolbar .pagingBtn.prevPage.disabledCls {
-    background-image: url(../images/icons/paging/go-previous-view.gray.png);
-}
-
-.bsgridPaging.pageLittleToolbar .pagingBtn.nextPage.disabledCls {
-    background-image: url(../images/icons/paging/go-next-view.gray.png);
-}
-
-.bsgridPaging.pageLittleToolbar .pagingBtn.lastPage.disabledCls {
-    background-image: url(../images/icons/paging/go-last-view.gray.png);
+.bsgridPaging .gotoPageInputTd {
+    width: 44px;
 }
 
 .bsgridPaging .gotoPageInput {
     width: 40px;
+    height: auto;
     font-size: inherit;
+    line-height: 1em;
     color: inherit;
     border: solid 1px #ccc;
+    padding: 1px;
+    margin: 1px;
+}
+
+.bsgridPaging .gotoPageButtonTd {
+    text-align: left;
+}
+
+.bsgridPaging .refreshPageTd {
+    text-align: right;
+    padding-right: 4px;
 }
 
 .bsgridPaging.pageLittleToolbar .pagingBtn.gotoPage {

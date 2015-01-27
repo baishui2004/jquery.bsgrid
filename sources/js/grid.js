@@ -18,6 +18,7 @@
             dataType: 'json',
             localData: false, // values: false, json data, xml data
             url: '', // page request url
+            otherParames: false, // other parameters, values: false, A Object or A jquery serialize Array
             autoLoad: true, // load onReady
             pageAll: false, // display all datas, no paging only count
             pageSize: 20, // page size. if set value little then 1, then pageAll will auto set true
@@ -143,8 +144,7 @@
                 // sort
                 sortName: '',
                 sortOrder: '',
-                // other parameters, values: false, A Object or A jquery serialize Array
-                otherParames: false,
+                otherParames: settings.otherParames,
                 totalRows: 0,
                 totalPages: 0,
                 curPage: 1,

@@ -3,12 +3,11 @@
 /* font style */
 .bsgrid {
     font-size: 11px;
-    border: 1px solid #a6c9e2;
 }
 
 /* grid header and column */
 .bsgrid th, .bsgrid td {
-    border: 1px solid #a6c9e2;
+    border-color: #a6c9e2;
     background-color: #fcfdfd;
     color: black;
     line-height: 120%;
@@ -17,7 +16,6 @@
 
 /* grid header */
 .bsgrid th {
-    border: 1px solid #a6c9e2;
     background: #dfeffc url(../../images/skins/jqgrid/ui-bg_glass_1x400.png);
     color: #2e6e9e;
 }
@@ -46,43 +44,37 @@
 /* paging toolbar button */
 .bsgridPaging .pagingBtn {
     background: none #fcfdfd;
+    border-color: #a6c9e2;
 }
 
-.bsgridPaging.pagingLittleToolbar .pagingBtn {
-    background: url(../../images/skins/jqgrid/ui-icons_256x240.png) transparent no-repeat;
+.bsgridPaging.pageLittleToolbar .pagingBtn {
+    background: url(../../images/skins/jqgrid/ui-icons_256x240.png) transparent no-repeat !important;
 }
 
-.bsgridPaging .pagingBtn.disabledCls {
-    color: #a6c9e2;
-    filter: alpha(opacity=50);
-    opacity: 0.5;
-    -moz-opacity: 0.5;
+.bsgridPaging.pageLittleToolbar .pagingBtn.firstPage {
+    background-position: -80px -161px !important;
 }
 
-.bsgridPaging.pagingLittleToolbar .pagingBtn.firstPage {
-    background-position: -80px -160px;
+.bsgridPaging.pageLittleToolbar .pagingBtn.prevPage {
+    background-position: -48px -161px !important;
 }
 
-.bsgridPaging.pagingLittleToolbar .pagingBtn.prevPage {
-    background-position: -48px -160px;
+.bsgridPaging.pageLittleToolbar .pagingBtn.nextPage {
+    background-position: -32px -161px !important;
 }
 
-.bsgridPaging.pagingLittleToolbar .pagingBtn.nextPage {
-    background-position: -32px -160px;
-}
-
-.bsgridPaging.pagingLittleToolbar .pagingBtn.lastPage {
-    background-position: -64px -160px;
+.bsgridPaging.pageLittleToolbar .pagingBtn.lastPage {
+    background-position: -64px -161px !important;
 }
 
 .bsgridPaging .gotoPageInput {
     border-color: #a6c9e2;
 }
 
-.bsgridPaging.pagingLittleToolbar .pagingBtn.gotoPage {
-    background-position: -48px -192px;
+.bsgridPaging.pageLittleToolbar .pagingBtn.gotoPage {
+    background-position: -48px -193px !important;
 }
 
-.bsgridPaging.pagingLittleToolbar .pagingBtn.refreshPage {
-    background-position: -64px -80px;
+.bsgridPaging.pageLittleToolbar .pagingBtn.refreshPage {
+    background-position: -64px -82px !important;
 }
