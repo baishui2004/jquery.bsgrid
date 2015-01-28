@@ -1,4 +1,4 @@
-v1.33  2014-12-26 文档优化、示例优化、BUG修复
+v1.33  2014-12-28 文档优化、示例优化、BUG修复
 
 1，修复grid使用hover样式后分页时遮罩颜色异常问题；
 2，去掉grid.paging.little.css及grid.paging.little.js，简化为使用参数pageLittleToolbar控制显示分页的little或正常样式；
@@ -6,6 +6,9 @@ v1.33  2014-12-26 文档优化、示例优化、BUG修复
 4，优化皮肤样式；
 5，给grid的bootstrap皮肤增加little paging工具条图标按钮样式；
 6，修改grid表格初始化init时不能使用参数otherParames的bug；
+7，修复grid表格checkbox选中不联动的bug；
+8，添加底部分页工具条额外增加按钮示例paging.button.html及paging.little.button.html；
+9，grid增加配置参数lineWrap，默认false表示不换行且超长时显示省略号，设置为true超长则折行显示；
 
 
 

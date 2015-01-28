@@ -37,15 +37,8 @@
     	// 表格的checkbox选择
     	if($('#searchTable thead tr th:eq(0) input[type=checkbox]').length == 1) {
     	    $('#searchTable thead tr th:eq(0) input[type=checkbox]').change(function () {
-    	        if ($.bsgrid.adaptAttrOrProp($(this) ,'checked')) {
-    	        	$('#searchTable tbody tr').each(function() {
-						$.bsgrid.adaptAttrOrProp($(this).find('td:eq(0)>input[type=checkbox]'), 'checked', true);
-					});
-    	        } else {
-    	        	$('#searchTable tbody tr').each(function() {
-						$.bsgrid.adaptAttrOrProp($(this).find('td:eq(0)>input[type=checkbox]'), 'checked', false);
-					});
-    	        }
+                var checked = $.bsgrid.adaptAttrOrProp($(this), 'checked') ? true : false;
+                $.bsgrid.adaptAttrOrProp($('#searchTable tbody tr td:nth-child(1)>input[type=checkbox]'), 'checked', checked);
     	    });
     	}
 

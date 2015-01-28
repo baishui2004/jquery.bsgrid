@@ -20,11 +20,18 @@ table.bsgrid {
     border: solid 1px #ccc;
     background-color: white;
     text-align: center;
+    color: #333;
+    line-height: 150%;
+}
+
+.bsgrid td.lineWrap {
+    word-break: break-all;
+}
+
+.bsgrid td.lineNoWrap {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    color: #333;
-    line-height: 150%;
 }
 
 /* grid header */

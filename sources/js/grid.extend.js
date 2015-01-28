@@ -149,15 +149,8 @@
                     $(this).html('<input class="bsgrid_editgrid_check" type="checkbox"/>');
                 }
                 $(this).find('input[type=checkbox]').change(function () {
-                    if ($.bsgrid.adaptAttrOrProp($(this), 'checked')) {
-                        $('#' + gridId + ' tbody tr').each(function () {
-                            $.bsgrid.adaptAttrOrProp($(this).find('td:eq(' + hi + ')>input[type=checkbox]'), 'checked', true);
-                        });
-                    } else {
-                        $('#' + gridId + ' tbody tr').each(function () {
-                            $.bsgrid.adaptAttrOrProp($(this).find('td:eq(' + hi + ')>input[type=checkbox]'), 'checked', false);
-                        });
-                    }
+                    var checked = $.bsgrid.adaptAttrOrProp($(this), 'checked') ? true : false;
+                    $.bsgrid.adaptAttrOrProp($('#' + gridId + ' tbody tr td:nth-child(' + (hi + 1) + ')>input[type=checkbox]'), 'checked', checked);
                 });
             }
         });
@@ -312,6 +305,25 @@
     $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.renderPerColumnMethods, 'renderForm', $.fn.bsgrid.extendRenderPerColumn.renderForm);
     /*************** extend render per column end ***************/
 
+    $.fn.bsgrid.extendAfterRenderGrid.addCheckChangedEvent = function (parseSuccess, gridData, options) {
+        $.fn.bsgrid.getGridHeaderObject(options).each(function (hi) {
+            var check = $.trim($(this).attr(options.settings.colsProperties.checkAttr));
+            if (check == 'true') {
+                var checkboxObj = $(this).find('input[type=checkbox]');
+                var checkboxObjs = $('#' + options.gridId + ' tbody tr td:nth-child(' + (hi + 1) + ')>input[type=checkbox]');
+                checkboxObjs.change(function () {
+                    var checked = $.bsgrid.adaptAttrOrProp(checkboxObj, 'checked') ? true : false;
+                    if (!checked && checkboxObjs.filter(':checked').length == checkboxObjs.length) {
+                        $.bsgrid.adaptAttrOrProp(checkboxObj, 'checked', true);
+                    } else if (checked && checkboxObjs.filter(':checked').length != checkboxObjs.length) {
+                        $.bsgrid.adaptAttrOrProp(checkboxObj, 'checked', false);
+                    }
+                });
+            }
+        });
+    };
+
+    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'addCheckChangedEvent', $.fn.bsgrid.extendAfterRenderGrid.addCheckChangedEvent);
 
     /*************** extend after render grid start ***************/
     $.fn.bsgrid.extendAfterRenderGrid.addGridEditEvent = function (parseSuccess, gridData, options) {

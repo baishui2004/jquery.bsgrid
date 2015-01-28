@@ -27,6 +27,7 @@
             pageLittleToolbar: false, // if display page little toolbar
             pageSizeForGrid: [5, 10, 20, 25, 50, 100, 200, 500], // pageSize select option
             displayBlankRows: true,
+            lineWrap: false, // if grid cell content wrap, if false then td use style: white-space: nowrap; overflow: hidden; text-overflow: ellipsis; if true then td use style: word-break: break-all;
             stripeRows: false, // stripe rows
             changeColorIfRowSelected: true, // change color if row selected
             pagingToolbarAlign: 'right',
@@ -720,10 +721,8 @@
                         sortHtml += 'sort-view';
                     }
                     sortHtml += '">&nbsp;&nbsp;&nbsp;</a>'; // use: "&nbsp;&nbsp;&nbsp;", different from: "&emsp;" is: IE8 and IE9 not display "&emsp;"
-                    $(this).append(sortHtml).find('.sort').each(function () {
-                        $(this).click(function () {
-                            $.fn.bsgrid.sort($(this).parent('th'), options);
-                        });
+                    $(this).append(sortHtml).find('.sort').click(function () {
+                        $.fn.bsgrid.sort($(this).parent('th'), options);
                     });
                 }
             });
@@ -777,6 +776,12 @@
                 if (options.settings.stripeRows) {
                     $('#' + options.gridId + ' tbody tr:even').addClass('even_index_row');
                 }
+            }
+
+            if (!options.settings.lineWrap) {
+                $('#' + options.gridId + ' tbody tr td').addClass('lineNoWrap');
+            } else {
+                $('#' + options.gridId + ' tbody tr td').addClass('lineWrap');
             }
         },
 
