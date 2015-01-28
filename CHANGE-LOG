@@ -9,6 +9,8 @@ v1.33  2014-12-28 文档优化、示例优化、BUG修复
 7，修复grid表格checkbox选中不联动的bug；
 8，添加底部分页工具条额外增加按钮示例paging.button.html及paging.little.button.html；
 9，grid增加配置参数lineWrap，默认false表示不换行且超长时显示省略号，设置为true超长则折行显示；
+10，扩展增加表格列属性w_num以用于显示行号，值为line、total_line，分别表示当前页的数据行号、所有记录的数据行号；
+11，修改表格渲染数据支持返回非最后一页数据行数不等于pageSize的异常情况；
 
 
 

@@ -334,6 +334,12 @@
                 }
                 return false;
             },
+            getDataLen: function (type, gridData) {
+                if (type == 'json' || type == 'xml') {
+                    return $.fn.bsgrid.parseData.data(type, gridData).length;
+                }
+                return 0;
+            },
             getRecord: function (type, data, row) {
                 if (type == 'json') {
                     return $.fn.bsgrid.parseJsonData.getRecord(data, row);
@@ -466,7 +472,7 @@
             options.settings.additionalBeforeRenderGrid(parseSuccess, gridData, options);
             if (parseSuccess) {
                 var totalRows = parseInt($.fn.bsgrid.parseData.totalRows(dataType, gridData));
-                curPage = parseInt($.fn.bsgrid.parseData.curPage(dataType, gridData));
+                var curPage = parseInt($.fn.bsgrid.parseData.curPage(dataType, gridData));
 
                 if (options.settings.pageAll) {
                     // display all datas, no paging
@@ -476,7 +482,8 @@
                 }
 
                 var pageSize = options.settings.pageSize;
-                var curPageRowsNum = (curPage * pageSize < totalRows) ? pageSize : (totalRows - (curPage - 1) * pageSize);
+                var curPageRowsNum = $.fn.bsgrid.parseData.getDataLen(dataType, gridData);
+                curPageRowsNum = curPageRowsNum > pageSize ? pageSize : curPageRowsNum;
                 var totalPages = parseInt(totalRows / pageSize);
                 totalPages = parseInt((totalRows % pageSize == 0) ? totalPages : totalPages + 1);
                 var startRow = (curPage - 1) * pageSize + 1;
@@ -580,7 +587,7 @@
         },
 
         addRowsClickEvent: function (options) {
-            $('#' + options.gridId + ' tbody tr:lt(' + options.curPageRowsNum + ')').click(function (i) {
+            $('#' + options.gridId + ' tbody tr:lt(' + options.curPageRowsNum + ')').click(function () {
                 if ($(this).hasClass('selected')) {
                     $(this).removeClass('selected').removeClass('selected_color');
                 } else {

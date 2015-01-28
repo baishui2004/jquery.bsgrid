@@ -23,6 +23,8 @@
 
 
     // config properties's name
+    // line number, value: line, total_line
+    $.fn.bsgrid.defaults.colsProperties.lineNumberAttr = 'w_num';
     // value: check
     $.fn.bsgrid.defaults.colsProperties.checkAttr = 'w_check';
     // grid edit forms' values: text, hidden, password, radio, button, checkbox, textarea
@@ -305,6 +307,18 @@
     $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.renderPerColumnMethods, 'renderForm', $.fn.bsgrid.extendRenderPerColumn.renderForm);
     /*************** extend render per column end ***************/
 
+    /*************** extend after render grid start ***************/
+    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'renderLineNumber', function (parseSuccess, gridData, options) {
+        $.fn.bsgrid.getGridHeaderObject(options).each(function (i) {
+            var num = $.trim($(this).attr(options.settings.colsProperties.lineNumberAttr));
+            if (num == 'line' || num == 'total_line') {
+                $('#' + options.gridId + ' tbody tr:lt(' + options.curPageRowsNum + ') td:nth-child(' + (i + 1) + ')').each(function (li) {
+                    $(this).html((num == 'line') ? (li + 1) : (options.settings.pageSize * (options.curPage - 1) + li + 1));
+                });
+            }
+        });
+    });
+
     $.fn.bsgrid.extendAfterRenderGrid.addCheckChangedEvent = function (parseSuccess, gridData, options) {
         $.fn.bsgrid.getGridHeaderObject(options).each(function (hi) {
             var check = $.trim($(this).attr(options.settings.colsProperties.checkAttr));
@@ -325,7 +339,6 @@
 
     $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'addCheckChangedEvent', $.fn.bsgrid.extendAfterRenderGrid.addCheckChangedEvent);
 
-    /*************** extend after render grid start ***************/
     $.fn.bsgrid.extendAfterRenderGrid.addGridEditEvent = function (parseSuccess, gridData, options) {
         if (!options.settings.extend.settings.supportGridEdit) {
             return;
