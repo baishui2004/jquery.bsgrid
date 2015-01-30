@@ -47,23 +47,23 @@
     border-color: #ccc;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn {
+.bsgridPaging.pagingLittleToolbar .pagingBtn {
     background: none transparent no-repeat;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.firstPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.firstPage {
     background-image: url(../../images/skins/easyui/pagination_first.gif);
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.prevPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.prevPage {
     background-image: url(../../images/skins/easyui/pagination_prev.gif);
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.nextPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.nextPage {
     background-image: url(../../images/skins/easyui/pagination_next.gif);
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.lastPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.lastPage {
     background-image: url(../../images/skins/easyui/pagination_last.gif);
 }
 
@@ -71,10 +71,10 @@
     border-color: #ccc;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.gotoPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.gotoPage {
     background-image: url(../../images/skins/easyui/layout_button_right.gif);
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.refreshPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.refreshPage {
     background-image: url(../../images/skins/easyui/pagination_load.png);
 }

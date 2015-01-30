@@ -18,8 +18,8 @@
             loopback: false, // if true, page 1 prev then totalPages, totalPages next then 1
             pageSize: 20, // page size.
             pageSizeSelect: false, // if display pageSize select option
-            pageLittleToolbar: false, // if display page little toolbar
             pageSizeForGrid: [5, 10, 20, 25, 50, 100, 200, 500], // pageSize select option
+            pagingLittleToolbar: false, // if display paging little toolbar
             pagingBtnClass: 'pagingBtn' // paging toolbar button css class
         },
 
@@ -207,9 +207,9 @@
          */
         createPagingToolbar: function (options) {
             var pagingSb = new StringBuilder();
-            var littleBar = options.settings.pageLittleToolbar;
+            var littleBar = options.settings.pagingLittleToolbar;
 
-            pagingSb.append('<table class="bsgridPaging' + ( littleBar ? ' pageLittleToolbar' : '') + (options.settings.pageSizeSelect ? '' : ' noPageSizeSelect') + '">');
+            pagingSb.append('<table class="bsgridPaging' + ( littleBar ? ' pagingLittleToolbar' : '') + (options.settings.pageSizeSelect ? '' : ' noPageSizeSelect') + '">');
             pagingSb.append('<tr>');
             if (options.settings.pageSizeSelect) {
                 pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.pageSizeDisplay(options.pageSizeId, littleBar) + '</td>');

@@ -22,20 +22,20 @@
             autoLoad: true, // load onReady
             pageAll: false, // display all datas, no paging only count
             pageSize: 20, // page size. if set value little then 1, then pageAll will auto set true
-            multiSort: false, // multi column sort support
             pageSizeSelect: false, // if display pageSize select option
-            pageLittleToolbar: false, // if display page little toolbar
             pageSizeForGrid: [5, 10, 20, 25, 50, 100, 200, 500], // pageSize select option
+            multiSort: false, // multi column sort support
             displayBlankRows: true,
             lineWrap: false, // if grid cell content wrap, if false then td use style: white-space: nowrap; overflow: hidden; text-overflow: ellipsis; if true then td use style: word-break: break-all;
             stripeRows: false, // stripe rows
             changeColorIfRowSelected: true, // change color if row selected
+            pagingLittleToolbar: false, // if display paging little toolbar
             pagingToolbarAlign: 'right',
             pagingBtnClass: 'pagingBtn', // paging toolbar button css class
             displayPagingToolbarOnlyMultiPages: false,
             isProcessLockScreen: true,
             // longLengthAotoSubAndTip: if column's value length longer than it, auto sub and tip it.
-            //    sub: txt.substring(0, MaxLength-3) + '...'. if column's render is not false, then this property is not make effective to it.
+            //    sub: content.substring(0, MaxLength-3) + '...'. if column's render is not false, then this property is not make effective to it.
             longLengthAotoSubAndTip: true,
             colsProperties: {
                 // body row every column config
@@ -544,24 +544,22 @@
                                 var render = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.renderAttr));
                                 // column tip
                                 var tip = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.tipAttr));
-                                // column text max length
-                                var maxLen = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.lengthAttr));
-                                maxLen = maxLen.length != 0 ? parseInt(maxLen) : options.settings.colsProperties.maxLength;
                                 if (render != '') {
                                     var render_method = eval(render);
                                     var render_html = render_method(record, i, j, options);
                                     $(this).html(render_html);
                                 } else if (index != '') {
-                                    {
-                                        var value = $.fn.bsgrid.parseData.getColumnValue(dataType, record, index);
-                                        if (tip == 'true') {
-                                            $.fn.bsgrid.columnTip(this, value, record);
-                                        }
-                                        if (options.settings.longLengthAotoSubAndTip) {
-                                            $.fn.bsgrid.longLengthSubAndTip(this, value, maxLen, record);
-                                        } else {
-                                            $(this).html(value);
-                                        }
+                                    var value = $.fn.bsgrid.parseData.getColumnValue(dataType, record, index);
+                                    if (tip == 'true') {
+                                        $.fn.bsgrid.columnTip(this, value, record);
+                                    }
+                                    if (options.settings.longLengthAotoSubAndTip) {
+                                        // column text max length
+                                        var maxLen = $.trim(headerTh.eq(j).attr(options.settings.colsProperties.lengthAttr));
+                                        maxLen = maxLen.length != 0 ? parseInt(maxLen) : options.settings.colsProperties.maxLength;
+                                        $.fn.bsgrid.longLengthSubAndTip(this, value, maxLen, record);
+                                    } else {
+                                        $(this).html(value);
                                     }
                                 }
                             } else {
@@ -926,8 +924,8 @@
                 gridId: options.gridId,
                 pageSize: options.settings.pageSize,
                 pageSizeSelect: options.settings.pageSizeSelect,
-                pageLittleToolbar: options.settings.pageLittleToolbar,
                 pageSizeForGrid: options.settings.pageSizeForGrid,
+                pagingLittleToolbar: options.settings.pagingLittleToolbar,
                 pagingBtnClass: options.settings.pagingBtnClass
             });
         },

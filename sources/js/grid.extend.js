@@ -14,7 +14,7 @@
     // extend settings
     $.fn.bsgrid.defaults.extend.settings = {
         supportGridEdit: false, // if support extend grid edit
-        supportGridEditTriggerEvent: 'rowClick', // values: '', 'rowClick', 'rowDoubleClick', 'cellClick', 'cellDoubleClick'
+        supportGridEditTriggerEvent: 'rowClick', // values: ''(means no need Trigger), 'rowClick', 'rowDoubleClick', 'cellClick', 'cellDoubleClick'
         supportColumnMove: false, // if support extend column move
         searchConditionsContainerId: '', // simple search conditions's container id
         fixedGridHeader: false, // fixed grid header, auto height scroll
@@ -313,7 +313,7 @@
             var num = $.trim($(this).attr(options.settings.colsProperties.lineNumberAttr));
             if (num == 'line' || num == 'total_line') {
                 $('#' + options.gridId + ' tbody tr:lt(' + options.curPageRowsNum + ') td:nth-child(' + (i + 1) + ')').each(function (li) {
-                    $(this).html((num == 'line') ? (li + 1) : (options.settings.pageSize * (options.curPage - 1) + li + 1));
+                    $(this).html((num == 'line') ? (li + 1) : (li + options.startRow));
                 });
             }
         });

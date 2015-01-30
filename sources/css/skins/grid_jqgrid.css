@@ -47,23 +47,23 @@
     border-color: #a6c9e2;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn {
+.bsgridPaging.pagingLittleToolbar .pagingBtn {
     background: url(../../images/skins/jqgrid/ui-icons_256x240.png) transparent no-repeat !important;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.firstPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.firstPage {
     background-position: -80px -161px !important;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.prevPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.prevPage {
     background-position: -48px -161px !important;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.nextPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.nextPage {
     background-position: -32px -161px !important;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.lastPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.lastPage {
     background-position: -64px -161px !important;
 }
 
@@ -71,10 +71,10 @@
     border-color: #a6c9e2;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.gotoPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.gotoPage {
     background-position: -48px -193px !important;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.refreshPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.refreshPage {
     background-position: -64px -82px !important;
 }

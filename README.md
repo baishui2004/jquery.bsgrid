@@ -256,8 +256,8 @@ Merged Files: 目录builds/merged，合并经常一起使用的css、js，合并
         &lt;tr&gt;
             &lt;th w_index="XH" width="5%;"&gt;XH&lt;/th&gt;
             &lt;th w_index="ID" width="5%;"&gt;ID&lt;/th&gt;
-            &lt;th w_index="CHAR" w_align="left" w_tip="true" width="15%;"&gt;CHAR&lt;/th&gt;
-            &lt;th w_index="TEXT" w_align="left" w_length="50" width="30%;"&gt;TEXT&lt;/th&gt;
+            &lt;th w_index="CHAR" w_align="left" width="15%;"&gt;CHAR&lt;/th&gt;
+            &lt;th w_index="TEXT" w_align="left" width="30%;"&gt;TEXT&lt;/th&gt;
             &lt;th w_index="DATE" width="15%;"&gt;DATE&lt;/th&gt;
             &lt;th w_index="TIME" width="15%;"&gt;TIME&lt;/th&gt;
             &lt;th w_index="NUM" width="5%;"&gt;NUM&lt;/th&gt;
@@ -426,7 +426,7 @@ renderImg方法：
 <br />
 ![Grid With Little Paging](https://github.com/baishui2004/jquery.bsgrid/raw/v1.32/documention/images/jquery.bsgrid-09_grid_with_little_paging.png)
 <pre>
-参看示例源码，仅需要设置参数pageLittleToolbar值为true即可，默认值为false。
+参看示例源码，仅需要设置参数pagingLittleToolbar值为true即可，默认值为false。
 </pre>
 
 #####10，<a id="Standard Grid">Standard Grid</a>#####

@@ -59,23 +59,23 @@
     filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#F2F2F2, GradientType=0);
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn {
+.bsgridPaging.pagingLittleToolbar .pagingBtn {
     background: url(../../images/skins/bootstrap/glyphicons-halflings.png) transparent no-repeat !important;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.firstPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.firstPage {
     background-position: -191px -70px !important;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.prevPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.prevPage {
     background-position: -431px -70px !important;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.nextPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.nextPage {
     background-position: -455px -70px !important;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.lastPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.lastPage {
     background-position: -384px -70px !important;
 }
 
@@ -83,10 +83,10 @@
     border-color: #ccc;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.gotoPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.gotoPage {
     background-position: -263px -93px !important;
 }
 
-.bsgridPaging.pageLittleToolbar .pagingBtn.refreshPage {
+.bsgridPaging.pagingLittleToolbar .pagingBtn.refreshPage {
     background-position: -239px -21px !important;
 }
