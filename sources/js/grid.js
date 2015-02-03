@@ -1,5 +1,5 @@
 /**
- * jQuery.bsgrid v1.32 by @Baishui2004
+ * jQuery.bsgrid v1.33 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -24,6 +24,7 @@
             pageSize: 20, // page size. if set value little then 1, then pageAll will auto set true
             pageSizeSelect: false, // if display pageSize select option
             pageSizeForGrid: [5, 10, 20, 25, 50, 100, 200, 500], // pageSize select option
+            pageIncorrectTurnAlert: true, // if turn incorrect page alert(firstPage, prevPage, nextPage, lastPage)
             multiSort: false, // multi column sort support
             displayBlankRows: true,
             lineWrap: false, // if grid cell content wrap, if false then td use style: white-space: nowrap; overflow: hidden; text-overflow: ellipsis; if true then td use style: word-break: break-all;
@@ -153,6 +154,9 @@
                 startRow: 0,
                 endRow: 0
             };
+            if (settings.pageSizeForGrid != undefined) {
+                options.settings.pageSizeForGrid = settings.pageSizeForGrid;
+            }
 
             options.settings.dataType = options.settings.dataType.toLowerCase();
             if (options.settings.pageSizeSelect) {
@@ -473,6 +477,7 @@
             if (parseSuccess) {
                 var totalRows = parseInt($.fn.bsgrid.parseData.totalRows(dataType, gridData));
                 var curPage = parseInt($.fn.bsgrid.parseData.curPage(dataType, gridData));
+                curPage = Math.max(curPage, 1);
 
                 if (options.settings.pageAll) {
                     // display all datas, no paging
@@ -925,6 +930,7 @@
                 pageSize: options.settings.pageSize,
                 pageSizeSelect: options.settings.pageSizeSelect,
                 pageSizeForGrid: options.settings.pageSizeForGrid,
+                pageIncorrectTurnAlert: options.settings.pageIncorrectTurnAlert,
                 pagingLittleToolbar: options.settings.pagingLittleToolbar,
                 pagingBtnClass: options.settings.pagingBtnClass
             });

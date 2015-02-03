@@ -1,161 +1,154 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
+<!DOCTYPE html>
+<html lang="en" class="js">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>jquery.bsgrid - 一个简单易用的jQuery Grid插件</title>
+    <meta charset="utf-8">
+    <title>jQuery.bsgrid - 一个简单实用功能丰富易扩展的jQuery Grid插件</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <link rel="stylesheet" href="plugins/responsive-nav.js/demo/styles.css">
     <style type="text/css">
-        body {
-            font-size: 16px;
-            color: #555;
-            line-height: 26px;
-            background-color: white;
-            padding: 10px;
-        }
-        
-        a {
-        	font-size: 16px;
-        	color: blue;
-        	text-decoration: none;
+        h2 {
+            margin: 0 0 .5em;
         }
 
-		.tabImg {
-			width: 100%;
-			border-collapse: collapse;
-		}
-		.tabImg td {
-			font-size: 15px;
-	        color: green;
-			border: solid 1px #aaa;
-	        background-color: white;
-			padding: 0;
-			margin: 0;
-	        text-align: center;
-	        vertical-align: top;
-		}
-		.tabImg td img{
-			width: 100%;
-			border: solid 0 white;
-		}
+        h1, h2, h3, a, #title {
+            color: #555;
+        }
+
+        .main {
+            width: 88%;
+            padding: 1.5em 2em;
+        }
+
+        .nav-collapse {
+            width: 12%;
+        }
+
+        .nav-collapse a {
+            padding: .6em .6em .6em 1.6em;
+        }
+
+            /* 修改左侧导航栏宽度 */
+        @media screen and (min-width:76em) {
+            .nav-collapse {
+                width: 8em;
+            }
+
+            .main {
+                left: 8em;
+            }
+        }
+
+        #iframe {
+            display: none;
+            width: 100%;
+            height: 95%;
+            border: dotted 1px #ccc;
+        }
+
+        .introStyle {
+            font-size: 1.0em;
+            font-weight: 700;
+        }
+
+        .introStyle  td {
+            padding: 0.3em;
+        }
+
+        .introStyle a {
+            text-decoration: underline;
+        }
     </style>
+    <script src="plugins/jquery-1.4.4.min.js"></script>
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+    <script src="plugins/html5shiv/html5shiv.min.js"></script>
+    <![endif]-->
+    <script src="plugins/responsive-nav.js/responsive-nav.min.js"></script>
 </head>
 <body>
-<a style="font-size: 48px; color: green; text-decoration: none; font-weight: 400;" href="https://github.com/baishui2004/jquery.bsgrid" target="_blank">jquery.bsgrid</a>
-&emsp;一个简单易用的jQuery Grid插件，支持json、xml数据格式，自带多套皮肤且易于扩展，支持分页或不分页，对扩展性友好，导出友好。
-<div style="font-size: 15px;">
-	<br />
-    源码：<a href="https://github.com/baishui2004/jquery.bsgrid" target="_blank">Github</a>
-        &emsp;<a href="http://git.oschina.net/bs2004/jquery.bsgrid" target="_blank">Git@OSC</a>
-        &emsp;&nbsp;
-	版本：<a href="http://git.oschina.net/bs2004/jquery.bsgrid/repository/archive?ref=v1.32" target="_blank">1.32</a>
-        &emsp;<a href="http://git.oschina.net/bs2004/jquery.bsgrid/repository/archive?ref=v1.30" target="_blank">1.30</a>
-        &emsp;&nbsp;
-	示例：<a href="examples/zh-CN.html" target="_blank">导航一</a>[<a href="examples/en.html" target="_blank">en</a>]
-		&emsp;<a href="examples/zh-CN-table.html" target="_blank">导航二</a>[<a href="examples/en-table.html" target="_blank">en</a>]
-        &emsp;&nbsp;
-    文档：<a href="documention/README.md.html" target="_blank">HTML</a>
-        &emsp;<a href="documention/README.md.pdf" target="_blank">PDF</a>
-        &emsp;<a href="examples/grid/standard.zh-CN.html" target="_blank">方法及属性使用与说明</a>[<a href="examples/grid/standard.html" target="_blank">en</a>]
-        &emsp;&nbsp;
-    更新：<a href="http://git.oschina.net/bs2004/jquery.bsgrid/raw/master/CHANGE-LOG" target="_blank">Change log</a>
-	<br />
-	协议：<a href="http://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank" style="color: #555;">Apache Licence 2</a>
-	    &emsp;&emsp;&nbsp;&nbsp;依赖：jQuery 1.4.4 ~~ jQuery 1.11.2
-        &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;支持浏览器：IE6+、Chrome、Firefox等
-    <br />
-	<b>QQ群交流：254754154</b>
-        &emsp;&emsp;&nbsp;&nbsp;捐助：<a href="donate.html" target="_blank" style="text-decoration: none;">支持长远发展，感谢您的认可！</a>
+
+<div role="navigation" id="nav">
+    <ul>
+        <li class="active"><a href="#" onclick="home()">首页</a></li>
+        <li><a href="#" onclick="examples()">示例</a></li>
+        <li id="nav_documention"><a href="#" onclick="setIframeSrc('文档', 'documention/documention.html')">文档</a></li>
+        <li><a href="#" onclick="down()">下载</a></li>
+        <li><a href="#" onclick="setIframeSrc('源码', 'documention/source.html')">源码</a></li>
+        <li><a href="#" onclick="setIframeSrc('反馈', 'documention/feedback.html')">反馈</a></li>
+        <li id="nav_donate"><a href="#" onclick="setIframeSrc('支持长远发展，感谢您的认可！', 'donate.html')">捐助</a></li>
+        <li><a href="#" onclick="about()">关于我</a></li>
+    </ul>
 </div>
-<h2>典型皮肤效果图示</h2>
-<table class="tabImg">
-	<tr>
-		<td>Default Style
-            <br />
-            <a href="examples/grid/simple.html" target="_blank">
-            <img title="Default Style - 点击图片查看示例页" src="documention/images/themes/skins01-Default Style.png" /></a>
-        </td>
-		<td>ExtJS Gray Style
-            <br />
-            <a href="examples/grid/themes/gray.html" target="_blank">
-            <img title="ExtJS Gray Style - 点击图片查看示例页" src="documention/images/themes/skins02-ExtJS Gray Style.png" /></a>
-        </td>
-		<td>ExtJS Blue Style
-            <br />
-            <a href="examples/grid/themes/blue.html" target="_blank">
-            <img title="ExtJS Gray Style - 点击图片查看示例页" src="documention/images/themes/skins03-ExtJS Blue Style.png" /></a>
-        </td>
-    </tr>
-	<tr>
-		<td>ExtJS Access Style
-            <br />
-            <a href="examples/grid/themes/access.html" target="_blank">
-            <img title="ExtJS Access Style - 点击图片查看示例页" src="documention/images/themes/skins04-ExtJS Access Style.png" /></a>
-        </td>
-		<td>FlexiGrid Gray Style
-            <br />
-            <a href="examples/grid/themes/flexigrid.html" target="_blank">
-            <img title="FlexiGrid Gray Style - 点击图片查看示例页" src="documention/images/themes/skins05-FlexiGrid Gray Style.png" /></a>
-        </td>
-		<td>Dhtmlx Sky Blue Style
-            <br />
-            <a href="examples/grid/themes/sky_blue.html" target="_blank">
-            <img title="Dhtmlx Sky Blue Style - 点击图片查看示例页" src="documention/images/themes/skins06-Dhtmlx Sky Blue Style.png" /></a>
-        </td>
-    </tr>
-    <tr>
-		<td>Pure Gray Style
-            <br />
-            <a href="examples/grid/themes/pure_gray.html" target="_blank">
-            <img title="Pure Gray Style - 点击图片查看示例页" src="documention/images/themes/skins07-Pure Gray Style.png" /></a>
-        </td>
-		<td>jqGrid Style
-            <br />
-            <a href="examples/grid/themes/jqgrid.html" target="_blank">
-            <img title="jqGrid Style - 点击图片查看示例页" src="documention/images/themes/skins08-jqGrid Style.png" /></a>
-        </td>
-		<td>EasyUI Style
-            <br />
-            <a href="examples/grid/themes/easyui.html" target="_blank">
-            <img title="EasyUI Style - 点击图片查看示例页" src="documention/images/themes/skins09-EasyUI Style.png" /></a>
-        </td>
-    </tr>
-	<tr>
-		<td>Bootstrap Style
-            <br />
-            <a href="examples/grid/themes/bootstrap.html" target="_blank">
-            <img title="Bootstrap Style - 点击图片查看示例页" src="documention/images/themes/skins10-Bootstrap Style.png" /></a>
-        </td>
-		<td>Custom Blue Style
-            <br />
-            <a href="examples/grid/themes/custom.html" target="_blank">
-            <img title="Custom Blue Style - 点击图片查看示例页" src="documention/images/themes/skins11-Custom Blue Style.png" /></a>
-        </td>
-		<td>
-            &nbsp;
-        </td>
-    </tr>
-</table>
-<h2>jquery.bsgrid的特点</h2>
-1，轻量级，基于jQuery及HTML Table，除了对加载数据、分页、渲染数据的简单封装外，不额外增加特别的功能；模块化JS代码，可按需加载；CSS样式精致简洁，对于扩展修改非常容易；
-<br />
-2，使用友好，对于一个简单的表格展现，仅仅数十行代码即可完成，并且支持json、xml两种数据格式；且支持友好的导出参数构建；
-<br />
-3，内置多套经典样式风格，效果参看examples\grid\themes\*.html；可非常容易的修改表格使用字体大小，参看示例examples\grid\themes\custom.html，仅需修改该示例样式中的两处font-size即可；
-<br />
-4，自带load加载数据遮罩，并很容易进行扩展或重写；
-<br />
-5，扩展性好，插件有特别好的扩展性，易于对插件本身进行局部甚至较大的修改，易于改变展现样式、渲染数据；插件放开了属性及方法的全局修改权限，所有方法都可在外部进行全局重写，而无需修改插件本身的代码。
-<br />
-<h2>入门示例</h2>
-<a href="examples/grid/simple.html" target="_blank">
-	<img style="border-width: 0;" title="入门示例 - 点击图片查看示例页" src="documention/images/themes/skins01-Default Style.png" />
-</a>
-<pre style="font-size: 12px; background-color: #eee; color: #333;">
+
+<div role="main" class="main">
+    <a href="#nav" id="toggle">Menu</a>
+
+    <h1 class="home">jQuery.bsgrid</h1>
+
+    <div class="introStyle home" style="font-size: 1.2em;">
+        &emsp;&emsp;一个简单易用的jQuery Grid插件，支持json、xml数据格式，自带多套皮肤且易于扩展，支持分页或不分页，对扩展性友好，导出友好。
+
+        <div style="display: none;">
+            &emsp;&emsp;A simple jQuery Grid plugin, support json and xml data, has many themes and simple to extend,
+            support pagation or no pagation, easy to expand and export.
+        </div>
+    </div>
+
+    <table class="introStyle home" style="margin-top: 0.5em; font-weight: 400;">
+        <tr>
+            <td>
+                协议：<a href="http://www.apache.org/licenses/LICENSE-2.0.txt" target="_blank"
+                      style="text-decoration: none;">Apache Licence 2</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+            <td>
+                依赖：jQuery 1.4.4 ~~ jQuery 1.11.2&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            </td>
+            <td>
+                支持：IE6+、Chrome、Firefox等&nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td>
+                QQ群交流：254754154
+            </td>
+            <td colspan="2">
+                捐助：<a href="#" onclick="$('#nav_donate a').trigger('click')">支持长远发展，感谢您的认可！</a>
+            </td>
+        </tr>
+    </table>
+
+    <div class="introStyle home" style="padding-left: 0.4em; font-weight: 400; line-height: 1.6em;">
+        <h3 style="font-size: 1.2em; margin-bottom: 0.4em;">插件特点</h3>
+        1.&nbsp;轻量、简单，<a href="examples/grid/simple.html" target="_blank">标准的表格</a>只需数十行代码；
+        <br/>
+        2.&nbsp;内置<a href="#" onclick="$('#nav_documention a').trigger('click')">多套经典皮肤</a>，且非常容易扩展，比如只需要修改两处CSS代码即可修改字体样式；
+        <br/>
+        3.&nbsp;非常多的实用功能，<a href="examples/grid/multi-header.html" target="_blank">多行表头</a>、
+        <a href="examples/grid/move-column-extend.html" target="_blank">拖动表头改变宽度</a>、
+        <a href="examples/grid/fixed-header/fixed-header-extend.html" target="_blank">固定表头滚动表体数据</a>、
+        <a href="examples/grid/multi-sort.html" target="_blank">多字段联合排序</a>、
+        <a href="examples/grid/foot.html" target="_blank">表底聚合</a>、
+        <a href="examples/grid/edit.html" target="_blank">在线编辑</a>等；
+        <br/>
+        4.&nbsp;容易扩展，属性及方法可以在外部进行全局重写，而无需修改插件本身的代码；
+        <br/>
+        5.&nbsp;模块化JS、CSS代码，可按需加载，代码精致简洁，对于阅读、修改、扩展非常容易；
+        <br/>
+        6.&nbsp;易与其他插件集成使用，示例展示了集成ArtDialog、jquery.validationEngine、第三方分页工具条的使用等。
+    </div>
+
+    <div class="introStyle home" style="padding-left: 0.4em; font-weight: 400; line-height: 1.6em;">
+        <h3 style="font-size: 1.2em; margin-bottom: 0;">入门示例</h3>
+        <a href="examples/grid/simple.html" target="_blank" style="margin-left: -0.4em;">
+            <img style="border-width: 0; width: 88%;" title="点击图片查看对应示例"
+                 src="documention/images/themes/skins01-Default Style.png"/>
+        </a>
+<pre style="font-size: 0.9em; margin-top: 0; background-color: #eee;">
 引用文件：
-    &lt;link rel="stylesheet" href="../../builds/merged/grid.simple.min.css"/&gt;
+    &lt;link rel="stylesheet" href="../../builds/merged/bsgrid.all.min.css"/&gt;
     &lt;script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"&gt;&lt;/script&gt;
     &lt;script type="text/javascript" src="../../builds/js/lang/grid.zh-CN.min.js"&gt;&lt;/script&gt;
-    &lt;script type="text/javascript" src="../../builds/merged/grid.simple.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="../../builds/merged/bsgrid.all.min.js"&gt;&lt;/script&gt;
 实现代码：
     &lt;table id="searchTable"&gt;
         &lt;tr&gt;
@@ -179,11 +172,127 @@
                 pageSize: 10
             });
         });
-    
+
         function operate(record, rowIndex, colIndex, options) {
             return '&lt;a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');"&gt;Operate&lt;/a&gt;';
         }
     &lt;/script&gt;
 </pre>
+    </div>
+
+    <h2 id="title" style="display: none;"></h2>
+
+    <iframe id="iframe" src=""></iframe>
+
+    <table id="examples" class="introStyle" style="display: none;">
+        <tr>
+            <td>
+                <a href="examples/zh-CN.html" target="_blank">导航一</a>
+                [<a href="examples/en.html" target="_blank">en</a>]
+                &emsp;
+                <a href="examples/zh-CN-table.html" target="_blank">导航二</a>
+                [<a href="examples/en-table.html" target="_blank">en</a>]
+                &emsp;
+                <a href="examples/grid/standard.zh-CN.html" target="_blank">方法及属性使用与说明</a>
+                [<a href="examples/grid/standard.html" target="_blank">en</a>]
+            </td>
+        </tr>
+    </table>
+
+    <table id="download" class="introStyle" style="display: none;">
+        <tr>
+            <td>版本下载：</td>
+            <td>
+                <a href="http://git.oschina.net/bs2004/jquery.bsgrid/repository/archive?ref=v1.33"
+                   target="_blank">1.33</a>
+                &emsp;
+                <a href="http://git.oschina.net/bs2004/jquery.bsgrid/repository/archive?ref=v1.32"
+                   target="_blank">1.32</a>
+                &emsp;
+                <a href="http://git.oschina.net/bs2004/jquery.bsgrid/repository/archive?ref=v1.30"
+                   target="_blank">1.30</a>
+            </td>
+        </tr>
+        <tr>
+            <td>更新说明：</td>
+            <td>
+                <a href="http://git.oschina.net/bs2004/jquery.bsgrid/raw/master/CHANGE-LOG" target="_blank">Change
+                    log</a>
+            </td>
+        </tr>
+    </table>
+
+    <table id="about" class="introStyle" style="display: none;">
+        <tr>
+            <td>个人网站:</td>
+            <td><a href="http://thebestofyouth.com" target="_blank">http://thebestofyouth.com</a></td>
+        </tr>
+        <tr>
+            <td>电子邮箱:</td>
+            <td>bs2004@163.com</td>
+        </tr>
+        <tr>
+            <td>GitHub:</td>
+            <td><a href="http://github.com/baishui2004" target="_blank">http://github.com/baishui2004</a></td>
+        </tr>
+        <tr>
+            <td>OSChina:</td>
+            <td><a href="http://oschina.net/baishui2004" target="_blank">http://oschina.net/baishui2004</a></td>
+        </tr>
+        <tr>
+            <td>Git@OSC:</td>
+            <td><a href="http://git.oschina.net/bs2004" target="_blank">http://git.oschina.net/bs2004</a></td>
+        </tr>
+    </table>
+</div>
+
+<script>
+    var navigation = responsiveNav("#nav", {customToggle: "#toggle"});
+
+    $(function () {
+        $('#nav ul li').click(function () {
+            $('#nav ul li.active').removeClass('active');
+            $(this).addClass('active');
+        });
+    });
+
+    function home() {
+        hideAll();
+        $('.home').show();
+    }
+
+    function setIframeSrc(title, url) {
+        hideAll();
+        $('#title').html(title).show();
+        $('#iframe').attr('src', url).show();
+    }
+
+    function examples() {
+        hideAll();
+        $('#title').html('文档').show();
+        $('#examples').show();
+    }
+
+    function down() {
+        hideAll();
+        $('#title').html('下载').show();
+        $('#download').show();
+    }
+
+    function about() {
+        hideAll();
+        $('#title').html('关于我').show();
+        $('#about').show();
+    }
+
+    function hideAll() {
+        $('.home').hide();
+        $('#title').hide();
+        $('#examples').hide();
+        $('#download').hide();
+        $('#about').hide();
+        $('#iframe').hide().attr('src', '');
+    }
+</script>
 </body>
 </html>

@@ -2,20 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<title>示例索引 - jquery.bsgrid</title>
+<title>示例索引 - jQuery.bsgrid</title>
 <link rel="stylesheet" href="../plugins/sidemenu/arrowsidemenu.css" />
 <style type="text/css">
-/* 改成蓝色样式 */
+/* 改成灰色样式 */
 .arrowsidemenu div a { /*header bar links*/
-	background: transparent url(../plugins/sidemenu/arrowblue.gif) 100% 0;
+	background: transparent url(../plugins/sidemenu/arrowgray.gif) 100% 0;
 }
 
 .arrowsidemenu ul li {
-	border-bottom: 1px solid #68b2e3;
+	border-bottom: 1px solid #ccc;
 }
 
 .arrowsidemenu ul li a {
-	border-left: 10px double #68b2e3;
+	border-left: 10px double #ccc;
 }
 
 /* 改变导航链接字体样式 */
@@ -27,6 +27,15 @@
 .arrowsidemenu ul li a {
 	font-size: 12px;
 	font-family: '微软雅黑', '新宋体', '宋体', arial, tahoma, sans-serif;
+}
+
+.menuheaders, .menucontents {
+    border: solid white;
+    border-width: 0 0 1px 0;
+}
+
+.arrowsidemenu div.selected a, .arrowsidemenu div.unselected a, .arrowsidemenu div a:link, .arrowsidemenu div a:visited {
+    color: #333;
 }
 </style>
 <script type="text/javascript" src="../plugins/jquery-1.4.4.min.js"></script>
@@ -101,9 +110,6 @@ table.singleTrTable td iframe {
 		<tr>
 			<td style="width: 185px; padding-top: 8px; padding-left: 8px;">
 				<div class="arrowsidemenu">
-					<div>
-						<a href="../index.html" target="right" title="Home">首页</a>
-					</div>
 					<div class="menuheaders">
 						<a href="#" title="Grid Skins">表格皮肤</a>
 					</div>
@@ -180,10 +186,10 @@ table.singleTrTable td iframe {
 						<li><a href="../examples/pagination/jPaginator/sample.html" target="right">集成jPaginator</a></li>
 						<li><a href="../examples/pagination/jPaginator/sample-adapter.html" target="right">适配jPaginator</a></li>
 					</ul>
-					<div>
+					<div style="border: solid white; border-width: 0 0 1px 0;">
 						<a href="../examples/util/util.html" target="right" title="Util">工具JS</a>
 					</div>
-					<div>
+					<div style="border: solid white; border-width: 0 0 1px 0;">
 						<a href="../examples/button/button.html" target="right"
 							title="Button">按钮</a>
 					</div>
@@ -208,7 +214,7 @@ table.singleTrTable td iframe {
 					</ul>
 				</div>
 			</td>
-			<td><iframe src="../index.html" name="right"></iframe></td>
+			<td><iframe src="grid/simple.html" name="right"></iframe></td>
 		</tr>
 	</table>
 </body>

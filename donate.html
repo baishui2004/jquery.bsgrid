@@ -7,19 +7,32 @@
     <style type="text/css">
         body {
             font-size: 16px;
-            color: #333;
+            color: #555;
             line-height: 28px;
             background-color: white;
             padding: 3px;
         }
+
+        .title {
+            font-weight: 700;
+        }
+
+        .donate {
+            border-collapse: collapse;
+        }
+
         .donate td {
             font-size: 15px;
-            width: 50px;
-            padding-left: 15px;
+            width: 70px;
+            padding-left: 6px;
+            padding-right: 3px;
+            border: dotted 1px #ccc;
         }
-        .donate .width65 {
-            width: 65px;
+
+        .donate .width95 {
+            width: 95px;
         }
+
         .donate .right {
             text-align: right;
             padding-left: 0;
@@ -29,17 +42,17 @@
 <body>
 <table>
     <tr>
-        <td>微信转账：</td>
-        <td>支付宝付款：</td>
+        <td class="title">微信转账：</td>
+        <td class="title">支付宝付款：</td>
     </tr>
     <tr>
         <td><img src="documention/images/donate/weixin.png" width="180px" height="180px"/></td>
         <td><img src="documention/images/donate/zhifubao.jpg" width="180px" height="180px"/></td>
     </tr>
 </table>
-捐助列表：
+<span class="title">捐助列表</span>：
 <table class="donate">
-    <tr><td class="width65">2015.01.27</td><td>李凯鹏</td><td class="width65 right">9.90元</td><td>支付宝</td></tr>
+    <tr><td class="width95">2015.01.27</td><td>李凯鹏</td><td class="width95 right">9.90元</td><td>支付宝</td></tr>
     <tr><td>2015.01.22</td><td>**妍</td><td class="right">9.90元</td><td>支付宝</td></tr>
     <tr><td>2014.12.08</td><td>May</td><td class="right">21.00元</td><td>微信</td></tr>
 </table>

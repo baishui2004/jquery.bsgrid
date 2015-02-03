@@ -1,4 +1,4 @@
-v1.33  2014-12-28 文档优化、示例优化、BUG修复
+v1.33  2014-02-04 文档优化、示例优化、bug修复
 
 1，修复grid使用hover样式后分页时遮罩颜色异常问题；
 2，去掉grid.paging.little.css及grid.paging.little.js，简化为使用参数pagingLittleToolbar控制显示分页的little或正常样式；
@@ -12,6 +12,9 @@ v1.33  2014-12-28 文档优化、示例优化、BUG修复
 10，扩展增加表格列属性w_num以用于显示行号，值为line、total_line，分别表示当前页的数据行号、所有记录的数据行号；
 11，修改表格渲染数据支持返回非最后一页数据行数不等于pageSize的异常情况；
 12，中文化主要的文档示例；
+13，修复配置参数pageSizeForGrid只能增加分页大小不能减少的bug；
+14，增加参数pageIncorrectTurnAlert以控制翻页翻尽时再点击按钮是否弹出提示框，默认true；
+15，简化示例，网站文档优化；
 
 
 

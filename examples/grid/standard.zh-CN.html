@@ -4,10 +4,11 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>方法及属性使用与说明</title>
-    <link rel="stylesheet" href="../../builds/merged/grid.simple.min.css"/>
+    <!-- grid.simple.min.css, grid.simple.min.js -->
+    <link rel="stylesheet" href="../../builds/merged/bsgrid.all.min.css"/>
     <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="../../builds/js/lang/grid.zh-CN.min.js"></script>
-    <script type="text/javascript" src="../../builds/merged/grid.simple.min.js"></script>
+    <script type="text/javascript" src="../../builds/merged/bsgrid.all.min.js"></script>
 </head>
 <body style="line-height: 1.2em; background-color: #fff;">
 <form id="searchParams">
@@ -84,6 +85,7 @@
    pageSize: 分页大小, 如果设置值小于1则不分页且展示全部数据(即自动将pageAll设置为true), 默认值20
    pageSizeSelect: 是否显示分页大小选择下拉框, 配合参数pageSizeForGrid, 默认值false
    pageSizeForGrid: 分页大小选择下拉框显示的值数组
+   pageIncorrectTurnAlert: 翻页是是否显示无页可翻的提示(首页, 上一页, 下一页, 末页), 默认值true
    multiSort: 是否支持多列排序, 默认值false
    displayBlankRows: 是否显示空白行, 默认值true
    lineWrap: 单元格值是否自动换行, 默认值false, 设置false对单元格起效果的样式是: grid.css -> .bsgrid td.lineNoWrap

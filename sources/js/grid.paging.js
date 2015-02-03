@@ -1,5 +1,5 @@
 /**
- * jQuery.bsgrid v1.32 by @Baishui2004
+ * jQuery.bsgrid v1.33 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -16,9 +16,10 @@
         // defaults settings
         defaults: {
             loopback: false, // if true, page 1 prev then totalPages, totalPages next then 1
-            pageSize: 20, // page size.
+            pageSize: 20, // page size
             pageSizeSelect: false, // if display pageSize select option
             pageSizeForGrid: [5, 10, 20, 25, 50, 100, 200, 500], // pageSize select option
+            pageIncorrectTurnAlert: true, // if turn incorrect page alert(firstPage, prevPage, nextPage, lastPage)
             pagingLittleToolbar: false, // if display paging little toolbar
             pagingBtnClass: 'pagingBtn' // paging toolbar button css class
         },
@@ -55,6 +56,9 @@
                 startRow: 0,
                 endRow: 0
             };
+            if (settings.pageSizeForGrid != undefined) {
+                options.settings.pageSizeForGrid = settings.pageSizeForGrid;
+            }
 
             var pagingObj = {
                 options: options,
@@ -143,7 +147,7 @@
         firstPage: function (options) {
             var curPage = $.fn.bsgrid_paging.getCurPage(options);
             if (curPage <= 1) {
-                alert($.bsgridLanguage.isFirstPage);
+                $.fn.bsgrid_paging.incorrectTurnAlert(options, $.bsgridLanguage.isFirstPage);
                 return;
             }
             $.fn.bsgrid_paging.page(1, options);
@@ -156,7 +160,7 @@
                     $.fn.bsgrid_paging.page(options.totalPages, options);
                     return;
                 } else {
-                    alert($.bsgridLanguage.isFirstPage);
+                    $.fn.bsgrid_paging.incorrectTurnAlert(options, $.bsgridLanguage.isFirstPage);
                     return;
                 }
             }
@@ -170,7 +174,7 @@
                     $.fn.bsgrid_paging.page(1, options);
                     return;
                 } else {
-                    alert($.bsgridLanguage.isLastPage);
+                    $.fn.bsgrid_paging.incorrectTurnAlert(options, $.bsgridLanguage.isLastPage);
                     return;
                 }
             }
@@ -180,7 +184,7 @@
         lastPage: function (options) {
             var curPage = $.fn.bsgrid_paging.getCurPage(options);
             if (curPage >= options.totalPages) {
-                alert($.bsgridLanguage.isLastPage);
+                $.fn.bsgrid_paging.incorrectTurnAlert(options, $.bsgridLanguage.isLastPage);
                 return;
             }
             $.fn.bsgrid_paging.page(options.totalPages, options);
@@ -197,6 +201,12 @@
             } else {
                 $('#' + options.gotoPageInputId).val(goPage);
                 $.fn.bsgrid_paging.page(parseInt(goPage), options);
+            }
+        },
+
+        incorrectTurnAlert: function (options, msg) {
+            if (options.settings.pageIncorrectTurnAlert) {
+                alert(msg);
             }
         },
 
@@ -314,6 +324,8 @@
          * @param options paging options
          */
         setPagingValues: function (curPage, totalRows, options) {
+            curPage = Math.max(curPage, 1);
+
             var pageSize = options.settings.pageSize;
             var totalPages = parseInt(totalRows / pageSize);
             totalPages = parseInt((totalRows % pageSize == 0) ? totalPages : totalPages + 1);
