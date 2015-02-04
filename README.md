@@ -5,27 +5,27 @@ jQuery.bsgrid 简单易用的jQuery Grid插件
 
 QQ群交流：254754154
 <br />
-捐助：<a href="http://bsgrid.oschina.mopaas.com/donate.html" target="_blank" style="text-decoration: none;">支持长远发展，感谢您的认可！</a>
+捐助：<a href="https://bsgrid.coding.io/donate.html" target="_blank" style="text-decoration: none;">支持长远发展，感谢您的认可！</a>
 
 源码：[Github](https://github.com/baishui2004/jquery.bsgrid/)
 &emsp;
-示例：<a href="http://bsgrid.oschina.mopaas.com/examples/en.html" target="_blank">导航一</a>
-		&emsp;<a href="http://bsgrid.oschina.mopaas.com/examples/en-table.html" target="_blank">导航二</a>
+示例：<a href="https://bsgrid.coding.io/examples/en.html" target="_blank">导航一</a>
+		&emsp;<a href="https://bsgrid.coding.io/examples/en-table.html" target="_blank">导航二</a>
 <br />
 版本：1.33
 &emsp;&emsp;&nbsp;协议：Apache Licence 2
 &emsp;更新日期：2015-02-04
 <br />
-文档：<a href="http://bsgrid.oschina.mopaas.com/documention/README.md.html" target="_blank">HTML</a>
-        &emsp;&nbsp;&nbsp;<a href="http://bsgrid.oschina.mopaas.com/documention/README.md.pdf" target="_blank">PDF</a>
-        &emsp;<a href="http://bsgrid.oschina.mopaas.com/examples/grid/standard.html" target="_blank">方法及属性使用与说明</a>
+文档：<a href="https://bsgrid.coding.io/documention/README.md.html" target="_blank">HTML</a>
+        &emsp;&nbsp;&nbsp;<a href="https://bsgrid.coding.io/documention/README.md.pdf" target="_blank">PDF</a>
+        &emsp;<a href="https://bsgrid.coding.io/examples/grid/standard.html" target="_blank">方法及属性使用与说明</a>
 <br />
 依赖：jQuery 1.4.4 ~~ jQuery 1.11.2
 <br />
 支持：IE6+、Chrome、Firefox等
 
 #####首先给出典型效果图示#####
-1，内置多套皮肤（点击下面对应皮肤图片可查看示例页面），并可非常容易的自定义皮肤（参考<a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/custom.html" target="_blank">Custom Blue Style</a>）
+1，内置多套皮肤（点击下面对应皮肤图片可查看示例页面），并可非常容易的自定义皮肤（参考<a href="https://bsgrid.coding.io/examples/grid/themes/custom.html" target="_blank">Custom Blue Style</a>）
 <div>
 <div style="display:none;">
 <style type="text/css">
@@ -56,63 +56,63 @@ QQ群交流：254754154
 	<tr>
 		<td>Default Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/simple.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/grid/simple.html" target="_blank">
             <img title="Default Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/themes/skins01-Default Style.png" /></a>
         </td>
 		<td>ExtJS Gray Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/gray.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/grid/themes/gray.html" target="_blank">
             <img title="ExtJS Gray Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/themes/skins02-ExtJS Gray Style.png" /></a>
         </td>
 		<td>ExtJS Blue Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/blue.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/grid/themes/blue.html" target="_blank">
             <img title="ExtJS Gray Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/themes/skins03-ExtJS Blue Style.png" /></a>
         </td>
     </tr>
 	<tr>
 		<td>ExtJS Access Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/access.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/grid/themes/access.html" target="_blank">
             <img title="ExtJS Access Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/themes/skins04-ExtJS Access Style.png" /></a>
         </td>
 		<td>FlexiGrid Gray Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/flexigrid.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/grid/themes/flexigrid.html" target="_blank">
             <img title="FlexiGrid Gray Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/themes/skins05-FlexiGrid Gray Style.png" /></a>
         </td>
 		<td>Dhtmlx Sky Blue Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/sky_blue.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/grid/themes/sky_blue.html" target="_blank">
             <img title="Dhtmlx Sky Blue Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/themes/skins06-Dhtmlx Sky Blue Style.png" /></a>
         </td>
     </tr>
     <tr>
 		<td>Pure Gray Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/pure_gray.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/grid/themes/pure_gray.html" target="_blank">
             <img title="Pure Gray Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/themes/skins07-Pure Gray Style.png" /></a>
         </td>
 		<td>jqGrid Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/jqgrid.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/grid/themes/jqgrid.html" target="_blank">
             <img title="jqGrid Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/themes/skins08-jqGrid Style.png" /></a>
         </td>
 		<td>EasyUI Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/easyui.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/grid/themes/easyui.html" target="_blank">
             <img title="EasyUI Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/themes/skins09-EasyUI Style.png" /></a>
         </td>
     </tr>
 	<tr>
 		<td>Bootstrap Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/bootstrap.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/grid/themes/bootstrap.html" target="_blank">
             <img title="Bootstrap Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/themes/skins10-Bootstrap Style.png" /></a>
         </td>
 		<td>Custom Blue Style
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/grid/themes/custom.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/grid/themes/custom.html" target="_blank">
             <img title="Custom Blue Style - 点击图片查看示例页" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/themes/skins11-Custom Blue Style.png" /></a>
         </td>
 		<td>
@@ -127,36 +127,36 @@ QQ群交流：254754154
 	<tr>
 		<td>With jqPagination
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/pagination/jqPagination/sample-adapter.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/pagination/jqPagination/sample-adapter.html" target="_blank">
             <img title="With jqPagination" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/jquery.bsgrid-pagination01-With jqPagination.png"></a>
         </td>
 		<td>With jquery_pagination
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/pagination/jquery_pagination/sample-adapter.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/pagination/jquery_pagination/sample-adapter.html" target="_blank">
             <img title="With jquery_pagination" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/jquery.bsgrid-pagination02-With jquery_pagination.png"></a>
         </td>
     </tr>
     <tr>
 		<td>With jPaginate
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/pagination/jPaginate/sample-adapter.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/pagination/jPaginate/sample-adapter.html" target="_blank">
             <img title="With jPaginate" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/jquery.bsgrid-pagination03-With jPaginate.png"></a>
         </td>
 		<td>With jPages
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/pagination/jPages/sample-adapter.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/pagination/jPages/sample-adapter.html" target="_blank">
             <img title="With jPages" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/jquery.bsgrid-pagination04-With jPages.png"></a>
         </td>
     </tr>
     <tr>
 		<td>With smartpaginator
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/pagination/smartpaginator/sample-adapter.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/pagination/smartpaginator/sample-adapter.html" target="_blank">
             <img title="With smartpaginator" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/jquery.bsgrid-pagination05-With smartpaginator.png"></a>
         </td>
 		<td>With jPaginator
             <br />
-            <a href="http://bsgrid.oschina.mopaas.com/examples/pagination/jPaginator/sample-adapter.html" target="_blank">
+            <a href="https://bsgrid.coding.io/examples/pagination/jPaginator/sample-adapter.html" target="_blank">
             <img title="With jPaginator" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/jquery.bsgrid-pagination06-With jPaginator.png"></a>
         </td>
     </tr>
@@ -323,12 +323,12 @@ renderImg方法：
 
 #####&emsp;&nbsp;<a id="Local Json Data">Local Json Data</a>#####
 <pre>
-示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/local/json.html">Local Json Data</a>
+示例页面：<a href="https://bsgrid.coding.io/examples/grid/local/json.html">Local Json Data</a>
 </pre>
 
 #####&emsp;&nbsp;<a id="Local Xml Data">Local Xml Data</a>#####
 <pre>
-示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/local/xml.html">Local Xml Data</a>
+示例页面：<a href="https://bsgrid.coding.io/examples/grid/local/xml.html">Local Xml Data</a>
 </pre>
 
 #####5，<a id="No Pagation">No Pagation</a>#####
@@ -368,57 +368,57 @@ renderImg方法：
 
 #####&emsp;&nbsp;<a id="With Custom Checkbox">With Custom Checkbox</a>#####
 <pre>
-示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/checkbox-custom.html">With Custom Checkbox</a>
+示例页面：<a href="https://bsgrid.coding.io/examples/grid/checkbox-custom.html">With Custom Checkbox</a>
 </pre>
 
 #####&emsp;&nbsp;<a id="Edit Grid">Edit Grid</a>#####
 <pre>
-示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/edit.html">Edit Grid</a>
+示例页面：<a href="https://bsgrid.coding.io/examples/grid/edit.html">Edit Grid</a>
 </pre>
 
 #####&emsp;&nbsp;<a id="Move Column">Move Column</a>#####
 <pre>
-示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/move-column-extend.html">Move Column</a>
+示例页面：<a href="https://bsgrid.coding.io/examples/grid/move-column-extend.html">Move Column</a>
 </pre>
 
 #####&emsp;&nbsp;<a id="Custom Move Column">Custom Move Column</a>#####
 <pre>
-示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/move-column-custom.html">Custom Move Column</a>
+示例页面：<a href="https://bsgrid.coding.io/examples/grid/move-column-custom.html">Custom Move Column</a>
 </pre>
 
 #####&emsp;&nbsp;<a id="Extend Conditions">Extend Conditions</a>#####
 <pre>
-示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/simple-conditions.html">Extend Conditions</a>
+示例页面：<a href="https://bsgrid.coding.io/examples/grid/simple-conditions.html">Extend Conditions</a>
 </pre>
 
 #####&emsp;&nbsp;<a id="Extend Grid">Extend Grid</a>#####
 <pre>
-示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/extend.html">Extend Grid</a>
+示例页面：<a href="https://bsgrid.coding.io/examples/grid/extend.html">Extend Grid</a>
 </pre>
 
 #####&emsp;&nbsp;<a id="Multi Header Grid">Multi Header Grid</a>#####
 <pre>
-示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/multi-header.html">Multi Header Grid</a>
+示例页面：<a href="https://bsgrid.coding.io/examples/grid/multi-header.html">Multi Header Grid</a>
 </pre>
 
 #####&emsp;&nbsp;<a id="Grid With Footer">Grid With Footer</a>#####
 <pre>
-示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/foot.html">Grid With Footer</a>
+示例页面：<a href="https://bsgrid.coding.io/examples/grid/foot.html">Grid With Footer</a>
 </pre>
 
 #####&emsp;&nbsp;<a id="Multi Sort Grid">Multi Sort Grid</a>#####
 <pre>
-示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/multi-sort.html">Multi Sort Grid</a>
+示例页面：<a href="https://bsgrid.coding.io/examples/grid/multi-sort.html">Multi Sort Grid</a>
 </pre>
 
 #####&emsp;&nbsp;<a id="Fixed Grid">Fixed Grid</a>#####
 <pre>
-示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/fixed-header/fixed-header-extend.html">Fixed Grid</a>
+示例页面：<a href="https://bsgrid.coding.io/examples/grid/fixed-header/fixed-header-extend.html">Fixed Grid</a>
 </pre>
 
 #####&emsp;&nbsp;<a id="Fixed Grid Custom">Fixed Grid Custom</a>#####
 <pre>
-示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/fixed-header/fixed-header-custom.html">Fixed Grid Custom</a>
+示例页面：<a href="https://bsgrid.coding.io/examples/grid/fixed-header/fixed-header-custom.html">Fixed Grid Custom</a>
 </pre>
 
 #####9，<a id="Grid With Little Paging">Grid With Little Paging</a>#####
@@ -443,7 +443,7 @@ renderImg方法：
 
 #####&emsp;&nbsp;<a id="Multi Extend Grid">Multi Extend Grid</a>#####
 <pre>
-示例页面：<a href="http://bsgrid.oschina.mopaas.com/examples/grid/multi-extend.html">Multi Extend Grid</a>
+示例页面：<a href="https://bsgrid.coding.io/examples/grid/multi-extend.html">Multi Extend Grid</a>
 </pre>
 
 #####12，<a id="Export Grid">Export Grid</a>#####
@@ -452,7 +452,7 @@ bsgrid并不是提供导出Grid的页面数据功能，而是进行导出参数�
 ![Export Grid](https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/jquery.bsgrid-12_export_grid.png)
 <pre>
 简单的grid导出参数URL类似如下：
-http://bsgrid.oschina.mopaas.com/examples/grid/export.html?exportFileName=Export%2520Example&dataNames=XH%252CID%252CCHAR%252CTEXT%252CDATE%252CTIME%252CNUM&dataIndexs=XH,ID,CHAR,TEXT,DATE,TIME,NUM&dataLengths=50,50,150,300,150,150,50&dataAligns=center,center,left,left,center,center,center&param1=param1&param2=param2
+https://bsgrid.coding.io/examples/grid/export.html?exportFileName=Export%2520Example&dataNames=XH%252CID%252CCHAR%252CTEXT%252CDATE%252CTIME%252CNUM&dataIndexs=XH,ID,CHAR,TEXT,DATE,TIME,NUM&dataLengths=50,50,150,300,150,150,50&dataAligns=center,center,left,left,center,center,center&param1=param1&param2=param2
 
 需要额外引用用于导出的JS：
     &lt;script type="text/javascript" src="../../builds/js/export.min.js"&gt;&lt;/script&gt;
@@ -484,7 +484,7 @@ http://bsgrid.oschina.mopaas.com/examples/grid/export.html?exportFileName=Export
 结合artDialog，演示使用artDialog的锁屏遮罩样式，以及演示使用artDialog覆盖JS原生alert、confirm、prompt方法的使用。
 <br />
 <b>特别注意：</b>
-<br />&emsp;&emsp;JS原生的alert、confirm、prompt方法是阻塞的，而使用artDialog覆盖的alert、confirm、prompt方法是非阻塞的，artDialog覆盖的方法是用回调方式实现阻塞的等待执行代码效果，详细可参看示例：[Pop with ArtDialog](http://bsgrid.oschina.mopaas.com/examples/artDialog/pop.html)
+<br />&emsp;&emsp;JS原生的alert、confirm、prompt方法是阻塞的，而使用artDialog覆盖的alert、confirm、prompt方法是非阻塞的，artDialog覆盖的方法是用回调方式实现阻塞的等待执行代码效果，详细可参看示例：[Pop with ArtDialog](https://bsgrid.coding.io/examples/artDialog/pop.html)
 <br />
 ![Grid with ArtDialog](https://github.com/baishui2004/jquery.bsgrid/raw/v1.33/documention/images/jquery.bsgrid-13_grid_with_artDialog.png)
 <pre>
