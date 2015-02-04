@@ -1,4 +1,4 @@
-v1.33  2014-02-04 文档优化、示例优化、bug修复
+v1.33  2015-02-04 文档优化、示例优化、bug修复
 
 1，修复grid使用hover样式后分页时遮罩颜色异常问题；
 2，去掉grid.paging.little.css及grid.paging.little.js，简化为使用参数pagingLittleToolbar控制显示分页的little或正常样式；
@@ -18,7 +18,7 @@ v1.33  2014-02-04 文档优化、示例优化、bug修复
 
 
 
-v1.32  2014-01-22
+v1.32  2015-01-22
 
 1，扩展(grid.extend)可拖动改变表头宽度；
 2，优化项目目录结构；
