@@ -102,6 +102,7 @@ Documention:
        method: $.fn.bsgrid.longLengthSubAndTip, global method
    beforeSend: method before page ajax request send, params: options, XMLHttpRequest
    complete: method after page ajax request complete, params: options, XMLHttpRequest, textStatus
+   processUserdata: method process userdata, process before grid render data, params: userdata, options
    extend.settings: supportGridEdit: if support extend grid edit, default false
                     supportGridEditTriggerEvent: values: ''(means no need Trigger), 'rowClick', 'rowDoubleClick', 'cellClick', 'cellDoubleClick', default 'rowClick'
                     supportColumnMove: if support extend column move, default false
@@ -140,7 +141,8 @@ Documention:
    tfoot td properties
    w_agg: aggregation, values: count, countNotNone, sum, avg, max, min, concat
 
-4, these four get record or column's value methods could call after grid data rendered
+4, these five get userdata's value, get record or column's value methods could call after grid data rendered
+   gridObj.getUserdata(): get userdata's value
    gridObj.getRecord(rowIndex): get record by rowIndex, note that index from 0
    gridObj.getRowRecord(rowObj): get row record by row's tr object
    gridObj.getRecordIndexValue(record, index): get column value by record and index

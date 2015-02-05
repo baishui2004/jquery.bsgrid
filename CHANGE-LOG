@@ -1,3 +1,12 @@
+v1.34  2015-02-05 功能增强、文档优化
+
+1，grid增加userdata，对于json数据其值可以是一个简单的值或json Object或者json Array；
+                    对于json数据其值可以是一个简单的值或xml串；
+   配置processUserdata以处理userdata，使用grid.getUserdata()获取userdata；
+2，增加动态表头示例，使用userdata进行简易的动态表头处理；
+
+
+
 v1.33  2015-02-04 文档优化、示例优化、bug修复
 
 1，修复grid使用hover样式后分页时遮罩颜色异常问题；

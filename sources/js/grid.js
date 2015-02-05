@@ -64,6 +64,9 @@
             // after page ajax request complete
             complete: function (options, XMLHttpRequest, textStatus) {
             },
+            // process userdata, process before grid render data
+            processUserdata: function (userdata, options) {
+            },
             // extend
             extend: {
                 // extend init grid methods
@@ -187,6 +190,9 @@
                 },
                 unSelectRow: function () {
                     return $.fn.bsgrid.unSelectRow(options);
+                },
+                getUserdata: function () {
+                    return $.fn.bsgrid.getUserdata(options);
                 },
                 getRowRecord: function (rowObj) {
                     return $.fn.bsgrid.getRowRecord(rowObj);
@@ -338,6 +344,14 @@
                 }
                 return false;
             },
+            userdata: function (type, gridData) {
+                if (type == 'json') {
+                    return $.fn.bsgrid.parseJsonData.userdata(gridData);
+                } else if (type == 'xml') {
+                    return $.fn.bsgrid.parseXmlData.userdata(gridData);
+                }
+                return false;
+            },
             getDataLen: function (type, gridData) {
                 if (type == 'json' || type == 'xml') {
                     return $.fn.bsgrid.parseData.data(type, gridData).length;
@@ -375,6 +389,9 @@
             data: function (json) {
                 return json.data;
             },
+            userdata: function (json) {
+                return json.userdata;
+            },
             getRecord: function (data, row) {
                 return data[row];
             },
@@ -395,6 +412,9 @@
             },
             data: function (xml) {
                 return $(xml).find('gridData data row');
+            },
+            userdata: function (xml) {
+                return $(xml).find('gridData userdata');
             },
             getRecord: function (data, row) {
                 return data.eq(row);
@@ -475,6 +495,11 @@
             }
             options.settings.additionalBeforeRenderGrid(parseSuccess, gridData, options);
             if (parseSuccess) {
+                // userdata
+                var userdata = $.fn.bsgrid.parseData.userdata(dataType, gridData);
+                $.fn.bsgrid.storeUserdata(userdata, options);
+                options.settings.processUserdata(userdata, options);
+
                 var totalRows = parseInt($.fn.bsgrid.parseData.totalRows(dataType, gridData));
                 var curPage = parseInt($.fn.bsgrid.parseData.curPage(dataType, gridData));
                 curPage = Math.max(curPage, 1);
@@ -618,6 +643,14 @@
 
         unSelectRow: function (options) {
             $.fn.bsgrid.getSelectedRow(options).removeClass('selected').removeClass('selected_color');
+        },
+
+        getUserdata: function (options) {
+            $('#' + options.gridId).data('userdata');
+        },
+
+        storeUserdata: function (userdata, options) {
+            $('#' + options.gridId).data('userdata', userdata);
         },
 
         getRowRecord: function (rowObj) {

@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Simple XML Data Grid</title>
+    <title>Grid Userdata(XML Data)</title>
     <!-- grid.simple.min.css, grid.simple.min.js -->
     <link rel="stylesheet" href="../../builds/merged/bsgrid.all.min.css"/>
     <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
@@ -26,19 +26,20 @@
 <script type="text/javascript">
     var gridObj;
     $(function () {
-        // global setting
-        // $.fn.bsgrid.defaults.dataType = 'xml'; // default json
-
         gridObj = $.fn.bsgrid.init('searchTable', {
-            url: 'data/simple.xml',
+            url: 'data/userdata.xml',
             dataType: 'xml',
+            // autoLoad: false,
             pageSizeSelect: true,
-            pageSize: 10
+            pageSize: 3,
+            processUserdata: function (userdata, options) {
+                alert('userdata.description\'s value = ' + $.trim(userdata.find('description').text()));
+            }
         });
     });
 
     function operate(record, rowIndex, colIndex, options) {
-        return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + ', rowIndex=' + rowIndex + ', colIndex=' + colIndex + '\');">Operate</a>';
+        return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">Operate</a>';
     }
 </script>
 </body>

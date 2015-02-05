@@ -102,6 +102,7 @@
        截断及tip方法: $.fn.bsgrid.longLengthSubAndTip, 这是一个全局方法
    beforeSend: Ajax请求提交前执行方法, 参数: options, XMLHttpRequest
    complete: Ajax请求完成后执行方法, 参数: options, XMLHttpRequest, textStatus
+   processUserdata: 处理userdata的方法, 在表格渲染数据之前执行, 参数: userdata, options
    extend.settings: supportGridEdit: 是否支持表格编辑, 默认值false
                     supportGridEditTriggerEvent: 触发表格编辑的事件: ''(表示不用触发直接显示编辑状态), 'rowClick', 'rowDoubleClick', 'cellClick', 'cellDoubleClick', 默认值'rowClick'
                     supportColumnMove: 是否支持拖动表头改变表头宽度, 默认值false
@@ -140,7 +141,8 @@
    表底扩展属性
    w_agg: 聚合, 值: count, countNotNone, sum, avg, max, min, concat
 
-4, 获取行记录值以及单元格值的方法, 在表格数据渲染后使用
+4, 获取userdata值, 行记录值以及单元格值的方法, 在表格数据渲染后使用
+   gridObj.getUserdata(): 获取userdata值
    gridObj.getRecord(rowIndex): 根据行索引获取行记录值, 行索引从0开始
    gridObj.getRowRecord(rowObj): 根据行dom对象获取行记录值
    gridObj.getRecordIndexValue(record, index): 获取单元格值, 根据行记录值及列index
