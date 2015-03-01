@@ -910,7 +910,17 @@
          * @param record row record
          */
         longLengthSubAndTip: function (obj, value, maxLen, record) {
-            if (value.length > maxLen && $(value).text().length == 0) {
+            var tip = false;
+            if (value.length > maxLen) {
+                try {
+                    if (value.indexOf('<') < 0 || value.indexOf('>') < 2 || $(value).text().length == 0) {
+                        tip = true;
+                    }
+                } catch (e) {
+                    tip = true;
+                }
+            }
+            if (tip) {
                 $(obj).html(value.substring(0, maxLen - 3) + '...');
                 $.fn.bsgrid.columnTip(obj, value, record);
             } else {

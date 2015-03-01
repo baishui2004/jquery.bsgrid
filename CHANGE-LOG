@@ -4,6 +4,7 @@ v1.34  2015-02-05 功能增强、文档优化
                     对于json数据其值可以是一个简单的值或xml串；
    配置processUserdata以处理userdata，使用grid.getUserdata()获取userdata；
 2，增加动态表头示例，使用userdata进行简易的动态表头处理；
+3，修复表格渲染数据由使用$(cellValue).text().length == 0判断cellValue是否html字符串，cellValue是特别特殊情况造成js异常的bug；
 
 
 
