@@ -1,5 +1,5 @@
 /**
- * jQuery.bsgrid v1.33 by @Baishui2004
+ * jQuery.bsgrid v1.35 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -24,8 +24,7 @@
             pagingBtnClass: 'pagingBtn' // paging toolbar button css class
         },
 
-        pagingObjs: {
-        },
+        pagingObjs: {},
 
         /**
          * init paging.
@@ -331,7 +330,7 @@
             totalPages = parseInt((totalRows % pageSize == 0) ? totalPages : totalPages + 1);
             var curPageRowsNum = (curPage * pageSize < totalRows) ? pageSize : (totalRows - (curPage - 1) * pageSize);
             var startRow = (curPage - 1) * pageSize + 1;
-            var endRow = (curPage - 1) * pageSize + curPageRowsNum;
+            var endRow = startRow + curPageRowsNum - 1;
             startRow = curPageRowsNum <= 0 ? 0 : startRow;
             endRow = curPageRowsNum <= 0 ? 0 : endRow;
 

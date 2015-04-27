@@ -7,9 +7,15 @@
     final String sortName = request.getParameter("sortName");
     final String sortOrder = request.getParameter("sortOrder");
 
+    // only for load-time-test.html
+    final String load_time_test = request.getParameter("load_time_test");
+
     // data list
     List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
     int totalRows = 26;
+    if ("true".equals(load_time_test)) {
+        totalRows = 2600;
+    }
     for (int i = 0; i < totalRows; i++) {
         Map<String, Object> map = new HashMap<String, Object>();
         map.put("XH", i + 1);

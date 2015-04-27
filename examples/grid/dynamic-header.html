@@ -32,6 +32,7 @@
                 for (var i = 0; i < cNum; i++) {
                     $('#searchTable tr').append('<th w_index="' + dynamic_columns[i] + '">' + dynamic_columns[i] + '</th>');
                 }
+                options.columnsModel = $.fn.bsgrid.initColumnsModel(options);
             }
         });
     });

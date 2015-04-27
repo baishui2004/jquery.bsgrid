@@ -1,4 +1,12 @@
-v1.34  2015-02-05 功能增强、文档优化
+v1.35  2015-04-28 性能优化、功能增强
+
+1，优化grid及grid.extend的性能（减少非配置必须的js执行，一千条数据加载速度快一倍多）；
+2，options.otherParames支持String型参数串（示例：param1=val1&param2=val2）；
+3，local json、xml data数据增加分页功能，简化数据构造；
+
+
+
+v1.34  2015-02-05 功能增强
 
 1，grid增加userdata，对于json数据其值可以是一个简单的值或json Object或者json Array；
                     对于json数据其值可以是一个简单的值或xml串；

@@ -1,5 +1,5 @@
 /**
- * jQuery.bsgrid v1.33 by @Baishui2004
+ * jQuery.bsgrid v1.35 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -47,6 +47,51 @@
     // extend other methods
     $.fn.bsgrid.extendOtherMethods = {};
 
+    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.initGridMethods, 'initGridOptions', function (gridId, options) {
+        var columnsModel = options.columnsModel;
+        $.fn.bsgrid.getGridHeaderObject(options).each(function (i) {
+            columnsModel[i].lineNumber = $.trim($(this).attr(options.settings.colsProperties.lineNumberAttr));
+            columnsModel[i].check = $.trim($(this).attr(options.settings.colsProperties.checkAttr));
+            columnsModel[i].edit = $.trim($(this).attr(options.settings.colsProperties.editAttr));
+        });
+
+        if ($('#' + options.gridId + ' tfoot tr td[' + options.settings.colsProperties.aggAttr + '!=\'\']').length != 0) {
+            $('#' + options.gridId + ' tfoot tr td').each(function (i) {
+                columnsModel[i].aggName = '';
+                columnsModel[i].aggIndex = '';
+                var aggInfo = $.trim($(this).attr(options.settings.colsProperties.aggAttr));
+                if (aggInfo.length != 0) {
+                    var aggInfoArray = aggInfo.split(',');
+                    columnsModel[i].aggName = aggInfoArray[0].toLocaleLowerCase();
+                    columnsModel[i].aggIndex = aggInfoArray.length > 1 ? aggInfoArray[1] : '';
+                }
+            });
+        }
+
+        if ($('#' + options.gridId + ' thead tr:last th[' + options.settings.colsProperties.checkAttr + '!=\'\']').length == 0) {
+            delete options.settings.extend.initGridMethods.initGridCheck;
+            delete options.settings.extend.renderPerColumnMethods.renderCheck;
+            delete options.settings.extend.afterRenderGridMethods.addCheckChangedEvent;
+        }
+        if (!options.settings.extend.settings.supportGridEdit) {
+            delete options.settings.extend.renderPerColumnMethods.renderForm;
+            delete options.settings.extend.afterRenderGridMethods.addGridEditEvent;
+        }
+        if (!options.settings.extend.settings.supportColumnMove) {
+            delete options.settings.extend.initGridMethods.initColumnMove;
+        }
+        if (!options.settings.extend.settings.fixedGridHeader) {
+            delete options.settings.extend.initGridMethods.fixedHeader;
+            delete options.settings.extend.afterRenderGridMethods.fixedHeader;
+        }
+        if ($.trim(options.settings.extend.settings.searchConditionsContainerId) == '') {
+            delete options.settings.extend.initGridMethods.initSearchConditions;
+        }
+        if ($('#' + options.gridId + ' tfoot td[' + options.settings.colsProperties.aggAttr + '!=\'\']').length == 0) {
+            delete options.settings.extend.afterRenderGridMethods.aggregation;
+        }
+    });
+
     /*************** extend other methods start ***************/
     $.fn.bsgrid.extendOtherMethods.fixedHeader = function (iFirst, options) {
         if ($.trim($('#' + options.gridId + '_fixedDiv').data('fixedGridLock')) == 'lock') {
@@ -68,10 +113,13 @@
             $('#' + options.gridId).width($('#' + options.gridId + '_fixedDiv').width() - 1);
         }
         $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').clone(true).prependTo('#' + options.gridId + ' thead');
-        $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').css({'z-index': 10, position: 'fixed'}).width($('#' + options.gridId + ' thead tr:last').width());
+        $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').css({
+            'z-index': 10,
+            position: 'fixed'
+        }).width($('#' + options.gridId + ' thead tr:last').width());
         $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').each(function (i) {
             var position = $('#' + options.gridId + ' thead tr:eq(' + (headTrNum + i) + ')').position();
-            $(this).css({top: position.top - getSize($(this).find('th').css('border-top-width')), left: position.left });
+            $(this).css({top: position.top - getSize($(this).find('th').css('border-top-width')), left: position.left});
         });
 
         $('#' + options.gridId + ' thead tr:gt(' + (headTrNum - 1) + ')').each(function (ri) {
@@ -89,9 +137,6 @@
         }
     };
     $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.initGridMethods, 'fixedHeader', function (gridId, options) {
-        if (!options.settings.extend.settings.fixedGridHeader) {
-            return;
-        }
         $('#' + gridId).wrap('<div id="' + gridId + '_fixedDiv"></div>');
         $('#' + gridId + '_fixedDiv').data('fixedGridLock', '');
         $('#' + gridId + '_fixedDiv').css({
@@ -110,9 +155,7 @@
     });
 
     $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'fixedHeader', function (parseSuccess, gridData, options) {
-        if (options.settings.extend.settings.fixedGridHeader) {
-            $.fn.bsgrid.extendOtherMethods.fixedHeader(false, options);
-        }
+        $.fn.bsgrid.extendOtherMethods.fixedHeader(false, options);
     });
 
     /*************** extend other methods end ***************/
@@ -121,32 +164,35 @@
         // bind extend methods
     $.fn.bsgrid.extendInitGrid.bindExtendMethods = function (gridId, options) {
         var gridObj = $.fn.bsgrid.getGridObj(gridId);
-        gridObj.getCheckedRowsIndexs = function () {
-            return $.fn.bsgrid.defaults.extend.getCheckedRowsIndexs(options);
-        };
-        gridObj.getCheckedRowsRecords = function () {
-            return $.fn.bsgrid.defaults.extend.getCheckedRowsRecords(options);
-        };
-        gridObj.activeGridEditMode = function () {
-            return $.fn.bsgrid.defaults.extend.activeGridEditMode(options);
-        };
-        gridObj.getChangedRowsIndexs = function () {
-            return $.fn.bsgrid.defaults.extend.getChangedRowsIndexs(options);
-        };
-        gridObj.getChangedRowsOldRecords = function () {
-            return $.fn.bsgrid.defaults.extend.getChangedRowsOldRecords(options);
-        };
-        gridObj.getRowsChangedColumnsValue = function () {
-            return $.fn.bsgrid.defaults.extend.getRowsChangedColumnsValue(options);
-        };
+        if ($('#' + options.gridId + ' thead tr:last th[' + options.settings.colsProperties.checkAttr + '!=\'\']').length != 0) {
+            gridObj.getCheckedRowsIndexs = function () {
+                return $.fn.bsgrid.defaults.extend.getCheckedRowsIndexs(options);
+            };
+            gridObj.getCheckedRowsRecords = function () {
+                return $.fn.bsgrid.defaults.extend.getCheckedRowsRecords(options);
+            };
+        }
+        if (options.settings.extend.settings.supportGridEdit) {
+            gridObj.activeGridEditMode = function () {
+                return $.fn.bsgrid.defaults.extend.activeGridEditMode(options);
+            };
+            gridObj.getChangedRowsIndexs = function () {
+                return $.fn.bsgrid.defaults.extend.getChangedRowsIndexs(options);
+            };
+            gridObj.getChangedRowsOldRecords = function () {
+                return $.fn.bsgrid.defaults.extend.getChangedRowsOldRecords(options);
+            };
+            gridObj.getRowsChangedColumnsValue = function () {
+                return $.fn.bsgrid.defaults.extend.getRowsChangedColumnsValue(options);
+            };
+        }
     };
     $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.initGridMethods, 'bindExtendMethods', $.fn.bsgrid.extendInitGrid.bindExtendMethods);
 
     // init grid check
     $.fn.bsgrid.extendInitGrid.initGridCheck = function (gridId, options) {
         $.fn.bsgrid.getGridHeaderObject(options).each(function (hi) {
-            var check = $.trim($(this).attr(options.settings.colsProperties.checkAttr));
-            if (check == 'true') {
+            if (options.columnsModel[hi].check == 'true') {
                 if ($.trim($(this).html()) == '') {
                     $(this).html('<input class="bsgrid_editgrid_check" type="checkbox"/>');
                 }
@@ -163,14 +209,11 @@
 
     // init search conditions
     $.fn.bsgrid.extendInitGrid.initSearchConditions = function (gridId, options) {
-        if ($.trim(options.settings.extend.settings.searchConditionsContainerId) == '') {
-            return;
-        }
         var conditionsHtml = new StringBuilder();
         conditionsHtml.append('<select class="bsgrid_conditions_select">');
         var params = {};
-        $.fn.bsgrid.getGridHeaderObject(options).each(function () {
-            var index = $.trim($(this).attr(options.settings.colsProperties.indexAttr));
+        $.fn.bsgrid.getGridHeaderObject(options).each(function (i) {
+            var index = options.columnsModel[i].index;
             var text = $.trim($(this).text());
             if (index != '' && text != '' && $.trim(params[index]) == '') {
                 params[index] = text;
@@ -193,7 +236,7 @@
 
     // init column move
     $.fn.bsgrid.extendInitGrid.initColumnMove = function (gridId, options) {
-        if (!options.settings.extend.settings.supportColumnMove || $('#' + options.gridId + ' thead tr').length != 1) {
+        if ($('#' + options.gridId + ' thead tr').length != 1) {
             return;
         }
         $('#' + options.gridId).css({'table-layout': 'fixed'});
@@ -216,7 +259,7 @@
                     mObj = nObj;
                 }
                 if ((i != 0 && event.clientX - left < 10) || (i != headLen - 1 && event.clientX - nLeft > -10)) {
-                    $(obj).css({ 'cursor': 'e-resize' });
+                    $(obj).css({'cursor': 'e-resize'});
                     if ($.trim($(obj).data('ex_mousedown')) != 'mousedown') {
                         return;
                     }
@@ -229,7 +272,7 @@
                         $(mObj).width(newMWidth).prev().width(preNewMWidth);
                     }
                 } else {
-                    $(mObj).css({ 'cursor': 'default' });
+                    $(mObj).css({'cursor': 'default'});
                     releaseDownData(obj, i, headLen);
                 }
             });
@@ -273,12 +316,9 @@
         // render checkbox to check rows
     $.fn.bsgrid.extendRenderPerColumn.renderCheck = function (record, rowIndex, colIndex, tdObj, trObj, options) {
         if (rowIndex < options.curPageRowsNum) {
-            var gridObj = $.fn.bsgrid.getGridObj(options.gridId);
-            var check = gridObj.getColumnAttr(colIndex, options.settings.colsProperties.checkAttr);
-            var index = gridObj.getColumnAttr(colIndex, options.settings.colsProperties.indexAttr);
-            var value = gridObj.getColumnValue(rowIndex, index);
-            if (check == 'true') {
-                return '<input class="' + 'bsgrid_editgrid_check' + '" type="checkbox" value="' + value + '"/>';
+            var columnModel = options.columnsModel[colIndex];
+            if (columnModel.check == 'true') {
+                return '<input class="' + 'bsgrid_editgrid_check' + '" type="checkbox" value="' + $.fn.bsgrid.getRecordIndexValue(record, columnModel.index, options) + '"/>';
             }
         }
         return false;
@@ -288,11 +328,10 @@
 
     // render form methods: text, hidden, password, radio, button, checkbox, textarea
     $.fn.bsgrid.extendRenderPerColumn.renderForm = function (record, rowIndex, colIndex, tdObj, trObj, options) {
-        if (options.settings.extend.settings.supportGridEdit && rowIndex < options.curPageRowsNum) {
-            var gridObj = $.fn.bsgrid.getGridObj(options.gridId);
-            var index = gridObj.getColumnAttr(colIndex, options.settings.colsProperties.indexAttr);
-            var edit = gridObj.getColumnAttr(colIndex, options.settings.colsProperties.editAttr);
-            var value = gridObj.getColumnValue(rowIndex, index);
+        if (rowIndex < options.curPageRowsNum) {
+            var columnModel = options.columnsModel[colIndex];
+            var edit = columnModel.edit;
+            var value = $.fn.bsgrid.getRecordIndexValue(record, columnModel.index, options);
             if (edit == 'checkbox') {
                 return value + '<input class="' + 'bsgrid_editgrid_hidden bsgrid_editgrid_checkbox' + '" type="' + edit + '" value="' + value + '"/>';
             } else if (edit == 'text' || edit == 'hidden' || edit == 'password' || edit == 'radio' || edit == 'button') {
@@ -310,7 +349,7 @@
     /*************** extend after render grid start ***************/
     $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'renderLineNumber', function (parseSuccess, gridData, options) {
         $.fn.bsgrid.getGridHeaderObject(options).each(function (i) {
-            var num = $.trim($(this).attr(options.settings.colsProperties.lineNumberAttr));
+            var num = options.columnsModel[i].lineNumber;
             if (num == 'line' || num == 'total_line') {
                 $('#' + options.gridId + ' tbody tr:lt(' + options.curPageRowsNum + ') td:nth-child(' + (i + 1) + ')').each(function (li) {
                     $(this).html((num == 'line') ? (li + 1) : (li + options.startRow));
@@ -321,8 +360,7 @@
 
     $.fn.bsgrid.extendAfterRenderGrid.addCheckChangedEvent = function (parseSuccess, gridData, options) {
         $.fn.bsgrid.getGridHeaderObject(options).each(function (hi) {
-            var check = $.trim($(this).attr(options.settings.colsProperties.checkAttr));
-            if (check == 'true') {
+            if (options.columnsModel[hi].checkAttr == 'true') {
                 var checkboxObj = $(this).find('input[type=checkbox]');
                 var checkboxObjs = $('#' + options.gridId + ' tbody tr td:nth-child(' + (hi + 1) + ')>input[type=checkbox]');
                 checkboxObjs.change(function () {
@@ -340,20 +378,14 @@
     $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'addCheckChangedEvent', $.fn.bsgrid.extendAfterRenderGrid.addCheckChangedEvent);
 
     $.fn.bsgrid.extendAfterRenderGrid.addGridEditEvent = function (parseSuccess, gridData, options) {
-        if (!options.settings.extend.settings.supportGridEdit) {
-            return;
-        }
         $('#' + options.gridId + ' tbody tr:lt(' + options.curPageRowsNum + ')').each(function (ri) {
             // edit form change event
             var rowObj = this;
+            var columnsModel = options.columnsModel;
             $(rowObj).find('td').each(function (ci) {
-                var gridObj = $.fn.bsgrid.getGridObj(options.gridId);
-                var index = gridObj.getColumnAttr(ci, options.settings.colsProperties.indexAttr);
-                var edit = gridObj.getColumnAttr(ci, options.settings.colsProperties.editAttr);
-                var value = gridObj.getColumnValue(ri, index);
-                if (edit != '') {
+                if (columnsModel[ci].edit != '') {
                     $(this).find('.bsgrid_editgrid_checkbox, .bsgrid_editgrid_edit').change(function () {
-                        if ($.trim($(this).val()) != value) {
+                        if ($.trim($(this).val()) != $.fn.bsgrid.getGridObj(options.gridId).getColumnValue(ri, columnsModel[ci].index)) {
                             $(this).addClass('bsgrid_editgrid_change');
                         } else {
                             $(this).removeClass('bsgrid_editgrid_change');
@@ -407,17 +439,11 @@
 
     // aggregation
     $.fn.bsgrid.extendAfterRenderGrid.aggregation = function (parseSuccess, gridData, options) {
-        var aggAttr = options.settings.colsProperties.aggAttr;
-        if ($('#' + options.gridId + ' tfoot td[' + aggAttr + '!=\'\']').length == 0) {
-            return;
-        }
         var gridObj = $.fn.bsgrid.getGridObj(options.gridId);
-        $('#' + options.gridId + ' tfoot tr td[' + aggAttr + '!=\'\']').each(function () {
-            var aggInfo = $.trim($(this).attr(aggAttr));
-            if (aggInfo.length != 0) {
-                var aggInfoArray = aggInfo.split(',');
-                var aggName = aggInfoArray[0].toLocaleLowerCase();
-                var aggIndex = aggInfoArray.length > 1 ? aggInfoArray[1] : '';
+        var columnsModel = options.columnsModel;
+        $('#' + options.gridId + ' tfoot tr td[' + options.settings.colsProperties.aggAttr + '!=\'\']').each(function (i) {
+            if (columnsModel[i].aggName != '') {
+                var aggName = columnsModel[i].aggName;
                 var val = null;
                 if (aggName == 'count') {
                     val = options.curPageRowsNum;
@@ -427,7 +453,7 @@
                     }
                     var valHtml = new StringBuilder();
                     $('#' + options.gridId + ' tbody tr:lt(' + options.curPageRowsNum + ')').each(function (ri) {
-                        var rval = gridObj.getColumnValue(ri, aggIndex);
+                        var rval = gridObj.getColumnValue(ri, columnsModel[i].aggIndex);
                         if (rval == '') {
                         } else if (aggName == 'countnotnone') {
                             val = (val == null ? 0 : val) + 1;
@@ -459,7 +485,7 @@
     /*************** extend after render grid end ***************/
 
 
-    /*************** extend methods start ***************/
+    /*************** extend edit methods start ***************/
     /**
      * Gget checked rows indexs, from 0.
      *
@@ -544,18 +570,16 @@
      */
     $.fn.bsgrid.defaults.extend.getRowsChangedColumnsValue = function (options) {
         var values = {};
-        var gridObj = $.fn.bsgrid.getGridObj(options.gridId);
         $.each($.fn.bsgrid.defaults.extend.getChangedRowsIndexs(options), function (i, rowIndex) {
             values['row_' + rowIndex] = {};
             $('#' + options.gridId + ' tbody tr:eq(' + rowIndex + ') td').each(function (ci) {
                 if ($(this).find('.bsgrid_editgrid_change').length > 0) {
-                    var index = gridObj.getColumnAttr(ci, options.settings.colsProperties.indexAttr);
-                    values['row_' + rowIndex][index] = $(this).find('.bsgrid_editgrid_change').val();
+                    values['row_' + rowIndex][options.columnsModel[ci].index] = $(this).find('.bsgrid_editgrid_change').val();
                 }
             })
         });
         return values;
     };
-    /*************** extend methods end ***************/
+    /*************** extend edit methods end ***************/
 
 })(jQuery);

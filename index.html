@@ -189,6 +189,27 @@
         }
     &lt;/script&gt;
 </pre>
+        <h3 style="font-size: 1.2em; margin-bottom: 0;">带参数查询</h3>
+<pre style="font-size: 0.9em; margin-top: 0; background-color: #eee;">
+        var gridObj;
+        $(function () {
+            gridObj = $.fn.bsgrid.init('searchTable', {
+                url: 'data/json.jsp',
+                // autoLoad: false,
+                pageSizeSelect: true,
+                pageSize: 10
+            });
+            doSearch();
+        });
+
+        function doSearch() {
+            // 提供以下三种带参数方式，可任选其中任意一种
+            // gridObj.options.otherParames = 'param1=val1&param2=val2';
+            // gridObj.options.otherParames = {'param1': 'val1', 'param2': 'val2'};
+            gridObj.options.otherParames = $('#searchForm').serializeArray();      // jQuery推荐方式
+            gridObj.page(1);
+        }
+</pre>
     </div>
 
     <h2 id="title" style="display: none;"></h2>
@@ -214,14 +235,11 @@
         <tr>
             <td>版本下载：</td>
             <td>
+                <a href="http://git.oschina.net/bs2004/jquery.bsgrid/repository/archive?ref=v1.35"
+                   target="_blank">1.35</a>
+                &emsp;
                 <a href="http://git.oschina.net/bs2004/jquery.bsgrid/repository/archive?ref=v1.33"
                    target="_blank">1.33</a>
-                &emsp;
-                <a href="http://git.oschina.net/bs2004/jquery.bsgrid/repository/archive?ref=v1.32"
-                   target="_blank">1.32</a>
-                &emsp;
-                <a href="http://git.oschina.net/bs2004/jquery.bsgrid/repository/archive?ref=v1.30"
-                   target="_blank">1.30</a>
             </td>
         </tr>
         <tr>
@@ -235,24 +253,55 @@
 
     <table id="about" class="introStyle" style="display: none;">
         <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
             <td>个人网站:</td>
             <td><a href="http://thebestofyouth.com" target="_blank">http://thebestofyouth.com</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
         </tr>
         <tr>
             <td>电子邮箱:</td>
             <td>bs2004@163.com</td>
         </tr>
         <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
             <td>GitHub:</td>
             <td><a href="http://github.com/baishui2004" target="_blank">http://github.com/baishui2004</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Git@OSC:</td>
+            <td><a href="http://git.oschina.net/bs2004" target="_blank">http://git.oschina.net/bs2004</a></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
         </tr>
         <tr>
             <td>OSChina:</td>
             <td><a href="http://oschina.net/baishui2004" target="_blank">http://oschina.net/baishui2004</a></td>
         </tr>
         <tr>
-            <td>Git@OSC:</td>
-            <td><a href="http://git.oschina.net/bs2004" target="_blank">http://git.oschina.net/bs2004</a></td>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+        </tr>
+        <tr>
+            <td colspan="2">@&nbsp;江苏·苏州</td>
         </tr>
     </table>
 </div>
