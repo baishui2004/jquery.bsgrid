@@ -33,10 +33,18 @@
             var headLen = headObj.length;
             headObj.each(function (i) {
                 var obj = this;
+
+                // disable select text when mouse moving
+                $(obj).bind('selectstart', function () { // IE/Safari/Chrome
+                    return false;
+                });
+                $(obj).css('-moz-user-select', 'none'); // Firefox/Opera
+
                 $(obj).mousedown(function () {
                     bindDownData(obj, i, headLen);
                 });
-                $(obj).mousemove(function () {
+                $(obj).mousemove(function (e) {
+                    e = e || event;
                     var left = $(obj).offset().left;
                     var nObj = 0, nLeft = 0;
                     if (i != headLen - 1) {
@@ -44,19 +52,19 @@
                         nLeft = nObj.offset().left;
                     }
                     var mObj = obj;
-                    if (i != headLen - 1 && event.clientX - nLeft > -10) {
+                    if (i != headLen - 1 && e.clientX - nLeft > -10) {
                         mObj = nObj;
                     }
-                    if ((i != 0 && event.clientX - left < 10) || (i != headLen - 1 && event.clientX - nLeft > -10)) {
+                    if ((i != 0 && e.clientX - left < 10) || (i != headLen - 1 && e.clientX - nLeft > -10)) {
                         $(obj).css({ 'cursor': 'e-resize' });
                         if ($.trim($(obj).data('ex_mousedown')) != 'mousedown') {
                             return;
                         }
 
                         var mWidth = $(mObj).width();
-                        var newMWidth = mWidth - event.clientX + $(mObj).offset().left;
+                        var newMWidth = mWidth - e.clientX + $(mObj).offset().left;
                         var preMWidth = $(mObj).prev().width();
-                        var preNewMWidth = preMWidth + event.clientX - $(mObj).offset().left;
+                        var preNewMWidth = preMWidth + e.clientX - $(mObj).offset().left;
                         if (parseInt(newMWidth) > 19 && parseInt(preNewMWidth) > 19) {
                             $(mObj).width(newMWidth).prev().width(preNewMWidth);
                         }
@@ -68,9 +76,10 @@
                 $(obj).mouseup(function () {
                     releaseDownData(obj, i, headLen);
                 });
-                $(obj).mouseout(function () {
+                $(obj).mouseout(function (e) {
+                    e = e || event;
                     var objOffect = $(obj).offset();
-                    if (objOffect.top > event.clientY || objOffect.top + $(obj).height() < event.clientY) {
+                    if (objOffect.top > e.clientY || objOffect.top + $(obj).height() < e.clientY) {
                         releaseDownData(obj, i, headLen);
                     }
                 });

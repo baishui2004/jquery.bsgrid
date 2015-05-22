@@ -37,7 +37,7 @@ $.bsgrid = {
                 params.append(encodeURIComponent(encodeURIComponent(obj[key])));
             }
         }
-        return  params.length > 0 ? params.toString().substring(1) : '';
+        return params.length > 0 ? params.toString().substring(1) : '';
     },
 
     /**
@@ -104,5 +104,14 @@ $.bsgrid = {
                 obj.attr(prop, val);
             }
         }
+    },
+
+    /**
+     * alert message.
+     *
+     * @param msg message
+     */
+    alert: function (msg) {
+        alert(msg);
     }
 };

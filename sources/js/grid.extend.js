@@ -7,7 +7,7 @@
  * require common.js, util.js, grid.js.
  *
  * @author Baishui2004
- * @Date January 9, 2015
+ * @Date May 18, 2015
  */
 (function ($) {
 
@@ -21,45 +21,37 @@
         fixedGridHeight: '320px' // fixed grid height, auto scroll
     };
 
-
     // config properties's name
-    // line number, value: line, total_line
-    $.fn.bsgrid.defaults.colsProperties.lineNumberAttr = 'w_num';
-    // value: check
-    $.fn.bsgrid.defaults.colsProperties.checkAttr = 'w_check';
-    // grid edit forms' values: text, hidden, password, radio, button, checkbox, textarea
-    $.fn.bsgrid.defaults.colsProperties.editAttr = 'w_edit';
-    // aggregation, values: count, countNotNone, sum, avg, max, min, concat
-    $.fn.bsgrid.defaults.colsProperties.aggAttr = 'w_agg';
+    $.extend(true, $.fn.bsgrid.defaults.colsProperties, {
+        lineNumberAttr: 'w_num', // line number, value: line, total_line
+        checkAttr: 'w_check', // value: true
+        editAttr: 'w_edit', // grid edit forms' values: text, hidden, password, radio, button, checkbox, textarea
+        aggAttr: 'w_agg' // aggregation, values: count, countNotNone, sum, avg, max, min, concat
+    });
+
+    $.fn.bsgrid.extendInitGrid = {}; // extend init grid
+    $.fn.bsgrid.extendBeforeRenderGrid = {}; // extend before render grid
+    $.fn.bsgrid.extendRenderPerRow = {}; // extend render per row
+    $.fn.bsgrid.extendRenderPerColumn = {}; // extend render per column
+    $.fn.bsgrid.extendAfterRenderGrid = {}; // extend after render grid
+    $.fn.bsgrid.extendOtherMethods = {}; // extend other methods
 
 
-    // extend init grid
-    $.fn.bsgrid.extendInitGrid = {};
-    // extend before render grid
-    $.fn.bsgrid.extendBeforeRenderGrid = {};
-    // extend render per row
-    $.fn.bsgrid.extendRenderPerRow = {};
-    // extend render per column
-    $.fn.bsgrid.extendRenderPerColumn = {};
-    // extend after render grid
-    $.fn.bsgrid.extendAfterRenderGrid = {};
-
-    // extend other methods
-    $.fn.bsgrid.extendOtherMethods = {};
-
-    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.initGridMethods, 'initGridOptions', function (gridId, options) {
+    /*************** extend init grid start ***************/
+    $.fn.bsgrid.extendInitGrid.initGridExtendOptions = function (gridId, options) {
         var columnsModel = options.columnsModel;
+        var colsProperties = options.settings.colsProperties;
         $.fn.bsgrid.getGridHeaderObject(options).each(function (i) {
-            columnsModel[i].lineNumber = $.trim($(this).attr(options.settings.colsProperties.lineNumberAttr));
-            columnsModel[i].check = $.trim($(this).attr(options.settings.colsProperties.checkAttr));
-            columnsModel[i].edit = $.trim($(this).attr(options.settings.colsProperties.editAttr));
+            columnsModel[i].lineNumber = $.trim($(this).attr(colsProperties.lineNumberAttr));
+            columnsModel[i].check = $.trim($(this).attr(colsProperties.checkAttr));
+            columnsModel[i].edit = $.trim($(this).attr(colsProperties.editAttr));
         });
 
-        if ($('#' + options.gridId + ' tfoot tr td[' + options.settings.colsProperties.aggAttr + '!=\'\']').length != 0) {
+        if ($('#' + options.gridId + ' tfoot tr td[' + colsProperties.aggAttr + '!=\'\']').length != 0) {
             $('#' + options.gridId + ' tfoot tr td').each(function (i) {
                 columnsModel[i].aggName = '';
                 columnsModel[i].aggIndex = '';
-                var aggInfo = $.trim($(this).attr(options.settings.colsProperties.aggAttr));
+                var aggInfo = $.trim($(this).attr(colsProperties.aggAttr));
                 if (aggInfo.length != 0) {
                     var aggInfoArray = aggInfo.split(',');
                     columnsModel[i].aggName = aggInfoArray[0].toLocaleLowerCase();
@@ -68,111 +60,18 @@
             });
         }
 
-        if ($('#' + options.gridId + ' thead tr:last th[' + options.settings.colsProperties.checkAttr + '!=\'\']').length == 0) {
-            delete options.settings.extend.initGridMethods.initGridCheck;
-            delete options.settings.extend.renderPerColumnMethods.renderCheck;
-            delete options.settings.extend.afterRenderGridMethods.addCheckChangedEvent;
+        if ($('#' + options.gridId + ' thead tr:last th[' + colsProperties.lineNumberAttr + '$=\'line\']').length != 0) {
+            options.settings.extend.afterRenderGridMethods.renderLineNumber = $.fn.bsgrid.extendAfterRenderGrid.renderLineNumber;
         }
-        if (!options.settings.extend.settings.supportGridEdit) {
-            delete options.settings.extend.renderPerColumnMethods.renderForm;
-            delete options.settings.extend.afterRenderGridMethods.addGridEditEvent;
-        }
-        if (!options.settings.extend.settings.supportColumnMove) {
-            delete options.settings.extend.initGridMethods.initColumnMove;
-        }
-        if (!options.settings.extend.settings.fixedGridHeader) {
-            delete options.settings.extend.initGridMethods.fixedHeader;
-            delete options.settings.extend.afterRenderGridMethods.fixedHeader;
-        }
-        if ($.trim(options.settings.extend.settings.searchConditionsContainerId) == '') {
-            delete options.settings.extend.initGridMethods.initSearchConditions;
-        }
-        if ($('#' + options.gridId + ' tfoot td[' + options.settings.colsProperties.aggAttr + '!=\'\']').length == 0) {
-            delete options.settings.extend.afterRenderGridMethods.aggregation;
-        }
-    });
-
-    /*************** extend other methods start ***************/
-    $.fn.bsgrid.extendOtherMethods.fixedHeader = function (iFirst, options) {
-        if ($.trim($('#' + options.gridId + '_fixedDiv').data('fixedGridLock')) == 'lock') {
-            return;
-        }
-        $('#' + options.gridId + '_fixedDiv').data('fixedGridLock', 'lock');
-        var headTrNum = $('#' + options.gridId + ' thead tr').length;
-        if (!iFirst) {
-            headTrNum = headTrNum / 2;
-            $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').remove();
-        }
-        var fixedGridHeight = getSize(options.settings.extend.settings.fixedGridHeight);
-        if (fixedGridHeight < $('#' + options.gridId).height()) {
-            $('#' + options.gridId + '_fixedDiv').height(fixedGridHeight);
-            $('#' + options.gridId).width($('#' + options.gridId + '_fixedDiv').width() - 18);
-            $('#' + options.gridId + '_fixedDiv').animate({scrollTop: '0px'}, 0);
-        } else {
-            $('#' + options.gridId + '_fixedDiv').height($('#' + options.gridId).height());
-            $('#' + options.gridId).width($('#' + options.gridId + '_fixedDiv').width() - 1);
-        }
-        $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').clone(true).prependTo('#' + options.gridId + ' thead');
-        $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').css({
-            'z-index': 10,
-            position: 'fixed'
-        }).width($('#' + options.gridId + ' thead tr:last').width());
-        $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').each(function (i) {
-            var position = $('#' + options.gridId + ' thead tr:eq(' + (headTrNum + i) + ')').position();
-            $(this).css({top: position.top - getSize($(this).find('th').css('border-top-width')), left: position.left});
-        });
-
-        $('#' + options.gridId + ' thead tr:gt(' + (headTrNum - 1) + ')').each(function (ri) {
-            $(this).find('th').each(function (i) {
-                var thObj = $(this);
-                $('#' + options.gridId + ' thead tr:eq(' + ri + ') th:eq(' + i + ')').height(thObj.height() + ((ri == headTrNum - 1) ? 2 : 1) * getSize(thObj.css('border-top-width'))).width(thObj.width() + getSize(thObj.css('border-left-width')));
-            });
-        });
-        $('#' + options.gridId + '_fixedDiv').data('fixedGridLock', '');
-
-        function getSize(sizeStr) {
-            sizeStr = $.trim(sizeStr).toLowerCase().replace('px', '');
-            var sizeNum = parseFloat(sizeStr);
-            return isNaN(sizeNum) ? 0 : sizeNum;
-        }
-    };
-    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.initGridMethods, 'fixedHeader', function (gridId, options) {
-        $('#' + gridId).wrap('<div id="' + gridId + '_fixedDiv"></div>');
-        $('#' + gridId + '_fixedDiv').data('fixedGridLock', '');
-        $('#' + gridId + '_fixedDiv').css({
-            padding: 0,
-            'border-width': 0,
-            width: '98%',
-            'overflow-y': 'auto',
-            'margin-bottom': '-1px'
-        });
-        $('#' + gridId).css({width: 'auto'});
-        $('#' + gridId + '_pt_outTab').css({'border-top-width': '1px'});
-        $.fn.bsgrid.extendOtherMethods.fixedHeader(true, options);
-        $(window).resize(function () {
-            $.fn.bsgrid.extendOtherMethods.fixedHeader(false, options);
-        });
-    });
-
-    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'fixedHeader', function (parseSuccess, gridData, options) {
-        $.fn.bsgrid.extendOtherMethods.fixedHeader(false, options);
-    });
-
-    /*************** extend other methods end ***************/
-
-    /*************** extend init grid start ***************/
-        // bind extend methods
-    $.fn.bsgrid.extendInitGrid.bindExtendMethods = function (gridId, options) {
-        var gridObj = $.fn.bsgrid.getGridObj(gridId);
-        if ($('#' + options.gridId + ' thead tr:last th[' + options.settings.colsProperties.checkAttr + '!=\'\']').length != 0) {
-            gridObj.getCheckedRowsIndexs = function () {
-                return $.fn.bsgrid.defaults.extend.getCheckedRowsIndexs(options);
-            };
-            gridObj.getCheckedRowsRecords = function () {
-                return $.fn.bsgrid.defaults.extend.getCheckedRowsRecords(options);
-            };
+        if ($('#' + options.gridId + ' thead tr:last th[' + colsProperties.checkAttr + '=\'true\']').length != 0) {
+            options.settings.extend.initGridMethods.initGridCheck = $.fn.bsgrid.extendInitGrid.initGridCheck;
+            options.settings.extend.renderPerColumnMethods.renderCheck = $.fn.bsgrid.extendRenderPerColumn.renderCheck;
+            options.settings.extend.afterRenderGridMethods.addCheckChangedEvent = $.fn.bsgrid.extendAfterRenderGrid.addCheckChangedEvent;
         }
         if (options.settings.extend.settings.supportGridEdit) {
+            options.settings.extend.renderPerColumnMethods.renderForm = $.fn.bsgrid.extendRenderPerColumn.renderForm;
+            options.settings.extend.afterRenderGridMethods.addGridEditEvent = $.fn.bsgrid.extendAfterRenderGrid.addGridEditEvent;
+            var gridObj = $.fn.bsgrid.getGridObj(gridId);
             gridObj.activeGridEditMode = function () {
                 return $.fn.bsgrid.defaults.extend.activeGridEditMode(options);
             };
@@ -186,8 +85,22 @@
                 return $.fn.bsgrid.defaults.extend.getRowsChangedColumnsValue(options);
             };
         }
+        if (options.settings.extend.settings.supportColumnMove) {
+            options.settings.extend.initGridMethods.initColumnMove = $.fn.bsgrid.extendInitGrid.initColumnMove;
+        }
+        if (options.settings.extend.settings.fixedGridHeader) {
+            options.settings.extend.initGridMethods.initFixedHeader = $.fn.bsgrid.extendOtherMethods.initFixedHeader;
+            options.settings.extend.afterRenderGridMethods.fixedHeader = function (parseSuccess, gridData, options) {
+                $.fn.bsgrid.extendOtherMethods.fixedHeader(false, options);
+            };
+        }
+        if ($.trim(options.settings.extend.settings.searchConditionsContainerId) != '') {
+            options.settings.extend.initGridMethods.initSearchConditions = $.fn.bsgrid.extendInitGrid.initSearchConditions;
+        }
+        if ($('#' + options.gridId + ' tfoot td[' + colsProperties.aggAttr + '!=\'\']').length != 0) {
+            options.settings.extend.afterRenderGridMethods.aggregation = $.fn.bsgrid.extendAfterRenderGrid.aggregation;
+        }
     };
-    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.initGridMethods, 'bindExtendMethods', $.fn.bsgrid.extendInitGrid.bindExtendMethods);
 
     // init grid check
     $.fn.bsgrid.extendInitGrid.initGridCheck = function (gridId, options) {
@@ -202,10 +115,15 @@
                 });
             }
         });
+
+        var gridObj = $.fn.bsgrid.getGridObj(gridId);
+        gridObj.getCheckedRowsIndexs = function () {
+            return $.fn.bsgrid.defaults.extend.getCheckedRowsIndexs(options);
+        };
+        gridObj.getCheckedRowsRecords = function () {
+            return $.fn.bsgrid.defaults.extend.getCheckedRowsRecords(options);
+        };
     };
-
-    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.initGridMethods, 'initGridCheck', $.fn.bsgrid.extendInitGrid.initGridCheck);
-
 
     // init search conditions
     $.fn.bsgrid.extendInitGrid.initSearchConditions = function (gridId, options) {
@@ -231,9 +149,6 @@
         }).trigger('change');
     };
 
-    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.initGridMethods, 'initSearchConditions', $.fn.bsgrid.extendInitGrid.initSearchConditions);
-
-
     // init column move
     $.fn.bsgrid.extendInitGrid.initColumnMove = function (gridId, options) {
         if ($('#' + options.gridId + ' thead tr').length != 1) {
@@ -244,10 +159,18 @@
         var headLen = headObj.length;
         headObj.each(function (i) {
             var obj = this;
+
+            // disable select text when mouse moving
+            $(obj).bind('selectstart', function () { // IE/Safari/Chrome
+                return false;
+            });
+            $(obj).css('-moz-user-select', 'none'); // Firefox/Opera
+
             $(obj).mousedown(function () {
                 bindDownData(obj, i, headLen);
             });
-            $(obj).mousemove(function () {
+            $(obj).mousemove(function (e) {
+                e = e || event;
                 var left = $(obj).offset().left;
                 var nObj = 0, nLeft = 0;
                 if (i != headLen - 1) {
@@ -255,19 +178,19 @@
                     nLeft = nObj.offset().left;
                 }
                 var mObj = obj;
-                if (i != headLen - 1 && event.clientX - nLeft > -10) {
+                if (i != headLen - 1 && e.clientX - nLeft > -10) {
                     mObj = nObj;
                 }
-                if ((i != 0 && event.clientX - left < 10) || (i != headLen - 1 && event.clientX - nLeft > -10)) {
+                if ((i != 0 && e.clientX - left < 10) || (i != headLen - 1 && e.clientX - nLeft > -10)) {
                     $(obj).css({'cursor': 'e-resize'});
                     if ($.trim($(obj).data('ex_mousedown')) != 'mousedown') {
                         return;
                     }
 
                     var mWidth = $(mObj).width();
-                    var newMWidth = mWidth - event.clientX + $(mObj).offset().left;
+                    var newMWidth = mWidth - e.clientX + $(mObj).offset().left;
                     var preMWidth = $(mObj).prev().width();
-                    var preNewMWidth = preMWidth + event.clientX - $(mObj).offset().left;
+                    var preNewMWidth = preMWidth + e.clientX - $(mObj).offset().left;
                     if (parseInt(newMWidth) > 19 && parseInt(preNewMWidth) > 19) {
                         $(mObj).width(newMWidth).prev().width(preNewMWidth);
                     }
@@ -279,9 +202,10 @@
             $(obj).mouseup(function () {
                 releaseDownData(obj, i, headLen);
             });
-            $(obj).mouseout(function () {
+            $(obj).mouseout(function (e) {
+                e = e || event;
                 var objOffect = $(obj).offset();
-                if (objOffect.top > event.clientY || objOffect.top + $(obj).height() < event.clientY) {
+                if (objOffect.top > e.clientY || objOffect.top + $(obj).height() < e.clientY) {
                     releaseDownData(obj, i, headLen);
                 }
             });
@@ -307,8 +231,6 @@
             }
         });
     };
-
-    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.initGridMethods, 'initColumnMove', $.fn.bsgrid.extendInitGrid.initColumnMove);
     /*************** extend init grid end ***************/
 
 
@@ -323,8 +245,6 @@
         }
         return false;
     };
-
-    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.renderPerColumnMethods, 'renderCheck', $.fn.bsgrid.extendRenderPerColumn.renderCheck);
 
     // render form methods: text, hidden, password, radio, button, checkbox, textarea
     $.fn.bsgrid.extendRenderPerColumn.renderForm = function (record, rowIndex, colIndex, tdObj, trObj, options) {
@@ -342,12 +262,12 @@
         }
         return false;
     };
-
-    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.renderPerColumnMethods, 'renderForm', $.fn.bsgrid.extendRenderPerColumn.renderForm);
     /*************** extend render per column end ***************/
 
+
     /*************** extend after render grid start ***************/
-    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'renderLineNumber', function (parseSuccess, gridData, options) {
+        // render line number
+    $.fn.bsgrid.extendAfterRenderGrid.renderLineNumber = function (parseSuccess, gridData, options) {
         $.fn.bsgrid.getGridHeaderObject(options).each(function (i) {
             var num = options.columnsModel[i].lineNumber;
             if (num == 'line' || num == 'total_line') {
@@ -356,8 +276,9 @@
                 });
             }
         });
-    });
+    };
 
+    // add check changed event
     $.fn.bsgrid.extendAfterRenderGrid.addCheckChangedEvent = function (parseSuccess, gridData, options) {
         $.fn.bsgrid.getGridHeaderObject(options).each(function (hi) {
             if (options.columnsModel[hi].checkAttr == 'true') {
@@ -375,8 +296,7 @@
         });
     };
 
-    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'addCheckChangedEvent', $.fn.bsgrid.extendAfterRenderGrid.addCheckChangedEvent);
-
+    // add grid edit event
     $.fn.bsgrid.extendAfterRenderGrid.addGridEditEvent = function (parseSuccess, gridData, options) {
         $('#' + options.gridId + ' tbody tr:lt(' + options.curPageRowsNum + ')').each(function (ri) {
             // edit form change event
@@ -435,8 +355,6 @@
         }
     };
 
-    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'addGridEditEvent', $.fn.bsgrid.extendAfterRenderGrid.addGridEditEvent);
-
     // aggregation
     $.fn.bsgrid.extendAfterRenderGrid.aggregation = function (parseSuccess, gridData, options) {
         var gridObj = $.fn.bsgrid.getGridObj(options.gridId);
@@ -474,14 +392,14 @@
                     } else if (aggName == 'concat') {
                         val = valHtml.toString();
                     }
+                } else if (aggName == 'custom') {
+                    val = eval(columnsModel[i].aggIndex)(gridObj, options);
                 }
                 val = val == null ? '' : val;
                 $(this).html(val);
             }
         });
     };
-
-    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'aggregation', $.fn.bsgrid.extendAfterRenderGrid.aggregation);
     /*************** extend after render grid end ***************/
 
 
@@ -581,5 +499,71 @@
         return values;
     };
     /*************** extend edit methods end ***************/
+
+
+    /*************** extend other methods start ***************/
+    $.fn.bsgrid.extendOtherMethods.fixedHeader = function (iFirst, options) {
+        if ($.trim($('#' + options.gridId + '_fixedDiv').data('fixedGridLock')) == 'lock') {
+            return;
+        }
+        $('#' + options.gridId + '_fixedDiv').data('fixedGridLock', 'lock');
+        var headTrNum = $('#' + options.gridId + ' thead tr').length;
+        if (!iFirst) {
+            headTrNum = headTrNum / 2;
+            $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').remove();
+        }
+        var fixedGridHeight = getSize(options.settings.extend.settings.fixedGridHeight);
+        if (fixedGridHeight < $('#' + options.gridId).height()) {
+            $('#' + options.gridId + '_fixedDiv').height(fixedGridHeight);
+            $('#' + options.gridId).width($('#' + options.gridId + '_fixedDiv').width() - 18);
+            $('#' + options.gridId + '_fixedDiv').animate({scrollTop: '0px'}, 0);
+        } else {
+            $('#' + options.gridId + '_fixedDiv').height($('#' + options.gridId).height());
+            $('#' + options.gridId).width($('#' + options.gridId + '_fixedDiv').width() - 1);
+        }
+        $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').clone(true).prependTo('#' + options.gridId + ' thead');
+        $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').css({
+            'z-index': 10,
+            position: 'fixed'
+        }).width($('#' + options.gridId + ' thead tr:last').width());
+        $('#' + options.gridId + ' thead tr:lt(' + headTrNum + ')').each(function (i) {
+            var position = $('#' + options.gridId + ' thead tr:eq(' + (headTrNum + i) + ')').position();
+            $(this).css({top: position.top - getSize($(this).find('th').css('border-top-width')), left: position.left});
+        });
+
+        $('#' + options.gridId + ' thead tr:gt(' + (headTrNum - 1) + ')').each(function (ri) {
+            $(this).find('th').each(function (i) {
+                var thObj = $(this);
+                $('#' + options.gridId + ' thead tr:eq(' + ri + ') th:eq(' + i + ')').height(thObj.height() + ((ri == headTrNum - 1) ? 2 : 1) * getSize(thObj.css('border-top-width'))).width(thObj.width() + getSize(thObj.css('border-left-width')));
+            });
+        });
+        $('#' + options.gridId + '_fixedDiv').data('fixedGridLock', '');
+
+        function getSize(sizeStr) {
+            sizeStr = $.trim(sizeStr).toLowerCase().replace('px', '');
+            var sizeNum = parseFloat(sizeStr);
+            return isNaN(sizeNum) ? 0 : sizeNum;
+        }
+    };
+
+    // init fixed header
+    $.fn.bsgrid.extendOtherMethods.initFixedHeader = function (gridId, options) {
+        $('#' + gridId).wrap('<div id="' + gridId + '_fixedDiv"></div>');
+        $('#' + gridId + '_fixedDiv').data('fixedGridLock', '');
+        $('#' + gridId + '_fixedDiv').css({
+            padding: 0,
+            'border-width': 0,
+            width: '98%',
+            'overflow-y': 'auto',
+            'margin-bottom': '-1px'
+        });
+        $('#' + gridId).css({width: 'auto'});
+        $('#' + gridId + '_pt_outTab').css({'border-top-width': '1px'});
+        $.fn.bsgrid.extendOtherMethods.fixedHeader(true, options);
+        $(window).resize(function () {
+            $.fn.bsgrid.extendOtherMethods.fixedHeader(false, options);
+        });
+    };
+    /*************** extend other methods end ***************/
 
 })(jQuery);

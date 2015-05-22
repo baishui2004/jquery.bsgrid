@@ -194,9 +194,9 @@
                 goPage = $('#' + options.gotoPageInputId).val();
             }
             if ($.trim(goPage) == '' || isNaN(goPage)) {
-                alert($.bsgridLanguage.needInteger);
+                $.fn.bsgrid_paging.alert($.bsgridLanguage.needInteger);
             } else if (parseInt(goPage) < 1 || parseInt(goPage) > options.totalPages) {
-                alert($.bsgridLanguage.needRange(1, options.totalPages));
+                $.fn.bsgrid_paging.alert($.bsgridLanguage.needRange(1, options.totalPages));
             } else {
                 $('#' + options.gotoPageInputId).val(goPage);
                 $.fn.bsgrid_paging.page(parseInt(goPage), options);
@@ -205,6 +205,19 @@
 
         incorrectTurnAlert: function (options, msg) {
             if (options.settings.pageIncorrectTurnAlert) {
+                $.fn.bsgrid_paging.alert(msg);
+            }
+        },
+
+        /**
+         * alert message.
+         *
+         * @param msg message
+         */
+        alert: function (msg) {
+            try {
+                $.bsgrid.alert(msg);
+            } catch (e) {
                 alert(msg);
             }
         },

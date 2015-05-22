@@ -36,8 +36,8 @@
         <tr>
             <td class="aggLabel">Count:</td>
             <td w_agg="count" class="aggValue"></td>
-            <td class="aggLabel">Count not none TEXT:</td>
-            <td w_agg="countNotNone,TEXT" class="aggValue"></td>
+            <td class="aggLabel">Count(XH*ID):</td>
+            <td w_agg="custom,countXhMultId" class="aggValue"></td>
             <td class="aggLabel">Max(NUM):</td>
             <td w_agg="max,NUM" class="aggValue"></td>
             <td class="aggLabel">Sum(NUM):</td>
@@ -55,6 +55,16 @@
             pageSize: 10
         });
     });
+
+    function countXhMultId(gridObj, options) {
+        var count = 0;
+        for (var i = 0; i < options.curPageRowsNum; i++) {
+            var id = gridObj.getColumnValue(i, 'ID');
+            var xh = gridObj.getColumnValue(i, 'XH');
+            count += parseInt(id) * parseInt(xh);
+        }
+        return count;
+    }
 
     function operate(record, rowIndex, colIndex, options) {
         return '<a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');">Operate</a>';
