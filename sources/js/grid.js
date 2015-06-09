@@ -154,7 +154,9 @@
                 curPage: 1,
                 curPageRowsNum: 0,
                 startRow: 0,
-                endRow: 0
+                endRow: 0,
+                uncheckRowEvent: settings.uncheckRowEvent,
+                checkRowEvent: settings.checkRowEvent
             };
 
             if ($('#' + gridId).find('thead').length == 0) {
@@ -629,7 +631,7 @@
                 var data = $.fn.bsgrid.parseData.data(dataType, gridData);
                 var dataLen = data.length;
                 // add rows click event
-                $.fn.bsgrid.addRowsClickEvent(options);
+                $.fn.bsgrid.addRowsClickEvent(options,dataType,data,dataLen,totalRows,startRow);
                 $('#' + options.gridId + ' tbody tr').each(
                     function (i) {
                         var trObj = $(this);
@@ -690,16 +692,30 @@
             options.settings.additionalAfterRenderGrid(parseSuccess, gridData, options);
         },
 
-        addRowsClickEvent: function (options) {
+        addRowsClickEvent: function (options,dataType,data,dataLen,totalRows,startRow) {
             $('#' + options.gridId + ' tbody tr:lt(' + options.curPageRowsNum + ')').click(function () {
                 if ($(this).hasClass('selected')) {
+                	
+                	var i = $('#' + options.gridId + ' tbody tr').index($('#' + options.gridId + ' tbody tr.selected'))
+                	var record = null;
+                	if(i!=null){
+                		record = $.fn.bsgrid.parseData.getRecord(dataType, data, dataLen != totalRows ? i : startRow + i - 1);
+                	}
                     $(this).removeClass('selected').removeClass('selected_color');
+                    if(null!=options.uncheckRowEvent){options.uncheckRowEvent(record,i,options);}
                 } else {
                     $.fn.bsgrid.unSelectRow(options);
                     $(this).addClass('selected');
                     if (options.settings.changeColorIfRowSelected) {
                         $(this).addClass('selected_color');
                     }
+                    
+                    var i = $('#' + options.gridId + ' tbody tr').index($('#' + options.gridId + ' tbody tr.selected'))
+                	var record = null;
+                	if(i!=null){
+                		record = $.fn.bsgrid.parseData.getRecord(dataType, data, dataLen != totalRows ? i : startRow + i - 1);
+                	}
+                    if(null!=options.checkRowEvent){options.checkRowEvent(record,i,options);}
                 }
             });
         },
