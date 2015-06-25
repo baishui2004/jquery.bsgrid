@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Simple Grid With Images</title>
@@ -37,7 +37,7 @@
 
     function renderImg(record, rowIndex, colIndex, options) {
         var idInt = parseInt($.trim(gridObj.getRecordIndexValue(record, 'ID')));
-        return '<img src="../images/' + ((idInt % 3) == 0 ? 3 : (idInt % 3)) + '.jpg" width="32px" />';
+        return '<img src="../images/' + ((idInt % 3) == 0 ? 3 : (idInt % 3)) + '.jpg" width="64px" />';
     }
 
     function operate(record, rowIndex, colIndex, options) {

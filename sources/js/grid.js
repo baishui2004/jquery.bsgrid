@@ -1,5 +1,5 @@
 /**
- * jQuery.bsgrid v1.35 by @Baishui2004
+ * jQuery.bsgrid v1.36 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -12,6 +12,8 @@
 (function ($) {
 
     $.fn.bsgrid = {
+
+        version: '1.36',
 
         // defaults settings
         defaults: {
@@ -29,7 +31,8 @@
             displayBlankRows: true,
             lineWrap: false, // if grid cell content wrap, if false then td use style: white-space: nowrap; overflow: hidden; text-overflow: ellipsis; if true then td use style: word-break: break-all;
             stripeRows: false, // stripe rows
-            changeColorIfRowSelected: true, // change color if row selected
+            rowHoverColor: false, // row hover color
+            rowSelectedColor: true, // row selected color
             pagingLittleToolbar: false, // if display paging little toolbar
             pagingToolbarAlign: 'right',
             pagingBtnClass: 'pagingBtn', // paging toolbar button css class
@@ -66,6 +69,15 @@
             },
             // process userdata, process before grid render data
             processUserdata: function (userdata, options) {
+            },
+            // event
+            event: {
+                selectRowEvent: false, // method params: record, rowIndex, trObj, options
+                unselectRowEvent: false, // method params: record, rowIndex, trObj, options
+                // custom row events: click, dbclick, focus ......
+                customRowEvents: {}, // method params: record, rowIndex, trObj, options
+                // custom cell events: click, dbclick, focus ......
+                customCellEvents: {} // method params: record, rowIndex, colIndex, tdObj, trObj, options
             },
             // extend
             extend: {
@@ -154,9 +166,7 @@
                 curPage: 1,
                 curPageRowsNum: 0,
                 startRow: 0,
-                endRow: 0,
-                uncheckRowEvent: settings.uncheckRowEvent,
-                checkRowEvent: settings.checkRowEvent
+                endRow: 0
             };
 
             if ($('#' + gridId).find('thead').length == 0) {
@@ -194,11 +204,32 @@
                 page: function (curPage) {
                     $.fn.bsgrid.page(curPage, options);
                 },
+                search: function (params) {
+                    $.fn.bsgrid.search(params, options);
+                },
                 loadGridData: function (dataType, gridData) {
                     $.fn.bsgrid.loadGridData(dataType, gridData, options);
                 },
+                getRows: function () {
+                    return $.fn.bsgrid.getRows(options);
+                },
+                getRow: function (row) {
+                    return $.fn.bsgrid.getRow(row, options);
+                },
+                getRowCells: function (row) {
+                    return $.fn.bsgrid.getRowCells(row, options);
+                },
+                getColCells: function (col) {
+                    return $.fn.bsgrid.getColCells(col, options);
+                },
+                getCell: function (row, col) {
+                    return $.fn.bsgrid.getCell(row, col, options);
+                },
                 getSelectedRow: function () {
                     return $.fn.bsgrid.getSelectedRow(options);
+                },
+                getSelectedRowIndex: function () {
+                    return $.fn.bsgrid.getSelectedRowIndex(options);
                 },
                 selectRow: function (row) {
                     return $.fn.bsgrid.selectRow(row, options);
@@ -212,6 +243,9 @@
                 getRowRecord: function (rowObj) {
                     return $.fn.bsgrid.getRowRecord(rowObj);
                 },
+                getAllRecords: function () {
+                    return $.fn.bsgrid.getAllRecords(options);
+                },
                 getRecord: function (row) {
                     return $.fn.bsgrid.getRecord(row, options);
                 },
@@ -221,14 +255,17 @@
                 getColumnValue: function (row, index) {
                     return $.fn.bsgrid.getColumnValue(row, index, options);
                 },
+                getCellRecordValue: function (row, col) {
+                    return $.fn.bsgrid.getCellRecordValue(row, col, options);
+                },
                 sort: function (obj) {
                     $.fn.bsgrid.sort(obj, options);
                 },
                 getGridHeaderObject: function () {
                     return $.fn.bsgrid.getGridHeaderObject(options);
                 },
-                getColumnAttr: function (colIndex, attrName) {
-                    return $.fn.bsgrid.getColumnAttr(colIndex, attrName, options);
+                getColumnModel: function (colIndex) {
+                    return $.fn.bsgrid.getColumnModel(colIndex, options);
                 },
                 appendHeaderSort: function () {
                     $.fn.bsgrid.appendHeaderSort(options);
@@ -241,6 +278,9 @@
                 },
                 clearGridBodyData: function () {
                     $.fn.bsgrid.clearGridBodyData(options);
+                },
+                getPagingObj: function () {
+                    return $.fn.bsgrid.getPagingObj(options);
                 },
                 getCurPage: function () {
                     return $.fn.bsgrid.getCurPage(options);
@@ -287,6 +327,19 @@
 
             if (!options.settings.pageAll) {
                 gridObj.pagingObj = gridObj.initPaging();
+                try {
+                    var minWidth = $.trim($('#' + options.pagingId).children().width());
+                    minWidth = minWidth == '' ? 0 : parseInt(minWidth);
+                    if (minWidth != 0) {
+                        $('#' + gridId).css('min-width', minWidth + 16);
+                        $('#' + options.pagingOutTabId).css('min-width', minWidth + 16);
+                    }
+                    $('#' + options.pagingOutTabId).width($('#' + gridId).width());
+                    $(window).resize(function () {
+                        $('#' + options.pagingOutTabId).width($('#' + gridId).width());
+                    });
+                } catch (e) {
+                }
             }
 
             if (options.settings.isProcessLockScreen) {
@@ -320,30 +373,31 @@
         initColumnsModel: function (options) {
             var columnsModel = [];
             $.fn.bsgrid.getGridHeaderObject(options).each(function () {
+                var colsProperties = options.settings.colsProperties;
                 var columnModel = {};
                 // column sort name, order
                 columnModel.sortName = '';
                 columnModel.sortOrder = '';
-                var sortInfo = $.trim($(this).attr(options.settings.colsProperties.sortAttr));
+                var sortInfo = $.trim($(this).attr(colsProperties.sortAttr));
                 if (sortInfo.length != 0) {
                     var sortInfoArray = sortInfo.split(',');
                     columnModel.sortName = $.trim(sortInfoArray[0]);
                     columnModel.sortOrder = $.trim(sortInfoArray.length > 1 ? sortInfoArray[1] : '');
                 }
                 // column index
-                columnModel.index = $.trim($(this).attr(options.settings.colsProperties.indexAttr));
+                columnModel.index = $.trim($(this).attr(colsProperties.indexAttr));
                 // column render
-                columnModel.render = $.trim($(this).attr(options.settings.colsProperties.renderAttr));
+                columnModel.render = $.trim($(this).attr(colsProperties.renderAttr));
                 // column tip
-                columnModel.tip = $.trim($(this).attr(options.settings.colsProperties.tipAttr));
+                columnModel.tip = $.trim($(this).attr(colsProperties.tipAttr));
                 // column text max length
-                var maxLen = $.trim($(this).attr(options.settings.colsProperties.lengthAttr));
-                columnModel.maxLen = maxLen.length != 0 ? parseInt(maxLen) : options.settings.colsProperties.maxLength;
+                var maxLen = $.trim($(this).attr(colsProperties.lengthAttr));
+                columnModel.maxLen = maxLen.length != 0 ? parseInt(maxLen) : colsProperties.maxLength;
                 // column align
-                var align = $.trim($(this).attr(options.settings.colsProperties.alignAttr));
-                columnModel.align = align == '' ? options.settings.colsProperties.align : align;
+                var align = $.trim($(this).attr(colsProperties.alignAttr));
+                columnModel.align = align == '' ? colsProperties.align : align;
                 // column hidden
-                columnModel.hidden = $.trim($(this).attr(options.settings.colsProperties.hiddenAttr));
+                columnModel.hidden = $.trim($(this).attr(colsProperties.hiddenAttr));
                 columnsModel.push(columnModel);
             });
             return columnsModel;
@@ -529,6 +583,11 @@
             return condition;
         },
 
+        search: function (params, options) {
+            options.otherParames = params;
+            $.fn.bsgrid.page(1, options);
+        },
+
         page: function (curPage, options) {
             if ($.trim(curPage) == '' || isNaN(curPage)) {
                 $.fn.bsgrid.alert($.bsgridLanguage.needInteger);
@@ -631,8 +690,8 @@
                 var data = $.fn.bsgrid.parseData.data(dataType, gridData);
                 var dataLen = data.length;
                 // add rows click event
-                $.fn.bsgrid.addRowsClickEvent(options,dataType,data,dataLen,totalRows,startRow);
-                $('#' + options.gridId + ' tbody tr').each(
+                $.fn.bsgrid.addRowsClickEvent(options);
+                $.fn.bsgrid.getRows(options).each(
                     function (i) {
                         var trObj = $(this);
                         var record = null;
@@ -646,9 +705,20 @@
                             options.settings.extend.renderPerRowMethods[key](record, i, trObj, options);
                         }
                         options.settings.additionalRenderPerRow(record, i, trObj, options);
+                        for (var key in options.settings.event.customRowEvents) {
+                            trObj.bind(key, {
+                                record: record,
+                                rowIndex: i,
+                                trObj: trObj,
+                                options: options
+                            }, function (event) {
+                                options.settings.event.customRowEvents[key](event.data.record, event.data.rowIndex, event.data.trObj, event.data.options)
+                            });
+                        }
 
                         var columnsModel = options.columnsModel;
                         $(this).find('td').each(function (j) {
+                            var tdObj = $(this);
                             if (i < curPageRowsNum && i < dataLen) {
                                 // column index
                                 var index = columnsModel[j].index;
@@ -657,7 +727,7 @@
                                 if (render != '') {
                                     var render_method = eval(render);
                                     var render_html = render_method(record, i, j, options);
-                                    $(this).html(render_html);
+                                    tdObj.html(render_html);
                                 } else if (index != '') {
                                     var value = $.fn.bsgrid.parseData.getColumnValue(dataType, record, index);
                                     // column tip
@@ -667,19 +737,31 @@
                                     if (options.settings.longLengthAotoSubAndTip) {
                                         $.fn.bsgrid.longLengthSubAndTip(this, value, columnsModel[j].maxLen, record);
                                     } else {
-                                        $(this).html(value);
+                                        tdObj.html(value);
                                     }
                                 }
                             } else {
-                                $(this).html('&nbsp;');
+                                tdObj.html('&nbsp;');
                             }
                             for (var key in options.settings.extend.renderPerColumnMethods) {
-                                var renderPerColumn_html = options.settings.extend.renderPerColumnMethods[key](record, i, j, $(this), trObj, options);
+                                var renderPerColumn_html = options.settings.extend.renderPerColumnMethods[key](record, i, j, tdObj, trObj, options);
                                 if (renderPerColumn_html != null && renderPerColumn_html != false) {
-                                    $(this).html(renderPerColumn_html);
+                                    tdObj.html(renderPerColumn_html);
                                 }
                             }
-                            options.settings.additionalRenderPerColumn(record, i, j, $(this), trObj, options);
+                            options.settings.additionalRenderPerColumn(record, i, j, tdObj, trObj, options);
+                            for (var key in options.settings.event.customCellEvents) {
+                                tdObj.bind(key, {
+                                    record: record,
+                                    rowIndex: i,
+                                    colIndex: j,
+                                    tdObj: tdObj,
+                                    trObj: trObj,
+                                    options: options
+                                }, function (event) {
+                                    options.settings.event.customCellEvents[key](event.data.record, event.data.rowIndex, event.data.colIndex, event.data.tdObj, event.data.trObj, event.data.options);
+                                });
+                            }
                         });
                     }
                 );
@@ -692,49 +774,65 @@
             options.settings.additionalAfterRenderGrid(parseSuccess, gridData, options);
         },
 
-        addRowsClickEvent: function (options,dataType,data,dataLen,totalRows,startRow) {
-            $('#' + options.gridId + ' tbody tr:lt(' + options.curPageRowsNum + ')').click(function () {
+        addRowsClickEvent: function (options) {
+            $.fn.bsgrid.getRows(options).filter(':lt(' + options.curPageRowsNum + ')').click(function () {
                 if ($(this).hasClass('selected')) {
-                	
-                	var i = $('#' + options.gridId + ' tbody tr').index($('#' + options.gridId + ' tbody tr.selected'))
-                	var record = null;
-                	if(i!=null){
-                		record = $.fn.bsgrid.parseData.getRecord(dataType, data, dataLen != totalRows ? i : startRow + i - 1);
-                	}
-                    $(this).removeClass('selected').removeClass('selected_color');
-                    if(null!=options.uncheckRowEvent){options.uncheckRowEvent(record,i,options);}
-                } else {
                     $.fn.bsgrid.unSelectRow(options);
-                    $(this).addClass('selected');
-                    if (options.settings.changeColorIfRowSelected) {
-                        $(this).addClass('selected_color');
-                    }
-                    
-                    var i = $('#' + options.gridId + ' tbody tr').index($('#' + options.gridId + ' tbody tr.selected'))
-                	var record = null;
-                	if(i!=null){
-                		record = $.fn.bsgrid.parseData.getRecord(dataType, data, dataLen != totalRows ? i : startRow + i - 1);
-                	}
-                    if(null!=options.checkRowEvent){options.checkRowEvent(record,i,options);}
+                } else {
+                    $.fn.bsgrid.selectRow($.fn.bsgrid.getRows(options).index($(this)), options);
                 }
             });
         },
 
+        getRows: function (options) {
+            return $('#' + options.gridId + ' tbody tr');
+        },
+
+        getRow: function (row, options) {
+            return $.fn.bsgrid.getRows(options).eq(row);
+        },
+
+        getRowCells: function (row, options) {
+            return $.fn.bsgrid.getRow(row, options).find('td');
+        },
+
+        getColCells: function (col, options) {
+            return $.fn.bsgrid.getRows(options).find('td:nth-child(' + (col + 1) + ')');
+        },
+
+        getCell: function (row, col, options) {
+            return $.fn.bsgrid.getRowCells(row, options).eq(col);
+        },
+
         getSelectedRow: function (options) {
-            return $('#' + options.gridId + ' tbody tr.selected');
+            return $.fn.bsgrid.getRows(options).filter('.selected');
+        },
+
+        getSelectedRowIndex: function (options) {
+            return $.fn.bsgrid.getRows(options).index($.fn.bsgrid.getSelectedRow(options));
         },
 
         selectRow: function (row, options) {
             $.fn.bsgrid.unSelectRow(options);
-            var trObj = $('#' + options.gridId + ' tbody tr:eq(' + row + ')');
+            var trObj = $.fn.bsgrid.getRow(row, options);
             trObj.addClass('selected');
-            if (options.settings.changeColorIfRowSelected) {
+            if (options.settings.rowSelectedColor) {
                 trObj.addClass('selected_color');
+            }
+            if (!!options.settings.event.selectRowEvent) {
+                options.settings.event.selectRowEvent($.fn.bsgrid.getRowRecord(trObj), row, trObj, options);
             }
         },
 
         unSelectRow: function (options) {
-            $.fn.bsgrid.getSelectedRow(options).removeClass('selected').removeClass('selected_color');
+            var row = $.fn.bsgrid.getSelectedRowIndex(options);
+            if (row != -1) {
+                var trObj = $.fn.bsgrid.getRow(row, options);
+                trObj.removeClass('selected').removeClass('selected_color');
+                if (!!options.settings.event.unselectRowEvent) {
+                    options.settings.event.unselectRowEvent($.fn.bsgrid.getRowRecord(trObj), row, trObj, options);
+                }
+            }
         },
 
         getUserdata: function (options) {
@@ -746,16 +844,27 @@
         },
 
         getRowRecord: function (rowObj) {
-            return rowObj.data('record');
+            var record = rowObj.data('record');
+            return record == undefined ? null : record;
         },
 
         storeRowData: function (row, record, options) {
-            $('#' + options.gridId + ' tbody tr:eq(' + row + ')').data('record', record);
+            $.fn.bsgrid.getRow(row, options).data('record', record);
+        },
+
+        getAllRecords: function (options) {
+            var records = [];
+            $.fn.bsgrid.getRows(options).each(function () {
+                var record = $.fn.bsgrid.getRowRecord($(this));
+                if (record != null) {
+                    records[records.length] = record;
+                }
+            });
+            return records;
         },
 
         getRecord: function (row, options) {
-            var record = $('#' + options.gridId + ' tbody tr:eq(' + row + ')').data('record');
-            return record == undefined ? null : record;
+            return $.fn.bsgrid.getRowRecord($.fn.bsgrid.getRow(row, options));
         },
 
         getRecordIndexValue: function (record, index, options) {
@@ -769,6 +878,15 @@
         getColumnValue: function (row, index, options) {
             var record = $.fn.bsgrid.getRecord(row, options);
             return $.fn.bsgrid.getRecordIndexValue(record, index, options);
+        },
+
+        getCellRecordValue: function (row, col, options) {
+            var index = $.trim($.fn.bsgrid.getColumnModel(col, options).index);
+            if (index == '') {
+                return '';
+            } else {
+                return $.fn.bsgrid.getColumnValue(row, index, options);
+            }
         },
 
         sort: function (obj, options) {
@@ -831,8 +949,8 @@
             return $('#' + options.gridId + ' thead tr:last').find('th');
         },
 
-        getColumnAttr: function (colIndex, attrName, options) {
-            return $.trim($.fn.bsgrid.getGridHeaderObject(options).eq(colIndex).attr(attrName));
+        getColumnModel: function (colIndex, options) {
+            return options.columnsModel[colIndex];
         },
 
         appendHeaderSort: function (options) {
@@ -844,7 +962,7 @@
                     var sortName = columnsModel[i].sortName;
                     // default sort and direction
                     var sortOrder = columnsModel[i].sortOrder;
-                    var sortHtml = '<a href="#" sortName="' + sortName + '" class="sort ';
+                    var sortHtml = '<a href="javascript:void(0);" sortName="' + sortName + '" class="sort ';
                     if (sortOrder != '' && (sortOrder == 'desc' || sortOrder == 'asc')) {
                         options.sortName = ($.trim(options.sortName) == '') ? sortName : (options.sortName + ',' + sortName);
                         options.sortOrder = ($.trim(options.sortOrder) == '') ? sortOrder : (options.sortOrder + ',' + sortOrder);
@@ -862,7 +980,7 @@
 
         setGridBlankBody: function (options) {
             // remove rows
-            $('#' + options.gridId + ' tbody tr').remove();
+            $.fn.bsgrid.getRows(options).remove();
 
             var header = $.fn.bsgrid.getGridHeaderObject(options);
             // add rows
@@ -879,7 +997,7 @@
                         trSb.append(' display: none;');
                     }
                     trSb.append('"');
-                    trSb.append('></td>');
+                    trSb.append('>&nbsp;</td>');
                 }
                 trSb.append('</tr>');
                 rowSb = trSb.toString();
@@ -901,14 +1019,21 @@
 
             if (curPageRowsNum != 0) {
                 if (options.settings.stripeRows) {
-                    $('#' + options.gridId + ' tbody tr:even').addClass('even_index_row');
+                    $.fn.bsgrid.getRows(options).filter(':even').addClass('even_index_row');
+                }
+                if (options.settings.rowHoverColor) {
+                    $('#' + options.gridId + ' tbody tr').hover(function () {
+                        $(this).addClass('row_hover');
+                    }, function () {
+                        $(this).removeClass('row_hover');
+                    });
                 }
             }
 
             if (!options.settings.lineWrap) {
-                $('#' + options.gridId + ' tbody tr td').addClass('lineNoWrap');
+                $.fn.bsgrid.getRows(options).find('td').addClass('lineNoWrap');
             } else {
-                $('#' + options.gridId + ' tbody tr td').addClass('lineWrap');
+                $.fn.bsgrid.getRows(options).find('td').addClass('lineWrap');
             }
         },
 
@@ -924,7 +1049,7 @@
         },
 
         clearGridBodyData: function (options) {
-            $('#' + options.gridId + ' tbody tr td').html('&nbsp;');
+            $.fn.bsgrid.getRows(options).find('td').html('&nbsp;');
         },
 
         /**
@@ -1025,36 +1150,40 @@
             }
         },
 
+        getPagingObj: function (options) {
+            return $.fn.bsgrid.getGridObj(options.gridId).pagingObj;
+        },
+
         getCurPage: function (options) {
-            return $.fn.bsgrid.getGridObj(options.gridId).pagingObj.getCurPage();
+            return $.fn.bsgrid.getPagingObj(options).getCurPage();
         },
 
         refreshPage: function (options) {
             if (!options.settings.pageAll) {
-                $.fn.bsgrid.getGridObj(options.gridId).pagingObj.refreshPage();
+                $.fn.bsgrid.getPagingObj(options).refreshPage();
             } else {
                 $.fn.bsgrid.page(1, options);
             }
         },
 
         firstPage: function (options) {
-            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.firstPage();
+            $.fn.bsgrid.getPagingObj(options).firstPage();
         },
 
         prevPage: function (options) {
-            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.prevPage();
+            $.fn.bsgrid.getPagingObj(options).prevPage();
         },
 
         nextPage: function (options) {
-            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.nextPage();
+            $.fn.bsgrid.getPagingObj(options).nextPage();
         },
 
         lastPage: function (options) {
-            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.lastPage();
+            $.fn.bsgrid.getPagingObj(options).lastPage();
         },
 
         gotoPage: function (options, goPage) {
-            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.gotoPage(goPage);
+            $.fn.bsgrid.getPagingObj(options).gotoPage(goPage);
         },
 
         /**
@@ -1082,7 +1211,7 @@
          * @param options grid options
          */
         setPagingValues: function (options) {
-            $.fn.bsgrid.getGridObj(options.gridId).pagingObj.setPagingValues(options.curPage, options.totalRows);
+            $.fn.bsgrid.getPagingObj(options).setPagingValues(options.curPage, options.totalRows);
         }
 
     };

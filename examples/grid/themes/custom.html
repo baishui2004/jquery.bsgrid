@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Custom Blue Style Grid</title>
@@ -23,6 +23,10 @@
         /* grid even index row column color */
         .bsgrid tr.even_index_row td {
             background-color: #f2f9ff;
+        }
+        /* grid row hover column color */
+        .bsgrid tr.row_hover td {
+            background-color: #fff0bc !important;
         }
         /* grid selected row column color */
         .bsgrid tr.selected.selected_color td {
@@ -75,6 +79,7 @@
             // autoLoad: false,
             pageSizeSelect: true,
             stripeRows: true,
+            rowHoverColor: true,
             pageSize: 10
         });
     });

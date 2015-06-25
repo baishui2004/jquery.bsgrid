@@ -2,7 +2,7 @@
 <html lang="en" class="js">
 <head>
     <meta charset="utf-8">
-    <title>jQuery.bsgrid - 一个简单实用功能丰富易扩展的jQuery Grid插件</title>
+    <title>jQuery.bsgrid - 简单实用、功能丰富、易扩展的jQuery Grid插件</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="stylesheet" href="plugins/responsive-nav.js/demo/styles.css">
     <style type="text/css">
@@ -57,6 +57,10 @@
         .introStyle a {
             text-decoration: underline;
         }
+
+        #about {
+            line-height: 1.5em;
+        }
     </style>
     <script src="plugins/jquery-1.4.4.min.js"></script>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -70,8 +74,9 @@
 <div role="navigation" id="nav">
     <ul>
         <li class="active"><a href="#" onclick="home()">首页</a></li>
-        <li><a href="#" onclick="examples()">示例</a></li>
-        <li id="nav_documention"><a href="#" onclick="setIframeSrc('文档', 'documention/documention.html')">文档</a></li>
+        <li><a href="examples/zh-CN.html" target="_blank">示例</a></li>
+        <li><a href="#" onclick="setIframeSrc('文档', 'documention/documention.zh-CN.html')">文档</a></li>
+        <li id="nav_documention"><a href="#" onclick="setIframeSrc('皮肤', 'documention/themes.html')">皮肤</a></li>
         <li><a href="#" onclick="down()">下载</a></li>
         <li><a href="#" onclick="setIframeSrc('源码', 'documention/source.html')">源码</a></li>
         <li><a href="#" onclick="setIframeSrc('反馈', 'documention/feedback.html')">反馈</a></li>
@@ -86,12 +91,7 @@
     <h1 class="home">jQuery.bsgrid</h1>
 
     <div class="introStyle home" style="font-size: 1.2em;">
-        &emsp;&emsp;一个简单易用的jQuery Grid插件，支持json、xml数据格式，自带多套皮肤且易于扩展，支持分页或不分页，对扩展性友好，导出友好。
-
-        <div style="display: none;">
-            &emsp;&emsp;A simple jQuery Grid plugin, support json and xml data, has many themes and simple to extend,
-            support pagation or no pagation, easy to expand and export.
-        </div>
+        &emsp;&emsp;支持json、xml数据格式，皮肤丰富并且容易定制，支持表格编辑、本地数据、导出参数构建等实用便捷的功能，容易扩展，更拥有丰富的示例以及问题反馈的及时响应。
     </div>
 
     <table class="introStyle home" style="margin-top: 0.5em; font-weight: 400;">
@@ -119,28 +119,33 @@
 
     <div class="introStyle home" style="padding-left: 0.4em; font-weight: 400; line-height: 1.6em;">
         <h3 style="font-size: 1.2em; margin-bottom: 0.4em;">插件特点</h3>
-        1.&nbsp;轻量、简单，<a href="examples/grid/simple.html" target="_blank">标准的表格</a>只需数十行代码；
+        1.&nbsp;简单、轻量，基于jQuery及HTML Table，<a href="examples/zh-CN.html#href=examples/grid/simple.html" target="_blank">简单的表格</a>只需数十行代码，支持<a href="examples/zh-CN.html#href=examples/grid/load-time-test.html" target="_blank">大数据量表格</a>；
         <br/>
-        2.&nbsp;内置<a href="#" onclick="$('#nav_documention a').trigger('click')">多套经典皮肤</a>，且非常容易扩展，比如只需要修改两处CSS代码即可修改字体样式；
+        2.&nbsp;内置<a href="#" onclick="$('#nav_documention a').trigger('click')">多套经典皮肤</a>，且非常容易<a href="examples/zh-CN.html#href=examples/grid/themes/custom.html" target="_blank">定制</a>，字体定制只需要修改两处CSS代码即可；
         <br/>
-        3.&nbsp;非常多的实用功能，<a href="examples/grid/multi-header.html" target="_blank">多行表头</a>、
-        <a href="examples/grid/move-column-extend.html" target="_blank">拖动表头改变宽度</a>、
-        <a href="examples/grid/fixed-header/fixed-header-extend.html" target="_blank">固定表头滚动表体数据</a>、
-        <a href="examples/grid/multi-sort.html" target="_blank">多字段联合排序</a>、
-        <a href="examples/grid/foot.html" target="_blank">表底聚合</a>、
-        <a href="examples/grid/edit.html" target="_blank">在线编辑</a>等；
+        3.&nbsp;实用便捷的功能：<a href="examples/zh-CN.html#href=examples/grid/edit.html" target="_blank">表格编辑</a>、
+        <a href="examples/zh-CN.html#href=examples/grid/foot.html" target="_blank">表底聚合</a>、
+        <a href="examples/zh-CN.html#href=examples/grid/no-pagation.html" target="_blank">不分页</a>、
+        <a href="examples/zh-CN.html#href=examples/grid/multi-header.html" target="_blank">多行表头</a>、
+        <a href="examples/zh-CN.html#href=examples/grid/multi-sort.html" target="_blank">多字段排序</a>、
+        <a href="examples/zh-CN.html#href=examples/grid/local/json.html" target="_blank">本地数据</a>、
+        <a href="examples/zh-CN.html#href=examples/grid/userdata.html" target="_blank">处理Userdata</a>、
+        <a href="examples/zh-CN.html#href=examples/grid/move-column-extend.html" target="_blank">拖动列宽</a>、
+        <a href="examples/zh-CN.html#href=examples/grid/fixed-header/fixed-header-extend.html" target="_blank">滚动表格数据</a>等；
         <br/>
-        4.&nbsp;容易扩展，属性及方法可以在外部进行全局重写，而无需修改插件本身的代码；
+        4.&nbsp;易与其他插件集成使用，示例展示了集成<a href="examples/zh-CN.html#href=examples/layui/layer.html" target="_blank">Layui</a>、
+        <a href="examples/zh-CN.html#href=examples/artDialog/gridAndForm.html" target="_blank">ArtDialog</a>、
+        <a href="examples/zh-CN.html#href=examples/form/validation.html" target="_blank">jquery.validationEngine</a>、
+        第三方分页工具条等的使用；
         <br/>
-        5.&nbsp;模块化JS、CSS代码，可按需加载，代码精致简洁，对于阅读、修改、扩展非常容易；
+        5.&nbsp;扩展性好，插件有特别好的扩展性，易于对插件本身进行局部甚至较大的修改，易于改变展现样式；插件放开了属性及方法的全局修改权限，所有方法都可在外部进行全局重写，而无需修改插件本身的代码；
         <br/>
-        6.&nbsp;易与其他插件集成使用，示例展示了集成ArtDialog、jquery.validationEngine、第三方分页工具条的使用等。
+        6.&nbsp;模块化JS、CSS代码，可按需加载，代码精致简洁，对于阅读、修改、扩展非常容易。
     </div>
 
     <div class="introStyle home" style="padding-left: 0.4em; font-weight: 400; line-height: 1.6em;">
-        <h3 style="font-size: 1.2em; margin-bottom: 0;">项目使用需要文件<span style="font-size: 0.8em; font-weight: 400;">(未列出的builds目录下的其他文件无需加入项目中)</span>
-        </h3>
-        引用文件：builds/merged/bsgrid.all.min.css &emsp;&emsp;&nbsp; CSS样式(默认皮肤不需要引入额外的皮肤样式)
+        <h3 style="font-size: 1.2em; margin-bottom: 0;">引用文件</h3>
+        引用文件：builds/merged/bsgrid.all.min.css &emsp;&emsp;&nbsp; CSS样式(包含默认皮肤样式)
         <br/>&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;
         builds/js/lang/grid.zh-CN.min.js &emsp;&emsp;&nbsp;&nbsp; JS本地化脚本(builds/js/lang/grid.*.min.js)
         <br/>&emsp;&emsp;&emsp;&emsp;&nbsp;&nbsp;&nbsp;
@@ -148,11 +153,13 @@
         <br/>
         可选皮肤：builds/css/skins/grid_*.min.css &emsp;&emsp;&nbsp;&nbsp;&nbsp; CSS皮肤(需引用于bsgrid.all.min.css之后)
         <br/>
-        图标资源：builds/images
-        <h3 style="font-size: 1.2em; margin-bottom: 0;">入门示例</h3>
-        <a href="examples/grid/simple.html" target="_blank" style="margin-left: -0.4em;">
-            <img style="border-width: 0; width: 88%;" title="点击图片查看对应示例"
-                 src="documention/images/themes/skins01-Default Style.png"/>
+        图标资源：builds/images/
+        <br/>
+        其他说明：builds目录下未列出的文件无需引入项目中
+        <h3 style="font-size: 1.2em; margin-bottom: 0;"><a href="examples/zh-CN.html#href=examples/grid/simple.html" target="_blank" style="text-decoration: none;">入门示例</a></h3>
+        <a href="examples/zh-CN.html#href=examples/grid/simple.html" target="_blank" style="margin-left: -0.4em;">
+            <img style="border-width: 0; width: 88%;" title="点击查看入门示例"
+                 src="documention/images/simple.png"/>
         </a>
 <pre style="font-size: 0.9em; margin-top: 0; background-color: #eee;">
 引用文件：
@@ -188,27 +195,17 @@
             return '&lt;a href="#" onclick="alert(\'ID=' + gridObj.getRecordIndexValue(record, 'ID') + '\');"&gt;Operate&lt;/a&gt;';
         }
     &lt;/script&gt;
+数据格式参考：<a href="examples/grid/data/simple.json" target="_blank">simple.json</a>
 </pre>
         <h3 style="font-size: 1.2em; margin-bottom: 0;">带参数查询</h3>
 <pre style="font-size: 0.9em; margin-top: 0; background-color: #eee;">
-        var gridObj;
-        $(function () {
-            gridObj = $.fn.bsgrid.init('searchTable', {
-                url: 'data/json.jsp',
-                // autoLoad: false,
-                pageSizeSelect: true,
-                pageSize: 10
-            });
-            doSearch();
-        });
-
-        function doSearch() {
-            // 提供以下三种带参数方式，可任选其中任意一种
-            // gridObj.options.otherParames = 'param1=val1&param2=val2';
-            // gridObj.options.otherParames = {'param1': 'val1', 'param2': 'val2'};
-            gridObj.options.otherParames = $('#searchForm').serializeArray();      // jQuery推荐方式
-            gridObj.page(1);
-        }
+    function doSearch() {
+        // 提供以下三种带参数方式，可任选其中任意一种
+        var searchParames = $('#searchForm').serializeArray();      // jQuery推荐方式
+        // searchParames = 'param1=val1&amp;param2=val2';
+        // searchParames = {'param1': 'val1', 'param2': 'val2'};
+        gridObj.search(searchParames);
+    }
 </pre>
     </div>
 
@@ -216,30 +213,15 @@
 
     <iframe id="iframe" src=""></iframe>
 
-    <table id="examples" class="introStyle" style="display: none;">
-        <tr>
-            <td>
-                <a href="examples/zh-CN.html" target="_blank">导航一</a>
-                [<a href="examples/en.html" target="_blank">en</a>]
-                &emsp;
-                <a href="examples/zh-CN-table.html" target="_blank">导航二</a>
-                [<a href="examples/en-table.html" target="_blank">en</a>]
-                &emsp;
-                <a href="examples/grid/standard.zh-CN.html" target="_blank">方法及属性使用与说明</a>
-                [<a href="examples/grid/standard.html" target="_blank">en</a>]
-            </td>
-        </tr>
-    </table>
-
     <table id="download" class="introStyle" style="display: none;">
         <tr>
             <td>版本下载：</td>
             <td>
+                <a href="http://git.oschina.net/bs2004/jquery.bsgrid/repository/archive?ref=v1.36"
+                   target="_blank">1.36</a>
+                &emsp;
                 <a href="http://git.oschina.net/bs2004/jquery.bsgrid/repository/archive?ref=v1.35"
                    target="_blank">1.35</a>
-                &emsp;
-                <a href="http://git.oschina.net/bs2004/jquery.bsgrid/repository/archive?ref=v1.33"
-                   target="_blank">1.33</a>
             </td>
         </tr>
         <tr>
@@ -253,48 +235,24 @@
 
     <table id="about" class="introStyle" style="display: none;">
         <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
             <td>个人网站:</td>
             <td><a href="http://thebestofyouth.com" target="_blank">http://thebestofyouth.com</a></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
         </tr>
         <tr>
             <td>电子邮箱:</td>
             <td>bs2004@163.com</td>
         </tr>
         <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
             <td>GitHub:</td>
             <td><a href="http://github.com/baishui2004" target="_blank">http://github.com/baishui2004</a></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
         </tr>
         <tr>
             <td>Git@OSC:</td>
             <td><a href="http://git.oschina.net/bs2004" target="_blank">http://git.oschina.net/bs2004</a></td>
         </tr>
         <tr>
-            <td></td>
-            <td></td>
-        </tr>
-        <tr>
             <td>OSChina:</td>
             <td><a href="http://oschina.net/baishui2004" target="_blank">http://oschina.net/baishui2004</a></td>
-        </tr>
-        <tr>
-            <td></td>
-            <td></td>
         </tr>
         <tr>
             <td></td>
@@ -325,12 +283,6 @@
         hideAll();
         $('#title').html(title).show();
         $('#iframe').attr('src', url).show();
-    }
-
-    function examples() {
-        hideAll();
-        $('#title').html('文档').show();
-        $('#examples').show();
     }
 
     function down() {

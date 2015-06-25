@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Grid With Checkbox</title>
@@ -31,20 +31,15 @@
     $(function () {
         gridObj = $.fn.bsgrid.init('searchTable', {
         	//autoLoad: false,
-            url: 'data/simple.xml',
-            dataType: 'xml',
+            url: 'data/json.jsp',
             pageSizeSelect: true,
             pageSize: 10
         });
     });
 
     function getCheckedIds() {
-    	var records = gridObj.getCheckedRowsRecords();
-        var ids = '';
-        for(var i = 0; i < records.length; i++) {
-        	ids += ',' + gridObj.getRecordIndexValue(records[i], 'ID');
-        }
-        alert(ids.length > 0 ? ids.substring(1) : '');
+        // values are array
+        alert(gridObj.getCheckedValues('ID'));
     }
     
     function operate(record, rowIndex, colIndex, options) {

@@ -1,7 +1,7 @@
 /**
  * jqPagination adapter for bsgrid.
  *
- * jQuery.bsgrid v1.35 by @Baishui2004
+ * jQuery.bsgrid v1.36 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -40,9 +40,13 @@ $.fn.bsgrid.gotoPage = function (options, goPage) {
         return;
     }
     if ($.trim(goPage) == '' || isNaN(goPage)) {
-        alert($.bsgridLanguage.needInteger);
+        if (options.settings.pageIncorrectTurnAlert) {
+            alert($.bsgridLanguage.needInteger);
+        }
     } else if (parseInt(goPage) < 1 || parseInt(goPage) > options.totalPages) {
-        alert($.bsgridLanguage.needRange(1, options.totalPages));
+        if (options.settings.pageIncorrectTurnAlert) {
+            alert($.bsgridLanguage.needRange(1, options.totalPages));
+        }
     } else {
         $.fn.bsgrid.getGridObj(options.gridId).page(parseInt(goPage));
     }

@@ -1,4 +1,4 @@
-v1.36  2015-05-22 体验优化
+v1.36  2015-06-25 功能扩展、完善示例
 
 1，禁止拖动表头改变列宽时选中表头文本；
 2，修改表格渲染数据支持返回非最后一页数据行数不等于pageSize的异常情况，考虑的是集群大数据情况下数据可能不正常；
@@ -6,6 +6,24 @@ v1.36  2015-05-22 体验优化
 4，grid.extend.js代码优化；
 5，修复Firefox下表头拖动bug，并优化拖动体验；
 6，表底聚合增加自定义聚合，示例：w_agg="custom,countXhMultId"，custom表示自定义，逗号后面的表示自定义聚合函数；
+7，新增获取表格行Dom对象、行单元格Dom对象、列单元格Dom对象、单元格Dom对象、单元格Record值、select选择行索引的方法；
+8，表格在线编辑新增新增行、删除行方法；
+9，控制表体最小宽度不小于分页工具条宽度；
+10，新增获取checked行的index值的方法；
+11，新增获取所有记录值的方法；
+12，优化样式，逐步增加对响应式的支持；
+13，完善工具条宽度与grid宽度相同，支持改动grid宽度；
+14，grid增加search方法，即gridObj.search(params)，params支持三种方式，
+    一：'param1=val1&param2=val2'；二：{'param1': 'val1', 'param2': 'val2'}；三、$('#searchForm').serializeArray()；
+15，增加行选择及反选事件支持selectRowEvent、unselectRowEvent；
+16，增加对行、单元格、单元格编辑表单jQuery标准事件的支持，去掉getColumnAttr方法，增加getColumnModel方法；
+    columnModel属性：sortName, sortOrder, index, render, tip, maxLen, align, hidden
+                    扩展属性：lineNumber, check, edit, 扩展表底属性：aggName, aggIndex
+17，增加表格编辑的自定义编辑表单功能(extend.settings.gridEditConfigs)；
+18，增加layui系列的laypage、laydate、layer演示；
+19，增加划过行变色rowHoverColor属性，默认false；
+20，完善示例、文档；
+21，修改属性名changeColorIfRowSelected为rowSelectedColor，默认值true有行背景色；
 
 
 

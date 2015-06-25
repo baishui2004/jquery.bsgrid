@@ -4,6 +4,9 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>捐助-支持长远发展，感谢您的认可！</title>
+    <!-- grid.simple.min.css, grid.simple.min.js -->
+    <link rel="stylesheet" href="builds/merged/bsgrid.all.min.css"/>
+    <link rel="stylesheet" href="builds/css/skins/grid_bootstrap.min.css"/>
     <style type="text/css">
         body {
             font-size: 16px;
@@ -17,47 +20,62 @@
             font-weight: 700;
         }
 
-        .donate {
-            border-collapse: collapse;
-        }
-
-        .donate td {
-            font-size: 15px;
-            width: 70px;
-            padding-left: 6px;
-            padding-right: 3px;
-            border: dotted 1px #ccc;
-        }
-
-        .donate .width95 {
-            width: 95px;
-        }
-
-        .donate .right {
-            text-align: right;
-            padding-left: 0;
+        #searchTable {
+            width: 410px;;
         }
     </style>
+    <script type="text/javascript" src="plugins/jquery-1.4.4.min.js"></script>
+    <script type="text/javascript" src="builds/js/lang/grid.zh-CN.min.js"></script>
+    <script type="text/javascript" src="builds/merged/bsgrid.all.min.js"></script>
 </head>
-<body>
+<body style="background-color: #fff;">
 <table>
     <tr>
-        <td class="title">支付宝付款：</td>
+        <td class="title">支付宝转账：</td>
         <td class="title">微信转账：</td>
     </tr>
     <tr>
-        <td><img src="documention/images/donate/zhifubao.jpg" width="180px" height="180px"/></td>
-        <td><img src="documention/images/donate/weixin.png" width="180px" height="180px"/></td>
+        <td><img src="documention/images/donate/zhifubao.jpg" width="200px" height="200px"/></td>
+        <td><img src="documention/images/donate/weixin.png" width="200px" height="200px"/></td>
     </tr>
 </table>
-<span class="title">捐助列表</span>：
-<table class="donate">
-    <tr><td class="width95">2015.04.03</td><td>王明杰</td><td class="width95 right">30.00元</td><td>支付宝</td></tr>
-    <tr><td>2015.03.12</td><td>汤飞飞</td><td class="right">9.90元</td><td>支付宝</td></tr>
-    <tr><td>2015.02.25</td><td>王鑫</td><td class="right">88.00元</td><td>支付宝</td></tr>
-    <tr><td>2015.01.27</td><td>李凯鹏</td><td class="right">9.90元</td><td>支付宝</td></tr>
-    <tr><td>2015.01.22</td><td>**妍</td><td class="right">9.90元</td><td>支付宝</td></tr>
-    <tr><td>2014.12.08</td><td>May</td><td class="right">21.00元</td><td>微信</td></tr>
+<span class="title" id="countMoney">捐助总额：</span>
+<table id="searchTable">
+    <tr>
+        <th w_index="date" width="25%;">日期</th>
+        <th w_index="name" width="25%;">姓名</th>
+        <th w_index="money" w_align="right" width="25%;">数额</th>
+        <th w_index="type" width="25%;">捐助方式</th>
+    </tr>
 </table>
+<script type="text/javascript">
+    var localData = [
+        {"date": "2015.06.05", "name": "Pany", "money": "100.00元", "type": "微信"},
+        {"date": "2015.06.02", "name": "黄国杰", "money": "10.00元", "type": "支付宝"},
+        {"date": "2015.04.03", "name": "王明杰", "money": "30.00元", "type": "支付宝"},
+        {"date": "2015.03.12", "name": "汤飞飞", "money": "9.90元", "type": "支付宝"},
+        {"date": "2015.02.25", "name": "王鑫", "money": "88.00元", "type": "支付宝"},
+        {"date": "2015.01.27", "name": "李凯鹏", "money": "9.90元", "type": "支付宝"},
+        {"date": "2015.01.22", "name": "妍", "money": "9.90元", "type": "支付宝"},
+        {"date": "2014.12.08", "name": "May", "money": "21.00元", "type": "微信"}
+    ];
+    var countMoney = 0;
+    $.each(localData, function (i, data) {
+        if (!isNaN(data['money'].replace('元', ''))) {
+            countMoney += parseFloat(data['money'].replace('元', ''));
+        }
+    });
+    $('#countMoney').append(countMoney + '元');
+    var gridObj;
+    $(function () {
+        gridObj = $.fn.bsgrid.init('searchTable', {
+            localData: localData,
+            pageSize: 5,
+            pageSizeSelect: true,
+            pagingLittleToolbar: true,
+            pageIncorrectTurnAlert: false
+        });
+    });
+</script>
 </body>
 </html>

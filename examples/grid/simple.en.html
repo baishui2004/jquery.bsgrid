@@ -3,15 +3,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <title>Simple zh-CN Grid (Row Hover)</title>
+    <title>Simple en Grid</title>
     <!-- grid.simple.min.css, grid.simple.min.js -->
     <link rel="stylesheet" href="../../builds/merged/bsgrid.all.min.css"/>
-    <style type="text/css">
-        /* row hover */
-        .bsgrid tr:hover td {
-            background-color: #ffe48d;
-        }
-    </style>
     <script type="text/javascript" src="../../plugins/jquery-1.4.4.min.js"></script>
     <script type="text/javascript" src="../../builds/js/lang/grid.en.min.js"></script>
     <script type="text/javascript" src="../../builds/merged/bsgrid.all.min.js"></script>
@@ -36,9 +30,7 @@
             url: 'data/json.jsp',
             // autoLoad: false,
             pageSizeSelect: true,
-            pageSize: 10,
-            stripeRows: true,
-            changeColorIfRowSelected: false // change color if row selected, default true
+            pageSize: 10
         });
     });
 

@@ -8,11 +8,10 @@
 
 /* grid header and column */
 .bsgrid th, .bsgrid td {
+    padding: 2px;
     border: 1px dotted #ccc;
     background-color: white;
     color: black;
-    line-height: 120%;
-    padding: 1px;
 }
 
 /* grid header */
@@ -29,6 +28,11 @@
 /* grid even index row column color */
 .bsgrid tr.even_index_row td {
     background-color: #f5f5f5;
+}
+
+/* grid row hover column color */
+.bsgrid tr.row_hover td {
+    background-color: #0092dc !important;
 }
 
 /* grid selected row column color */

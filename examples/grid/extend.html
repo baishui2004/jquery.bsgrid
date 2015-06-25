@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Grid Extend</title>
@@ -42,7 +42,7 @@
 	});
 	// extend render per column methods, no matter blank column or not blank column
 	$.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.renderPerColumnMethods, 'extend_render_per_column', function(record, rowIndex, colIndex, tdObj, trObj, options){
-		var val = gridObj.getRecordIndexValue(record, gridObj.getColumnAttr(colIndex, options.settings.colsProperties.indexAttr));
+		var val = gridObj.getRecordIndexValue(record, gridObj.getColumnModel(colIndex).index);
 		if(val.length > 30){
 			tdObj.css('background-color', 'blue');
 		}else if(val.length < 5 && !isNaN(parseInt(val)) && parseInt(val) < 95){

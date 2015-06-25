@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Grid With Checkbox</title>
@@ -45,7 +45,7 @@
     });
 
     function checkbox(record, rowIndex, colIndex, options) {
-    	return '<input type="checkbox" value="' + gridObj.getColumnValue(rowIndex, gridObj.getColumnAttr(colIndex, options.settings.colsProperties.indexAttr)) + '"/>';
+    	return '<input type="checkbox" value="' + gridObj.getColumnValue(rowIndex, gridObj.getColumnModel(colIndex).index) + '"/>';
     }
 
     function getCheckedIds() {

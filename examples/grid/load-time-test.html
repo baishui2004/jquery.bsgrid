@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Grid Load Time Test</title>
@@ -11,6 +11,7 @@
     <script type="text/javascript" src="../../builds/merged/bsgrid.all.min.js"></script>
 </head>
 <body style="background-color: #fff;">
+<div id="load_time"></div>
 <table id="searchTable">
     <tr>
         <th w_index="XH" w_sort="XH,desc" width="5%;">XH</th>
@@ -31,7 +32,7 @@
 	});
     // extend after render grid methods
 	$.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'extend_after_render_grid', function(parseSuccess, gridData, options){
-        console.log('load time=' + (new Date().getTime() - date.getTime()) + 'ms');
+        $('#load_time').html('Load data number: ' + options.curPageRowsNum + ', load time=' + (new Date().getTime() - date.getTime()) + 'ms');
 	});
 
     var gridObj;

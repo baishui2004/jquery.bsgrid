@@ -28,14 +28,14 @@
 }
 
 .bsgrid_form .formInput input {
-    height: 24px;
-    line-height: 24px;
+    height: 1.8em;
+    line-height: 1.8em;
     vertical-align: middle;
     padding-left: 1px;
 }
 
 .bsgrid_form .formInput textarea, .bsgrid_form .formInput div.assist {
-    height: 100px;
+    height: 8em;
 }
 
 .bsgrid_form .formInput div.assist {
@@ -63,5 +63,5 @@
 .bsgrid_form .require {
     color: #ff0000;
     font-weight: bold;
-    line-height: 20px;
+    line-height: 1.5em;
 }

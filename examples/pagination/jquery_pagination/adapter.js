@@ -1,7 +1,7 @@
 /**
  * jquery_pagination adapter for bsgrid.
  *
- * jQuery.bsgrid v1.35 by @Baishui2004
+ * jQuery.bsgrid v1.36 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -26,7 +26,9 @@ $.fn.bsgrid.firstPage = function (options) {
 $.fn.bsgrid.prevPage = function (options) {
     var curPage = $.fn.bsgrid.getCurPage(options);
     if (curPage <= 1) {
-        alert($.bsgridLanguage.isFirstPage);
+        if (options.settings.pageIncorrectTurnAlert) {
+            alert($.bsgridLanguage.isFirstPage);
+        }
         return;
     }
     $.fn.bsgrid.getGridObj(options.gridId).page(curPage - 1);
@@ -35,7 +37,9 @@ $.fn.bsgrid.prevPage = function (options) {
 $.fn.bsgrid.nextPage = function (options) {
     var curPage = $.fn.bsgrid.getCurPage(options);
     if (curPage >= options.totalPages) {
-        alert($.bsgridLanguage.isLastPage);
+        if (options.settings.pageIncorrectTurnAlert) {
+            alert($.bsgridLanguage.isLastPage);
+        }
         return;
     }
     $.fn.bsgrid.getGridObj(options.gridId).page(curPage + 1);
@@ -50,9 +54,13 @@ $.fn.bsgrid.gotoPage = function (options, goPage) {
         return;
     }
     if ($.trim(goPage) == '' || isNaN(goPage)) {
-        alert($.bsgridLanguage.needInteger);
+        if (options.settings.pageIncorrectTurnAlert) {
+            alert($.bsgridLanguage.needInteger);
+        }
     } else if (parseInt(goPage) < 1 || parseInt(goPage) > options.totalPages) {
-        alert($.bsgridLanguage.needRange(1, options.totalPages));
+        if (options.settings.pageIncorrectTurnAlert) {
+            alert($.bsgridLanguage.needRange(1, options.totalPages));
+        }
     } else {
         $.fn.bsgrid.getGridObj(options.gridId).page(goPage);
     }

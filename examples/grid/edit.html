@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Edit Grid</title>
@@ -11,6 +11,7 @@
     <script type="text/javascript" src="../../builds/merged/bsgrid.all.min.js"></script>
 </head>
 <body style="background-color: #fff;">
+<p />
 <input type="button" value="Get Checked Ids" onclick="getCheckedIds()"  />
 &emsp;
 <input type="button" value="Active Grid Edit mode" onclick="gridObj.activeGridEditMode()"  />
@@ -22,6 +23,13 @@
 <input type="button" value="Get Changed Ids" onclick="getChangedIds()"  />
 &emsp;
 <input type="button" value="Get Rows Changed Columns value" onclick="getRowsChangedColumnsValue()"  />
+&emsp;
+
+<p />
+<input type="button" value="Delete Row 0" onclick="gridObj.deleteRow(0)"  />
+&emsp;
+<input type="button" value="Add New Edit Row" onclick="gridObj.addNewEditRow()"  />
+<p />
 <table id="searchTable">
     <tr>
         <th w_check="true" width="3%;"></th>

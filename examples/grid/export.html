@@ -1,6 +1,6 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="zh-CN">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>Export Grid</title>
@@ -12,9 +12,9 @@
 </head>
 <body style="background-color: #fff;">
 <form id="searchForm">
-    param1:&nbsp;<input type="text" name="param1" value="param1"/>
+    param1:&nbsp;<input type="text" name="param1" value="val1"/>
     &emsp;
-    param2:&nbsp;<input type="text" name="param2" value="param2"/>
+    param2:&nbsp;<input type="text" name="param2" value="val2"/>
     &emsp;
     <input type="button" onclick="doExport();" value="Export"/>
     <!-- Or use button, note that type="button", Otherwise form will auto submit.
@@ -70,8 +70,7 @@ Documention:
 
     function doExport() {
         alert('Only test request params, To see it in browser address url.');
-        gridObj.options.otherParames = $('#searchForm').serializeArray();
-        $.bsgrid_export.doExport($('#searchTable thead tr th[w_hidden!="true"]'), gridObj.options.otherParames, {
+        $.bsgrid_export.doExport($('#searchTable thead tr th[w_hidden!="true"]'), $('#searchForm').serializeArray(), {
             url: 'export.html' + '?sortName=' + gridObj.options.sortName + '&sortOrder=' + gridObj.options.sortOrder, // only test request params
             exportFileName: 'Export Example',
             colsProperties: {

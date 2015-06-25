@@ -1,5 +1,5 @@
 /**
- * jQuery.bsgrid v1.35 by @Baishui2004
+ * jQuery.bsgrid v1.36 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -40,12 +40,12 @@
          * do export.
          *
          * @param exportCols
-         * @param exportParamsObj
+         * @param exportParams A Search String, A Object or A jquery serialize Array
          * @param settings
          */
-        doExport: function (exportCols, exportParamsObj, settings) {
-            if (exportParamsObj == undefined) {
-                exportParamsObj = {};
+        doExport: function (exportCols, exportParams, settings) {
+            if (exportParams == undefined) {
+                exportParams = {};
             }
 
             var exportSettings = {};
@@ -83,13 +83,19 @@
                 }
             }
 
+            var exportParamsStr;
+            if ((typeof exportParams).toLowerCase() == 'string' || exportParams instanceof String) {
+                exportParamsStr = (exportParams.startWith('&') ? exportParams.substring(1) : exportParams);
+            } else {
+                exportParamsStr = $.bsgrid.param(exportParams, true);
+            }
             document.location.href = exportSettings.url + (exportSettings.url.indexOf('?') < 0 ? '?' : '&')
                 + exportSettings.requestParamsName.exportFileName + '=' + encodeURIComponent(encodeURIComponent(exportSettings.exportFileName))
                 + '&' + exportSettings.requestParamsName.colNames + '=' + encodeURIComponent(encodeURIComponent(colNames.substring(1)))
                 + '&' + exportSettings.requestParamsName.colIndexs + '=' + colIndexs.substring(1)
                 + '&' + exportSettings.requestParamsName.colWidths + '=' + colWidths.substring(1)
                 + '&' + exportSettings.requestParamsName.colAligns + '=' + colAligns.substring(1)
-                + (exportParamsObj.length == 0 ? '' : ('&' + $.bsgrid.param(exportParamsObj, true)));
+                + (exportParamsStr.length == 0 ? '' : ('&' + exportParamsStr));
         }
 
     };

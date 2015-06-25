@@ -134,12 +134,14 @@
         gridFormObject = $.fn.bsgrid_form.init('gridForm', {});
 
         doSearch();
+
+        doAdd();
     });
 
     function doSearch() {
         console.log('Search params: [' + $('#searchForm').serialize() + ']');
-        gridObj.options.otherParames = $('#searchForm').serializeArray();
-        gridObj.page(1);
+        var searchParames = $('#searchForm').serializeArray();
+        gridObj.search(searchParames);
     }
 
     function operate(record, rowIndex, colIndex, options, options) {
@@ -205,7 +207,7 @@
     }
 
     function doCommit() {
-        var type = gridFormObject.options.formType;;
+        var type = gridFormObject.options.formType;
         if (type == 'view') {
             alert('This is view.');
         } else if (type == 'add') {

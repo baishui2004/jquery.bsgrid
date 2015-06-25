@@ -17,6 +17,11 @@
     background-color: #fafafa;
 }
 
+/* grid row hover column color */
+.bsgrid tr.row_hover td {
+    background-color: #e0e0e0 !important;
+}
+
 /* grid selected row column color */
 .bsgrid tr.selected.selected_color td {
     background-color: #e0e0e0 !important;

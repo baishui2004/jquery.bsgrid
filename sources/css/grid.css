@@ -15,13 +15,12 @@ table.bsgrid {
 
 /* grid header and column */
 .bsgrid th, .bsgrid td {
-    height: 22px;
     padding: 3px;
     border: solid 1px #ccc;
     background-color: white;
     text-align: center;
     color: #333;
-    line-height: 150%;
+    line-height: 1.8em;
 }
 
 .bsgrid td.lineWrap {
@@ -43,6 +42,11 @@ table.bsgrid {
 /* grid even index row column color */
 .bsgrid tr.even_index_row td {
     background-color: #eeeeff;
+}
+
+/* grid row hover column color */
+.bsgrid tr.row_hover td {
+    background-color: #fff1cc !important;
 }
 
 /* grid selected row column color */
@@ -122,7 +126,7 @@ table.bsgrid {
 
 .bsgrid.loading {
     padding-left: 5px;
-    line-height: 150%;
+    line-height: 1.5em;
 }
 
 .bsgrid.loading span {

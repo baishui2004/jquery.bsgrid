@@ -9,6 +9,7 @@ th and td background-color:       .x-panel-body-default
 border-color:                     .x-panel-body-default
 tr.even row td background-color:  .x-grid-row-alt
 tr.selected td background-color:  .x-grid-row-selected
+tr hover row td background-color: .x-grid-row-selected
 
 
 
@@ -22,6 +23,7 @@ th and td background-color:       div.gridbox .objbox
 border-color:                     div.gridbox_dhx_skyblue
 tr.even row td background-color:  div.gridbox_dhx_skyblue .odd_dhx_skyblue
 tr.selected td background-color:  tr.rowselected
+tr hover row td background-color: tr.rowselected
 
 
 
@@ -34,6 +36,7 @@ th and td background-color:       .flexigrid div.bDiv
 border-color:                     .flexigrid div.bDiv
 tr.even row td background-color:  .flexigrid tr.erow td
 tr.selected td background-color:  .trSelected
+tr hover row td background-color: .trSelected
 
 
 
@@ -53,6 +56,7 @@ td background-color:              None
 border:                           .datagrid-body td
 tr.even row td background-color:  .datagrid-row-alt
 tr.selected td background-color:  .datagrid-row-selected
+tr hover row td background-color: .datagrid-row-selected
 
 
 
@@ -69,3 +73,4 @@ th background-color:              .ui-state-default, .ui-widget-content .ui-stat
 td background-color:              .ui-widget-content
 tr.even row td background-color:  .ui-priority-secondary
 tr.selected td background-color:  .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight
+tr hover row td background-color: .ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight
