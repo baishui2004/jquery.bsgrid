@@ -22,7 +22,7 @@ QQ群交流：254754154
 捐助：<a href="http://bsgrid.coding.io/donate.html" target="_blank" style="text-decoration: none;">支持长远发展，感谢您的认可！</a>
 
 ###皮肤效果###
-内置多套皮肤(点击图片查看示例页面)，并可非常容易的定制皮肤[示例：<a href="http://bsgrid.coding.io/examples/grid/themes/custom.html" target="_blank">Custom Blue Style</a>]
+内置多套皮肤(点击图片查看示例页面)，并可非常容易的定制皮肤[示例：<a href="http://bsgrid.coding.io/examples/zh-CN.html#href=examples/grid/themes/custom.html" target="_blank">Custom Blue Style</a>]
 <br />
 <a href="http://bsgrid.coding.io/examples/grid/simple.html" target="_blank">
 <img title="点击图片查看示例页面" src="https://github.com/baishui2004/jquery.bsgrid/raw/v1.36/documention/images/themes.jpg" /></a>
@@ -33,7 +33,7 @@ QQ群交流：254754154
 
 ###bsgrid的特点###
 &emsp;&emsp;1，简单、轻量，基于jQuery及HTML Table，<a href="http://bsgrid.coding.io/examples/zh-CN.html#href=examples/grid/simple.html" target="_blank">简单的表格</a>只需数十行代码，支持<a href="http://bsgrid.coding.io/examples/zh-CN.html#href=examples/grid/load-time-test.html" target="_blank">大数据量表格</a>；
-<br />&emsp;&emsp;2，内置<a href="http://bsgrid.coding.io/examples/grid/simple.html" target="_blank">多套经典皮肤</a>，且非常容易<a href="http://bsgrid.coding.io/examples/zh-CN.html#href=examples/grid/themes/custom.html" target="_blank">定制</a>，字体定制只需要修改两处CSS代码即可；
+<br />&emsp;&emsp;2，内置<a href="http://bsgrid.coding.io/examples/zh-CN.html#href=examples/grid/simple.html" target="_blank">多套经典皮肤</a>，且非常容易<a href="http://bsgrid.coding.io/examples/zh-CN.html#href=examples/grid/themes/custom.html" target="_blank">定制</a>，字体定制只需要修改两处CSS代码即可；
 <br />&emsp;&emsp;3，实用便捷的功能：<a href="http://bsgrid.coding.io/examples/zh-CN.html#href=examples/grid/edit.html" target="_blank">表格编辑</a>、
         <a href="http://bsgrid.coding.io/examples/zh-CN.html#href=examples/grid/foot.html" target="_blank">表底聚合</a>、
         <a href="http://bsgrid.coding.io/examples/zh-CN.html#href=examples/grid/no-pagation.html" target="_blank">不分页</a>、
