@@ -1045,6 +1045,11 @@
                 pagingOutTabSb.append($.bsgridLanguage.noPagingation(options.noPagingationId) + '&nbsp;&nbsp;&nbsp;');
             }
             pagingOutTabSb.append('</td></tr></table>');
+            var paging = $('#' + options.gridId+'~#'+options.pagingOutTabId);
+            if(null!=paging&&paging.length>0){
+            	paging.remove();
+            }
+
             $('#' + options.gridId).after(pagingOutTabSb.toString());
         },
 
