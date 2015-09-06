@@ -18,6 +18,7 @@
         // defaults settings
         defaults: {
             dataType: 'json',
+            ajaxType: 'POST', //ajaxtype : POST,GET
             localData: false, // values: false, json data, xml data
             url: '', // page request url
             otherParames: false, // other parameters, values: false, A Object or A jquery serialize Array
@@ -603,7 +604,7 @@
                 return;
             }
             $.ajax({
-                type: 'post',
+                type: options.settings.ajaxType,
                 url: options.settings.url,
                 data: $.fn.bsgrid.getPageCondition(curPage, options),
                 dataType: dataType,
