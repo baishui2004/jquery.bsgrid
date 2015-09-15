@@ -1,3 +1,13 @@
+v1.37  2015-09-13 使用优化、性能优化、BUG修复
+
+1，修复pageSize为0或pageAll为tue且数据条数为0时隐藏不了表头列的bug；
+2，增加参数showPageToolbar控制是否显示分页工具条，默认值true显示；
+3，增加9个方法，获取分页及排序相关值；
+4，修复当页记录条数为0时不执行afterRenderGridMethods系列方法的bug；
+5，增加grid属性ajaxType，默认post，可修改为get；
+
+
+
 v1.36  2015-06-25 功能扩展、完善示例
 
 1，禁止拖动表头改变列宽时选中表头文本；

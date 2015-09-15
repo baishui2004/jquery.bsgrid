@@ -15,38 +15,36 @@
     <table>
         <tr showType="false">
             <td class="formLabel">ID:</td>
-            <td class="formInput"><input name="id" type="text" value="100" /></td>
+            <td class="formInput" colspan="3"><input name="id" type="text" value="100" /></td>
         </tr>
         <tr>
             <td class="formLabel"><span class="require">*</span>Account:</td>
-            <td class="formInput">
+            <td class="formInput" style="width: 30%;">
                 <input name="account" type="text" editAble="false" value="Account" />
-                <span class="inputTip" showType="add">Start with letter, can contains number</span>
-                <span class="inputTip" showType="edit,edit-custom">Can not modify</span>
+                <span class="inputTip" showType="add">Unique</span>
+                <span class="inputTip" showType="edit,edit-custom">No modify</span>
             </td>
+            <td class="formLabel"><span class="require">*</span>Name:</td>
+            <td class="formInput" style="width: 30%;"><input name="name" edit-customAble="false" type="text" value="Name" /></td>
         </tr>
         <tr showType="add,edit-custom">
             <td class="formLabel">Password:</td>
-            <td class="formInput">
+            <td class="formInput" colspan="3">
                 <input name="password" editAble="false" type="password" value="123456" />
             </td>
         </tr>
-        <tr>
-            <td class="formLabel"><span class="require">*</span>Name:</td>
-            <td class="formInput"><input name="name" edit-customAble="false" type="text" value="Name" /></td>
-        </tr>
         <tr showType="view,add,edit">
             <td class="formLabel">Sex:</td>
-            <td class="formInput"><select name="sex" editAble="false" edit-customAble="false"><option value="1">male</option><option value="2">female</option></select></td>
+            <td class="formInput" colspan="3"><select name="sex" editAble="false" edit-customAble="false"><option value="1">male</option><option value="2">female</option></select></td>
         </tr>
         <tr showType="view,add,edit">
             <td class="formLabel">Remark:</td>
-            <td class="formInput">
+            <td class="formInput" colspan="3">
                 <textarea name="remark" editAble="false" edit-customAble="false">This textarea is editAble false.This textarea is editAble false.This textarea is editAble false.This textarea is editAble false.This textarea is editAble false.</textarea>
             </td>
         </tr>
         <tr>
-            <td colspan="2" style="text-align: center;">
+            <td colspan="4" style="text-align: center;">
                 <input type="button" value="Refresh" onclick="location.href = location.href;" />
                 &emsp;
                 <input type="button" value="view style" onclick="formObj.showForm('view');" />

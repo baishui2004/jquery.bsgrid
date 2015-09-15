@@ -35,13 +35,13 @@
 </table>
 
 <p/>
-&emsp;<input type="button" value="Get pageSize" onclick="alert(gridObj.options.settings.pageSize);"/>
-&emsp;<input type="button" value="Get totalRows" onclick="alert(gridObj.options.totalRows);"/>
-&emsp;<input type="button" value="Get totalPages" onclick="alert(gridObj.options.totalPages);"/>
-&emsp;<input type="button" value="Get curPage" onclick="alert(gridObj.options.curPage);"/>
-&emsp;<input type="button" value="Get curPage RowsNum" onclick="alert(gridObj.options.curPageRowsNum);"/>
-&emsp;<input type="button" value="Get startRow" onclick="alert(gridObj.options.startRow);"/>
-&emsp;<input type="button" value="Get endRow" onclick="alert(gridObj.options.endRow);"/>
+&emsp;<input type="button" value="Get pageSize" onclick="alert(gridObj.getPageSize());"/>
+&emsp;<input type="button" value="Get totalRows" onclick="alert(gridObj.getTotalRows());"/>
+&emsp;<input type="button" value="Get totalPages" onclick="alert(gridObj.getTotalPages());"/>
+&emsp;<input type="button" value="Get curPage" onclick="alert(gridObj.getCurPage());"/>
+&emsp;<input type="button" value="Get curPage RowsNum" onclick="alert(gridObj.getCurPageRowsNum());"/>
+&emsp;<input type="button" value="Get startRow" onclick="alert(gridObj.getStartRow());"/>
+&emsp;<input type="button" value="Get endRow" onclick="alert(gridObj.getEndRow());"/>
 
 <p/>
 &emsp;<input type="button" value="Refresh page" onclick="gridObj.refreshPage();"/>
@@ -50,8 +50,8 @@
 &emsp;<input type="button" value="Next page" onclick="gridObj.nextPage();"/>
 &emsp;<input type="button" value="Last page" onclick="gridObj.lastPage();"/>
 &emsp;<input type="button" value="Goto page 2" onclick="gridObj.gotoPage(2);"/>
-&emsp;<input type="button" value="Get sort name" onclick="alert(gridObj.options.sortName);"/>
-&emsp;<input type="button" value="Get sort order" onclick="alert(gridObj.options.sortOrder);"/>
+&emsp;<input type="button" value="Get sort name" onclick="alert(gridObj.getSortName());"/>
+&emsp;<input type="button" value="Get sort order" onclick="alert(gridObj.getSortOrder());"/>
 &emsp;<input type="button" value="Sort by XH"
              onclick="gridObj.sort($('#' + gridObj.options.gridId + ' thead tr th:eq(0)'));"/>
 

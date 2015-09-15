@@ -35,13 +35,13 @@
 </table>
 
 <p/>
-&emsp;<input type="button" value="获取分页大小" onclick="alert(gridObj.options.settings.pageSize);"/>
-&emsp;<input type="button" value="获取总行数" onclick="alert(gridObj.options.totalRows);"/>
-&emsp;<input type="button" value="获取总页数" onclick="alert(gridObj.options.totalPages);"/>
-&emsp;<input type="button" value="获取当前页码" onclick="alert(gridObj.options.curPage);"/>
-&emsp;<input type="button" value="获取当前页数据行数" onclick="alert(gridObj.options.curPageRowsNum);"/>
-&emsp;<input type="button" value="获取当前页开始行数值" onclick="alert(gridObj.options.startRow);"/>
-&emsp;<input type="button" value="获取当前页结束行数值" onclick="alert(gridObj.options.endRow);"/>
+&emsp;<input type="button" value="获取分页大小" onclick="alert(gridObj.getPageSize());"/>
+&emsp;<input type="button" value="获取总行数" onclick="alert(gridObj.getTotalRows());"/>
+&emsp;<input type="button" value="获取总页数" onclick="alert(gridObj.getTotalPages());"/>
+&emsp;<input type="button" value="获取当前页码" onclick="alert(gridObj.getCurPage());"/>
+&emsp;<input type="button" value="获取当前页数据行数" onclick="alert(gridObj.getCurPageRowsNum());"/>
+&emsp;<input type="button" value="获取当前页开始行数值" onclick="alert(gridObj.getStartRow());"/>
+&emsp;<input type="button" value="获取当前页结束行数值" onclick="alert(gridObj.getEndRow());"/>
 
 <p/>
 &emsp;<input type="button" value="刷新" onclick="gridObj.refreshPage();"/>
@@ -50,8 +50,8 @@
 &emsp;<input type="button" value="下一页" onclick="gridObj.nextPage();"/>
 &emsp;<input type="button" value="末页" onclick="gridObj.lastPage();"/>
 &emsp;<input type="button" value="第二页" onclick="gridObj.gotoPage(2);"/>
-&emsp;<input type="button" value="获取排序字段" onclick="alert(gridObj.options.sortName);"/>
-&emsp;<input type="button" value="获取排序方向" onclick="alert(gridObj.options.sortOrder);"/>
+&emsp;<input type="button" value="获取排序字段" onclick="alert(gridObj.getSortName());"/>
+&emsp;<input type="button" value="获取排序方向" onclick="alert(gridObj.getSortOrder());"/>
 &emsp;<input type="button" value="根据XH排序"
              onclick="gridObj.sort($('#' + gridObj.options.gridId + ' thead tr th:eq(0)'));"/>
 

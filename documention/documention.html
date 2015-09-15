@@ -15,6 +15,7 @@
 2, settings: $.fn.bsgrid.defaults or $.fn.bsgrid.init(gridId, settings) second param settings
    localData: json data, xml data, default false
    dataType: 'json', 'xml', default 'json'
+   ajaxType: 'post', 'get', default 'post'
    url: page request url
    otherParames: other parameters, values: false, A Search String, A Object or A jquery serialize Array, default false
                  Samples, First: 'param1=val1&amp;param2=val2'
@@ -22,6 +23,7 @@
                           Third: $('#searchForm').serializeArray()
    autoLoad: load onReady, default true
    pageAll: display all datas, no paging only count, default false
+   showPageToolbar: if show page toolbar, default true
    pageSize: if set value little then 1, then pageAll will auto set true, default 20
    pageSizeSelect: if display pageSize select option, use with property pageSizeForGrid, default false
    pageSizeForGrid: pageSize select option
@@ -83,8 +85,16 @@
    tfoot td properties
    w_agg: aggregation, values: count, countNotNone, sum, avg, max, min, concat, custom
 
-4, these five get userdata's value, get record or column's value methods could call after grid data rendered
-   gridObj.getUserdata(): get userdata's value
+4, these get pagination values, get record or column's value methods, get userdata's value, could call after grid data rendered
+   gridObj.getPageSize(): get page size
+   gridObj.getTotalRows(): get total rows number
+   gridObj.getTotalPages(): get total pages number
+   gridObj.getCurPage(): get current page number
+   gridObj.getCurPageRowsNum(): get current page rows number
+   gridObj.getStartRow(): get start row number in current page, from 1
+   gridObj.getEndRow(): get end row number in current page
+   gridObj.getSortName(): get sort name
+   gridObj.getSortOrder(): get sort order
    gridObj.getAllRecords(): get all records
    gridObj.getRecord(rowIndex): get record by rowIndex, note that index from 0
    gridObj.getRowRecord(rowObj): get row record by row's tr object
@@ -96,6 +106,7 @@
    gridObj.getRowCells(rowIndex): get row cells dom object by rowIndex
    gridObj.getColCells(colIndex): get col cells dom object by colIndex
    gridObj.getCell(rowIndex, colIndex): get cell dom object by rowIndex and colIndex
+   gridObj.getUserdata(): get userdata's value
 
 5, these three select row methods and two check row methods could call after grid data rendered
    gridObj.selectRow(rowIndex): select row by rowIndex, note that index from 0
