@@ -1,5 +1,5 @@
 /**
- * jQuery.bsgrid v1.36 by @Baishui2004
+ * jQuery.bsgrid v1.37 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -13,7 +13,7 @@
 
     $.fn.bsgrid = {
 
-        version: '1.36',
+        version: '1.37',
 
         // defaults settings
         defaults: {
@@ -211,6 +211,9 @@
                 },
                 loadGridData: function (dataType, gridData) {
                     $.fn.bsgrid.loadGridData(dataType, gridData, options);
+                },
+                reloadLocalData: function (localData) {
+                    $.fn.bsgrid.reloadLocalData(localData, options);
                 },
                 getPageSize: function () {
                     return options.settings.pageSize;
@@ -618,7 +621,11 @@
         },
 
         search: function (params, options) {
-            options.otherParames = params;
+            if (params != undefined) {
+                options.otherParames = params;
+            } else {
+                options.otherParames = false;
+            }
             $.fn.bsgrid.page(1, options);
         },
 
@@ -804,6 +811,11 @@
                 options.settings.extend.afterRenderGridMethods[key](parseSuccess, gridData, options);
             }
             options.settings.additionalAfterRenderGrid(parseSuccess, gridData, options);
+        },
+
+        reloadLocalData: function (localData, options) {
+            options.settings.localData = localData;
+            $.fn.bsgrid.page(1, options);
         },
 
         addRowsClickEvent: function (options) {

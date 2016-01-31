@@ -1,7 +1,7 @@
 /**
  * jPaginator adapter for bsgrid.
  *
- * jQuery.bsgrid v1.36 by @Baishui2004
+ * jQuery.bsgrid v1.37 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */

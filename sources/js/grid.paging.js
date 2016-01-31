@@ -1,5 +1,5 @@
 /**
- * jQuery.bsgrid v1.36 by @Baishui2004
+ * jQuery.bsgrid v1.37 by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -21,7 +21,17 @@
             pageSizeForGrid: [5, 10, 20, 25, 50, 100, 200, 500], // pageSize select option
             pageIncorrectTurnAlert: true, // if turn incorrect page alert(firstPage, prevPage, nextPage, lastPage)
             pagingLittleToolbar: false, // if display paging little toolbar
-            pagingBtnClass: 'pagingBtn' // paging toolbar button css class
+            pagingBtnClass: 'pagingBtn', // paging toolbar button css class
+            pagingMinWidth: 'auto', // paging toolbar min-width, 'auto' means min-width by grid.paging.css, value example '300px'
+            pagingBtnShowState: { // paging button show state, default show all
+                select: true,
+                first: true,
+                prev: true,
+                next: true,
+                last: true,
+                gotoBtn: true, // goto is keyword
+                refresh: true
+            }
         },
 
         pagingObjs: {},
@@ -231,34 +241,55 @@
             var pagingSb = new StringBuilder();
             var littleBar = options.settings.pagingLittleToolbar;
 
-            pagingSb.append('<table class="bsgridPaging' + ( littleBar ? ' pagingLittleToolbar' : '') + (options.settings.pageSizeSelect ? '' : ' noPageSizeSelect') + '">');
+            pagingSb.append('<table class="bsgridPaging' + ( littleBar ? ' pagingLittleToolbar' : '') + (options.settings.pageSizeSelect ? '' : ' noPageSizeSelect') + '"');
+            if (options.settings.pagingMinWidth != 'auto') {
+                pagingSb.append(' style="width: ' + options.settings.pagingMinWidth + ' !important"');
+            }
+            pagingSb.append('>');
             pagingSb.append('<tr>');
-            if (options.settings.pageSizeSelect) {
+            var showStates = options.settings.pagingBtnShowState;
+            if (options.settings.pageSizeSelect && showStates.select) {
                 pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.pageSizeDisplay(options.pageSizeId, littleBar) + '</td>');
             }
             pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.currentDisplayRows(options.startRowId, options.endRowId, littleBar) + '</td>');
             pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.totalRows(options.totalRowsId) + '</td>');
             var btnClass = options.settings.pagingBtnClass;
             pagingSb.append('<td>');
-            pagingSb.append('<input class="' + btnClass + ' firstPage" type="button" id="' + options.firstPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.firstPage) + '" />');
-            pagingSb.append('&nbsp;');
-            pagingSb.append('<input class="' + btnClass + ' prevPage" type="button" id="' + options.prevPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.prevPage) + '" />');
+            if (showStates.first) {
+                pagingSb.append('<input class="' + btnClass + ' firstPage" type="button" id="' + options.firstPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.firstPage) + '" />');
+            }
+            if (showStates.first && showStates.prev) {
+                pagingSb.append('&nbsp;');
+            }
+            if (showStates.prev) {
+                pagingSb.append('<input class="' + btnClass + ' prevPage" type="button" id="' + options.prevPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.prevPage) + '" />');
+            }
             pagingSb.append('</td>');
             pagingSb.append('<td>' + $.bsgridLanguage.pagingToolbar.currentDisplayPageAndTotalPages(options.curPageId, options.totalPagesId) + '</td>');
             pagingSb.append('<td>');
-            pagingSb.append('<input class="' + btnClass + ' nextPage" type="button" id="' + options.nextPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.nextPage) + '" />');
-            pagingSb.append('&nbsp;');
-            pagingSb.append('<input class="' + btnClass + ' lastPage" type="button" id="' + options.lastPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.lastPage) + '" />');
+            if (showStates.next) {
+                pagingSb.append('<input class="' + btnClass + ' nextPage" type="button" id="' + options.nextPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.nextPage) + '" />');
+            }
+            if (showStates.next && showStates.last) {
+                pagingSb.append('&nbsp;');
+            }
+            if (showStates.last) {
+                pagingSb.append('<input class="' + btnClass + ' lastPage" type="button" id="' + options.lastPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.lastPage) + '" />');
+            }
             pagingSb.append('</td>');
-            pagingSb.append('<td class="gotoPageInputTd">');
-            pagingSb.append('<input class="gotoPageInput" type="text" id="' + options.gotoPageInputId + '" />');
-            pagingSb.append('</td>');
-            pagingSb.append('<td class="gotoPageButtonTd">');
-            pagingSb.append('<input class="' + btnClass + ' gotoPage" type="button" id="' + options.gotoPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.gotoPage) + '" />');
-            pagingSb.append('</td>');
-            pagingSb.append('<td class="refreshPageTd">');
-            pagingSb.append('<input class="' + btnClass + ' refreshPage" type="button" id="' + options.refreshPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.refreshPage) + '" />');
-            pagingSb.append('</td>');
+            if (showStates.gotoBtn) {
+                pagingSb.append('<td class="gotoPageInputTd">');
+                pagingSb.append('<input class="gotoPageInput" type="text" id="' + options.gotoPageInputId + '" />');
+                pagingSb.append('</td>');
+                pagingSb.append('<td class="gotoPageButtonTd">');
+                pagingSb.append('<input class="' + btnClass + ' gotoPage" type="button" id="' + options.gotoPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.gotoPage) + '" />');
+                pagingSb.append('</td>');
+            }
+            if (showStates.refresh) {
+                pagingSb.append('<td class="refreshPageTd">');
+                pagingSb.append('<input class="' + btnClass + ' refreshPage" type="button" id="' + options.refreshPageId + '" value="' + ( littleBar ? '' : $.bsgridLanguage.pagingToolbar.refreshPage) + '" />');
+                pagingSb.append('</td>');
+            }
             pagingSb.append('</tr>');
             pagingSb.append('</table>');
 
