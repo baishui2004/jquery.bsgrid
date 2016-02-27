@@ -200,6 +200,9 @@
 
             var gridObj = {
                 options: options,
+                getCondition: function () {
+                    return $.fn.bsgrid.getPageCondition(options.curPage, options);
+                },
                 getPageCondition: function (curPage) {
                     return $.fn.bsgrid.getPageCondition(curPage, options);
                 },
@@ -207,7 +210,7 @@
                     $.fn.bsgrid.page(curPage, options);
                 },
                 search: function (params) {
-                    $.fn.bsgrid.search(params, options);
+                    $.fn.bsgrid.search(options, params);
                 },
                 loadGridData: function (dataType, gridData) {
                     $.fn.bsgrid.loadGridData(dataType, gridData, options);
@@ -313,9 +316,6 @@
                 },
                 getPagingObj: function () {
                     return $.fn.bsgrid.getPagingObj(options);
-                },
-                getCurPage: function () {
-                    return $.fn.bsgrid.getCurPage(options);
                 },
                 refreshPage: function () {
                     $.fn.bsgrid.refreshPage(options);
@@ -620,7 +620,7 @@
             return condition;
         },
 
-        search: function (params, options) {
+        search: function (options, params) {
             if (params != undefined) {
                 options.otherParames = params;
             } else {
@@ -1199,10 +1199,6 @@
 
         getPagingObj: function (options) {
             return $.fn.bsgrid.getGridObj(options.gridId).pagingObj;
-        },
-
-        getCurPage: function (options) {
-            return $.fn.bsgrid.getPagingObj(options).getCurPage();
         },
 
         refreshPage: function (options) {

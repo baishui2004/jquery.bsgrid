@@ -10,6 +10,12 @@
     // only for load-time-test.html
     final String load_time_test = request.getParameter("load_time_test");
 
+    // only for search.html
+    String xh = request.getParameter("xh");
+    if ("".equals(xh)) {
+        xh = null;
+    }
+
     // data list
     List<Map<String, Object>> data = new ArrayList<Map<String, Object>>();
     int totalRows = 26;
@@ -25,7 +31,17 @@
         map.put("DATE", "2012-12-12 15:01:01");
         map.put("TIME", "15:01:01");
         map.put("NUM", i * 10);
-        data.add(map);
+        if (xh != null) {
+            if (Integer.toString(i + 1).equals(xh)) {
+                data.add(map);
+            }
+        } else {
+            data.add(map);
+        }
+    }
+
+    if (xh != null) {
+        totalRows = data.size();
     }
 
     // sort
