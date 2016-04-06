@@ -1,6 +1,8 @@
 <%@ page language="java" pageEncoding="UTF-8" %>
 <%@ page import="java.util.*" %>
 <%
+    final String callback = request.getParameter("callback");
+
     int pageSize = Integer.parseInt(request.getParameter("pageSize"));
     int curPage = Integer.parseInt(request.getParameter("curPage"));
 
@@ -111,5 +113,10 @@
 
     jsonSb.append("]");
     jsonSb.append("}");
+
+    if (callback != null) {
+        jsonSb.insert(0, callback + "(");
+        jsonSb.append(");");
+    }
     out.print(jsonSb.toString());
 %>

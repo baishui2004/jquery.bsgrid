@@ -33,13 +33,6 @@
 	$.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.beforeRenderGridMethods, 'extend_before_render_grid', function(parseSuccess, gridData, options){
 		console.log('extend before render grid method.');
 	});
-	// extend render per row methods, no matter blank row or not blank row, before render per column methods
-	$.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.renderPerRowMethods, 'extend_render_per_row', function(record, rowIndex, trObj, options){
-		if(rowIndex % 2 == 0){
-			trObj.find('td').css('background-color', 'pink');
-		}
-		console.log('extend render per row.');
-	});
 	// extend render per column methods, no matter blank column or not blank column
 	$.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.renderPerColumnMethods, 'extend_render_per_column', function(record, rowIndex, colIndex, tdObj, trObj, options){
 		var val = gridObj.getRecordIndexValue(record, gridObj.getColumnModel(colIndex).index);
@@ -49,6 +42,13 @@
 			tdObj.css('background-color', 'green');
 		}
 		console.log('extend render per column method.');
+	});
+	// extend render per row methods, no matter blank row or not blank row, after render per column methods
+	$.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.renderPerRowMethods, 'extend_render_per_row', function(record, rowIndex, trObj, options){
+		if(rowIndex % 2 == 0){
+			trObj.find('td').css('background-color', 'pink');
+		}
+		console.log('extend render per row.');
 	});
 	// extend after render grid methods
 	$.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'extend_after_render_grid', function(parseSuccess, gridData, options){

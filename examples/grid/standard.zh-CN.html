@@ -78,6 +78,8 @@
 &emsp;<input type="button" value="获取第三行第一列单元格(Dom对象outerHTML)" onclick="alert($.bsgrid.adaptAttrOrProp(gridObj.getCell(2, 0), 'outerHTML'));"/>
 
 <p/>
+&emsp;<input type="button" value="清空第一行数据" onclick="gridObj.clearRowData(0);"/>
+&emsp;<input type="button" value="用第二行数据替换第一行" onclick="gridObj.loadRowData(gridObj.getRecord(1), 0);"/>
 &emsp;<input type="button" value="清空表格数据" onclick="gridObj.clearGridBodyData();"/>
 
 <p/>
@@ -100,7 +102,7 @@
         $.fn.bsgrid.defaults.additionalBeforeRenderGrid = function (parseSuccess, gridData, options) {
             console.log('[additional before render grid]   ' + 'parseSuccess=' + parseSuccess);
         };
-        // 渲染行数据执行方法, 不论此行是否为空行(即无数据渲染), 在渲染单元格数据方法执行前执行
+        // 渲染行数据执行方法, 不论此行是否为空行(即无数据渲染), 在渲染单元格数据方法执行后执行
         $.fn.bsgrid.defaults.additionalRenderPerRow = function (record, rowIndex, trObj, options) {
             if (record != null) { // null record render blank row
                 console.log('[additional render per row]      ' + 'ID=' + gridObj.getRecordIndexValue(record, 'ID') + ', rowIndex=' + rowIndex);

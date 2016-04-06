@@ -13,9 +13,10 @@
    文件: builds/js/lang/grid.*.min.js, 源码: source/js/lang/grid.*.js
 
 2, 配置参数: $.fn.bsgrid.defaults 或 $.fn.bsgrid.init(gridId, settings) 第二个参数
-   localData: json数据, xml数据, 默认值false
-   dataType: 'json', 'xml', 默认值'json'
+   dataType: 'json', 'jsonp', 'xml', 默认值'json'
+   dataTrim: true, false, 是否trim单元格值
    ajaxType: 'post', 'get', 默认值 'post'
+   localData: json数据, xml数据, 默认值false
    url: 分页请求URL
    otherParames: 额外的参数, 可设值: false, 字符查询查询串, Object对象或jquery序列化数组, 默认值false
                  格式  一: 'param1=val1&amp;param2=val2'
@@ -56,13 +57,13 @@
    扩展方法, 此系列各方法在additional系列同义方法前执行, 内置扩展写在grid.extend.js文件中:
        extend.initGridMethods: 初始化表格完成后额外执行的方法
        extend.beforeRenderGridMethods: 在渲染表格数据前执行的方法
-       extend.renderPerRowMethods: 渲染行数据执行方法, 不论此行是否为空行(即无数据渲染), 在渲染单元格数据方法执行前执行
        extend.renderPerColumnMethods: 渲染单元格数据执行方法, 不论此单元格是否为空单元格(即无数据渲染)
+       extend.renderPerRowMethods: 渲染行数据执行方法, 不论此行是否为空行(即无数据渲染), 在渲染单元格数据方法执行后执行
        extend.afterRenderGridMethods: 在渲染表格数据后执行的方法
    additional render methods:
        additionalBeforeRenderGrid: 在渲染表格数据前执行的方法
-       additionalRenderPerRow: 渲染行数据执行方法, 不论此行是否为空行(即无数据渲染), 在渲染单元格数据方法执行前执行
        additionalRenderPerColumn: 渲染单元格数据执行方法, 不论此单元格是否为空单元格(即无数据渲染)
+       additionalRenderPerRow: 渲染行数据执行方法, 不论此行是否为空行(即无数据渲染), 在渲染单元格数据方法执行后执行
        additionalAfterRenderGrid: 在渲染表格数据后执行的方法
 
 3, 列/表头属性
@@ -140,8 +141,8 @@
 
 7, 表格的其他有用方法
    $.fn.bsgrid.getGridObj(gridId): 根据表格ID获取表格对象
-   $.fn.bsgrid.columnTip(obj, value, record): tip单元格值
-   $.fn.bsgrid.longLengthSubAndTip(obj, value, maxLen, record): 单元格需要被渲染内容超过此长度则截断并tip显示完整内容,
+   $.fn.bsgrid.columnTip(tdObj, value, record): tip单元格值
+   $.fn.bsgrid.longLengthSubAndTip(tdObj, value, maxLen, record): 单元格需要被渲染内容超过此长度则截断并tip显示完整内容,
                                                                 截断算法: content.substring(0, MaxLength-3) + '...'
 
 8, 表格编辑方法

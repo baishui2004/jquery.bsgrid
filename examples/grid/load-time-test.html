@@ -27,13 +27,13 @@
 <script type="text/javascript">
     var date;
     // extend before render grid methods
-	$.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.beforeRenderGridMethods, 'extend_before_render_grid', function(parseSuccess, gridData, options){
+    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.beforeRenderGridMethods, 'extend_before_render_grid', function (parseSuccess, gridData, options) {
         date = new Date();
-	});
+    });
     // extend after render grid methods
-	$.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'extend_after_render_grid', function(parseSuccess, gridData, options){
+    $.bsgrid.forcePushPropertyInObject($.fn.bsgrid.defaults.extend.afterRenderGridMethods, 'extend_after_render_grid', function (parseSuccess, gridData, options) {
         $('#load_time').html('Load data number: ' + options.curPageRowsNum + ', load time=' + (new Date().getTime() - date.getTime()) + 'ms');
-	});
+    });
 
     var gridObj;
     $(function () {

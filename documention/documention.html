@@ -13,9 +13,10 @@
    files: builds/js/lang/grid.*.min.js, source: source/js/lang/grid.*.js
 
 2, settings: $.fn.bsgrid.defaults or $.fn.bsgrid.init(gridId, settings) second param settings
-   localData: json data, xml data, default false
-   dataType: 'json', 'xml', default 'json'
+   dataType: 'json', 'jsonp', 'xml', default 'json'
+   dataTrim: true, false, if trim render cell value
    ajaxType: 'post', 'get', default 'post'
+   localData: json data, xml data, default false
    url: page request url
    otherParames: other parameters, values: false, A Search String, A Object or A jquery serialize Array, default false
                  Samples, First: 'param1=val1&amp;param2=val2'
@@ -56,13 +57,13 @@
    extend config methods, note these methods execute before same means's additional method, write in grid.extend.js:
        extend.initGridMethods: init grid methods
        extend.beforeRenderGridMethods: before render grid methods
-       extend.renderPerRowMethods: render per row methods, no matter blank or not blank row, before render per column methods
        extend.renderPerColumnMethods: render per column methods, no matter blank not blank column
+       extend.renderPerRowMethods: render per row methods, no matter blank or not blank row, after render per column methods
        extend.afterRenderGridMethods: after render grid methods
    additional render methods:
        additionalBeforeRenderGrid: additional before render grid
-       additionalRenderPerRow: additional render per row, no matter blank or not blank row, before additional render per column
        additionalRenderPerColumn: additional render per column, no matter blank column or not blank column
+       additionalRenderPerRow: additional render per row, no matter blank or not blank row, after additional render per column
        additionalAfterRenderGrid: additional after render grid
 
 3, th properties
@@ -140,8 +141,8 @@
 
 7, bsgrid other useful methods
    $.fn.bsgrid.getGridObj(gridId): get grid object
-   $.fn.bsgrid.columnTip(obj, value, record): tip column
-   $.fn.bsgrid.longLengthSubAndTip(obj, value, maxLen, record): if column's value length longer than it, auto sub and tip it.
+   $.fn.bsgrid.columnTip(tdObj, value, record): tip column
+   $.fn.bsgrid.longLengthSubAndTip(tdObj, value, maxLen, record): if column's value length longer than it, auto sub and tip it.
                                                                 sub: txt.substring(0, MaxLength-3) + '...'
 
 8, bsgrid edit methods

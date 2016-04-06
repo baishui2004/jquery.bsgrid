@@ -9,11 +9,11 @@ jQuery.bsgrid - 简单实用、功能丰富、易扩展的jQuery Grid插件
 		&emsp;<a href="http://bsgrid.coding.io/examples/zh-CN.html" target="_blank">示例</a>
 		&emsp;<a href="http://bsgrid.coding.io/documention/documention.zh-CN.html" target="_blank">文档</a>
 <br />
-版本：1.37
+版本：1.38-preview
 &emsp;&emsp;&nbsp;协议：Apache Licence 2
 &emsp;更新：2016-01-21
 <br />
-依赖：jQuery 1.4.4 ~~ jQuery 1.11.2
+依赖：jQuery 1.4.4 ~~ jQuery 1.12.2
 &emsp;&emsp;&emsp;
 支持：IE6+、Chrome、Firefox等
 

@@ -78,6 +78,8 @@
 &emsp;<input type="button" value="get Cell(Row 2 Col 0, Dom Object outerHTML)" onclick="alert($.bsgrid.adaptAttrOrProp(gridObj.getCell(2, 0), 'outerHTML'));"/>
 
 <p/>
+&emsp;<input type="button" value="Clear Rows 0 data" onclick="gridObj.clearRowData(0);"/>
+&emsp;<input type="button" value="Replace Row 0 data with Row 1" onclick="gridObj.loadRowData(gridObj.getRecord(1), 0);"/>
 &emsp;<input type="button" value="Clear grid body data" onclick="gridObj.clearGridBodyData();"/>
 
 <p/>
@@ -100,7 +102,7 @@
         $.fn.bsgrid.defaults.additionalBeforeRenderGrid = function (parseSuccess, gridData, options) {
             console.log('[additional before render grid]   ' + 'parseSuccess=' + parseSuccess);
         };
-        // additional render per row, no matter blank row or not blank row, before additional render per column
+        // additional render per row, no matter blank row or not blank row, after additional render per column
         $.fn.bsgrid.defaults.additionalRenderPerRow = function (record, rowIndex, trObj, options) {
             if (record != null) { // null record render blank row
                 console.log('[additional render per row]      ' + 'ID=' + gridObj.getRecordIndexValue(record, 'ID') + ', rowIndex=' + rowIndex);

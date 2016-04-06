@@ -1,6 +1,11 @@
-v1.38  2016-02-27 使用优化、性能优化、增加新的扩展功能
+v1.38  2016-03-27 新功能、性能优化
 
-1，增加带参数查询示例；
+1，增加带参数查询示例：search.html；
+2，dataType增加支持jsonp，示例：jsonp.html；
+3，settings增加dataTrim，是否trim单元格值，默认true，与之前版本处理相同，dataTrim为false则不trim，使用示例：nested-json.html；
+4，修复编辑模式下addNewEditRow前表格必须有一行的bug，改为表格初始化后必须有一行即可；
+5，gridObj增加clearRowData(rowIndex)及loadRowData(record, rowIndex)方法；
+6，additionalRenderPerColumn改为在additionalRenderPerRow之前执行，renderPerColumnMethods改为在renderPerRowMethods之前执行；
 
 
 
