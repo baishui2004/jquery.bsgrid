@@ -1,3 +1,12 @@
+v1.39-pre  2018-04-16 BUG修复
+1，修复getColumnValue方法在w_render情况下取不到数据问题；
+2，修复当显示行号时，无数据会显示1的问题；
+3，grid settings增加ajax success与error后执行配置；
+4，form表单提供getFormInputObj方法，修复必填样式切换bug；
+5，修复addNewEditRow之后的selectRow及unSelectRow bug；
+
+
+
 v1.38  2016-03-27 新功能、性能优化
 
 1，增加带参数查询示例：search.html；

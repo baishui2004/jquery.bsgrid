@@ -1,5 +1,5 @@
 /**
- * jQuery.bsgrid v1.38 by @Baishui2004
+ * jQuery.bsgrid v1.39-pre by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -326,8 +326,9 @@
         // render line number
     $.fn.bsgrid.extendAfterRenderGrid.renderLineNumber = function (parseSuccess, gridData, options) {
         $.fn.bsgrid.getGridHeaderObject(options).each(function (i) {
+            var gridObj = $.fn.bsgrid.getGridObj(options.gridId);
             var num = options.columnsModel[i].lineNumber;
-            if (num == 'line' || num == 'total_line') {
+            if (gridObj.getTotalRows() > 0 && (num == 'line' || num == 'total_line')) {
                 $.fn.bsgrid.getRows(options).find('td:nth-child(' + (i + 1) + ')').each(function (li) {
                     $(this).html((num == 'line') ? (li + 1) : (li + options.startRow));
                 });
@@ -614,6 +615,7 @@
             }
         });
         gridObj.getRow(0).data('record', null).data('ex_new', 'true');
+        $.fn.bsgrid.addRowsClickEvent(options);
     };
     /*************** extend edit methods end ***************/
 

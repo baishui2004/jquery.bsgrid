@@ -1,5 +1,5 @@
 /**
- * jQuery.bsgrid v1.38 by @Baishui2004
+ * jQuery.bsgrid v1.39-pre by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -67,8 +67,17 @@
             // before page ajax request send
             beforeSend: function (options, XMLHttpRequest) {
             },
+            // after page ajax request success
+            success: function (options, gridData, textStatus) {
+                return true;
+            },
+            // after page ajax request error
+            error: function (options, XMLHttpRequest, textStatus, errorThrown) {
+                return true;
+            },
             // after page ajax request complete
             complete: function (options, XMLHttpRequest, textStatus) {
+                return true;
             },
             // process userdata, process before grid render data
             processUserdata: function (userdata, options) {
@@ -669,10 +678,16 @@
                     }
                 },
                 success: function (gridData, textStatus) {
-                    $.fn.bsgrid.loadGridData(dataType, gridData, options);
+                    var rs = options.settings.success(options, gridData, textStatus);
+                    if (rs != false) {
+                        $.fn.bsgrid.loadGridData(dataType, gridData, options);
+                    }
                 },
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
-                    $.fn.bsgrid.alert($.bsgridLanguage.errorForSendOrRequestData);
+                    var rs = options.settings.error(options, XMLHttpRequest, textStatus, errorThrown);
+                    if (rs != false) {
+                        $.fn.bsgrid.alert($.bsgridLanguage.errorForSendOrRequestData);
+                    }
                 }
             });
         },
@@ -760,6 +775,7 @@
             if (trObj == undefined) {
                 trObj = $.fn.bsgrid.getRow(rowIndex, options);
             }
+            $.fn.bsgrid.storeRowData(rowIndex, record, options);
             var columnsModel = options.columnsModel;
             var dataType = options.settings.dataType;
             var dataTrim = options.settings.dataTrim;
@@ -811,8 +827,6 @@
                 }
             });
 
-            $.fn.bsgrid.storeRowData(rowIndex, record, options);
-
             for (var key in options.settings.extend.renderPerRowMethods) {
                 options.settings.extend.renderPerRowMethods[key](record, rowIndex, trObj, options);
             }
@@ -835,7 +849,8 @@
         },
 
         addRowsClickEvent: function (options) {
-            $('#' + options.gridId + ' tbody').delegate('tr:lt(' + options.curPageRowsNum + ')', 'click', function () {
+            $('#' + options.gridId + ' tbody').undelegate('tr', 'click');
+            $('#' + options.gridId + ' tbody').delegate('tr', 'click', function () {
                 var trObj = $(this);
                 if (trObj.hasClass('selected')) {
                     $.fn.bsgrid.unSelectRow(options);

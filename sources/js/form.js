@@ -1,5 +1,5 @@
 /**
- * jQuery.bsgrid v1.38 by @Baishui2004
+ * jQuery.bsgrid v1.39-pre by @Baishui2004
  * Copyright 2014 Apache v2 License
  * https://github.com/baishui2004/jquery.bsgrid
  */
@@ -14,11 +14,9 @@
     $.fn.bsgrid_form = {
 
         // defaults settings
-        defaults: {
-        },
+        defaults: {},
 
-        formObjs: {
-        },
+        formObjs: {},
 
         /**
          * init form.
@@ -35,6 +33,9 @@
                 options: options,
                 addAssistShowFormTags: function () {
                     $.fn.bsgrid_form.addAssistShowFormTags(options);
+                },
+                getFormInputObj: function () {
+                    return $.fn.bsgrid_form.getFormInputObj(options);
                 },
                 showForm: function (type) {
                     $.fn.bsgrid_form.showForm(options, type);
@@ -61,6 +62,10 @@
         getFormObj: function (formId) {
             var obj = $.fn.bsgrid_form.formObjs[formId];
             return obj ? obj : null;
+        },
+
+        getFormInputObj: function (options) {
+            return $('.formInput :input:not(:button,:submit,:reset)', options.jqueryObj);
         },
 
         /**
@@ -90,11 +95,11 @@
             this.showOrHideTag(options, type);
 
             if (type.startWith('view')) {
-                $('.formInput :input:not(:button,:submit,:reset)', options.jqueryObj).css({'border-width': '0'}).attr('readOnly', 'readOnly');
+                this.getFormInputObj(options).css({'border-width': '0'}).attr('readOnly', 'readOnly');
             } else if (type.startWith('add')) {
-                $('.formInput :input:not(:button,:submit,:reset)', options.jqueryObj).css({'border': 'solid 1px #abadb3'}).removeAttr('readOnly');
+                this.getFormInputObj(options).css({'border': 'solid 1px #abadb3'}).removeAttr('readOnly');
             } else if (type.startWith('edit')) {
-                $('.formInput :input:not(:button,:submit,:reset)', options.jqueryObj).css({'border': 'solid 1px #abadb3'}).removeAttr('readOnly');
+                this.getFormInputObj(options).css({'border': 'solid 1px #abadb3'}).removeAttr('readOnly');
                 $('.formInput :input[' + type + 'Able=false]', options.jqueryObj).css({'border-width': '0'}).attr('readOnly', 'readOnly');
             }
         },
@@ -106,6 +111,7 @@
             if (type.startWith('view')) {
                 $('.formLabel span.require', options.jqueryObj).hide();
             } else if (type.startWith('edit')) {
+                $('.formLabel span.require', options.jqueryObj).show();
                 $('.formLabel:has(span.require) ~ .formInput:has(:input[' + type + 'Able=false])', options.jqueryObj).prev().find('span.require').hide();
             } else {
                 $('.formLabel span.require', options.jqueryObj).show();
