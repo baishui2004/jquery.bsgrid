@@ -4,6 +4,8 @@ v1.39-pre  2018-04-16 BUG修复
 3，grid settings增加ajax success与error后执行配置；
 4，form表单提供getFormInputObj方法，修复必填样式切换bug；
 5，修复addNewEditRow之后的selectRow及unSelectRow bug；
+6，方法gridObj.getCheckedRowsIndexs()变更为gridObj.getCheckedRowsIndexes()；
+   方法gridObj.getChangedRowsIndexs()变更为gridObj.getChangedRowsIndexes()；
 
 
 

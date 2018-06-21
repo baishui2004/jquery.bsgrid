@@ -30,7 +30,7 @@
             requestParamsName: {
                 exportFileName: 'exportFileName',
                 colNames: 'dataNames',
-                colIndexs: 'dataIndexs',
+                colIndexes: 'dataIndexes',
                 colWidths: 'dataLengths',
                 colAligns: 'dataAligns'
             }
@@ -54,12 +54,12 @@
             }
             $.extend(true, exportSettings, $.bsgrid_export.defaults, settings);
 
-            var colNames = '', colIndexs = '', colWidths = '', colAligns = '';
+            var colNames = '', colIndexes = '', colWidths = '', colAligns = '';
             for (var i = 0; i < exportCols.length; i++) {
                 if ($.trim(exportCols.eq(i).attr(exportSettings.colsProperties.exportAttr)) != 'false') {
                     // column name, get form column's text(), use jquery
                     colNames = colNames + ',' + $.trim(exportCols.eq(i).text());
-                    colIndexs = colIndexs + ',' + $.trim(exportCols.eq(i).attr(exportSettings.colsProperties.indexAttr));
+                    colIndexes = colIndexes + ',' + $.trim(exportCols.eq(i).attr(exportSettings.colsProperties.indexAttr));
 
                     var colWidthStr = $.trim(exportCols.eq(i).attr(exportSettings.colsProperties.widthAttr)).toLocaleLowerCase();
                     var colWidth = exportSettings.colsProperties.width;
@@ -92,7 +92,7 @@
             document.location.href = exportSettings.url + (exportSettings.url.indexOf('?') < 0 ? '?' : '&')
                 + exportSettings.requestParamsName.exportFileName + '=' + encodeURIComponent(encodeURIComponent(exportSettings.exportFileName))
                 + '&' + exportSettings.requestParamsName.colNames + '=' + encodeURIComponent(encodeURIComponent(colNames.substring(1)))
-                + '&' + exportSettings.requestParamsName.colIndexs + '=' + colIndexs.substring(1)
+                + '&' + exportSettings.requestParamsName.colIndexes + '=' + colIndexes.substring(1)
                 + '&' + exportSettings.requestParamsName.colWidths + '=' + colWidths.substring(1)
                 + '&' + exportSettings.requestParamsName.colAligns + '=' + colAligns.substring(1)
                 + (exportParamsStr.length == 0 ? '' : ('&' + exportParamsStr));

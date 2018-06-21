@@ -109,8 +109,8 @@
             gridObj.activeGridEditMode = function () {
                 return $.fn.bsgrid.defaults.extend.activeGridEditMode(options);
             };
-            gridObj.getChangedRowsIndexs = function () {
-                return $.fn.bsgrid.defaults.extend.getChangedRowsIndexs(options);
+            gridObj.getChangedRowsIndexes = function () {
+                return $.fn.bsgrid.defaults.extend.getChangedRowsIndexes(options);
             };
             gridObj.getChangedRowsOldRecords = function () {
                 return $.fn.bsgrid.defaults.extend.getChangedRowsOldRecords(options);
@@ -157,8 +157,8 @@
         });
 
         var gridObj = $.fn.bsgrid.getGridObj(gridId);
-        gridObj.getCheckedRowsIndexs = function () {
-            return $.fn.bsgrid.defaults.extend.getCheckedRowsIndexs(options);
+        gridObj.getCheckedRowsIndexes = function () {
+            return $.fn.bsgrid.defaults.extend.getCheckedRowsIndexes(options);
         };
         gridObj.getCheckedRowsRecords = function () {
             return $.fn.bsgrid.defaults.extend.getCheckedRowsRecords(options);
@@ -472,19 +472,19 @@
 
     /*************** extend edit methods start ***************/
     /**
-     * Gget checked rows indexs, from 0.
+     * Gget checked rows indexes, from 0.
      *
      * @param options
      * @returns {Array}
      */
-    $.fn.bsgrid.defaults.extend.getCheckedRowsIndexs = function (options) {
-        var rowIndexs = [];
+    $.fn.bsgrid.defaults.extend.getCheckedRowsIndexes = function (options) {
+        var rowIndexes = [];
         $.fn.bsgrid.getRows(options).each(function (i) {
             if ($(this).find('td>input:checked').length == 1) {
-                rowIndexs[rowIndexs.length] = i;
+                rowIndexes[rowIndexes.length] = i;
             }
         });
-        return rowIndexs;
+        return rowIndexes;
     };
 
     /**
@@ -495,7 +495,7 @@
      */
     $.fn.bsgrid.defaults.extend.getCheckedRowsRecords = function (options) {
         var records = [];
-        $.each($.fn.bsgrid.defaults.extend.getCheckedRowsIndexs(options), function (i, rowIndex) {
+        $.each($.fn.bsgrid.defaults.extend.getCheckedRowsIndexes(options), function (i, rowIndex) {
             records[records.length] = $.fn.bsgrid.getRecord(rowIndex, options);
         });
         return records;
@@ -532,20 +532,20 @@
     };
 
     /**
-     * Get changed rows indexs, from 0.
+     * Get changed rows indexes, from 0.
      *
      * @param options
      * @returns {Array}
      */
-    $.fn.bsgrid.defaults.extend.getChangedRowsIndexs = function (options) {
-        var rowIndexs = [];
+    $.fn.bsgrid.defaults.extend.getChangedRowsIndexes = function (options) {
+        var rowIndexes = [];
         $.fn.bsgrid.getRows(options).each(function (i) {
             var cellChangedNumStr = $.trim($(this).data('ex_change'));
             if (!isNaN(cellChangedNumStr) && parseInt(cellChangedNumStr) > 0) {
-                rowIndexs[rowIndexs.length] = i;
+                rowIndexes[rowIndexes.length] = i;
             }
         });
-        return rowIndexs;
+        return rowIndexes;
     };
 
     /**
@@ -556,7 +556,7 @@
      */
     $.fn.bsgrid.defaults.extend.getChangedRowsOldRecords = function (options) {
         var records = [];
-        $.each($.fn.bsgrid.defaults.extend.getChangedRowsIndexs(options), function (i, rowIndex) {
+        $.each($.fn.bsgrid.defaults.extend.getChangedRowsIndexes(options), function (i, rowIndex) {
             records[records.length] = $.fn.bsgrid.getRecord(rowIndex, options);
         });
         return records;
@@ -570,7 +570,7 @@
      */
     $.fn.bsgrid.defaults.extend.getRowsChangedColumnsValue = function (options) {
         var values = {};
-        $.each($.fn.bsgrid.defaults.extend.getChangedRowsIndexs(options), function (i, rowIndex) {
+        $.each($.fn.bsgrid.defaults.extend.getChangedRowsIndexes(options), function (i, rowIndex) {
             values['row_' + rowIndex] = {};
             $.fn.bsgrid.getRows(options).filter(':eq(' + rowIndex + ')').find('td').each(function (ci) {
                 if ($(this).find('.bsgrid_editgrid_change').length > 0) {
